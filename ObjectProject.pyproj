@@ -22,6 +22,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Atom.py" />
+    <Compile Include="HookeJeeves.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Dependent.py" />
     <Compile Include="Element.py" />
     <Compile Include="Independent.py" />

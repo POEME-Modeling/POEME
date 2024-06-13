@@ -1,11 +1,14 @@
 from Atom import Atom
 from Element import Element
 from RealT import RealT
+from HookeJeeves import HookeJeeves
 #from Independent import Independent
 #from Dependent import Dependent
 #from VID import VID
 
-ElementList = list()
+ind_list = list()
+dep_list = list()
+step = 0
     
 
 class H2O(Element):
@@ -22,7 +25,7 @@ class H2O(Element):
 
     def Calc(self):
         self.a = self.x + self.y
-        self.b = 3*self.x - self.y
+        self.b = 3 * self.x - self.y
     
 class H2O2(Element):
     a = ''
@@ -69,14 +72,13 @@ for v in H2V:
 
 O2.y = 10
 
-class solver(Atom):
-    def solve(self):
-        for e in ElementList:
-            e.calc()
+# Create an objective function
+def objective_function():
+    return -1
 
-solv = solver()
+hj = HookeJeeves(ind_list, dep_list, step, objective_function)
 	
-solv.solve()
+solved_ind_list = hj.Solve()
 	
 #eval( "H2.calc()" )
 #eval( "O2.calc()" )

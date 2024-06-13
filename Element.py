@@ -5,8 +5,8 @@ from RealT import RealT
 class Element(Atom):
     VIDL = list()
 
-    def __init__(self, ElementList):
-        ElementList.append(self)
+    def __init__(self, element_list):
+        element_list.append(self)
         self.VIDL = list()
    
     def List(self, type, VIDL):
@@ -15,8 +15,8 @@ class Element(Atom):
                 print(v.name)
            
     def Real(value, name, descript):
-        variableID = VID(name, descript, "real")
-        Element.VIDL.append(variableID)
+        variable_id = VID(name, descript, "real")
+        Element.VIDL.append(variable_id)
         return value
    
     def isA(type):
