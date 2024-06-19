@@ -5,12 +5,14 @@ from Element import Element
 class HookeJeeves(Element):
     ind_list = ''
     dep_list = ''
+    element_list = ''
     step = 0
     objective = ''
 
-    def __init__ (self, ind_list, dep_list, step, objective):
+    def __init__ (self, ind_list, dep_list, element_list, step, objective):
         self.ind_list = ind_list
         self.dep_list = dep_list
+        self.element_list = element_list
         self.step = step
         self.objective = objective
 
@@ -34,13 +36,13 @@ class HookeJeeves(Element):
                 best_vals = list()
 
                 # 2. Travel along the vector until no improvement is seen
-                while self.objective(self.ind_list) > last_obj:
+                while self.ReturnObjective() > last_obj:
                     new_point = self.SearchInDirection(best_vector)
 
                     for i in range(self.ind_list.size()):
                         self.ind_list[i].val = new_point[i]
 
-                    last_obj = self.objective(self.ind_list)
+                    last_obj = self.ReturnObjective(self.ind_list)
                     best_vals = new_point
 
 
@@ -66,6 +68,7 @@ class HookeJeeves(Element):
             new_point.append(self.ind_list[i].val + vector[i])
 
         return new_point
+
 
     # Double check HJ
     def BestNeighbor(self, step):
@@ -101,3 +104,20 @@ class HookeJeeves(Element):
             best_vector.append(best_point[i] - orig_point[i])
 
         return best_vector
+    
+    def AdjustModel(self):
+        for e in self.element_list:
+            e.precheck()
+		
+        for e in self.element_list:
+            e.preset()
+			
+        for e in self.element_list:
+            e.calc()
+     
+            
+    def ReturnObjective(self):
+        self.AdjustModel()
+        
+        return self.objective()
+        
