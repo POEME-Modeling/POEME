@@ -1,21 +1,25 @@
+from Element import Element
+from RealT import RealT
+from circuit import ComplexT
+from circuit import EP
+
 class Capacitor( Element ):
 
-  def __init__(s,name):
-  	  super().__init__(name, "Capacitor" )
-  	  s.C = RealT( s, 0., "C", "Capacitance" )  	  
-  	  s.dV = ComplexT( s, "dV", "Voltage" )
-  	  s.Z = ComplexT( s,"Z", "Impedance" )
-  	  s.I = ComplexT( s, "I", "Current" )
-  	  s.EPi = EP( s, "EPi", "Inlet Electric Port" )
-  	  s.EPo = EP( s, "EPo", "Exit Electric Port" )
+    def __init__(s,name):
+        super().__init__(name, "Capacitor" )
+        s.C = RealT( s, 0., "C", "Capacitance" )  	  
+        s.dV = ComplexT( s, "dV", "Voltage" )
+        s.Z = ComplexT( s,"Z", "Impedance" )
+        s.I = ComplexT( s, "I", "Current" )
+        s.EPi = EP( s, "EPi", "Inlet Electric Port" )
+        s.EPo = EP( s, "EPo", "Exit Electric Port" )
       
-  def calc(e):
-  	  
-  	  e.dV.c = e.EPi.V.c - e.EPo.V.c
-  	  print( e.EPi.freq )
-  	  e.Z.c = complex( 0., -1.*e.C.v/(2.*3.14*e.EPi.freq))
-  	  e.I.c =  e.dV.c/e.Z.c
-  	  e.EPi.setIV ( -e.I.c, 0. )
-  	  e.EPo.setIV ( e.I.c, 0. ) 
+    def calc(e):
+        e.dV.c = e.EPi.V.c - e.EPo.V.c
+        print( e.EPi.freq )
+        e.Z.c = complex( 0., -1.*e.C.v/(2.*3.14*e.EPi.freq))
+        e.I.c =  e.dV.c/e.Z.c
+        e.EPi.setIV ( -e.I.c, 0. )
+        e.EPo.setIV ( e.I.c, 0. ) 
   	  
  

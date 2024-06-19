@@ -1,3 +1,6 @@
+from Element import Element
+from circuit import ComplexT
+
 class Enode( Element ):
 	def __init__(s,name):
 		super().__init__(name, "Enode" )

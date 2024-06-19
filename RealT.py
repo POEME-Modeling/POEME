@@ -7,7 +7,7 @@ class RealT:
         
     def isa( s, type ):
         if type == "RealT":
-        	return True
+            return True
         else:
             return False
     		

@@ -1,3 +1,10 @@
+from Atom import Atom
+from Element import Element
+from Inductor import Inductor
+from Capacitor import Capacitor
+from Resistor import Resistor
+from Enode import Enode
+from Esource import Esource
 
 class ComplexT:
 	def __init__( self, p, name, desc ):
@@ -10,16 +17,8 @@ class ComplexT:
 			return True
 		else:
 			return False
-			
-			
-exec( open( "./Element.py" ).read())
-exec( open( "./Inductor.py" ).read())
-exec( open( "./Capacitor.py" ).read())
-exec( open( "./Resistor.py" ).read())
-exec( open( "./Enode.py").read())
-exec( open("./Esource.py").read())
 	
-def setFreq( freq ):
+def setFreq( freq, element_list ):
 	for e in element_list:
 		for v in e.VIDL:
 			if v.isa( "EP" ):

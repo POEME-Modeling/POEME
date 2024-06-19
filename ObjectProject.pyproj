@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>9ff1dbc7-4532-434c-a906-d2c0eecd1d5c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ObjectProject.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,14 +23,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Atom.py" />
+    <Compile Include="Capacitor.py" />
+    <Compile Include="circuit.py" />
+    <Compile Include="Enode.py" />
+    <Compile Include="Esource.py" />
     <Compile Include="HookeJeeves.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Dependent.py" />
     <Compile Include="Element.py" />
     <Compile Include="Independent.py" />
-    <Compile Include="ObjectProject.py" />
+    <Compile Include="Inductor.py" />
+    <Compile Include="LCR.py" />
     <Compile Include="RealT.py" />
+    <Compile Include="Resistor.py" />
     <Compile Include="VID.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
