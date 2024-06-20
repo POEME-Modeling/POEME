@@ -1,10 +1,9 @@
 from Element import Element
 from RealT import RealT
-from circuit import ComplexT
-from circuit import EP
+from ComplexT import ComplexT
+from EP import EP
 
 class Inductor( Element ):
-
     def __init__(s,name):
         super().__init__(name, "Inductor" )
         s.L = RealT( s, 0., "L", "Inductance" )  	  
@@ -16,7 +15,6 @@ class Inductor( Element ):
       
     def calc(e):
         e.dV.c = e.EPi.V.c - e.EPo.V.c
-        print( e.EPi.freq )
         e.Z.c = complex( 0., 2.*3.14*e.EPi.freq*e.L.v )
         e.I.c =  e.dV.c/e.Z.c
         e.EPi.setIV ( -e.I.c, 0. )

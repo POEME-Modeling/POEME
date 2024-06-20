@@ -1,5 +1,3 @@
-
-
 from Atom import Atom
 from VID import VID
 from RealT import RealT
@@ -8,12 +6,16 @@ element_list = list()
 
 class Element(Atom):
     VIDL = list()
+    ind_list = list()
     
     def __init__(self,name, type):
         element_list.append(self)
         self.VIDL = list()
-        self.type =  type
+        self.type = type
         self.name = name
+
+    def AddIndependent(self, ind):
+        self.ind_list.append(ind)
         
     def List(self, type, VIDL):
         if type == RealT:

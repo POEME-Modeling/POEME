@@ -1,6 +1,6 @@
 from Element import Element
-from circuit import ComplexT
-from circuit import EP
+from ComplexT import ComplexT
+from EP import EP
 
 class Esource( Element ):
 	def __init__(s,name):

@@ -1,7 +1,7 @@
 from Element import Element
 from RealT import RealT
-from circuit import ComplexT
-from circuit import EP
+from ComplexT import ComplexT
+from EP import EP
 
 class Resistor( Element ):
     

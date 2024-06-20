@@ -1,6 +1,8 @@
 from Atom import Atom
+from RealT import RealT
+from ComplexT import ComplexT
 
-class Independent(Atom):
+class Independent( Atom ):
     val = 0
     perturb = 0
     perturb_type = False # True is fractional
@@ -13,10 +15,16 @@ class Independent(Atom):
         self.perturb_type = perturb_type
         self.active = active
         
-    def GetPerturbVal(self, step):
-        if(self.perturb_type):
-            return self.val * self.perturb * step
-        else:
-            return self.perturb
+    def Perturb(self, step):
+        if type(self.val) != RealT and type(self.val) != ComplexT:
+            raise Exception("Not a perturbable type (RealT or ComplexT)")
+        
+        self.val.Perturb(step, self.perturb_type, self.perturb)
+        
+    def GetVal(self):
+        self.val.GetVal()
+
+    def SetVal(self):
+        self.val.SetVal()
             
 

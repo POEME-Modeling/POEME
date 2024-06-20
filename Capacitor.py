@@ -1,7 +1,7 @@
 from Element import Element
 from RealT import RealT
-from circuit import ComplexT
-from circuit import EP
+from ComplexT import ComplexT
+from EP import EP
 
 class Capacitor( Element ):
 
@@ -16,7 +16,6 @@ class Capacitor( Element ):
       
     def calc(e):
         e.dV.c = e.EPi.V.c - e.EPo.V.c
-        print( e.EPi.freq )
         e.Z.c = complex( 0., -1.*e.C.v/(2.*3.14*e.EPi.freq))
         e.I.c =  e.dV.c/e.Z.c
         e.EPi.setIV ( -e.I.c, 0. )

@@ -1,28 +1,27 @@
 from Element import Element
-from circuit import ComplexT
+from ComplexT import ComplexT
 
 class Enode( Element ):
-	def __init__(s,name):
+	def __init__(self,name):
 		super().__init__(name, "Enode" )
-		s.name = name
-		s.V = ComplexT( s, "V", "Voltage" )
-		s.Inet = ComplexT( s, "Inet", "Current" )
-		s.I = ComplexT( s, "I", "Current" )
+		self.name = name
+		self.V = ComplexT( self, "V", "Voltage" )
+		self.Inet = ComplexT( self, "Inet", "Current" )
+		self.I = ComplexT( self, "I", "Current" )
+		self.port_list = list()
 		
-	def precheck(s):
-		s.EPL = []
-		for a in s.VIDL:
-			if a.isa( "EP" ):
-				s.EPL.append(a)
+	def LinkPort(self, port):
+		self.port_list.append(port)
+
+	def precheck(self):
+		pass
     			
-	def preset(s):
-		for p in s.EPL:
-			print( s.V.c  )
-			p.setIV( complex( 0., 0.), s.V.c ) 
-			print( s.V.c )
+	def preset(self):
+		for p in self.port_list:
+			p.setIV( complex( 0., 0.), self.V.c ) 
 	
-	def calc(s):
-		s.Inet.c = complex( 0., 0. )
-		for p in s.EPL:
-			s.Inet.c = s.Inet.c + p.I.c
+	def calc(self):
+		self.Inet.c = complex( 0., 0. )
+		for p in self.port_list:
+			self.Inet.c = self.Inet.c + p.I.c
 		
