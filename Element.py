@@ -2,9 +2,16 @@ from Atom import Atom
 from VID import VID
 from RealT import RealT
 
+exec( open( "./solver.py" ).read())
+
+solve = solver()
+
 element_list = list()
 
+
 class Element(Atom):
+	
+
     VIDL = list()
     ind_list = list()
     

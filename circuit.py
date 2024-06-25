@@ -1,5 +1,4 @@
 from Atom import Atom
-from Element import Element
 from Inductor import Inductor
 from Capacitor import Capacitor
 from Resistor import Resistor
@@ -8,7 +7,7 @@ from Esource import Esource
 from ComplexT import ComplexT
 from EP import EP
 	
-def setFreq( freq, element_list ):
+def setFreq( freq ):
 	for e in element_list:
 		for v in e.VIDL:
 			if v.isa( "EP" ):
