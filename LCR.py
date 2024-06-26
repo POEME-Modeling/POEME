@@ -42,13 +42,13 @@ S2.LinkPort(I.EPo)
 
 #Independents
 print( E1.V.c.real )
-ind_1 = Independent("ind_E1.Vreal", E1.Vr )
-ind_2 = Independent("ind_E1.Vimag", E1.Vi )
+ind_1 = Independent("ind_E1.Vr", E1.Vr )
+ind_2 = Independent("ind_E1.Vi", E1.Vi )
 
 
 #Independents
-ind_1 = Dependent("ind_E1.Inet.c.real", E1.Inet.c.real, 0.  )
-ind_2 = Dependent("ind_E1.Inet.c.imag", E1.Inet.c.imag, 0. )
+ind_1 = Dependent("ind_E1.Inetr", E1.Inetr, 0.  )
+ind_2 = Dependent("ind_E1.Ineti", E1.Ineti, 0. )
 
 
 
