@@ -1,10 +1,13 @@
 from Element import Element
 from ComplexT import ComplexT
+from RealT import RealT
 
 class Enode( Element ):
 	def __init__(self,name):
 		super().__init__(name, "Enode" )
 		self.name = name
+		self.Vr = RealT( self, 0., "Vr", "Real component of voltage" )
+		self.Vi = RealT( self, 0., "Vi", "Imaginary component of voltage" )
 		self.V = ComplexT( self, "V", "Voltage" )
 		self.Inet = ComplexT( self, "Inet", "Current" )
 		self.I = ComplexT( self, "I", "Current" )
@@ -18,6 +21,7 @@ class Enode( Element ):
     			
 	def preset(self):
 		for p in self.port_list:
+			V.c = complex( Vr, Vi )
 			p.setIV( complex( 0., 0.), self.V.c ) 
 	
 	def calc(self):

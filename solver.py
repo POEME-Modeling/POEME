@@ -7,7 +7,9 @@ class solver(Atom):
 		
 		#MIKE SET INDS HERE
         for i in ind_list:
-        	print ( i.name )
+            print ( i.name )
+            print ( i.variable.v )
+            i.variable.v = 60
 		
         for e in element_list:
             e.preset

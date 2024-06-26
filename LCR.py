@@ -21,13 +21,13 @@ I = Inductor( "I" )
 I.L.v = 75 * (10 ** -3)
 
 S1 = Enode( "S1" )
-S1.V.c = complex( 17., 0. )
+S1.Vreal = 17.
 
 E1 = Enode( "E1" )
-E1.V.c = complex( 9., 0. )
+E1.Vreal =  9.
 
 S2 = Enode( "S2" )
-S2.V.c = complex( 0., 0. )
+
 
 setFreq( 200. )
 S1.LinkPort(C.EPi)
@@ -41,8 +41,9 @@ S2.LinkPort(I.EPo)
 #mike vary these
 
 #Independents
-ind_1 = Independent("ind_E1.V.real", E1.V.c.real )
-ind_2 = Independent("ind_E1.V.c.imag", E1.V.c.imag )
+print( E1.V.c.real )
+ind_1 = Independent("ind_E1.Vreal", E1.Vr )
+ind_2 = Independent("ind_E1.Vimag", E1.Vi )
 
 
 #Independents
@@ -52,6 +53,8 @@ ind_2 = Dependent("ind_E1.Inet.c.imag", E1.Inet.c.imag, 0. )
 
 
 solve.calc()
+
+print( E1.Vr.v )
 
 quit()
 
