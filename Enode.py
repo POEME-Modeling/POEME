@@ -11,6 +11,8 @@ class Enode( Element ):
 		self.V = ComplexT( self, "V", "Voltage" )
 		self.Inetr = RealT( self, 0., "Inetr", "Real component of Inet" )
 		self.Ineti = RealT( self, 0., "Ineti", "Imaginary component of Inet" )
+		self.InetDr = RealT( self, 0., "InetDr", "Real component of Inet demand" )
+		self.InetDi = RealT( self, 0., "InetDi", "Imaginary component of Inet demand" )
 		self.Inet = ComplexT( self, "Inet", "Current" )
 		self.I = ComplexT( self, "I", "Current" )
 		self.port_list = list()

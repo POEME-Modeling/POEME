@@ -47,8 +47,8 @@ ind_2 = Independent("ind_E1.Vi", E1.Vi )
 
 
 #Independents
-ind_1 = Dependent("ind_E1.Inetr", E1.Inetr, 0.  )
-ind_2 = Dependent("ind_E1.Ineti", E1.Ineti, 0. )
+ind_1 = Dependent("ind_E1.Inetr", E1.Inetr, E1.InetDr )
+ind_2 = Dependent("ind_E1.Ineti", E1.Ineti, E1.InetDi )
 
 
 
