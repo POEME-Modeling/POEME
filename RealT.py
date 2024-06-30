@@ -12,34 +12,56 @@ class RealT ( ValueT ):
             return True
         else:
             return False
-     
+            
+    def set( self, val ):
+    	self.v = val.v
+    	
+    def __add__( self, other ):
+        v = self.v+other.v
+        return( RealT( self, v,"","" ))
+		
+    def __sub__( self, other ):
+        v = self.v - other.v
+        return( RealT( self, v,"","" ))
+		
+    def __mul__( self, other ):
+        num = self.v * other.v
+        return( RealT( self, v,"","" ))		
+		
+    def __truediv__( self, other ):
+        v = self.num / other.v
+        return( RealT( self, v,"","" ))		
+	
+    def __str__(self):
+        return str( self.v )
+		
     # Returns a list of perturbation possibilities (3 possible for RealT)
     # perturb_type = True means Fractional    
     def Perturb(self, step, perturb_type, perturb):
         perturb_val = 0
-
+        
         if perturb_type:
             perturb_val = self.v * perturb
         else:
             perturb_val = perturb
             
         perturb_list = [self.v - perturb_val, self.v, self.v + perturb_val]
-
+        
         return perturb_list
-
+        
     def GetVal(self):
         return self.v
-	
+        
     def SetVal(self, val):
         self.v = val
-    		
-    #def Add(self, other):
-        #return RealT(self.v + other.v, self.desc)
-
-    #def IAdd( self, other ):
-        #self.var = other.var
-        #return RealT(other.var, self.desc)
         
+    #def Add(self, other):
+    #return RealT(self.v + other.v, self.desc)
+    
+    #def IAdd( self, other ):
+    #self.var = other.var
+    #return RealT(other.var, self.desc)
+    
     #def  Multipy(self, other):
-        #return RealT(self.var * other.var, self.desc)
-       
+    #return RealT(self.var * other.var, self.desc)
+    

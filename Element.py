@@ -2,21 +2,18 @@ from Atom import Atom
 from VID import VID
 from RealT import RealT
 
-exec( open( "./solver.py" ).read())
+import varsg
 
-solve = solver()
-
-element_list = list()
 
 
 class Element(Atom):
 	
-
+	
     VIDL = list()
     ind_list = list()
     
-    def __init__(self,name, type):
-        element_list.append(self)
+    def __init__(self, name, type):
+        varsg.element_list.append(self)
         self.VIDL = list()
         self.type = type
         self.name = name

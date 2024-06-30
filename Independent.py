@@ -2,8 +2,7 @@ from Atom import Atom
 from RealT import RealT
 from ComplexT import ComplexT
 
-ind_list = list()
-
+import varsg
 
 class Independent( Atom ):
     val = 0
@@ -14,7 +13,7 @@ class Independent( Atom ):
     def __init__(self, name, variable):
         self.name = name
         self.variable = variable
-        ind_list.append( self )
+        varsg.ind_list.append( self )
         
         
     def Perturb(self, step):

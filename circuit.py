@@ -7,8 +7,10 @@ from Esource import Esource
 from ComplexT import ComplexT
 from EP import EP
 	
+import varsg
+
 def setFreq( freq ):
-	for e in element_list:
+	for e in varsg.element_list:
 		for v in e.VIDL:
 			if v.isa( "EP" ):
 				v.freq = freq

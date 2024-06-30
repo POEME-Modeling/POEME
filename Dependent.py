@@ -2,8 +2,8 @@ from Atom import Atom
 from RealT import RealT
 from ComplexT import ComplexT
 
-dep_list = list()
 
+import varsg
 
 class Dependent( Atom ):
     val = 0
@@ -15,7 +15,7 @@ class Dependent( Atom ):
         self.name = name
         self.var1 = var2
         self.var2 = var2
-        dep_list.append( self )
+        varsg.dep_list.append( self )
         
         
     def Perturb(self, step):
