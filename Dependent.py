@@ -6,28 +6,17 @@ from ComplexT import ComplexT
 import varsg
 
 class Dependent( Atom ):
-    val = 0
-    perturb = 0
-    perturb_type = False # True is fractional
+    val_1 = 0
+    val_2 = 0
     active = False
     
-    def __init__(self, name, var1, var2 ):
+    def __init__(self, name, val_1, val_2 ):
         self.name = name
-        self.var1 = var2
-        self.var2 = var2
+        self.val_1 = val_1
+        self.val_2 = val_2
         varsg.dep_list.append( self )
         
-        
-    def Perturb(self, step):
-        if type(self.val) != RealT and type(self.val) != ComplexT:
-            raise Exception("Not a perturbable type (RealT or ComplexT)")
-        
-        self.val.Perturb(step, self.perturb_type, self.perturb)
-        
-    def GetVal(self):
-        self.val.GetVal()
-
-    def SetVal(self):
-        self.val.SetVal()
+    def DepError(self):
+        return abs(float(self.val_1.GetVal()) - float(self.val_2.GetVal()))
             
 

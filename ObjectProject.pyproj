@@ -39,6 +39,7 @@
     <Compile Include="RealT.py" />
     <Compile Include="Resistor.py" />
     <Compile Include="ValueT.py" />
+    <Compile Include="varsg.py" />
     <Compile Include="VID.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

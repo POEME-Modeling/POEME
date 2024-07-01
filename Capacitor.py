@@ -2,6 +2,7 @@ from Element import Element
 from RealT import RealT
 from ComplexT import ComplexT
 from EP import EP
+import math
 
 class Capacitor( Element ):
 
@@ -16,10 +17,9 @@ class Capacitor( Element ):
       
     def calc(e):
         e.dV.set( e.EPi.V - e.EPo.V )
-        e.Z.num = complex( 0., -1.*e.C.v/(2.*3.14*e.EPi.freq))
+        e.Z.num = complex( 0., -1 / (e.C.v * 2 * math.pi * e.EPi.freq))
         e.I.set( e.dV/e.Z )
         e.EPi.setIV ( -e.I.num, 0. )
-        e.EPo.setIV ( e.I.num, 0. ) 
-        print( e.dV )
+        e.EPo.setIV ( e.I.num, 0. )
   	  
  

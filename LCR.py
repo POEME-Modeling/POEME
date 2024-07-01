@@ -1,35 +1,30 @@
-
-
 from Independent import Independent
+from Dependent import Dependent
+from solver import solver
+from circuit import *
+from HookeJeeves import HookeJeeves
 
-
-exec( open( "./solver.py" ).read())
-
-exec( open( "./circuit.py" ).read())
-
-
-exec( open( "./Independent.py" ).read())
-
-exec( open( "./Dependent.py" ).read())
+import varsg
 
 R1 = Resistor( "R1" )
-R1.R.v=  220.
+R1.R.v=  470.
 
 C = Capacitor( "C" )
-C.C.v = 3.3 * (10 ** -6)
+C.C.v = 4.7 * (10 ** -6)
 
 I = Inductor( "I" )
-I.L.v = 75. * (10 ** -3)
+I.L.v = 65. * (10 ** -2)
 
 S1 = Enode( "S1" )
-S1.Vr.v = 17.
+S1.Vr.v = 120.
 
 E1 = Enode( "E1" )
-E1.Vr.v =  9.
+E1.Vr.v =  -30
+E1.Vi.v = 16
 
 S2 = Enode( "S2" )
 
-setFreq( 200. )
+setFreq( 60. )
 S1.LinkPort(C.EPi)
 E1.LinkPort(C.EPo)
 E1.LinkPort(R1.EPi)
@@ -42,28 +37,27 @@ S2.LinkPort(I.EPo)
 
 #Independents
 print( E1.V )
-ind_1 = Independent("ind_E1.Vr", E1.Vr )
-ind_2 = Independent("ind_E1.Vi", E1.Vi )
+ind_1 = Independent("ind_E1.Vr", E1.Vr, 1, False)
+ind_2 = Independent("ind_E1.Vi", E1.Vi, 1, False)
+
+#Dependents
+dep_1 = Dependent("dep_E1.Inetr", E1.Inetr, E1.InetDr)
+dep_2 = Dependent("dep_E1.Ineti", E1.Ineti, E1.InetDi)
 
 
-#Independents
-ind_1 = Dependent("ind_E1.Inetr", E1.Inetr, E1.InetDr )
-ind_2 = Dependent("ind_E1.Ineti", E1.Ineti, E1.InetDi )
+###
+element_list = varsg.element_list
+ind_list = varsg.ind_list
+dep_list = varsg.dep_list
+###
 
-solve =solver()
-solve.calc()
+hj = HookeJeeves(element_list, ind_list, dep_list, 1)
 
-print( E1.Vr.v )
+hj.Solve()
 
-
-#def objective():
-#    print(abs(E1.Inet.c.real) + abs(E1.Inet.c.imag))
-
-#    return - (abs(E1.Inet.c.real) + abs(E1.Inet.c.imag))
-
-#hj = HookeJeeves(element_list, 0.1, objective)
-
-#hj.Solve()
-
-print( R1.EPo.I)
+print("Resulting")
 print( E1.Inet )
+print( E1.Vr )
+print( E1.Vi )
+
+print("Done")

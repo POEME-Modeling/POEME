@@ -50,16 +50,16 @@ class ComplexT (  ):
 
 		# Perturb real val
 		if perturb_type:
-			real_perturb_val = self.real * perturb
+			real_perturb_val = self.real * perturb * step
 		else:
-			real_perturb_val = perturb
+			real_perturb_val = perturb * step
 
 		# Perturb imaginary val
 		if perturb_type:
-			imag_perturb_val = self.imag * perturb
+			imag_perturb_val = self.imag * perturb * step
 		
 		else:
-			imag_perturb_val = perturb
+			imag_perturb_val = perturb * step
             
 		perturb_list = [[self.real - real_perturb_val, self.imag - imag_perturb_val], [self.real, self.imag - imag_perturb_val], [self.real + real_perturb_val, self.imag - imag_perturb_val],
 						[self.real - real_perturb_val, self.imag], [self.real, self.imag], [self.real + real_perturb_val, self.imag],

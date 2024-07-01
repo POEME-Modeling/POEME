@@ -1,6 +1,10 @@
 from ValueT import ValueT
 
 class RealT ( ValueT ):
+    v = ''
+    name = ''
+    desc = ''
+    
     def __init__(self, p, var, name, desc):
         self.v = var
         self.name = name
@@ -15,7 +19,11 @@ class RealT ( ValueT ):
             
     def set( self, val ):
     	self.v = val.v
-    	
+
+    # DOES NOTHING
+    def addVID(self, dummy):
+        pass
+        
     def __add__( self, other ):
         v = self.v+other.v
         return( RealT( self, v,"","" ))
@@ -41,12 +49,12 @@ class RealT ( ValueT ):
         perturb_val = 0
         
         if perturb_type:
-            perturb_val = self.v * perturb
+            perturb_val = self.v * perturb * step
         else:
-            perturb_val = perturb
+            perturb_val = perturb * step
             
         perturb_list = [self.v - perturb_val, self.v, self.v + perturb_val]
-        
+
         return perturb_list
         
     def GetVal(self):

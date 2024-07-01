@@ -6,17 +6,19 @@ from Element import Element
 class HookeJeeves(Element):
     ind_list = ''
     element_list = ''
+    dep_list = ''
     step = 0
     objective = ''
 
-    def __init__ (self,element_list, step, objective):
+    def __init__ (self, element_list, ind_list, dep_list, step):
         self.element_list = element_list
         self.step = step
-        self.objective = objective
-        self.ind_list = list()
+        self.element_list = element_list
+        self.ind_list = ind_list
+        self.dep_list = dep_list
         
-        for e in self.element_list:
-            self.ind_list = self.ind_list + e.ind_list
+        #for e in self.element_list:
+            #self.ind_list = self.ind_list + e.ind_list
 
 
     def Solve(self):
@@ -24,7 +26,7 @@ class HookeJeeves(Element):
         new_point = list()
         best_vals = list()
         last_obj = -999999999 # Practically Negative Infinity
-        step_tolerance = 0.000000001
+        step_tolerance = 0.0001
         step_reduction = 0.1
 
         # 5. Repeat 1-4 until required tolerance is reached
@@ -34,14 +36,13 @@ class HookeJeeves(Element):
                 # 1. Cast about original neighborhood
                 best_vector = self.BestNeighbor(self.step)
 
-                last_obj = -999999999
-                best_vals = list()
+                last_obj = -9999999999
 
                 # 2. Travel along the vector until no improvement is seen
                 while self.ReturnObjective() > last_obj:
                     self.SearchInDirection(best_vector)
 
-                    last_obj = self.ReturnObjective(self.ind_list)
+                    last_obj = self.ReturnObjective()
 
             # 4. Reduce the interval
             self.step = self.step * step_reduction
@@ -57,13 +58,10 @@ class HookeJeeves(Element):
 
 
     def SearchInDirection(self, vector):
-        new_point = list()
-
         for i in range(len(self.ind_list)):
-            self.ind_list[i].SetVal(self.ind_list.GetVal() + vector[i])
+            self.ind_list[i].SetVal(self.ind_list[i].GetVal() + vector[i])
 
-
-    # Double check HJ
+    # ALWAYS RETURNING -1, -1
     def BestNeighbor(self, step):
         orig_point = list()
         best_point = list()
@@ -73,6 +71,8 @@ class HookeJeeves(Element):
             best_objective = self.ReturnObjective()
             best_in_dim = self.ind_list[i].GetVal()
 
+            orig_point.append(float(self.ind_list[i].GetVal()))
+
             # Set current value to best in dimension
             
             # Check all possible perturbations and set the best value
@@ -80,21 +80,20 @@ class HookeJeeves(Element):
             
             perturb_list = self.ind_list[i].Perturb(step)
             
-            print(self.ind_list[i].val)
-            print(perturb_list)
-
             for perturbed_val in perturb_list:
-                self.ind_list.SetVal(perturbed_val)
+                self.ind_list[i].SetVal(perturbed_val)
                 
                 current_objective = self.ReturnObjective()
 
                 if(current_objective > best_objective):
-                    best_in_dim = self.ind_list[i].GetVal()
-            
+                    best_in_dim = perturbed_val
+                    best_objective = current_objective
+
             best_point.append(best_in_dim)
 
         for i in range(len(best_point)):
             best_vector.append(best_point[i] - orig_point[i])
+            self.ind_list[i].SetVal(orig_point[i])
 
         return best_vector
     
@@ -112,5 +111,11 @@ class HookeJeeves(Element):
     def ReturnObjective(self):
         self.AdjustModel()
         
-        return self.objective()
+        dep_error = 0
+        
+        for dep in self.dep_list:
+            dep_error += dep.DepError()
+        
+        return - dep_error
+
         

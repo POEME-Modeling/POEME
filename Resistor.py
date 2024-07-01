@@ -20,6 +20,7 @@ class Resistor( Element ):
         e.I.set ( e.dV/ e.Z )
         e.EPi.setIV ( -e.I.num, complex( 0., 0.) )
         e.EPo.setIV ( e.I.num, complex( 0. , 0.) )
+       
   
        
        

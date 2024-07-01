@@ -21,7 +21,6 @@ class Enode( Element ):
 		self.port_list.append(port)
  			
 	def preset(self):
-		print( "enode preset" )
 		for p in self.port_list:
 			self.V.num = complex( self.Vr.v, self.Vi.v )
 			p.setIV( complex( 0., 0.), self.V.num ) 
@@ -31,6 +30,6 @@ class Enode( Element ):
 		for p in self.port_list:
 			self.Inet.set( self.Inet + p.I )
 			
-		self.Inetr = self.Inet.num.real
-		self.Ineti = self.Inet.num.imag
+		self.Inetr.v = self.Inet.num.real
+		self.Ineti.v = self.Inet.num.imag
 		

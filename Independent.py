@@ -10,9 +10,11 @@ class Independent( Atom ):
     perturb_type = False # True is fractional
     active = False
     
-    def __init__(self, name, variable):
+    def __init__(self, name, val, perturb, perturb_type):
         self.name = name
-        self.variable = variable
+        self.val = val
+        self.perturb = perturb
+        self.perturb_type = perturb_type
         varsg.ind_list.append( self )
         
         
@@ -20,12 +22,12 @@ class Independent( Atom ):
         if type(self.val) != RealT and type(self.val) != ComplexT:
             raise Exception("Not a perturbable type (RealT or ComplexT)")
         
-        self.val.Perturb(step, self.perturb_type, self.perturb)
+        return self.val.Perturb(step, self.perturb_type, self.perturb)
         
     def GetVal(self):
-        self.val.GetVal()
+        return self.val.GetVal()
 
-    def SetVal(self):
-        self.val.SetVal()
+    def SetVal(self, value):
+        self.val.SetVal(value)
             
 
