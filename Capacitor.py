@@ -19,7 +19,10 @@ class Capacitor( Element ):
         e.dV.set( e.EPi.V - e.EPo.V )
         e.Z.num = complex( 0., -1 / (e.C.v * 2 * math.pi * e.EPi.freq))
         e.I.set( e.dV/e.Z )
-        e.EPi.setIV ( -e.I.num, 0. )
-        e.EPo.setIV ( e.I.num, 0. )
+        e.EPi.setIV ( -e.I.num, complex( 0., 0.) )
+        e.EPo.setIV ( e.I.num, complex( 0., 0. ) )
   	  
- 
+    def dump( self ):
+    	print( self.name, "Capacitor" )
+    	super().realPrint()
+       

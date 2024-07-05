@@ -33,3 +33,9 @@ class Enode( Element ):
 		self.Inetr.v = self.Inet.num.real
 		self.Ineti.v = self.Inet.num.imag
 		
+	    
+	def dump( self ):
+		print( self.name, "Node" )
+		super().realPrint()
+  
+		

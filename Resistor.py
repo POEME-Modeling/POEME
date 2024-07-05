@@ -18,9 +18,12 @@ class Resistor( Element ):
         e.dV.set( e.EPi.V - e.EPo.V )
         e.Z.num = complex( e.R.v, 0 )
         e.I.set ( e.dV/ e.Z )
-        e.EPi.setIV ( -e.I.num, complex( 0., 0.) )
-        e.EPo.setIV ( e.I.num, complex( 0. , 0.) )
-       
+        e.EPi.setIV ( -e.I.num, complex( 0., 0. ))
+        e.EPo.setIV ( e.I.num, complex( 0., 0. ))
+        
+    def dump( self ):
+        print( self.name, "Resistor" )
+        super().realPrint()       
   
        
        

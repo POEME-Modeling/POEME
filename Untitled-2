@@ -1,0 +1,5 @@
+import vargs
+
+class stdOut( Element ):
+	for e in varg.element_list:
+		e.dump()

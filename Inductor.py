@@ -20,3 +20,8 @@ class Inductor( Element ):
         e.I.set( e.dV/e.Z )
         e.EPi.setIV ( -e.I.num, 0. )
         e.EPo.setIV ( e.I.num, 0. )
+
+    def dump( self ):
+    	print( self.name, "Capacitor" )
+    	super().realPrint()
+   

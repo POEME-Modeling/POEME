@@ -1,5 +1,6 @@
 from Element import Element
 
+import varsg
 
 # No dependents or constraints yet
 # Still need to generate independent list from elements
@@ -10,12 +11,11 @@ class HookeJeeves(Element):
     step = 0
     objective = ''
 
-    def __init__ (self, element_list, ind_list, dep_list, step):
-        self.element_list = element_list
+    def __init__ (self,  step):
+        self.element_list = varsg.element_list
         self.step = step
-        self.element_list = element_list
-        self.ind_list = ind_list
-        self.dep_list = dep_list
+        self.ind_list = varsg.ind_list
+        self.dep_list = varsg.dep_list
         
         #for e in self.element_list:
             #self.ind_list = self.ind_list + e.ind_list
@@ -117,5 +117,6 @@ class HookeJeeves(Element):
             dep_error += dep.DepError()
         
         return - dep_error
+
 
         

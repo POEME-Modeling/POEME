@@ -3,6 +3,7 @@ from Dependent import Dependent
 from solver import solver
 from circuit import *
 from HookeJeeves import HookeJeeves
+from stdOut import stdOut
 
 import varsg
 
@@ -36,7 +37,6 @@ S2.LinkPort(I.EPo)
 #mike vary these
 
 #Independents
-print( E1.V )
 ind_1 = Independent("ind_E1.Vr", E1.Vr, 1, False)
 ind_2 = Independent("ind_E1.Vi", E1.Vi, 1, False)
 
@@ -51,13 +51,9 @@ ind_list = varsg.ind_list
 dep_list = varsg.dep_list
 ###
 
-hj = HookeJeeves(element_list, ind_list, dep_list, 1)
+hj = HookeJeeves(1)
 
 hj.Solve()
 
-print("Resulting")
-print( E1.Inet )
-print( E1.Vr )
-print( E1.Vi )
+stdOut.print()
 
-print("Done")

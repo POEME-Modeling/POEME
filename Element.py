@@ -1,7 +1,8 @@
 from Atom import Atom
 from VID import VID
 from RealT import RealT
-
+from RealT import RealT
+from ComplexT import ComplexT
 import varsg
 
 
@@ -28,7 +29,7 @@ class Element(Atom):
                 
     def Real(value, name, descript):
         variable_id = VID(name, descript, "real")
-        Element.VIDL.append(variable_id)
+        self.VIDL.append(variable_id)
         return value
   	    
     def isA(type):
@@ -45,6 +46,14 @@ class Element(Atom):
     
     def precheck(s):
     	pass
- 
-            
-            
+
+    def dump(s):
+    	pass
+           
+           
+    def realPrint( self ):
+    	for v in self.VIDL:
+    		if v.isa( "RealT" ):
+    			print( "    ", v.name, v.v )
+    		if v.isa( "ComplexT" ):
+    			print( "    ", v.name, v.num ) 
