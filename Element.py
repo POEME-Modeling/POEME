@@ -54,6 +54,6 @@ class Element(Atom):
     def realPrint( self ):
     	for v in self.VIDL:
     		if v.isa( "RealT" ):
-    			print( "    ", v.name, v.v )
+    			print( "    ", v.name, v.v, v.units, v.desc )
     		if v.isa( "ComplexT" ):
-    			print( "    ", v.name, v.num ) 
+    			print( "    ", v.name, v.num, v.units, v.desc ) 

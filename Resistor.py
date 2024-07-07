@@ -7,10 +7,10 @@ class Resistor( Element ):
     
     def __init__(s,name):
         super().__init__(name,"Resistor")
-        s.R = RealT( s, 0., "R", "Resistance" )  	  
-        s.dV = ComplexT( s, complex(0,0),"dV", "Voltage" )
-        s.Z = ComplexT( s, complex(0,0), "Z", "Impedance" )
-        s.I = ComplexT( s, complex(0,0), "I", "Current" )
+        s.R = RealT( s, 0., "R", "Ohms", "Resistance" )  	  
+        s.dV = ComplexT( s, complex(0,0),"dV", "volts", "Voltage drop" )
+        s.Z = ComplexT( s, complex(0,0), "Z", "ohms","Impedance" )
+        s.I = ComplexT( s, complex(0,0), "I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "Exit Electric Port" )
       

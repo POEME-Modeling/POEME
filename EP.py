@@ -7,8 +7,8 @@ class EP( Atom ):
 		self.desc = desc
 		self.parent = p
 		self.freq = -1
-		self.V = ComplexT( p, complex(0,0), "V", "Voltage" )
-		self.I = ComplexT( p, complex(0,0), "I", "Amperage" )
+		self.V = ComplexT( p, complex(0,0), "V", "volts", "Voltage" )
+		self.I = ComplexT( p, complex(0,0), "I", "amps", "Amperage" )
 		p.addVID( self )
 		
 	def isa( self, type ):
@@ -20,3 +20,7 @@ class EP( Atom ):
 	def setIV( self, I , V ):
 		self.I.num = I
 		self.V.num = V
+
+	def dump( self ):
+		print( self.parent.name, self.name, self.V.num, self.I.num )
+		

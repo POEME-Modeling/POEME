@@ -4,9 +4,10 @@ class ComplexT (  ):
 	real = 0
 	imag = 0
 
-	def __init__( self, p, num, name, desc ):
+	def __init__( self, p, num, name, units, desc ):
 		self.num = num
 		self.name =  name
+		self.units = units
 		self.desc = desc
 		p.addVID( self )
 		
@@ -24,19 +25,19 @@ class ComplexT (  ):
 		
 	def __add__( self, other ):
 		num = self.num+other.num
-		return( ComplexT( self, num,"","" ))
+		return( ComplexT( self, num,"","","" ))
 		
 	def __sub__( self, other ):
 		num = self.num - other.num
-		return( ComplexT( self, num,"","" ))
+		return( ComplexT( self, num,"","","" ))
 		
 	def __mul__( self, other ):
 		num = self.num * other.num
-		return( ComplexT( self, num,"","" ))		
+		return( ComplexT( self, num,"","","" ))		
 
 	def __truediv__( self, other ):
 		num = self.num / other.num
-		return( ComplexT( self, num,"","" ))		
+		return( ComplexT( self, num,"","","" ))		
 		
 	
 	def __str__(self):

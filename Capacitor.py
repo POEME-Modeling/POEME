@@ -8,10 +8,10 @@ class Capacitor( Element ):
 
     def __init__(s,name):
         super().__init__(name, "Capacitor" )
-        s.C = RealT( s, 0., "C", "Capacitance" )  	  
-        s.dV = ComplexT( s, complex(0,0), "dV", "Voltage" )
-        s.Z = ComplexT( s, complex(0,0), "Z", "Impedance" )
-        s.I = ComplexT( s, complex(0,0),"I", "Current" )
+        s.C = RealT( s, 0., "C", "farad", "Capacitance" )  	  
+        s.dV = ComplexT( s, complex(0,0), "dV", "volts", "Voltage" )
+        s.Z = ComplexT( s, complex(0,0), "Z", "ohms", "Impedance" )
+        s.I = ComplexT( s, complex(0,0),"I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "Exit Electric Port" )
       

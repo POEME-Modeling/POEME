@@ -5,9 +5,10 @@ class RealT ( ValueT ):
     name = ''
     desc = ''
     
-    def __init__(self, p, var, name, desc):
+    def __init__(self, p, var, name, units, desc):
         self.v = var
         self.name = name
+        self.units = units
         self.desc = desc
         p.addVID( self )
         
