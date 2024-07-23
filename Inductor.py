@@ -9,8 +9,8 @@ class Inductor( Element ):
         super().__init__(name, "Inductor" )
         s.L = RealT( s, 0.,  "L", "ohms","Inductance" )  	  
         s.dV = ComplexT( s, complex( 0, 0 ), "dV", "volts", "Voltage drop" )
-        s.Z = ComplexT( s, "Z", complex(0,0), "Ohms", "Impedance" )
-        s.I = ComplexT( s, "I", complex(0,0 ), "amps", "Current" )
+        s.Z = ComplexT( s, complex(0,0), "Z", "Ohms", "Impedance" )
+        s.I = ComplexT( s, complex(0,0 ), "I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "Exit Electric Port" )
       
@@ -22,6 +22,6 @@ class Inductor( Element ):
         e.EPo.setIV ( e.I.num, 0. )
 
     def dump( self ):
-    	print( self.name, "Capacitor" )
+    	print( self.name, "Inductor" )
     	super().realPrint()
    

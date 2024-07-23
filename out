@@ -1,0 +1,56 @@
+Ports*************
+
+R1 EPi 0j (0.10595659574468082-0.09763382978723395j)
+R1 EPo 0j (-0.10595659574468082+0.09763382978723395j)
+C EPi 0j (-0.08130685449416589-0.30086082323156177j)
+C EPo 0j (0.08130685449416589+0.30086082323156177j)
+I EPi 0.0 (-0.18726374648991226-0.20322698728202945j)
+I EPo 0.0 (0.18726374648991226+0.20322698728202945j)
+
+Elements***********
+
+R1 Resistor
+     R 470.0 Ohms Resistance
+     dV (-49.799599999999984+45.88789999999996j) volts Voltage drop
+     Z (470+0j) ohms Impedance
+     I (-0.10595659574468082+0.09763382978723395j) amps Current
+C Capacitor
+     C 4.7e-06 farad Capacitance
+     dV (169.7996-45.88789999999996j) volts Voltage
+     Z -564.379230822324j ohms Impedance
+     I (0.08130685449416589+0.30086082323156177j) amps Current
+I Capacitor
+     L 0.65 ohms Inductance
+     dV (-49.799599999999984+45.88789999999996j) volts Voltage drop
+     0j 245.04422698000386j Ohms Impedance
+     0j (0.18726374648991226+0.20322698728202945j) amps Current
+S1 Node
+     Vr 120.0 volts Real component of voltage
+     Vi 0.0 volts Imaginary component of voltage
+     V (120+0j) volts Voltage
+     Inetr -0.08130685449416589 amps Real component of Inet
+     Ineti -0.30086082323156177 amps Imaginary component of Inet
+     InetDr 0.0 amps Real component of Inet demand
+     InetDi 0.0 amps Imaginary component of Inet demand
+     Inet (-0.08130685449416589-0.30086082323156177j) amps Current
+     I 0j amps Current
+E1 Node
+     Vr -49.79969999999999 volts Real component of voltage
+     Vi 45.887799999999956 volts Imaginary component of voltage
+     V (-49.799599999999984+45.88789999999996j) volts Voltage
+     Inetr -2.962510655402095e-07 amps Real component of Inet
+     Ineti 6.162298366030328e-09 amps Imaginary component of Inet
+     InetDr 0.0 amps Real component of Inet demand
+     InetDi 0.0 amps Imaginary component of Inet demand
+     Inet (-2.962510655402095e-07+6.162298366030328e-09j) amps Current
+     I 0j amps Current
+S2 Node
+     Vr 0.0 volts Real component of voltage
+     Vi 0.0 volts Imaginary component of voltage
+     V 0j volts Voltage
+     Inetr 0.08130715074523144 amps Real component of Inet
+     Ineti 0.3008608170692634 amps Imaginary component of Inet
+     InetDr 0.0 amps Real component of Inet demand
+     InetDi 0.0 amps Imaginary component of Inet demand
+     Inet (0.08130715074523144+0.3008608170692634j) amps Current
+     I 0j amps Current

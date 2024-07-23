@@ -3,6 +3,7 @@ from RealT import RealT
 from ComplexT import ComplexT
 from EP import EP
 import math
+from Table2d import Table2d
 
 class Capacitor( Element ):
 
@@ -14,11 +15,14 @@ class Capacitor( Element ):
         s.I = ComplexT( s, complex(0,0),"I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "Exit Electric Port" )
+        s.CVc = Table2d( s, "CTable" )
       
     def calc(e):
         e.dV.set( e.EPi.V - e.EPo.V )
-        e.Z.num = complex( 0., -1 / (e.C.v * 2 * math.pi * e.EPi.freq))
-        e.I.set( e.dV/e.Z )
+        if e.CVc.full() == True:
+        	e.C.v = e.CVc.calc( e.dV.num.real, e.dV.num.imag )
+        e.Z.num = complex( 0., -1 / (e.C.v * 2. * math.pi * e.EPi.freq))
+        e.I.set( e.dV/e.Z )                      
         e.EPi.setIV ( -e.I.num, complex( 0., 0.) )
         e.EPo.setIV ( e.I.num, complex( 0., 0. ) )
   	  
