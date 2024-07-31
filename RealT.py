@@ -1,9 +1,7 @@
 from ValueT import ValueT
 
 class RealT ( ValueT ):
-    v = ''
-    name = ''
-    desc = ''
+ 
     
     def __init__(self, p, var, name, units, desc):
         self.v = var

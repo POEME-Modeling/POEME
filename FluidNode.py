@@ -18,6 +18,7 @@ class FluidNode( Atom ):
 		f.Cpt = 0
 		f.gamt = 0
 		f.s = 0
+		f.A = 0
 		f.MN = 0
 		f.V = 0
 		f.Ts = 0
@@ -40,20 +41,24 @@ class FluidNode( Atom ):
 		f.Pt = Pt
 		f.ht = eval(f.comp).h_TP( f.Tt, f.Pt, f.fract2 )
 		f.s = eval(f.comp).s_TP( f.Tt, f.Pt, f.fract2 )
+		f.rhot = eval(f.comp).rho( f.ht, f.Pt, f.fract2 )
+		f.Cpt = eval(f.comp).Cp( f.ht, f.Pt, f.fract2 )
 		
 	def set_hP( f, ht, Pt ):
 		f.ht = ht
 		f.Pt = Pt
-		print( f.comp )
 		f.T = eval(f.comp).T_hP( f.Tt, f.Pt, f.fract2 )
-		f.s = eval(f.comp).s_TP( f.Tt, f.Pt, f.fract2 )		
+		f.s = eval(f.comp).s_TP( f.Tt, f.Pt, f.fract2 )	
+		f.rhot = eval(f.comp).rho( f.ht, f.Pt, f.fract2 )
+		f.Cpt = eval(f.comp).Cp( f.ht, f.Pt, f.fract2 )
 	
 	def set_sP( f, s, Pt ):
 		f.s = s
 		f.Pt = Pt
-		print( f.comp )
 		f.Tt = eval(f.comp).T_sP( f.s, f.Pt, f.fract2 )
 		f.ht = eval(f.comp).h_TP( f.ht, f.Pt, f.fract2 )
+		f.rhot = eval(f.comp).rho( f.ht, f.Pt, f.fract2 )
+		f.Cpt = eval(f.comp).Cp( f.ht, f.Pt, f.fract2 )
 			
 		
 test = FluidNode( "H2O", "test" );
@@ -65,5 +70,7 @@ test.set_hP( test.ht, test.Pt )
 print( test.Tt, test.Pt, test.ht, test.s )
 test.set_sP( test.s, test.Pt )
 print( test.Tt, test.Pt, test.ht, test.s )
+print( test.rhot )
+print( test.Cpt )
 		
 	 
