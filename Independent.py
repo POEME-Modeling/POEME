@@ -18,16 +18,25 @@ class Independent( Atom ):
         varsg.ind_list.append( self )
         
         
-    def Perturb(self, step):
+    def perturbV(self):
+    	
         if type(self.val) != RealT and type(self.val) != ComplexT:
             raise Exception("Not a perturbable type (RealT or ComplexT)")
+		
+        perturb_val = 0
         
-        return self.val.Perturb(step, self.perturb_type, self.perturb)
+        if self.perturb_type:
+            perturb_val = self.val.getVal() * self.perturb 
+        else:
+            perturb_val = self.perturb
+            
+        return perturb_val
+         
         
-    def GetVal(self):
+    def getVal(self):
         return self.val.GetVal()
 
-    def SetVal(self, value):
+    def setVal(self, value):
         self.val.SetVal(value)
             
 

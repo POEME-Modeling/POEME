@@ -14,9 +14,10 @@ class Dependent( Atom ):
         self.name = name
         self.val_1 = val_1
         self.val_2 = val_2
+        self.baseError = 0.
         varsg.dep_list.append( self )
         
-    def DepError(self):
-        return abs(float(self.val_1.GetVal()) - float(self.val_2.GetVal()))
+    def depError(self):
+    	return (((self.val_1).getVal()) - ( self.val_2 ).getVal())
             
 

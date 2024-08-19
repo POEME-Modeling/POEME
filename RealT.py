@@ -56,10 +56,10 @@ class RealT ( ValueT ):
 
         return perturb_list
         
-    def GetVal(self):
+    def getVal(self):
         return self.v
         
-    def SetVal(self, val):
+    def setVal(self, val):
         self.v = val
         
     #def Add(self, other):

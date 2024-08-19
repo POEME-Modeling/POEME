@@ -29,10 +29,9 @@ class Enode( Element ):
 		self.Inet.num = complex( 0., 0. )
 		for p in self.port_list:
 			self.Inet.set( self.Inet + p.I )
-			
 		self.Inetr.v = self.Inet.num.real
 		self.Ineti.v = self.Inet.num.imag
-		
+
 	    
 	def dump( self ):
 		print( self.name, "Node" )
