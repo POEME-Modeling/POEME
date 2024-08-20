@@ -10,11 +10,12 @@ class Independent( Atom ):
     perturb_type = False # True is fractional
     active = False
     
-    def __init__(self, name, val, perturb, perturb_type):
+    def __init__(self, name, val, perturb, scale, perturb_type):
         self.name = name
         self.val = val
         self.perturb = perturb
         self.perturb_type = perturb_type
+        self.scale = scale
         varsg.ind_list.append( self )
         
         

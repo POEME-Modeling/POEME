@@ -9,10 +9,10 @@ class Enode( Element ):
 		self.Vr = RealT( self, 0., "Vr", "volts", "Real component of voltage" )
 		self.Vi = RealT( self, 0., "Vi", "volts", "Imaginary component of voltage" )
 		self.V = ComplexT( self, complex(0,0), "V", "volts", "Voltage" )
-		self.Inetr = RealT( self, 0., "Inetr", "amps", "Real component of Inet" )
-		self.Ineti = RealT( self, 0., "Ineti", "amps", "Imaginary component of Inet" )
-		self.InetDr = RealT( self, 0., "InetDr", "amps", "Real component of Inet demand" )
-		self.InetDi = RealT( self, 0., "InetDi", "amps", "Imaginary component of Inet demand" )
+		self.IinR = RealT( self, 0., "IinR", "amps", "Real component of I comping in" )
+		self.IoutR = RealT( self, 0., "IoutR", "amps", "Real component I going out" )
+		self.IinI = RealT( self, 0., "IinI", "amps", "Imaginery component of I coming in" )
+		self.IoutI = RealT( self, 0., "IoutI", "amps", "Imaginary component of I going out" )
 		self.Inet = ComplexT( self, complex(0,0), "Inet", "amps", "Current" )
 		self.I = ComplexT( self, complex(0,0), "I", "amps", "Current" )
 		self.port_list = list()
@@ -25,12 +25,26 @@ class Enode( Element ):
 			self.V.num = complex( self.Vr.v, self.Vi.v )
 			p.setIV( complex( 0., 0.), self.V.num ) 
 	
-	def calc(self):
-		self.Inet.num = complex( 0., 0. )
-		for p in self.port_list:
-			self.Inet.set( self.Inet + p.I )
-		self.Inetr.v = self.Inet.num.real
-		self.Ineti.v = self.Inet.num.imag
+	def calc(s):
+
+
+		s.IinR.v = 0.
+		s.IoutR.v = 0.
+		s.IinI.v = 0.
+		s.IoutI.v = 0.
+		for p in s.port_list:
+
+			if p.I.num.real > 0:
+				s.IinR.v = s.IinR.v + p.I.num.real
+			else:
+				s.IoutR.v = s.IoutR.v - p.I.num.real
+			if p.I.num.imag > 0:
+				s.IinI.v = s.IinI.v + p.I.num.imag
+			else:
+				s.IoutI.v = s.IoutI.v - p.I.num.imag
+		
+		#s.Inetr.v = s.Inet.num.real
+		#s.Ineti.v = s.Inet.num.imag
 
 	    
 	def dump( self ):
