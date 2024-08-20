@@ -28,7 +28,7 @@ S1 = Enode( "S1" )
 S1.Vr.v = 120.
 
 E1 = Enode( "E1" )
-E1.Vr.v =  -10
+E1.Vr.v =  -50
 E1.Vi.v = 10
 
 S2 = Enode( "S2" )
@@ -49,8 +49,8 @@ ind_1 = Independent("ind_E1.Vr", E1.Vr, .05, 100, True)
 ind_2 = Independent("ind_E1.Vi", E1.Vi, .05, 100, True)
 
 #Dependents
-dep_1 = Dependent("dep_E1.Inetr", E1.IinR, E1.IoutR, 100. )
-dep_2 = Dependent("dep_E1.Ineti", E1.IinI, E1.IoutI, 100. )
+dep_1 = Dependent("dep_E1.Inetr", E1.IinR, E1.IoutR, 0. )
+dep_2 = Dependent("dep_E1.Ineti", E1.IinI, E1.IoutI, 0. )
 
 
 ###

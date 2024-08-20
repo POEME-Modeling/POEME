@@ -41,14 +41,18 @@ class Newton(Element):
 			for i in varsg.ind_list:
 				print( i.val.getVal() )
 				
+			
+			errSum = 0
 			for d in varsg.dep_list:
 				d.baseError = d.depError()
 				print( d.baseError )
+				errSum = errSum + d.baseError**2.
 
 			
 
 
 			print( "generating matrix" )
+
 			icount = 0
 			for i in varsg.ind_list:
 				dx = i.perturbV()
@@ -65,54 +69,86 @@ class Newton(Element):
 			delx = np.zeros( len (varsg.ind_list ))
 	
 			imatrix = linalg.inv( matrix )
-			ic = 0
-			for i in varsg.ind_list:
-				id = 0
-				for d in varsg.dep_list:
-					delx[ic] = delx[ic]-imatrix[id][ic]*d.baseError
-					id = id + 1
-				ic = ic + 1
+			
+			
+			
+			errSumLast = 9e9
+			errSum = 8e9
+
+			while errSum < errSumLast and converged == False:
+				print( "EEEEEEEEEEEEEEEEEEEEEEE",errSum, errSumLast )
+	
+				ic = 0
+				s.onepass()
+				for i in varsg.ind_list:
+					id = 0
+					for d in varsg.dep_list:
+						print( d.depError() )
+						delx[ic] = delx[ic]-imatrix[id][ic]*d.depError()
+						id = id + 1
+					ic = ic + 1
 		
-			ic = 0
-			scale = 1
-			maxdx = 0
-			for i in varsg.ind_list:
-				scale =  i.val.getVal()
-				if i.scale != 0:
-					scale = i.scale
-				if abs( delx[ic]/scale ) > .1:	
-					if maxdx < abs( delx[ic]/ scale ):
-						maxdx = abs( delx[ic]/ scale ) 
-				ic = ic + 1
+				ic = 0
+				scale = 1
+				maxdx = 0
+				for i in varsg.ind_list:
+					scale =  i.val.getVal()
+					if i.scale != 0:
+						scale = i.scale
+					if abs( delx[ic]/scale ) > .1:	
+						if maxdx < abs( delx[ic]/ scale ):
+							maxdx = abs( delx[ic]/ scale ) 
+					ic = ic + 1
 	
 					
 			
-			if maxdx != 0:
-				scale = .1/ maxdx
-			else: 
-				scale = 1
-		    
-        
-			ic = 0
-			for i in varsg.ind_list:
-				i.val.setVal( i.val.getVal() + scale* delx[ic] )
-				ic = ic + 1
-				print( i.val.getVal())
+				if maxdx != 0:
+					scale = .1/ maxdx
+				else: 
+					scale = 1
+					
+				print ("scale", scale )	
+				ic = 0
+				for i in varsg.ind_list:
+					print( i.val.getVal(), scale, delx[ic] )
+					i.val.setVal( i.val.getVal() + scale* delx[ic] )
+					ic = ic + 1
+					print( i.val.getVal())
 
  
-			s.onepass()
+				s.onepass()
 
-			print( "ddddddddddddddddd" )
-			for d in varsg.dep_list:
-				print( d.depError() )
-				d.baseError = d.depError()
-			print( "dddddddddddddddddd" )
+	   
 
+
+				errSumLast = errSum
+				errSum = 0
+				print( "ddddddddddddddddd" )
+				for d in varsg.dep_list:
+					print( d.depError() )
+					d.baseError = d.depError()
+					errSum = errSum + d.baseError**2.
+				print( "dddddddddddddddddd" )
 				
-			converged = True
-			for d in varsg.dep_list:
-				if abs( d.depError() ) > s.tolerance:
-					converged = False
+				ic = 0
+				print ( "eeeeeee", errSum, errSumLast )
+				if errSum > errSumLast:
+					for i in varsg.ind_list:
+						i.val.setVal( i.val.getVal() - scale* delx[ic] )
+						ic = ic + 1
+						
+
+				print( errSum, errSumLast )
+				#time.sleep(4)
+				
+				converged = True
+				for d in varsg.dep_list:
+					d.baseError = d.depError()
+					print( d.depError() )
+					if abs( d.depError() ) > s.tolerance:
+						converged = False
+				if converged == True:
+					print( "Bingo" )
 				
 			
   	
