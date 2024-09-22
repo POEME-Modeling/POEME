@@ -1,6 +1,7 @@
 from Element import Element
 from ComplexT import ComplexT
 from RealT import RealT
+import varsg
 
 class Enode( Element ):
 	def __init__(self,name):
@@ -24,15 +25,23 @@ class Enode( Element ):
 		for p in self.port_list:
 			self.V.num = complex( self.Vr.v, self.Vi.v )
 			p.setIV( complex( 0., 0.), self.V.num ) 
+			
+	def precheck( self ):
+	
+		for v in self.VIDL:
+			if v.isa( "EP" ):
+				self.port_list.append( v )
+	
 	
 	def calc(s):
-
-
+		
 		s.IinR.v = 0.
 		s.IoutR.v = 0.
 		s.IinI.v = 0.
 		s.IoutI.v = 0.
+
 		for p in s.port_list:
+
 
 			if p.I.num.real > 0:
 				s.IinR.v = s.IinR.v + p.I.num.real
@@ -42,13 +51,11 @@ class Enode( Element ):
 				s.IinI.v = s.IinI.v + p.I.num.imag
 			else:
 				s.IoutI.v = s.IoutI.v - p.I.num.imag
-		
-		#s.Inetr.v = s.Inet.num.real
-		#s.Ineti.v = s.Inet.num.imag
+
 
 	    
 	def dump( self ):
-		print( self.name, "Node" )
+		print( self.name, "Node", file = varsg.out )
 		super().realPrint()
-  
+	
 		

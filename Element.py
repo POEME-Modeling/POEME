@@ -10,8 +10,8 @@ import varsg
 class Element(Atom):
 	
 	
-    VIDL = list()
-    ind_list = list()
+    #VIDL = list()
+    #ind_list = list()
     
     def __init__(self, name, type):
         varsg.element_list.append(self)
@@ -54,6 +54,6 @@ class Element(Atom):
     def realPrint( self ):
     	for v in self.VIDL:
     		if v.isa( "RealT" ):
-    			print( "    ", v.name, v.v, v.units, v.desc )
+    			print( "    ", v.name, v.v, v.units, v.desc, file=varsg.out )
     		if v.isa( "ComplexT" ):
-    			print( "    ", v.name, v.num, v.units, v.desc ) 
+    			print( "    ", v.name, v.num, v.units, v.desc, file=varsg.out ) 

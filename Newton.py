@@ -26,6 +26,9 @@ class Newton(Element):
 	def solve(s):
 		s.ind_list = varsg.ind_list
 		s.dep_list = varsg.dep_list
+		
+		for e in varsg.element_list:
+			e.precheck()   		
 
 		matrix = np.zeros( (len( varsg.ind_list), len( varsg.dep_list )))
 
@@ -33,26 +36,17 @@ class Newton(Element):
 		
 		converged = False 
 		while ( iter < s.maxJacobians and converged == False ):
-			print()
-			print()
+
 			iter =  iter+1
 			s.onepass()
-			
-			for i in varsg.ind_list:
-				print( i.val.getVal() )
-				
+
 			
 			errSum = 0
 			for d in varsg.dep_list:
 				d.baseError = d.depError()
-				print( d.baseError )
 				errSum = errSum + d.baseError**2.
 
 			
-
-
-			print( "generating matrix" )
-
 			icount = 0
 			for i in varsg.ind_list:
 				dx = i.perturbV()
@@ -76,14 +70,12 @@ class Newton(Element):
 			errSum = 8e9
 
 			while errSum < errSumLast and converged == False:
-				print( "EEEEEEEEEEEEEEEEEEEEEEE",errSum, errSumLast )
-	
+
 				ic = 0
 				s.onepass()
 				for i in varsg.ind_list:
 					id = 0
 					for d in varsg.dep_list:
-						print( d.depError() )
 						delx[ic] = delx[ic]-imatrix[id][ic]*d.depError()
 						id = id + 1
 					ic = ic + 1
@@ -106,14 +98,11 @@ class Newton(Element):
 					scale = .1/ maxdx
 				else: 
 					scale = 1
-					
-				print ("scale", scale )	
+
 				ic = 0
 				for i in varsg.ind_list:
-					print( i.val.getVal(), scale, delx[ic] )
 					i.val.setVal( i.val.getVal() + scale* delx[ic] )
 					ic = ic + 1
-					print( i.val.getVal())
 
  
 				s.onepass()
@@ -123,41 +112,33 @@ class Newton(Element):
 
 				errSumLast = errSum
 				errSum = 0
-				print( "ddddddddddddddddd" )
+
 				for d in varsg.dep_list:
-					print( d.depError() )
+
 					d.baseError = d.depError()
 					errSum = errSum + d.baseError**2.
-				print( "dddddddddddddddddd" )
+
 				
 				ic = 0
-				print ( "eeeeeee", errSum, errSumLast )
+
 				if errSum > errSumLast:
 					for i in varsg.ind_list:
 						i.val.setVal( i.val.getVal() - scale* delx[ic] )
 						ic = ic + 1
 						
 
-				print( errSum, errSumLast )
 				#time.sleep(4)
 				
 				converged = True
 				for d in varsg.dep_list:
 					d.baseError = d.depError()
-					print( d.depError() )
 					if abs( d.depError() ) > s.tolerance:
 						converged = False
-				if converged == True:
-					print( "Bingo" )
+
 				
 			
   	
 
 		s.onepass()			
-		for i in varsg.ind_list:
-			print( i.val.getVal() )
-		print( "ddddddddddddddddd" )
-		for d in varsg.dep_list:
-			print( d.depError()  )
-		print( "dddddddddddddddddd" )
+
 	

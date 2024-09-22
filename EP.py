@@ -1,13 +1,16 @@
+
 from Atom import Atom
 from ComplexT import ComplexT
+import varsg
 
 class EP( Atom ):
-	def __init__( self, p, name, desc ):
+	def __init__( self, p, name, io, desc ):
 		
-		self.VIDL = list()
+		#self.VIDL = list()
 		self.name = name
 		self.desc = desc
 		self.parent = p
+		self.io = io
 		self.freq = -1
 		self.V = ComplexT( self, complex(0,0), "V", "volts", "Voltage" )
 		self.I = ComplexT( self, complex(0,0), "I", "amps", "Amperage" )
@@ -22,10 +25,21 @@ class EP( Atom ):
 	def setIV( self, I , V ):
 		self.I.num = I
 		self.V.num = V
+		self.other.I.num = I
+		self.other.V.num = V
+
 		
 	def addVID(self,v):
-		self.VIDL.append(v)
+		pass
+		#self.VIDL.append(v)
+		
+		
+	def linkEP( e, EP ):
+		e.other = EP
+		EP.other = e
+  
 
 	def dump( self ):
-		print( self.parent.name, self.name, self.V.num, self.I.num )
+		
+		print( self.parent.name, self.name, self.V.num, self.I.num, file = varsg.out )
 		
