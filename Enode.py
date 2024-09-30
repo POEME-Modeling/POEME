@@ -27,7 +27,7 @@ class Enode( Element ):
 			p.setIV( complex( 0., 0.), self.V.num ) 
 			
 	def precheck( self ):
-	
+		self.port_list = list()
 		for v in self.VIDL:
 			if v.isa( "EP" ):
 				self.port_list.append( v )
@@ -51,6 +51,8 @@ class Enode( Element ):
 				s.IinI.v = s.IinI.v + p.I.num.imag
 			else:
 				s.IoutI.v = s.IoutI.v - p.I.num.imag
+
+
 
 
 	    

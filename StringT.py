@@ -3,7 +3,7 @@ from ValueT import ValueT
 class StringT ( ValueT ):
  
     
-    def __init__(self, p, var, name,  desc):
+    def __init__(self, p, var, name, desc):
         self.v = var
         self.name = name
         self.desc = desc
@@ -17,3 +17,4 @@ class StringT ( ValueT ):
             
     def set( self, val ):
     	self.v = val.v
+

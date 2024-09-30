@@ -23,7 +23,7 @@ class Capacitor( Element ):
         if e.CVc.full() == True:
         	e.C.v = e.CVc.calc( e.dV.num.real, e.dV.num.imag )
         e.Z.num = complex( 0., -1 / (e.C.v * 2. * math.pi * e.EPi.freq))
-        e.I.set( e.dV/e.Z )                      
+        e.I.set( e.dV/e.Z )
         e.EPi.setIV ( -e.I.num, e.EPi.V.num)
         e.EPo.setIV ( e.I.num, e.EPo.V.num)
         

@@ -12,7 +12,8 @@ import varsg
 
 
 R1 = Resistor( "R1" )
-R1.R.v =  470.
+R1.R.v =  450.
+#exec( open("./RV.tbl" ).read())
 #R1.RV.y = [ 470, 470. ]
 #R1.RV.x = [-100, 100. ]
 

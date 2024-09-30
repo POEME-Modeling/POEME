@@ -46,13 +46,13 @@ for e in element_list:
 	realList = list()
 	vars = e.VIDL
 	for v in vars:
-		if v.isa( "RealT" ):
-			realList.append( v )
+		realList.append( v )
 	fNode = fc.createNode('Pop', e.name, pos=(0, 0))
 
 	fc.nodeList.append( fNode )
 	for r in realList:
-		fNode.ctrls[ r.name ].setValue( eval( e.name+"."+r.name+".v" ))
+		if r.isa( "RealT"):
+			fNode.ctrls[ r.name ].setValue( eval( e.name+"."+r.name+".v" ))
 
 for n in fc.nodeList:
    

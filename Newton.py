@@ -13,7 +13,7 @@ class Newton(Element):
 		s.name = name
 		s.ind_list = varsg.ind_list
 		s.dep_list = varsg.dep_list
-		s.maxJacobians = 10.
+		s.maxJacobians = 1000.
 		s.tolerance = .0001
 		
 	def onepass( s ):
