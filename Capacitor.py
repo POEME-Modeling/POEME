@@ -16,7 +16,7 @@ class Capacitor( Element ):
         s.I = ComplexT( s, complex(0,0),"I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "in", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "out", "Exit Electric Port" )
-        s.CVc = Table2d( s, "CTable" )
+        s.CVc = Table2d( s, "CTable", "farad", "Capacitance versus dV" )
       
     def calc(e):
         e.dV.set( e.EPi.V - e.EPo.V )
@@ -26,6 +26,7 @@ class Capacitor( Element ):
         e.I.set( e.dV/e.Z )
         e.EPi.setIV ( -e.I.num, e.EPi.V.num)
         e.EPo.setIV ( e.I.num, e.EPo.V.num)
+
         
     def dump( self ):
     	print( self.name, "Capacitor", file = varsg.out )

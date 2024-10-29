@@ -8,6 +8,7 @@ class RealT ( ValueT ):
         self.name = name
         self.units = units
         self.desc = desc
+        self.parent = p
         p.addVID( self )
         
     def isa( s, type ):

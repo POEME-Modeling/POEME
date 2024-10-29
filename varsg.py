@@ -1,12 +1,17 @@
 #global lists the entire model needs
 
 element_list = list()
+obs_list = list()
 ind_list = list()
 dep_list = list()
+con_list = list()
+solver = 0
 import os
 
 NS = 0
 out = 0
+win=0
+w=0
 
 class stdOut( ):
 	

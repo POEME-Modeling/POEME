@@ -13,6 +13,8 @@ class Enode( Element ):
 		self.IinR = RealT( self, 0., "IinR", "amps", "Real component of I comping in" )
 		self.IoutR = RealT( self, 0., "IoutR", "amps", "Real component I going out" )
 		self.IinI = RealT( self, 0., "IinI", "amps", "Imaginery component of I coming in" )
+		self.IinIp1 = RealT( self, 0., "IinIp1", "amps", "Imaginery component of I coming in" )
+		self.IinIp2 = RealT( self, 0., "IinIp2", "amps", "Imaginery component of I coming in" )
 		self.IoutI = RealT( self, 0., "IoutI", "amps", "Imaginary component of I going out" )
 		self.Inet = ComplexT( self, complex(0,0), "Inet", "amps", "Current" )
 		self.I = ComplexT( self, complex(0,0), "I", "amps", "Current" )
@@ -24,7 +26,7 @@ class Enode( Element ):
 	def preset(self):
 		for p in self.port_list:
 			self.V.num = complex( self.Vr.v, self.Vi.v )
-			p.setIV( complex( 0., 0.), self.V.num ) 
+			p.setIV( p.I.num, self.V.num ) 
 			
 	def precheck( self ):
 		self.port_list = list()
@@ -51,11 +53,10 @@ class Enode( Element ):
 				s.IinI.v = s.IinI.v + p.I.num.imag
 			else:
 				s.IoutI.v = s.IoutI.v - p.I.num.imag
-
-
-
-
-	    
+				
+		s.IinIp1.v = s.IinI.v+.1
+		s.IinIp2.v = s.IinI.v+.2
+    
 	def dump( self ):
 		print( self.name, "Node", file = varsg.out )
 		super().realPrint()

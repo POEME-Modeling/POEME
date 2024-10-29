@@ -4,13 +4,16 @@ from scipy import interpolate
 from scipy.interpolate import RegularGridInterpolator
 
 class Table2d ( ):
-	
-	def __init__(self, p, name ):
+
+	def __init__(self, p, name, units, desc ):
 		self.name = name
 		p.addVID( self )
 		self.x = [ 0. ]
 		self.y = [ 0. ]
 		self.data = [0.]
+		self.desc = desc
+		self.units = units
+		self.parent = p
 	
 	def full( s ):
 		if len( s.x ) > 1:

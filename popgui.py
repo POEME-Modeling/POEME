@@ -3,32 +3,34 @@ import pyqtgraph as pg
 from pyqtgraph.flowchart import Flowchart
 from pyqtgraph.Qt import QtWidgets
 import os
-
+from MainWindow1 import MainWindow1
+import varsg
 
 
 
 app = pg.mkQApp("Flowchart Example")
 
 ## Create main window with grid layout
-win = QtWidgets.QMainWindow()
-win.setWindowTitle('pyqtgraph example: Flowchart')
+varsg.win = QtWidgets.QMainWindow()
+
+varsg.win = MainWindow1()
+
+varsg.win.setWindowTitle('pop')
+
+
 cw = QtWidgets.QWidget()
-win.setCentralWidget(cw)
+varsg.win.setCentralWidget(cw)
 layout = QtWidgets.QGridLayout()
 cw.setLayout(layout)
 
  
-win.show()
+varsg.win.show()
 
 
 
 ## Create flowchart, define input/output terminals
-fc = Flowchart(terminals={
-    'dataIn': {'io': 'in'},
-    'dataOut': {'io': 'out'}    
-})
 
-
+fc = Flowchart()
 w = fc.widget()
 
 
@@ -40,14 +42,32 @@ exec( open("./LCRNewton.py" ).read())
 
 
 
+
 fc.nodeList =[]
-for e in element_list:
+x=0
+y=0
+
+listStuff = element_list.copy()
+listStuff.append( varsg.NS )
+
+for i in varsg.ind_list:
+	listStuff.append( i )
+
+for d in varsg.dep_list:
+	listStuff.append( d )
+
+for c in varsg.con_list:
+	listStuff.append( c )
+
+for e in listStuff:
 
 	realList = list()
 	vars = e.VIDL
 	for v in vars:
 		realList.append( v )
-	fNode = fc.createNode('Pop', e.name, pos=(0, 0))
+	fNode = fc.createNode('Pop', e.name, pos=(x, y))
+	x=x+50
+	y=y+10
 
 	fc.nodeList.append( fNode )
 	for r in realList:
@@ -68,15 +88,11 @@ for n in fc.nodeList:
 		else:
 			fc.connectTerminals( t, o )
 		
-btn = QtWidgets.QPushButton('Paste')
+#btn = QtWidgets.QPushButton('Paste')
 
 
 varsg.nodeList =  fc.nodeList
-
-w1 = pg.LayoutWidget()
-
-
-#n.ctrls['R'].setValue(4)		
+	
 
 varsg.out.close()
 os.system( "jedit pop.out" )

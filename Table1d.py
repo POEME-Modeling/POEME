@@ -5,13 +5,14 @@ from scipy import interpolate
 
 class Table1d ( ):
 	
-	def __init__(self, p, name ):
+	def __init__(self, p, name, units, desc ):
 		self.name = name
 		p.addVID( self )
 		self.x = [ 0. ]
 		self.y = [ 0. ]
 		self.desc = desc
 		self.units = units
+		self.parent = p
 		
 		
 	def full( s ):
@@ -26,7 +27,7 @@ class Table1d ( ):
 		return ( ynew )
 	
 	def isa( self, type ):
-		if type == "Table":
+		if type == "Table1d":
 			return True
 		else:
 			return False

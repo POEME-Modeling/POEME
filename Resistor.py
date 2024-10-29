@@ -2,7 +2,7 @@ from Element import Element
 from RealT import RealT
 from ComplexT import ComplexT
 from EP import EP
-from Table import Table
+from Table1d import Table1d
 import varsg
 
 class Resistor( Element ):
@@ -15,7 +15,7 @@ class Resistor( Element ):
         s.I = ComplexT( s, complex(0,0), "I", "amps", "Current" )
         s.EPi = EP( s, "EPi", "in", "Inlet Electric Port" )
         s.EPo = EP( s, "EPo", "out", "Exit Electric Port" )
-        s.RV = Table( s, "RTable" )
+        s.RV = Table1d( s, "RTable", "Ohms", "Resistance as a function of temeperature" )
       
     def calc(e):
         e.dV.set( e.EPi.V - e.EPo.V )

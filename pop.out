@@ -1,124 +1,68 @@
 Ports*************
 
-R1 EPi (-47.80566819447289+46.00721578846279j) (0.10623481820993974-0.10223825730769508j)
-R1 EPo 0j (-0.10623481820993974+0.10223825730769508j)
-C EPi (120+0j) (-0.08151826515909943-0.2973278586987921j)
-C EPo (-47.80566819447289+46.00721578846279j) (0.08151826515909943+0.2973278586987921j)
-I EPi (-47.80566819447289+46.00721578846279j) (-0.18775066181100883-0.19508995899900933j)
-I EPo 0j (0.18775066181100883+0.19508995899900933j)
-S1 EP1 (120+0j) (-0.08151826515909943-0.2973278586987921j)
-E1 EP1 (-47.80566819447289+46.00721578846279j) (0.08151826515909943+0.2973278586987921j)
-E1 EP2 (-47.80566819447289+46.00721578846279j) (0.10623481820993974-0.10223825730769508j)
-E1 EP3 (-47.80566819447289+46.00721578846279j) (-0.18775066181100883-0.19508995899900933j)
-S2 EP1 0j (0.18775066181100883+0.19508995899900933j)
-S2 EP2 0j (-0.10623481820993974+0.10223825730769508j)
+R1 EPi (-94.79479897710141+85.21843713371993j) (0.20169106165340725-0.1813158236887658j)
+R1 EPo 0j (-0.20169106165340725+0.1813158236887658j)
+C EPi (120+0j) (-0.14608106863269177-0.3682002959298991j)
+C EPo (-94.79479897710141+85.21843713371993j) (0.14608106863269177+0.3682002959298991j)
+I EPi (-94.79479897710141+85.21843713371993j) (-0.3477675772409604-0.3868477137591855j)
+I EPo 0j (0.3477675772409604+0.3868477137591855j)
+S1 EP1 (120+0j) (-0.14608106863269177-0.3682002959298991j)
+E1 EP1 (-94.79479897710141+85.21843713371993j) (0.14608106863269177+0.3682002959298991j)
+E1 EP2 (-94.79479897710141+85.21843713371993j) (0.20169106165340725-0.1813158236887658j)
+E1 EP3 (-94.79479897710141+85.21843713371993j) (-0.3477675772409604-0.3868477137591855j)
+S2 EP1 0j (0.3477675772409604+0.3868477137591855j)
+S2 EP2 0j (-0.20169106165340725+0.1813158236887658j)
 
 Elements***********
 
 R1 Resistor
-     R 450.0 Ohms Resistance
-     dV (-47.80566819447289+46.00721578846279j) volts Voltage drop
-     Z (450+0j) ohms Impedance
-     I (-0.10623481820993974+0.10223825730769508j) amps Current
+     R 470.0 Ohms Resistance
+     dV (-94.79479897710141+85.21843713371993j) volts Voltage drop
+     Z (470+0j) ohms Impedance
+     I (-0.20169106165340725+0.1813158236887658j) amps Current
 C Capacitor
-     C 4.7e-06 farad Capacitance
-     dV (167.8056681944729-46.00721578846279j) volts Voltage
-     Z -564.379230822324j ohms Impedance
-     I (0.08151826515909943+0.2973278586987921j) amps Current
+     C 4.5470450110378265e-06 farad Capacitance
+     dV (214.7947989771014-85.21843713371993j) volts Voltage
+     Z -583.3640041886217j ohms Impedance
+     I (0.14608106863269177+0.3682002959298991j) amps Current
 I Inductor
      L 0.65 ohms Inductance
-     dV (-47.80566819447289+46.00721578846279j) volts Voltage drop
+     dV (-94.79479897710141+85.21843713371993j) volts Voltage drop
      Z 245.04422698000386j Ohms Impedance
-     I (0.18775066181100883+0.19508995899900933j) amps Current
+     I (0.3477675772409604+0.3868477137591855j) amps Current
 S1 Node
      Vr 120.0 volts Real component of voltage
      Vi 0.0 volts Imaginary component of voltage
      V (120+0j) volts Voltage
      IinR 0.0 amps Real component of I comping in
-     IoutR 0.08151826515909943 amps Real component I going out
+     IoutR 0.14608106863269177 amps Real component I going out
      IinI 0.0 amps Imaginery component of I coming in
-     IoutI 0.2973278586987921 amps Imaginary component of I going out
+     IinIp1 0.1 amps Imaginery component of I coming in
+     IinIp2 0.2 amps Imaginery component of I coming in
+     IoutI 0.3682002959298991 amps Imaginary component of I going out
      Inet 0j amps Current
      I 0j amps Current
 E1 Node
-     Vr -47.80566819447289 volts Real component of voltage
-     Vi 46.00721578846279 volts Imaginary component of voltage
-     V (-47.80566819447289+46.00721578846279j) volts Voltage
-     IinR 0.18775308336903918 amps Real component of I comping in
-     IoutR 0.18775066181100883 amps Real component I going out
-     IinI 0.2973278586987921 amps Imaginery component of I coming in
-     IoutI 0.2973282163067044 amps Imaginary component of I going out
+     Vr -94.79479897710141 volts Real component of voltage
+     Vi 85.21843713371993 volts Imaginary component of voltage
+     V (-94.79479897710141+85.21843713371993j) volts Voltage
+     IinR 0.347772130286099 amps Real component of I comping in
+     IoutR 0.3477675772409604 amps Real component I going out
+     IinI 0.3682002959298991 amps Imaginery component of I coming in
+     IinIp1 0.4682002959298991 amps Imaginery component of I coming in
+     IinIp2 0.5682002959298991 amps Imaginery component of I coming in
+     IoutI 0.5681635374479512 amps Imaginary component of I going out
      Inet 0j amps Current
      I 0j amps Current
 S2 Node
      Vr 0.0 volts Real component of voltage
      Vi 0.0 volts Imaginary component of voltage
      V 0j volts Voltage
-     IinR 0.18775066181100883 amps Real component of I comping in
-     IoutR 0.10623481820993974 amps Real component I going out
-     IinI 0.2973282163067044 amps Imaginery component of I coming in
-     IoutI 0.0 amps Imaginary component of I going out
-     Inet 0j amps Current
-     I 0j amps Current
-Ports*************
-
-R1 EPi (-47.80503768610407+46.007697333157026j) (0.10623341708023128-0.1022393274070156j)
-R1 EPo 0j (-0.10623341708023128+0.1022393274070156j)
-C EPi (120+0j) (-0.08151911838804186-0.29732674152733296j)
-C EPo (-47.80503768610407+46.007697333157026j) (0.08151911838804186+0.29732674152733296j)
-I EPi (-47.80503768610407+46.007697333157026j) (-0.18775262694481415-0.19508738595994374j)
-I EPo 0j (0.18775262694481415+0.19508738595994374j)
-S1 EP1 (120+0j) (-0.08151911838804186-0.29732674152733296j)
-E1 EP1 (-47.80503768610407+46.007697333157026j) (0.08151911838804186+0.29732674152733296j)
-E1 EP2 (-47.80503768610407+46.007697333157026j) (0.10623341708023128-0.1022393274070156j)
-E1 EP3 (-47.80503768610407+46.007697333157026j) (-0.18775262694481415-0.19508738595994374j)
-S2 EP1 0j (0.18775262694481415+0.19508738595994374j)
-S2 EP2 0j (-0.10623341708023128+0.1022393274070156j)
-
-Elements***********
-
-R1 Resistor
-     R 450.0 Ohms Resistance
-     dV (-47.80503768610407+46.007697333157026j) volts Voltage drop
-     Z (450+0j) ohms Impedance
-     I (-0.10623341708023128+0.1022393274070156j) amps Current
-C Capacitor
-     C 4.700000000000001e-06 farad Capacitance
-     dV (167.80503768610407-46.007697333157026j) volts Voltage
-     Z -564.3792308223238j ohms Impedance
-     I (0.08151911838804186+0.29732674152733296j) amps Current
-I Inductor
-     L 0.65 ohms Inductance
-     dV (-47.80503768610407+46.007697333157026j) volts Voltage drop
-     Z 245.04422698000386j Ohms Impedance
-     I (0.18775262694481415+0.19508738595994374j) amps Current
-S1 Node
-     Vr 120.0 volts Real component of voltage
-     Vi 0.0 volts Imaginary component of voltage
-     V (120+0j) volts Voltage
-     IinR 0.0 amps Real component of I comping in
-     IoutR 0.08151911838804186 amps Real component I going out
-     IinI 0.0 amps Imaginery component of I coming in
-     IoutI 0.29732674152733296 amps Imaginary component of I going out
-     Inet 0j amps Current
-     I 0j amps Current
-E1 Node
-     Vr -47.80503768610407 volts Real component of voltage
-     Vi 46.007697333157026 volts Imaginary component of voltage
-     V (-47.80503768610407+46.007697333157026j) volts Voltage
-     IinR 0.18775253546827314 amps Real component of I comping in
-     IoutR 0.18775262694481415 amps Real component I going out
-     IinI 0.29732674152733296 amps Imaginery component of I coming in
-     IoutI 0.29732671336695937 amps Imaginary component of I going out
-     Inet 0j amps Current
-     I 0j amps Current
-S2 Node
-     Vr 0.0 volts Real component of voltage
-     Vi 0.0 volts Imaginary component of voltage
-     V 0j volts Voltage
-     IinR 0.18775262694481415 amps Real component of I comping in
-     IoutR 0.10623341708023128 amps Real component I going out
-     IinI 0.29732671336695937 amps Imaginery component of I coming in
+     IinR 0.3477675772409604 amps Real component of I comping in
+     IoutR 0.20169106165340725 amps Real component I going out
+     IinI 0.5681635374479512 amps Imaginery component of I coming in
+     IinIp1 0.6681635374479512 amps Imaginery component of I coming in
+     IinIp2 0.7681635374479512 amps Imaginery component of I coming in
      IoutI 0.0 amps Imaginary component of I going out
      Inet 0j amps Current
      I 0j amps Current

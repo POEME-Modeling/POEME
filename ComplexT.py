@@ -9,6 +9,7 @@ class ComplexT (  ):
 		self.name =  name
 		self.units = units
 		self.desc = desc
+		self.parent = p
 		p.addVID( self )
 		
 	def addVID(self,self1 ):

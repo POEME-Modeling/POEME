@@ -1,10 +1,11 @@
 from Atom import Atom
+from Element import Element
 from RealT import RealT
 from ComplexT import ComplexT
 
 import varsg
 
-class Independent( Atom ):
+class Independent( Element ):
     val = 0
     perturb = 0
     perturb_type = False # True is fractional
@@ -12,12 +13,17 @@ class Independent( Atom ):
     
     def __init__(self, name, val, perturb, scale, perturb_type):
         self.name = name
-        self.val = val
-        self.perturb = perturb
-        self.perturb_type = perturb_type
-        self.scale = scale
-        varsg.ind_list.append( self )
+        self.val  = val
+        self.VIDL =  list()
+        self.scale = RealT( self, 0., "scale", "", "" )  
+        self.perturb = RealT( self, .001, "perturb", "", "" )  
         
+        self.perturb_type = perturb_type
+        varsg.ind_list.append( self )
+        self.type = "Independent"
+        
+    def addVID(self,v):
+        self.VIDL.append(v)
         
     def perturbV(self):
     	
@@ -27,9 +33,9 @@ class Independent( Atom ):
         perturb_val = 0
         
         if self.perturb_type:
-            perturb_val = self.val.getVal() * self.perturb 
+            perturb_val = self.val.getVal() * self.perturb.v 
         else:
-            perturb_val = self.perturb
+            perturb_val = self.perturb.v
             
         return perturb_val
          
