@@ -1,0 +1,46 @@
+from Element import Element
+from Dependent import Dependent
+from Independent import Independent
+from State import State
+from ComplexT import ComplexT
+from RealT import RealT
+from BooleanT import BooleanT
+import varsg
+
+class Perf( Element ):
+	
+	def __init__( p,name ):
+		super().__init__( name, "Shaft" )
+		p.type = "Perf"
+		
+		p.desc = "Simple overall performance calculation"
+		
+		# variables
+		p.Fg = RealT( p, units="lbf", desc="Gross thrust" )
+		p.SFC = RealT( p, units="??", desc="Specifc fuel consumption" )
+		p.Wfuel = RealT( p, units="lbm/s", desc="Fuel flow" )
+		
+		p.initialList()
+
+
+        	
+
+	def calc(p):
+	
+		p.Fg.set( 0. )
+		p.Wfuel.set( 0. )
+		
+		# loop through elements to find the nozzles and burners	
+		for e in varsg.element_list:
+			if e.type == "Nozzle":
+				p.Fg.set(  p.Fg + e.Fg )
+			if e.type == "Burner":
+				p.Wfuel.set( p.Wfuel + e.Wfuel )
+				 
+		# calculate SFC 
+		p.SFC.set( p.Wfuel/p.Fg )
+		
+
+	def dump( self ):
+		print( self.name, "Shaft", file = varsg.out )
+		super().realPrint()

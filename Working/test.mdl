@@ -1,0 +1,6 @@
+exec( open( "pop.std").read())
+
+loadDirectory( "..\\pop" ) 
+
+loadDirectory( "..\\Brayton" ) 
+

@@ -1,0 +1,59 @@
+
+
+
+exec( open( "pop.std").read())
+
+loadDirectory( "../pop" ) 
+loadDirectory( "../SpringMass" ) 
+
+exec( open( "temp.include").read())
+
+exec( open( "pop.std").read())	
+
+W1 = Wall( "W1" )
+W1.xloc.set( 0. )
+W1.Fp1 = Fp( W1, "in", "" )
+W1.Fp2 = Fp( W1, "in", "" )
+
+S1 = Spring( "S1" )
+S1.k.set( .1 )
+S1.LN.set( 3. )
+
+D1 = Damper( "Damper" )
+D1.c.set( .01 )
+
+M1 = Mass( "Mass" )
+M1.mass.set( 1. )
+M1.xloc.set( 3. )
+M1.Fp1 = Fp( M1, "in", "" )
+M1.Fp2 = Fp( M1, "in", "" )
+
+S1.Fp1.linkFp( W1.Fp1 )
+S1.Fp2.linkFp( M1.Fp1 )
+
+D1.Fp1.linkFp( W1.Fp2 )
+D1.Fp2.linkFp( M1.Fp2 )
+
+varsg.check()
+
+varsg.NS = Newton( "varsg.NS" )
+
+estuff=Output( "estuff", filename="estuff.out" )
+estuff.vars = [ varsg.NS.time, S1.L, M1.xloc ]
+ 
+varsg.NS.solve()
+
+varsg.set( "trans", True )
+varsg.NS.timeLast.set( 100. )
+varsg.NS.dtime.set( .01 )
+
+#M1.xloc.set( M1.xloc + 1. )
+
+varsg.NS.trim()
+
+
+print( M1.x )
+
+
+varsg.NS.run()
+

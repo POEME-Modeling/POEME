@@ -1,0 +1,79 @@
+import os
+import sys
+
+if os.path.exists( "temp.include" ):
+	os.remove( "temp.include" )
+
+
+
+
+def loadDirectory( dir ):
+	
+	temp = open( "temp.include", "a" )
+	current_directory = os.getcwd()
+	files = os.listdir( dir )
+	sys.path.insert(0, dir)
+	os.chdir( dir )
+	for f in files:
+		if ".py" in f and not "~" in f: 
+			f=f[:-3]
+			exec( "from " + f + " import *" )
+			if "varsg" in f or "." in f:
+				pass
+			else:
+				temp.write( "from " + f + " import " + f + "\n")
+		
+	os.chdir( "..\Working" )
+	temp.close()
+	
+def setComp( comp ):
+	for e in varsg.element_list:
+		for v in e.VIDL:
+			if v.isa( "FN" ):
+				if v.comp.v == "none":
+					v.comp.set( comp )
+					
+def setFreq( freq ):
+	for e in varsg.element_list:
+		for v in e.VIDL:
+			if v.isa( "EP" ):
+				if v.freq.v == 0:
+					v.freq.set( freq )
+					
+def stdOut( ):
+	
+	def print():
+		print( "in print" )
+		print( "time = ", NS.time, file=out )
+		print( "Ports*************", file=out )
+		print ( "", file=out )
+		print( "Electric Ports", file=out )
+		for e in element_list:
+
+			for p in e.VIDL:
+				if p.isa( "EP" ):
+					p.dump()
+					
+		print( "", file=out )
+		print( "Fluid Ports", file=out )					
+		for e in element_list:
+			for p in e.VIDL:
+				if p.isa( "FN" ):
+					p.dump()
+					
+		print( "", file=out )					
+		print( "Mech Ports", file=out )
+		for e in element_list:
+			for p in e.VIDL:
+				if p.isa( "MP" ):
+					p.dump()
+					
+		print( "", file = out )					
+		print( "Elements***********", file = out )
+		print( "", file = out )
+					
+		for e in element_list:
+			e.dump()
+			
+os.system( "del pop.out" )
+out = open( "pop.out", "a")

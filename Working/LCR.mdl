@@ -1,0 +1,60 @@
+
+exec( open( "pop.std").read())
+
+loadDirectory( "../pop" ) 
+loadDirectory( "../Electrical" ) 
+exec( open( "temp.include").read())
+
+
+R1 = Resistor( "R1" )
+R1.R.set( 450. )
+R1.RV.x = [ -500., 400. ]
+R1.RV.y = [ 460., 450. ]
+
+
+R2 = Resistor( "R2" )
+R2.R.set( 400. )
+
+C = Capacitor( "C" )
+C.C.set( 4.7*10**-6 )
+          
+I = Inductor( "I" )
+I.L.set( 65.*10.**-2)
+
+S1 = Esource( "S1" )
+S1.Vr.set( 120. )
+
+E1 = Enode( "E1" )
+E1.Vr.set( -50. )
+E1.Vi.set( 10. )
+
+S2 = Esource( "S2" )
+
+setFreq( 60. )
+
+C.EPi.linkE( S1 )
+C.EPo.linkE( E1 )
+R1.EPi.linkE( E1 )
+R2.EPi.linkE( E1 )
+I.EPi.linkE( E1 )
+I.EPo.linkE( S2 )
+R1.EPo.linkE( S2 )
+R2.EPo.linkE( S2 )
+
+
+estuff=Output( "estuff", filename="estuff.out" )
+estuff.vars = [  C.C ]
+
+E1.con_1 = Constraint( E1, d1name="E1.IinIp1", d2name="E1.IoutI", depname="E1.dep_2", active=False )
+E1.con_2 = Constraint( E1, d1name="E1.IinIp2", d2name="E1.IoutI", depname="E1.dep_2", active=False )
+	
+
+
+varsg.check()
+
+varsg.NS = Newton( "varsg.NS" )
+
+varsg.NS.run()
+
+print( "converged",  varsg.NS.converged )
+
