@@ -25,7 +25,7 @@ class Newton(Element):
         s.VIDL = list()
         s.ind_list = varsg.ind_list
         s.dep_list = varsg.dep_list
-        s.maxJacobians =  RealT( s, v=500., units="Integer", desc="Maxium number of Jacobians" )  
+        s.maxJacobians =  RealT( s, v=100., units="Integer", desc="Maxium number of Jacobians" )  
         s.numpasses =  RealT( s, v=0., units="Integer", desc="Number of passes" )  
         s.tolerance = RealT( s, v=.0001, units="real", desc="tolernace" )  
         s.constraints = False
@@ -147,7 +147,10 @@ class Newton(Element):
 
                     scale = 0
                     # run base point
-                    s.onepass()
+                    try:
+                        s.onepass()
+                    except:
+                        iter = s.maxJacobians.v
 
                     errSum = 0
                 
@@ -176,149 +179,165 @@ class Newton(Element):
                         # perturb ind
                         i.ind.v = i.ind.v + dx
                         dcount = 0
-                        s.onepass()
+                        try:
+                            s.onepass()
 
-                        for d in s.dep_list:
-                            if d.active == True:
-                                matrix[dcount][icount] =( d.depError() - d.baseError )/dx
-                                dcount = dcount+1
+                            for d in s.dep_list:
+                                if d.active == True:
+                                    matrix[dcount][icount] =( d.depError() - d.baseError )/dx
+                                    dcount = dcount+1
                             
-                        for st in s.state_list:
-                            if st.active == True:
-                                matrix[dcount][icount] =( st.depError() - st.baseError )/dx
-                                dcount = dcount+1
+                            for st in s.state_list:
+                                if st.active == True:
+                                    matrix[dcount][icount] =( st.depError() - st.baseError )/dx
+                                    dcount = dcount+1
 
-                        for c in s.con_list:
-                            if c.active == True:
-                                matrix[ dcount][icount] =( c.depError() - c.baseError )/dx 
-                                dcount = dcount+1
+                            for c in s.con_list:
+                                if c.active == True:
+                                    matrix[ dcount][icount] =( c.depError() - c.baseError )/dx 
+                                    dcount = dcount+1
+                                
+                        except:
+                            iter = s.maxJacobians.v
                             
                         # move independent back
                         i.ind.v = ( i.ind.v - dx )
                         icount = icount + 1
 
                 # invert the matrix
-                imatrix = linalg.inv( matrix )
+                try:
+                    imatrix = linalg.inv( matrix )
+                except:
+                    print( "your solver is a bunghole!!" )
+                    iter = s.maxJacobians.v
                 bc = 0
                 # if the error keeps improving, keep using jacobian
                 #while errSum <= errSumLast and s.converged == False:
                 check = 0
                 while check == 0:
-                    check = 1
+                    try:
+                        check = 1
                     
-                    bc =  bc + 1
-                    # broyden update
+                        bc =  bc + 1
+                        # broyden update
                         
                         
-                    ic = 0
-                
-                    s.onepass()
+                        ic = 0
+                   
+                        s.onepass()
+ 
                     
-                    # determine how much to change an independent by
-                    # how it affects the deps, etc
-                    for i in s.ind_list:
-                        id = 0
-                        delx[ic]=0
+                        # determine how much to change an independent by
+                        # how it affects the deps, etc
+                        for i in s.ind_list:
+                            id = 0
+                            delx[ic]=0
+                            for d in s.dep_list:
+                                if d.active == True:
+                                    d.errLast.v = d.depError()
+                                    delx[ic] = delx[ic]-imatrix[ic][id]*d.depError()
+                                    id = id + 1
+                                
+                            for st in s.state_list:
+                                if st.active == True:
+                                    st.errLast.v = st.depError()
+                                    delx[ic] = delx[ic]-imatrix[ic][id]*st.depError()
+                                    id = id + 1                     
+                        
+                            for c in s.con_list:
+                                if c.active == True:
+                                    c.errLast.v = c.depError()
+                                    delx[ic] = delx[ic]-imatrix[ic][id]*c.depError()
+                                    id = id + 1
+                            ic = ic + 1     
+                        
+                        # determine a maximum the inds are allowed to step
+                        # based on the max value for any ind
+                        # all other inds are scaled to this vale
+                        ic = 0
+                        scale = 1.
+                        maxdx = 1.
+                        iscale = 1.
+                        for i in s.ind_list:
+                            if i.ind.v!= 0:
+                                scale = i.ind.v
+                            if i.scale.v != 0:
+                                scale = i.scale.v
+                            if abs( delx[ic]/scale ) > .1:
+                                if abs( delx[ic] )> abs( .1*scale ):
+                                    if iscale > abs( .1*scale/delx[ic] ):
+                                        iscale = abs( .1*scale/delx[ic] )
+                            
+                            #ic = ic + 1
+                        if iscale == 0:
+                            iscale = 1.
+                        #iscale = 1.
+                        
+                        # update the inds
+                        # and rerun
+                        ic = 0
+                        for i in s.ind_list:
+                            delxs[ic] = delx[ic]*iscale
+                            i.ind.v = ( i.ind.v + delxs[ic] )
+                            ic = ic + 1
+                        try:
+                            s.onepass()
+                        except:
+                            print( "u have awoken m y bunghole" )
+                            iter = s.maxJacobians.v
+                       
+                    
+
+                        errSumLast = errSum
+                        errSum = 0.
+
                         for d in s.dep_list:
                             if d.active == True:
-                                d.errLast.v = d.depError()
-                                delx[ic] = delx[ic]-imatrix[ic][id]*d.depError()
-                                id = id + 1
-                                
+                                errSum = errSum + d.depError()**2.
+                                    
                         for st in s.state_list:
                             if st.active == True:
-                                st.errLast.v = st.depError()
-                                delx[ic] = delx[ic]-imatrix[ic][id]*st.depError()
-                                id = id + 1                     
+                                errSum = errSum + st.depError()**2.
                         
                         for c in s.con_list:
                             if c.active == True:
-                                c.errLast.v = c.depError()
-                                delx[ic] = delx[ic]-imatrix[ic][id]*c.depError()
-                                id = id + 1
-                        ic = ic + 1     
-                        
-                    # determine a maximum the inds are allowed to step
-                    # based on the max value for any ind
-                    # all other inds are scaled to this vale
-                    ic = 0
-                    scale = 1.
-                    maxdx = 1.
-                    iscale = 1.
-                    for i in s.ind_list:
-                        if i.ind.v!= 0:
-                            scale = i.ind.v
-                        if i.scale.v != 0:
-                            scale = i.scale.v
-                        if abs( delx[ic]/scale ) > .1:
-                            if abs( delx[ic] )> abs( .1*scale ):
-                                if iscale > abs( .1*scale/delx[ic] ):
-                                    iscale = abs( .1*scale/delx[ic] )
-                            
-                        #ic = ic + 1
-                    if iscale == 0:
-                        iscale = 1.
-                    #iscale = 1.
-                        
-                    # update the inds
-                    # and rerun
-                    ic = 0
-                    for i in s.ind_list:
-                        delxs[ic] = delx[ic]*iscale
-                        i.ind.v = ( i.ind.v + delxs[ic] )
-                        ic = ic + 1
-
-                    s.onepass()
-
-                    errSumLast = errSum
-                    errSum = 0.
-
-                    for d in s.dep_list:
-                        if d.active == True:
-                            errSum = errSum + d.depError()**2.
-                                
-                    for st in s.state_list:
-                        if st.active == True:
-                            errSum = errSum + st.depError()**2.
-                        
-                    for c in s.con_list:
-                        if c.active == True:
-                            errSum =  errSum + c.depError()**2
+                                errSum =  errSum + c.depError()**2
                 
-                    # if error is worse, we stepped to far
-                    # step bac\k
-                    ic = 0
+                        # if error is worse, we stepped to far
+                        # step bac\k
+                        ic = 0
                     
-                    #if errSum > errSumLast and iter > 1:
-                        #print( "step back" )
-                        #for i in s.ind_list:
-                            #i.ind.v = ( i.ind.v - delxs[ic] )
+                        #if errSum > errSumLast and iter > 1:
+                            #print( "step back" )
+                            #for i in s.ind_list:
+                                #i.ind.v = ( i.ind.v - delxs[ic] )
                             #ic = ic + 1
                             #s.onepass()
                     
                     # check error for convergence
-                    s.converged = True
-                    for d in s.dep_list:
-                        if d.active == True:
-                            if abs( d.depError() ) > s.tolerance.v:
-                                s.converged = False
+                        s.converged = True
+                        for d in s.dep_list:
+                            if d.active == True:
+                                if abs( d.depError() ) > s.tolerance.v:
+                                    s.converged = False
                                 
                                 
-                    for st in s.state_list:
-                        if st.active == True:
-                            if abs( st.depError() ) > s.tolerance.v:
-                                s.converged = False 
+                        for st in s.state_list:
+                            if st.active == True:
+                                if abs( st.depError() ) > s.tolerance.v:
+                                    s.converged = False 
                                 
-                    for c in s.con_list:
-                        if c.active == True:
-                            if abs( c.depError() ) > s.tolerance.v:
-                                s.converged = False
+                        for c in s.con_list:
+                            if c.active == True:
+                                if abs( c.depError() ) > s.tolerance.v:
+                                    s.converged = False
                 
-                
+                    except:
+                        iter = s.maxJacobians
+                        
             # check status of the constraints   
             s.constraints = False                           
             for c in s.con_list:
-                print( "SDSDS" )
                 if c.errorCheck() and c.active == False:
                     print( "constraints" )
                     c.dep.active = False
@@ -329,23 +348,34 @@ class Newton(Element):
                     s.constraints =  True  
 
                     
-        # if we are here, model is done                 
-        s.onepass()
+        # if we are here, model is done
+        try:
+            s.onepass()
+        except:
+            pass
 
         #varsg.stdOut = open( "pop.out", "a" )
         varsg.stdOut.print()
         #varsg.out.close()
         
-        if iter == s.maxJacobians.v:
+        if iter > s.maxJacobians.v - 1:
             print( "did not converge" )
-            quit()
-            
-        
-        
+           
+          
     def trim( s ):
         # trim up model
         for st in varsg.state_list:
             st.trim()   
+            
+            
+    def saveInds( s ):
+        for i in varsg.ind_list:
+            i.ind.save = ( i.ind.v )
+         
+    def restoreInds( s ):
+        for i in varsg.ind_list:
+            i.ind.v = ( i.ind.save )
+
             
     # user wants transient data                         
     def transrun( s ):

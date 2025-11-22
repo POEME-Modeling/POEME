@@ -25,6 +25,7 @@ class Independent( Atom ):
         i.perturb_type = i.perturb_type
         i.scale = RealT( i, v=i.scale,  units="", desc="" )
         i.scale.name1 = "scale"
+        i.saved = RealT( i, units="", desc="" )
 
         if p == 0:
            pass  

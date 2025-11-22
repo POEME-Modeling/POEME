@@ -214,12 +214,14 @@ class FN( Atom ):
     
             error = ( f.MN.v - MNor )/ MNor
             x = f.Ps.v 
-            while abs( error ) > .00001:
+            count = 0
+            while abs( error ) > .00001 and count < 50:
+                count = count + 1
                 xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
-                if xp1 - x > .1*f.Ps.v:
-                    xp1 = x + .1*f.Ps.v
-                if xp1 - x < -.1*f.Ps.v:
-                    xp1 = x - .1*f.Ps.v
+                if xp1 - x > .1*f.Pt.v:
+                    xp1 = x + .1*f.Pt.v
+                if xp1 - x < -.1*f.Pt.v:
+                    xp1 = x - .1*f.Pt.v
                 xm1 = x
                 errorm1 = error
                 x = xp1
@@ -247,6 +249,7 @@ class FN( Atom ):
 
             count = 0
             while abs( error >.00001 and count < 50 ):
+                count =  count + 1
             
                 xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
         
@@ -276,9 +279,9 @@ class FN( Atom ):
         f.mus.v = eval(f.comp.v).mu( f.Ts.v, f.Ps.v, f.FAR.v )
         f.ks.v = eval(f.comp.v).k( f.Ts.v, f.Ps.v, f.FAR.v )
         f.gams.v =  eval(f.comp.v).gam( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.V.v = math.sqrt( 2*(f.ht.v - f.hs.v)*25037. )     
-        f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037. )
-        f.A.v = f.W.v /( f.rhos.v*f.V.v )
+        f.V.v = math.sqrt( 2*abs(f.ht.v - f.hs.v)*25037. )* abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v)    
+        f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037.) *abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v) 
+        f.A.v = f.W.v /( f.rhos.v*abs(f.V.v ))
     
     def isa( m, type ):
         if type == "FN":
@@ -442,7 +445,9 @@ class FN( Atom ):
         x = Pt
 
         i = 0
-        while abs( error ) > .00001:
+        count = 0
+        while ( abs( error ) > .00001 and count < 50 ):
+            count = count + 1
             xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
             if xp1 - x > .05*f.Pt.v:
                 xp1 = x + .05*f.Pt.v
