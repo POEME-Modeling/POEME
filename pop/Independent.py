@@ -14,6 +14,7 @@ class Independent( Atom ):
         i.type = "Independent"
         i.name1 = ""
         i.VIDL = list()
+        i.scale = 0.
         
         i.__dict__.update(kwargs)  
         

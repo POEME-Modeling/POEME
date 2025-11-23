@@ -42,7 +42,7 @@ class Compressor( Element ):
         c.ind_CR = Independent( c, indname="Rline", perturb=.05, scale=100, perturb_type="Relative", active=False, desc="Varies R-line" )        
         c.dep_CW = Dependent( c, d1name="Wc", d2name="WcMap", active=False, desc="Handles weight flow error" )
 
-		# variables
+        # variables
         c.eff = RealT( c, units="none", desc="Efficiency" )
         c.effDes = RealT( c, units="none", desc="Design efficiency" )
         c.effMap = RealT( c, units="none", desc="Efficiency read from table" ) 
@@ -70,63 +70,66 @@ class Compressor( Element ):
         c.initialList()
         
     def calc(c):
-    	
-    	# copy incoming flow to other ports
-    	c.FNo.copy( c.FNi )
-    	c.FNoBld1.copy( c.FNi )
-    	c.FNoBld2.copy( c.FNi )    	
-    	c.FNideal.copy( c.FNi )
+        
+        # copy incoming flow to other ports
+        c.FNo.copy( c.FNi )
+        c.FNoBld1.copy( c.FNi )
+        c.FNoBld1.W.set( 0. )
+        c.FNoBld2.copy( c.FNi )
+        c.FNoBld2.W.set( 0. )        
+        c.FNideal.copy( c.FNi )
 
-       	# calculate corrected speed amd corrected flow
-    	c.Nc.set( c.MP.N/( c.FNi.Tt )**.5 )
-    	c.Wc.set( c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt )
+        # calculate corrected speed amd corrected flow
+        c.Nc.set( c.MP.N/( c.FNi.Tt )**.5 )
+        c.Wc.set( c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt )
 
-		# if we are in design mode set the conditions	
-    	if c.size == True:
-    		c.NcScale.set( c.NcMapDes / c.Nc )
-    		c.WcDes.set( c.Wc )
-    		c.Rline.set( c.RlineDes ) 
-    		
- 		# scale the corrected speed   		
-    	c.NcMap.set( c.NcScale*c.Nc ) 
-   		        	
-		# read the maps   		        	
-    	c.effMap.set( c.effTable.calc( c.NcMap, c.Rline  ))
-    	c.PRmap.set ( c.PRtable.calc( c.NcMap, c.Rline ))
-    	c.WcMap.set( c.WcTable.calc( c.NcMap, c.Rline ))
+        # if we are in design mode set the conditions   
+        if c.size == True:
+            c.NcScale.set( c.NcMapDes / c.Nc )
+            c.WcDes.set( c.Wc )
+            c.Rline.set( c.RlineDes ) 
+            
+        # scale the corrected speed         
+        c.NcMap.set( c.NcScale*c.Nc ) 
+                    
+        # read the maps                     
+        c.effMap.set( c.effTable.calc( c.NcMap, c.Rline  ))
+        c.PRmap.set ( c.PRtable.calc( c.NcMap, c.Rline ))
+        c.WcMap.set( c.WcTable.calc( c.NcMap, c.Rline ))
 
-		# if in desing mode determine the scale factors
-    	if c.size == True:
-        	c.effScale.set( c.effDes / c.effMap )
-        	c.PRscale.set( c.PRdes / c.PRmap )
-        	c.WcScale.set( c.WcDes / c.WcMap )
-        	
-        # scale the map values	
-    	c.eff.set( c.effMap*c.effScale )
-    	c.PR.set( c.PRmap*c.PRscale )
-    	c.WcMap.set( c.WcScale*c.WcMap )
+        # if in desing mode determine the scale factors
+        if c.size == True:
+            c.effScale.set( c.effDes / c.effMap )
+            c.PRscale.set( c.PRdes / c.PRmap )
+            c.WcScale.set( c.WcDes / c.WcMap )
+            
+        # scale the map values  
+        c.eff.set( c.effMap*c.effScale )
+        c.PR.set( c.PRmap*c.PRscale )
+        c.WcMap.set( c.WcScale*c.WcMap )
 
-		# determine the ideal conditions
-    	c.FNideal.set_sP( c.FNi.s, c.PR*c.FNi.Pt )
+        # determine the ideal conditions
+        c.FNideal.set_sP( c.FNi.s, c.PR*c.FNi.Pt )
 
-		# determine the actual exit conditions
-    	htOut = c.FNi.ht+( c.FNideal.ht - c.FNi.ht )/ c.eff
-    	c.FNo.set_hP( htOut, c.PR*c.FNi.Pt )
+        # determine the actual exit conditions
+        htOut = c.FNi.ht+( c.FNideal.ht - c.FNi.ht )/ c.eff
+        c.FNo.set_hP( htOut, c.PR*c.FNi.Pt )
   
-		# set the bleed exit conditions 
-    	if c.Wfrac1 > 0.:
-    		c.FNoBld1.setW(  c.Wfrac1*c.FNi.W )
-    		c.FNoBld1.set_hP( c.FNi.ht + c.hfract1*( c.FNo.ht - c.FNi.ht ), c.hfract1*(c.FNo.Pt - c.FNi.Pt ))    	
-    	if c.Wfrac2 > 0.:
-    		c.FNoBld2.setW( c.Wfrac2*c.FNi.W )
-    		c.FNoBld2.set_hP( c.FNi.ht + c.hfract2*( c.FNo.ht - c.FNi.ht ), c.hfract2*(c.FNo.Pt - c.FNi.Pt ))
+        # set the bleed exit conditions 
+        if c.Wfrac1 > 0.:
+            c.FNoBld1.setW(  c.Wfrac1*c.FNi.W )
+            c.FNoBld1.set_hP( c.FNi.ht + c.hfract1*( c.FNo.ht - c.FNi.ht ), c.hfract1*(c.FNo.Pt - c.FNi.Pt ))       
+        if c.Wfrac2 > 0.:
+            c.FNoBld2.setW( c.Wfrac2*c.FNi.W )
+            c.FNoBld2.set_hP( c.FNi.ht + c.hfract2*( c.FNo.ht - c.FNi.ht ), c.hfract2*(c.FNo.Pt - c.FNi.Pt ))
 
-		# set the exit conditions
-    	c.MP.setHP(  -1.*(( c.FNo.ht - c.FNi.ht )*c.FNo.W*3600./2545.+
-    	 ( c.FNoBld1.ht - c.FNi.ht )*c.FNoBld1.W*3600./2545.+
-    	 ( c.FNoBld2.ht - c.FNi.ht )*c.FNoBld2.W*3600./2545. ) )
-    	c.FNo.setW( c.FNo.W - c.FNoBld1.W - c.FNoBld2.W )
-   
+        # set the exit conditions
+        c.MP.setHP(  -1.*(( c.FNo.ht - c.FNi.ht )*c.FNo.W*3600./2545.+
+         ( c.FNoBld1.ht - c.FNi.ht )*c.FNoBld1.W*3600./2545.+
+         ( c.FNoBld2.ht - c.FNi.ht )*c.FNoBld2.W*3600./2545. ) )
+         
+        c.FNo.setW( c.FNo.W - c.FNoBld1.W - c.FNoBld2.W )
+        
      
     def precheck( c ):
         
@@ -134,15 +137,15 @@ class Compressor( Element ):
         if c.size == True:
             c.ind_CR.active = False
             c.dep_CW.active = False
-		# off design turn on solver stuff
+        # off design turn on solver stuff
         else:
             c.ind_CR.active = True
             c.dep_CW.active = True
  
 
-    	 	
+            
     def dump( c ): 
-    	#dump output variables
+        #dump output variables
         print( c.name1, "Compressor", file=varsg.out )
         super().realPrint()       
       

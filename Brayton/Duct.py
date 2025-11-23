@@ -25,11 +25,10 @@ class Duct( Element ):
         d.initialList()
         
     def calc(d):
-    	# pass incoming flow information
-    	d.FNo.copy( d.FNi )
-    	# keep enthalpy constant and apply a pressure drop
-    	d.FNo.set_hP( d.FNo.ht + d.Q/d.FNi.W, d.FNo.Pt*( 1.- d.dP ) )
-
+        # pass incoming flow information
+        d.FNo.copy( d.FNi )
+        # keep enthalpy constant and apply a pressure drop
+        d.FNo.set_hP( d.FNo.ht + d.Q/d.FNi.W, d.FNo.Pt*( 1.- d.dP ) )
   
     def dump( d ): 
         print( d.name1, "Duct", file=varsg.out )

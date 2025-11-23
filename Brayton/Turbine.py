@@ -38,8 +38,8 @@ class Turbine( Element ):
         # mechanical connections
         t.MP = MP( t, io="out", desc="Connection to shaft" )
 
-		# solver stuff
-        t.ind_TPR = Independent( t, indname="PR", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies pressure ratio" )        
+        # solver stuff
+        t.ind_TPR = Independent( t, indname="PR", perturb=.05, perturb_type="Relative", active=True, desc="Varies pressure ratio" )        
         t.dep_TW = Dependent( t, d1name="Wc", d2name="WcMap", active=False, desc="Handles flow error" )
 
         # variables
@@ -61,71 +61,71 @@ class Turbine( Element ):
         t.WcScale = RealT( t, units="none", desc="scale factor of corrected flow" )                          
         
         t.size = BooleanT( t, v=True, des="determines if the turbine is in sizing mode or not" )
-         
+        t.initialList()
         
     def calc(t):
-    	
-    	# add in the first bleed flow
-    	t.FN41.copy ( t.FNi )
-    	t.FN41.add( t.FNiBld1 )
-    	
-    	# calculate corrected conditions
-    	t.Nc.set( t.MP.N/( t.FNi.Tt )**.5 )
-    	t.Wc.set( t.FNi.W*( t.FNi.Tt )**.5/ t.FNi.Pt )  
+        
+        # add in the first bleed flow
 
-		# if we are in sizing mode calculate scalars
-    	if t.size == True:
-    		t.NcScale.set( t.NcMapDes/ t.Nc )
-    		t.PRmapScale.set( ( t.PRmapDes.v - 1. )/( t.PR.v - 1. ))
-    		t.WcDes.set( t.Wc.v ) 
-    		
-    	# set the map independents	
-    	t.NcMap.set( t.NcScale*t.Nc )
-    	t.PRmap.set( t.PRmapScale*( t.PR - 1. ) + 1. )
+        t.FN41.copy ( t.FNi )
+        t.FN41.add( t.FNiBld1 )
+       
+        # calculate corrected conditions
+        t.Nc.set( t.MP.N/( t.FNi.Tt )**.5 )
+        t.Wc.set( t.FNi.W*( t.FNi.Tt )**.5/ t.FNi.Pt )  
     
-    	# read the tables
-    	t.effMap.set( t.effTable.calc( t.NcMap, t.PRmap  ))
-    	t.WcMap.set( t.WcTable.calc( t.NcMap, t.PRmap ))
-    	
-    	# if in sizing mode calculate scalars
-    	if t.size == True:
-        	t.effScale.set( t.effDes / t.effMap )
-        	t.WcScale.set( t.WcDes / t.WcMap )
-        	
-		# scale the map results
-    	t.eff.set( t.effMap*t.effScale )
-    	t.WcMap.set( t.WcMap*t.WcScale )
+        # if we are in sizing mode calculate scalars
+        if t.size == True:
+            t.NcScale.set( t.NcMapDes/ t.Nc )
+            t.PRmapScale.set( ( t.PRmapDes.v - 1. )/( t.PR.v - 1. ))
+            t.WcDes.set( t.Wc.v ) 
+            
+        # set the map independents  
+        t.NcMap.set( t.NcScale*t.Nc )
+        t.PRmap.set( t.PRmapScale*( t.PR - 1. ) + 1. )
+    
+        # read the tables
+        t.effMap.set( t.effTable.calc( t.NcMap, t.PRmap  ))
+        t.WcMap.set( t.WcTable.calc( t.NcMap, t.PRmap ))
+    
+        # if in sizing mode calculate scalars
+        if t.size == True:
+            t.effScale.set( t.effDes / t.effMap )
+            t.WcScale.set( t.WcDes / t.WcMap )
+            
+        # scale the map results
+        t.eff.set( t.effMap*t.effScale )
+        t.WcMap.set( t.WcMap*t.WcScale )
 
-    	# calculate the expansions conditions
-    	t.FNideal.copy( t.FN41 )	
-    	t.FNideal.set_sP( t.FN41.s, t.FN41.Pt/t.PR )
-    	htOut = t.FNi.ht + ( t.FNideal.ht - t.FNi.ht )*t.eff
-    	t.FN42.copy(  t.FN41 )
-    	t.FN42.set_hP( htOut, t.FNideal.Pt )
-    	
-    	# add in the second bleed flow
-    	t.FNo.copy( t.FN42 )
-    	t.FNo.add( t.FNiBld2 )
-    	
-    	# set the horse power on the mechanical port
-    	t.MP.setHP(-1*( t.FN42.ht - t.FN41.ht )*t.FN41.W*3600./2545.)
-    	
-    	t.initialList()
-    	
+        # calculate the expansions conditions
+        t.FNideal.copy( t.FN41 )    
+        t.FNideal.set_sP( t.FN41.s, t.FN41.Pt/t.PR )
+        htOut = t.FNi.ht + ( t.FNideal.ht - t.FNi.ht )*t.eff
+        t.FN42.copy(  t.FN41 )
+        t.FN42.set_hP( htOut, t.FNideal.Pt )
+        
+        # add in the second bleed flow
+        t.FNo.copy( t.FN42 )
+        t.FNo.add( t.FNiBld2 )
+        
+        # set the horse power on the mechanical port
+        t.MP.setHP(-1*( t.FN42.ht - t.FN41.ht )*t.FN41.W*3600./2545.)
+
+        
   
     def precheck( t ):
-    	
-    	# if we are sizing mode dont add in the weight flow error
+        
+        # if we are sizing mode dont add in the weight flow error
         if t.size.v == True:
-        	t.ind_TPR.active = True
-        	t.dep_TW.active = False
-        	
-        # if we are not in sizing mode then add in weight flow error	
+            t.ind_TPR.active = True
+            t.dep_TW.active = False
+            
+        # if we are not in sizing mode then add in weight flow error    
         else:
-        	t.ind_TPR.active = True
-        	t.dep_TW.active = True			    	 
+            t.ind_TPR.active = True
+            t.dep_TW.active = True                   
 
-    	 	
+            
     def dump( self ): 
         print( self.name1, "Turbine", file=varsg.out )
         super().realPrint()       

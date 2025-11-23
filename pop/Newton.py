@@ -84,7 +84,7 @@ class Newton(Element):
         for i in varsg.ind_list:
             if i.active == True:
                 s.ind_list.append( i )
-    
+               
         for st in varsg.state_list:
             if st.active == True:
                 s.state_list.append( st )
@@ -93,7 +93,7 @@ class Newton(Element):
             s.con_list.append( c )
             c.active = False
             c.dep.active = True
-
+        
         # create an empty matrix
         matrix = np.zeros( (len( s.ind_list ), len( s.dep_list )+len( s.state_list )))
         delx = np.zeros( len( s.ind_list ))
@@ -280,10 +280,10 @@ class Newton(Element):
                             delxs[ic] = delx[ic]*iscale
                             i.ind.v = ( i.ind.v + delxs[ic] )
                             ic = ic + 1
+                        
                         try:
                             s.onepass()
                         except:
-                            print( "u have awoken m y bunghole" )
                             iter = s.maxJacobians.v
                        
                     
