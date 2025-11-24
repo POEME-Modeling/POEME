@@ -84,15 +84,16 @@ class Newton(Element):
         for i in varsg.ind_list:
             if i.active == True:
                 s.ind_list.append( i )
-               
+                  
         for st in varsg.state_list:
             if st.active == True:
                 s.state_list.append( st )
    
         for c in varsg.con_list:
-            s.con_list.append( c )
-            c.active = False
-            c.dep.active = True
+            if c.on == True:
+                s.con_list.append( c )
+                c.active = False
+                c.dep.active = True
         
         # create an empty matrix
         matrix = np.zeros( (len( s.ind_list ), len( s.dep_list )+len( s.state_list )))
@@ -208,7 +209,6 @@ class Newton(Element):
                 try:
                     imatrix = linalg.inv( matrix )
                 except:
-                    print( "your solver is a bunghole!!" )
                     iter = s.maxJacobians.v
                 bc = 0
                 # if the error keeps improving, keep using jacobian
@@ -267,8 +267,8 @@ class Newton(Element):
                                 if abs( delx[ic] )> abs( .1*scale ):
                                     if iscale > abs( .1*scale/delx[ic] ):
                                         iscale = abs( .1*scale/delx[ic] )
-                            
-                            #ic = ic + 1
+                              
+                            ic = ic + 1
                         if iscale == 0:
                             iscale = 1.
                         #iscale = 1.
@@ -280,7 +280,7 @@ class Newton(Element):
                             delxs[ic] = delx[ic]*iscale
                             i.ind.v = ( i.ind.v + delxs[ic] )
                             ic = ic + 1
-                        
+
                         try:
                             s.onepass()
                         except:
@@ -339,12 +339,13 @@ class Newton(Element):
             s.constraints = False                           
             for c in s.con_list:
                 if c.errorCheck() and c.active == False:
-                    print( "constraints" )
+                    print( "constraints", c.active )
                     c.dep.active = False
                     #for cp in s.con_list:
                         #if cp.dep == c.dep:
                             #cp.active =  False
                     c.active = True
+                    print( c.active )
                     s.constraints =  True  
 
                     
@@ -353,13 +354,22 @@ class Newton(Element):
             s.onepass()
         except:
             pass
+            
 
         #varsg.stdOut = open( "pop.out", "a" )
         varsg.stdOut.print()
         #varsg.out.close()
         
+        for c in varsg.con_list:
+            if c.on == True:
+                s.con_list.append( c )
+                c.active = False
+                c.dep.active = True        
+        
         if iter > s.maxJacobians.v - 1:
             print( "did not converge" )
+        else:
+            print( "converged" )
            
           
     def trim( s ):

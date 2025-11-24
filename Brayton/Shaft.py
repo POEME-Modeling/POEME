@@ -17,7 +17,7 @@ class Shaft( Element ):
         s.port_list = list()
         
         # solver stuff
-        s.ind_1 = Independent( s, indname="N", perturb=.05, scale=100, perturb_type="Relative", active=False, desc="Vary shaft speed" )
+        s.ind_1 = Independent( s, indname="N", perturb=.05, perturb_type="Relative", active=False, desc="Vary shaft speed" )
         s.state_1 = State( s, d1name="HPpos", d2name="HPneg", sname="N", dsname="dNdt", active=True, desc="Shaft speed power error/state" )
 
         # variables

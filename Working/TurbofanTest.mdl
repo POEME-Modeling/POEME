@@ -94,6 +94,7 @@ start.W.set( 815.49 )
 # use cantera for fluid properties
 #start.comp.set( "canteraFN" )
 
+
 # use tables for fluid properties
 start.comp.set( "air4" )
 
@@ -161,7 +162,7 @@ duct45.dP.set( 0.005 )
 duct45.FNo.MN.set( 0.45 )
 
 LPT.PRmapDes.set( 6.0 )
-LPT.PR.set( 6.5 )
+LPT.PR.set( 2. )
 LPT.effDes.v = 0.9400
 LPT.NcMapDes.set( 0.9 )
 LPT.FNo.MN.set( 0.35 )
@@ -445,6 +446,9 @@ varsg.NS.solve()
 
 
 
+
+
+
 case = 0
 
 def runThrottleHook( MNset, altitude ):
@@ -454,22 +458,42 @@ def runThrottleHook( MNset, altitude ):
    fan.NcDem.set( 1. )
    start.MN.set( MNset )
    start.alt.set( altitude )
+   varsg.NS.saveInds()
    varsg.NS.run()
+   FnetMax = priNozzle.Fg + fanNozzle.Fg - start.Fram
+ 
+   case = case + 1
    varsg.NS.saveInds()
    printStations()
+   factor = .9   
+   start.Fdem.set( start.Fnet*factor )
    
-   while( fan.NcDem > .7 and varsg.NS.converged == True ):
-    fan.NcDem.set( fan.NcDem - .05 )
+   fan.dep_NmechC.active=False 
+   burner.con_1.on=False 
+   burner.con_1.active = False
+   #start.dep_Fnet.active = False
+   burner.ind_FAR.active = False
+   varsg.check()
+
+   while( factor > .2 and varsg.NS.converged == True ):
+    start.Fdem.set( FnetMax*factor )
+    burner.FAR.set( burner.FAR - .0025 )
     varsg.NS.run()
+    factor = (priNozzle.Fg + fanNozzle.Fg - start.Fram)/FnetMax
+    case = case + 1
     printStations()
 
 
-   print( 'running back to full power' )
-   
-   fan.NcDem.set( 1.0 )
+
+   fan.dep_NmechC.active=True 
+   burner.con_1.on=True 
+   burner.ind_FAR.active = True
+   varsg.check()
+   fan.NcDem.set( 1.0 ) 
    varsg.NS.restoreInds()
    varsg.NS.run()
-   
+   factor = (priNozzle.Fg + fanNozzle.Fg - start.Fram)/FnetMax
+   case = case + 1
 
 
 
@@ -477,24 +501,25 @@ def printStations():
    print( 'CASE # ', case )
    print( '---', start.MN, start.alt, '----------------------------------------------------' )
    print( 'fan Nc =', fan.NcMap, '     burner temperature =', burner.FNo.Tt, '   ambient Ps =', inlet.FNi.Ps )
-   #print( 'inlet in', inlet.FNi.W, inlet.FNi.Pt, inlet.FNi.Tt, inlet.FNi.Ps, inlet.FNi.Ts, inlet.FNi.rhos, inlet.FNi.MN )
-   #print( 'inlet out', inlet.FNo.W, inlet.FNo.Pt, inlet.FNo.Tt, inlet.FNo.Ps, inlet.FNo.Ts, inlet.FNo.rhos, inlet.FNo.MN )
-   #print( 'fan out', fan.FNo.W, fan.FNo.Pt, fan.FNo.Tt, fan.FNo.Ps, fan.FNo.Ts, fan.FNo.rhos, fan.FNo.MN )
-   #print( 'duct2 out', LPC.FNi.W, LPC.FNi.Pt, LPC.FNi.Tt, LPC.FNi.Ps, LPC.FNi.Ts, LPC.FNi.rhos, LPC.FNi.MN )
-   #print( 'LPC out', LPC.FNo.W, LPC.FNo.Pt, LPC.FNo.Tt, LPC.FNo.Ps, LPC.FNo.Ts, LPC.FNo.rhos, LPC.FNo.MN )
-   #print( 'duct25 out', HPC.FNi.W, HPC.FNi.Pt, HPC.FNi.Tt, HPC.FNi.Ps, HPC.FNi.Ts, HPC.FNi.rhos, HPC.FNi.MN )
-   #print( 'HPC out', HPC.FNo.W, HPC.FNo.Pt, HPC.FNo.Tt, HPC.FNo.Ps, HPC.FNo.Ts, HPC.FNo.rhos, HPC.FNo.MN )
+   print( fan.Rline )
+   print( 'inlet in', inlet.FNi.W, inlet.FNi.Pt, inlet.FNi.Tt, inlet.FNi.Ps, inlet.FNi.Ts, inlet.FNi.rhos, inlet.FNi.MN )
+   print( 'inlet out', inlet.FNo.W, inlet.FNo.Pt, inlet.FNo.Tt, inlet.FNo.Ps, inlet.FNo.Ts, inlet.FNo.rhos, inlet.FNo.MN )
+   print( 'fan out', fan.FNo.W, fan.FNo.Pt, fan.FNo.Tt, fan.FNo.Ps, fan.FNo.Ts, fan.FNo.rhos, fan.FNo.MN )
+   print( 'duct2 out', LPC.FNi.W, LPC.FNi.Pt, LPC.FNi.Tt, LPC.FNi.Ps, LPC.FNi.Ts, LPC.FNi.rhos, LPC.FNi.MN )
+   print( 'LPC out', LPC.FNo.W, LPC.FNo.Pt, LPC.FNo.Tt, LPC.FNo.Ps, LPC.FNo.Ts, LPC.FNo.rhos, LPC.FNo.MN )
+   print( 'duct25 out', HPC.FNi.W, HPC.FNi.Pt, HPC.FNi.Tt, HPC.FNi.Ps, HPC.FNi.Ts, HPC.FNi.rhos, HPC.FNi.MN )
+   print( 'HPC out', HPC.FNo.W, HPC.FNo.Pt, HPC.FNo.Tt, HPC.FNo.Ps, HPC.FNo.Ts, HPC.FNo.rhos, HPC.FNo.MN )
    print( 'burner out', burner.FNo.W, burner.FNo.Pt, burner.FNo.Tt, burner.FNo.Ps, burner.FNo.Ts, burner.FNo.rhos, burner.FNo.MN )
-   #print( 'HPT out', HPT.FNo.W, HPT.FNo.Pt, HPT.FNo.Tt, HPT.FNo.Ps, HPT.FNo.Ts, HPT.FNo.rhos, HPT.FNo.MN )
+   print( 'HPT out', HPT.FNo.W, HPT.FNo.Pt, HPT.FNo.Tt, HPT.FNo.Ps, HPT.FNo.Ts, HPT.FNo.rhos, HPT.FNo.MN )
    print( 'HPT', HPT.eff )
-   #print( 'duct45 out', duct45.FNo.W, duct45.FNo.Pt, duct45.FNo.Tt, duct45.FNo.Ps, duct45.FNo.Ts, duct45.FNo.rhos, duct45.FNo.MN )
-   #print( 'LPT out', LPT.FNo.W, LPT.FNo.Pt, LPT.FNo.Tt, LPT.FNo.Ps, LPT.FNo.Ts, LPT.FNo.rhos, LPT.FNo.MN )
+   print( 'duct45 out', duct45.FNo.W, duct45.FNo.Pt, duct45.FNo.Tt, duct45.FNo.Ps, duct45.FNo.Ts, duct45.FNo.rhos, duct45.FNo.MN )
+   print( 'LPT out', LPT.FNo.W, LPT.FNo.Pt, LPT.FNo.Tt, LPT.FNo.Ps, LPT.FNo.Ts, LPT.FNo.rhos, LPT.FNo.MN )
    print( 'LPT ', LPT.eff )
-   #print( 'duct5 out', duct5.FNo.W, duct5.FNo.Pt, duct5.FNo.Tt, duct5.FNo.Ps, duct5.FNo.Ts, duct5.FNo.rhos, duct5.FNo.MN )
+   print( 'duct5 out', duct5.FNo.W, duct5.FNo.Pt, duct5.FNo.Tt, duct5.FNo.Ps, duct5.FNo.Ts, duct5.FNo.rhos, duct5.FNo.MN )
    print( 'core nozzle out', priNozzle.FNo.W, priNozzle.FNo.Pt, priNozzle.FNo.Tt, priNozzle.FNo.Ps, priNozzle.FNo.Ts, priNozzle.FNo.rhos, priNozzle.FNo.MN )
-   #print( 'duct 17 out', fanNozzle.FNi.W, fanNozzle.FNi.Pt, fanNozzle.FNi.Tt )
+   print( 'duct 17 out', fanNozzle.FNi.W, fanNozzle.FNi.Pt, fanNozzle.FNi.Tt )
    print( 'bypass nozzle out', fanNozzle.FNo.W, fanNozzle.FNo.Pt, fanNozzle.FNo.Tt, fanNozzle.FNo.Ps, fanNozzle.FNo.Ts, fanNozzle.FNo.rhos, fanNozzle.FNo.MN )
-   #print( ' ' )
+   print( ' ' )
    print( priNozzle.FNo.V / fanNozzle.FNo.V )
    print( 'HP power balance: ', HPC.MP.hp, '=', HPT.MP.hp, ' + ', HPshaft.HPX, ' HP extraction'  )
    print( 'LP power balance: ', fan.MP.hp , '+', LPC.MP.hp, '=', fan.MP.hp+LPC.MP.hp, LPT.MP.hp )
@@ -503,19 +528,19 @@ def printStations():
 
 print( 'design point turbofan results' )
 print( ' ' )
-printStations()
+#printStations()
 
 # I think this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 varsg.set("size", False )
 varsg.check()
 varsg.NS.run()
-printStations()
+#quit()
+#printStations()
 
-
-print( "done od" )
-burner.FAR.set( 0.025 )
-varsg.NS.run()
-printStations()
+#print( "done od" )
+#burner.FAR.set( 0.025 )
+#varsg.NS.run()
+#printStations()
 
 
 
@@ -523,11 +548,17 @@ fan.NcDem = RealT( fan )
 fan.NcDem.set( 1. )
 burner.Tmax = RealT( burner )
 burner.Tmax.set( 3360. )
-burner.ind_FAR = Independent( burner, indname="FAR", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
-fan.dep_Nmech = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True, desc="Handles weight flow error" )
-#burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_Nmech", active=False )
+start.Fdem = RealT( start )
+
+start.Fnet = RealT( start )
+burner.ind_FAR = Independent( burner, indname="FAR", perturb=.05, perturb_type="Relative", active=True, desc="Varies R-line" )        
+fan.dep_NmechC = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True, desc="Handles weight flow error" )
+burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True )
+#start.dep_Fnet = Dependent( fan, d1name="start.Fnet", d2name="start.Fdem", active=True, desc="Handles weight flow error" )
 
 varsg.check()
+
+
 
 runThrottleHook( 0.90, 45000. );
 runThrottleHook( 0.85, 45000. );
@@ -603,4 +634,4 @@ runThrottleHook( 0.20,     0. );
 runThrottleHook( 0.10,     0. );
 runThrottleHook( 0.00,     0. );
 
-print( time.time() - start_time, ( time.time() - start_time )/ case )
+print( time.time() - start_time, case, ( time.time() - start_time )/ case )

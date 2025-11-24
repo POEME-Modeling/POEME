@@ -19,6 +19,7 @@ class FlightConditionsSMJ( Element ):
         # variables
         f.comp = StringT( f, desc="Composition of the stream." )
         f.alt = RealT( f, units="ft", desc="Altitude" )
+        f.Fram = RealT( f, units="lbf", desc="Ram Drag" )
         f.MN =  RealT( f, desc = "MN" )
         f.Pamb = RealT( f, units="lbm/in2", desc="Ambient pressure" )
         f.Pt = RealT( f, units="lbm/in2", desc="Total pressure" )        
@@ -86,7 +87,7 @@ class FlightConditionsSMJ( Element ):
         f.FNo = FN( f, io="out", desc="Outgoing flow" )
 
         # solver stuff  
-        f.ind_1 = Independent( f, indname="W", perturb=.05, scale=100, perturb_type="Relative", active=False, desc="Vary mass flow" )   
+        f.ind_1 = Independent( f, indname="W", perturb=.05, scale = 100, perturb_type="Relative", active=False, desc="Vary mass flow" )   
             
     def calc(f):
 
@@ -103,6 +104,8 @@ class FlightConditionsSMJ( Element ):
         else:
             f.FNo.MN.set( 0. )
             f.FNo.setTP( f.Tamb, f.Pamb )
+        
+        f.Fram.set( f.FNo.V*f.FNo.W /32.174)
 
 
     def precheck( f ):

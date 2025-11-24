@@ -14,10 +14,13 @@ class Constraint( Atom ):
         c.depname = ""
         c.val_scale = 0.
         c.p = p
-       
+        c.on = False
+        
         c.type = "Constraint"
         c.name1 = ""
         c.VIDL = list()
+        c.active = False
+        c.on = False
 
         c.__dict__.update(kwargs)
            
@@ -86,8 +89,8 @@ class Constraint( Atom ):
         for d in varsg.dep_list:
             if( (d.p.name1+"."+d.name1))==c.depname.v:
                 c.dep = d
-
-        c.dep.active = True
+        if c.on == True:
+            c.dep.active = True
         c.active = False
         try:
             float(c.d1name.v)
