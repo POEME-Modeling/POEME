@@ -99,7 +99,7 @@ start.comp.set( "air4" )
 
 
 inlet.dP.set( 0.002 )  # inlet recovery 0.998
-inlet.FNo.MN.set( 0.625 )
+#inlet.FNo.MN.set( 0.625 )
 
 fan.PRdes.set( 1.300 )
 fan.effDes.set( 0.9689 )
@@ -112,15 +112,15 @@ fan.Wfrac1.set( 1e-8 )
 fan.hfract1.set( 0.7 )
 fan.Wfrac2.set( 1e-8 )
 fan.hfract2.set( 0.9 )
-fan.FNo.MN.set( 0.45 )
+#fan.FNo.MN.set( 0.45 )
 
 splitter.BPR.set( 23.8470 )
 splitter.BPR.set( 17. )
-splitter.FNo1.MN.set( 0.45 )
-splitter.FNo2.MN.set( 0.45 )
+#splitter.FNo1.MN.set( 0.45 )
+#splitter.FNo2.MN.set( 0.45 )
 
 duct2.dP.set( 0.010 )
-duct2.FNo.MN.set( 0.45 )
+#duct2.FNo.MN.set( 0.45 )
 
 LPC.PRdes.set( 3.000 )
 LPC.effDes.set( 0.8895 )
@@ -130,10 +130,10 @@ LPC.Wfrac1.set( 1e-8 )
 LPC.hfract1.set( 0.7 )
 LPC.Wfrac2.set( 1e-8 )
 LPC.hfract2.set( 0.9 )
-LPC.FNo.MN.set( 0.45 )
+#LPC.FNo.MN.set( 0.45 )
 
 duct25.dP.set( 0.015 )
-duct25.FNo.MN.set( 0.45 )
+#duct25.FNo.MN.set( 0.45 )
 
 HPC.PRdes.set( 14.1030 )
 HPC.effDes.set( 0.8469 )
@@ -143,7 +143,7 @@ HPC.Wfrac1.set( 0.07582 )
 HPC.hfract1.set( 0.370 )
 HPC.Wfrac2.set( 0.07582 )
 HPC.hfract2.set( 0.386 )
-HPC.FNo.MN.set( 0.30 )
+#HPC.FNo.MN.set( 0.30 )
 
 burner.FAR.set( 0.02780 )
 #burner.FAR.set( 0.03080 )
@@ -155,24 +155,24 @@ HPT.PRmapDes.set( 3.0 )
 HPT.PR.set( 3.5 )
 HPT.effDes.v = 0.9225
 HPT.NcMapDes.set( 0.9 )
-HPT.FNo.MN.set( 0.30 )
+#HPT.FNo.MN.set( 0.30 )
 
 duct45.dP.set( 0.005 )
-duct45.FNo.MN.set( 0.45 )
+#duct45.FNo.MN.set( 0.45 )
 
 LPT.PRmapDes.set( 6.0 )
 LPT.PR.set( 2. )
 LPT.effDes.v = 0.9400
 LPT.NcMapDes.set( 0.9 )
-LPT.FNo.MN.set( 0.35 )
+#LPT.FNo.MN.set( 0.35 )
 
 duct5.dP.set( 0.010 )
-duct5.FNo.MN.set( 0.25 )
+#duct5.FNo.MN.set( 0.25 )
 
 priNozzle.PsExh.set( "start.Pamb" )
 
 duct17.dP.set( 0.015 )
-duct17.FNo.MN.set( 0.45 )
+#duct17.FNo.MN.set( 0.45 )
 fanNozzle.PsExh.set( "start.Pamb" )
 
 HPshaft.N.set( 10000. )
@@ -431,9 +431,12 @@ LPT.effTable.data = [
 
 # declare some output
 # ------------------------------------- 
-#estuff=Output( "turbofan", filename="turbofan.out" )
-#estuff.vars = [ varsg.NS.time, HPT.FNo.MN, HPT.FNo.Ps, burner.FAR,burner.FNi.W, burner.Wfuel, HPshaft.N, start.W, HPT.FNo.A ]
-#estuff.vars = [ varsg.NS.time, burner.FAR, HPshaft.N, burner.Wfuel ]
+estuff=Output( "turbofan", filename="turbofan.out" )
+estuff.vars = [ start.alt, start.MN, start.W, buttmunch.Fn, buttmunch.Wfuel ]
+
+
+#HPT.FNo.MN, HPT.FNo.Ps, burner.FAR,burner.FNi.W, burner.Wfuel, HPshaft.N, start.W, HPT.FNo.A ]
+
 
 
 
@@ -442,6 +445,7 @@ LPT.effTable.data = [
 # ------------------------------------- 
 varsg.check()
 varsg.NS.solve()
+varsg.stdOut.print()
 
 
 
@@ -451,7 +455,7 @@ varsg.NS.solve()
 case = 0
 
 def runThrottleHook( MNset, altitude ):
-
+   print( MNset, altitude )
    global case
    case = case + 1
    fan.NcDem.set( 1. )
@@ -463,7 +467,7 @@ def runThrottleHook( MNset, altitude ):
  
    case = case + 1
    varsg.NS.saveInds()
-   printStations()
+   #printStations()
    factor = .9   
    start.Fdem.set( start.Fnet*factor )
    
@@ -478,10 +482,11 @@ def runThrottleHook( MNset, altitude ):
     start.Fdem.set( FnetMax*factor )
     burner.FAR.set( burner.FAR - .0025 )
     varsg.NS.run()
+
     factor = ( buttmunch.Fn)/FnetMax
     #print( factor )
     case = case + 1
-    printStations()
+    #printStations()
 
 
 
@@ -492,7 +497,6 @@ def runThrottleHook( MNset, altitude ):
    fan.NcDem.set( 1.0 ) 
    varsg.NS.restoreInds()
    varsg.NS.run()
-   factor = (priNozzle.Fg + fanNozzle.Fg - start.Fram)/FnetMax
    case = case + 1
 
 

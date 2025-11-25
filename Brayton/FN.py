@@ -248,14 +248,15 @@ class FN( Atom ):
             x = f.Ps.v 
 
             count = 0
-            while abs( error >.00001 and count < 50 ):
+            while abs( error ) >.00001 and count < 50:
                 count =  count + 1
-            
+                 
                 xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
+
         
                 if xp1 - x > .1*x:
                     xp1 = x + .1*x
-                if xp1 - x < -.1*x:
+                if xp1 - x < -.1*x: 
                     xp1 = x - .1*x
                 xm1 = x
                 if xp1 > f.Pt.v*.99:
@@ -265,6 +266,7 @@ class FN( Atom ):
                 x = xp1
                 f.Ps.v = x
                 f.PsCalc()
+                #print( f.Ps.v, f.A.v, Aor, f.MN.v )
                 error = ( f.A.v - Aor )/ Aor
                 count = count + 1
     

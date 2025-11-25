@@ -12,8 +12,8 @@ class FlightConditionsSMJ( Element ):
     
     def __init__(f,name):
         super().__init__(name, "FlowStart" )
-        f.type = "FlowStart"
-        
+        f.type = "FlightConditionsSMJ"
+
         f.desc = "Start a Flow stream."
         
         # variables
@@ -104,7 +104,7 @@ class FlightConditionsSMJ( Element ):
         else:
             f.FNo.MN.set( 0. )
             f.FNo.setTP( f.Tamb, f.Pamb )
-        
+
         f.Fram.set( f.FNo.V*f.FNo.W /32.174)
 
 

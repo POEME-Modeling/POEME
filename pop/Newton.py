@@ -339,13 +339,13 @@ class Newton(Element):
             s.constraints = False                           
             for c in s.con_list:
                 if c.errorCheck() and c.active == False:
-                    print( "constraints", c.active )
+                    #print( "constraints", c.active )
                     c.dep.active = False
                     #for cp in s.con_list:
                         #if cp.dep == c.dep:
                             #cp.active =  False
                     c.active = True
-                    print( c.active )
+                    #print( c.active )
                     s.constraints =  True  
 
                     
@@ -357,7 +357,7 @@ class Newton(Element):
             
 
         #varsg.stdOut = open( "pop.out", "a" )
-        varsg.stdOut.print()
+        #varsg.stdOut.print()
         #varsg.out.close()
         
         for c in varsg.con_list:
@@ -405,7 +405,7 @@ class Newton(Element):
             # print data for this time step
             
             #varsg.stdOut = open( "pop.out", "a" )
-            varsg.stdOut.print()
+            #varsg.stdOut.print()
             
         
 
