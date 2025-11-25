@@ -54,7 +54,6 @@ HPshaft.MPT = MP( HPshaft, io="in" )
 buttmunch = Perf( "buttmunch" )
 
 
-
 # link the objects together
 # ------------------------------------- 
 inlet.FNi.linkFN( start.FNo )
@@ -460,7 +459,7 @@ def runThrottleHook( MNset, altitude ):
    start.alt.set( altitude )
    varsg.NS.saveInds()
    varsg.NS.run()
-   FnetMax = priNozzle.Fg + fanNozzle.Fg - start.Fram
+   FnetMax = buttmunch.Fn.v
  
    case = case + 1
    varsg.NS.saveInds()
@@ -479,7 +478,8 @@ def runThrottleHook( MNset, altitude ):
     start.Fdem.set( FnetMax*factor )
     burner.FAR.set( burner.FAR - .0025 )
     varsg.NS.run()
-    factor = (priNozzle.Fg + fanNozzle.Fg - start.Fram)/FnetMax
+    factor = ( buttmunch.Fn)/FnetMax
+    #print( factor )
     case = case + 1
     printStations()
 
