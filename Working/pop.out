@@ -4,81 +4,81 @@ Ports*************
 Electric Ports
 
 Fluid Ports
-start FNo 815.49 451.46211498696766 5.569581755909999 0.0
-inlet FNi 815.49 451.46211498696766 5.569581755909999 0.0
-inlet FNo 815.49 451.4621149869808 5.558442592398179 0.0
-fan FNi 815.49 451.4621149869808 5.558442592398179 0.0
-fan FNideal 815.49 487.21936102118536 7.225975370117633 0.0
-fan FNo 815.4899836902 488.36710624950706 7.225975370117633 0.0
-fan FNoBld1 8.1549e-06 477.29560889643045 1.1672729444036176 0.0
-fan FNoBld2 8.1549e-06 484.67660715143666 1.5007794999475084 0.0
-splitter FNi 815.4899836902 488.36710624950706 7.225975370117633 0.0
-splitter FNo1 45.3049990939 488.36710624950706 7.225975370117633 0.0
-splitter FNo2 770.1849845963001 488.36710624950706 7.225975370117633 0.0
-duct2 FNi 45.3049990939 488.36710624950706 7.225975370117633 0.0
-duct2 FNo 45.3049990939 488.3671062497891 7.153715616416457 0.0
-LPC FNi 45.3049990939 488.3671062497891 7.153715616416457 0.0
-LPC FNideal 45.3049990939 666.0768258224439 21.461146849249374 0.0
-LPC FNo 45.30499818780002 688.016665429262 21.461146849249374 0.0
-LPC FNoBld1 4.5304999093900004e-07 628.3790014213245 10.015201862983043 0.0
-LPC FNoBld2 4.5304999093900004e-07 668.1616081392993 12.876688109549628 0.0
-duct25 FNi 45.30499818780002 688.016665429262 21.461146849249374 0.0
-duct25 FNo 45.30499818780002 688.016665476343 21.139229646510632 0.0
-HPC FNi 45.30499818780002 688.016665476343 21.139229646510632 0.0
-HPC FNideal 45.30499818780002 1426.2271300959635 298.1265557047394 0.0
-HPC FNo 38.43494826260203 1553.1124509017493 298.1265557047394 0.0
-HPC FNoBld1 3.4350249625989973 1017.73734822068 102.48531064154466 0.0
-HPC FNoBld2 3.4350249625989973 1031.7644288892288 106.91710785847631 0.0
-burner FNi 38.43494826260203 1553.1124509017493 298.1265557047394 0.0
-burner FNo 39.50343982430236 3165.875216853648 286.20149347654984 0.0278
-HPT FN41 42.938464786901356 3008.740345501343 286.20149347654984 0.025519279793979534
-HPT FN42 42.938464786901356 2225.148354928317 64.82734927285657 0.025519279793979534
-HPT FNi 39.50343982430236 3165.875216853648 286.20149347654984 0.0278
-HPT FNiBld1 3.4350249625989973 1031.7644288892288 106.91710785847631 0.0
-HPT FNiBld2 3.4350249625989973 1017.73734822068 102.48531064154466 0.0
-HPT FNideal 42.938464786901356 2155.25698809129 64.82734927285657 0.025519279793979534
-HPT FNo 46.37348974950035 2137.8052564500113 64.82734927285657 0.023584408000000005
-duct45 FNi 46.37348974950035 2137.8052564500113 64.82734927285657 0.023584408000000005
-duct45 FNo 46.37348974950035 2137.805263018891 64.50321252649228 0.023584408000000005
-LPT FN41 46.37348974950035 2137.805263018891 64.50321252649228 0.023584408000000005
-LPT FN42 46.37348974950035 1430.2341447386116 10.938529967632297 0.023584408000000005
-LPT FNi 46.37348974950035 2137.805263018891 64.50321252649228 0.023584408000000005
+start FNo 100.0 444.88914258809876 5.284426944231677 0.0
+inlet FNi 100.0 444.88914258809876 5.284426944231677 0.0
+inlet FNo 100.0 444.8891425881092 5.2738580903432135 0.0
+fan FNi 100.0 444.8891425881092 5.2738580903432135 0.0
+fan FNideal 100.0 499.5609103921396 7.91078713551482 0.0
+fan FNo 100.0 509.18134791374655 7.91078713551482 0.0
+fan FNoBld1 0.0 444.8891425881092 5.2738580903432135 0.0
+fan FNoBld2 0.0 444.8891425881092 5.2738580903432135 0.0
+splitter FNi 100.0 509.18134791374655 7.91078713551482 0.0
+splitter FNo1 16.666666666666668 509.18134791374655 7.91078713551482 0.0
+splitter FNo2 83.33333333333333 509.18134791374655 7.91078713551482 0.0
+duct2 FNi 16.666666666666668 509.18134791374655 7.91078713551482 0.0
+duct2 FNo 16.666666666666668 509.18134791429725 7.831679264159671 0.0
+LPC FNi 16.666666666666668 509.18134791429725 7.831679264159671 0.0
+LPC FNideal 16.666666666666668 610.8147417258789 15.663358528319343 0.0
+LPC FNo 16.666666333333335 623.3904335005452 15.663358528319343 0.0
+LPC FNoBld1 1.6666666666666668e-07 589.2146291462165 5.482175484911769 0.0
+LPC FNoBld2 1.6666666666666668e-07 612.009717472039 7.0485113377437045 0.0
+duct25 FNi 16.666666333333335 623.3904335005452 15.663358528319343 0.0
+duct25 FNo 16.666666333333335 623.3904335162723 15.428408150394553 0.0
+HPC FNi 16.666666333333335 623.3904335162723 15.428408150394553 0.0
+HPC FNideal 16.666666333333335 1200.8816328436442 154.28408150394552 0.0
+HPC FNo 14.139333050546668 1301.5587436670821 154.28408150394552 0.0
+HPC FNoBld1 1.2636666413933335 879.5360371846691 51.37659914081386 0.0
+HPC FNoBld2 1.2636666413933335 890.5011882685138 53.598289914470676 0.0
+burner FNi 14.139333050546668 1301.5587436670821 154.28408150394552 0.0
+burner FNo 14.492816376810335 2898.1269359193043 148.1127182437877 0.025
+HPT FN41 15.756483018203669 2749.836438251487 148.1127182437877 0.022948992620485185
+HPT FN42 15.756483018203669 2126.978088237535 43.005192458592994 0.022948992620485185
+HPT FNi 14.492816376810335 2898.1269359193043 148.1127182437877 0.025
+HPT FNiBld1 1.2636666413933335 890.5011882685138 53.598289914470676 0.0
+HPT FNiBld2 1.2636666413933335 879.5360371846691 51.37659914081386 0.0
+HPT FNideal 15.756483018203669 2071.292732541502 43.005192458592994 0.022948992620485185
+HPT FNo 17.020149659597003 2037.8945447775725 43.005192458592994 0.021209
+duct45 FNi 17.020149659597003 2037.8945447775725 43.005192458592994 0.021209
+duct45 FNo 17.020149659597003 2037.8945525598062 42.79016649630003 0.021209
+LPT FN41 17.020149659597003 2037.8945525598062 42.79016649630003 0.021209
+LPT FN42 17.020149659597003 1628.4532407535023 16.51645108264496 0.021209
+LPT FNi 17.020149659597003 2037.8945525598062 42.79016649630003 0.021209
 LPT FNiBld1 0.0 0.0 0.0 0.0
 LPT FNiBld2 0.0 0.0 0.0 0.0
-LPT FNideal 46.37348974950035 1382.9898633920059 10.938529967632297 0.023584408000000005
-LPT FNo 46.37348974950035 1430.2341447386118 10.938529967632297 0.023584408000000005
-duct5 FNi 46.37348974950035 1430.2341447386118 10.938529967632297 0.023584408000000005
-duct5 FNo 46.37348974950035 1430.2341472372018 10.829144667955974 0.023584408000000005
-priNozzle FNi 46.37348974950035 1430.2341472372018 10.829144667955974 0.023584408000000005
-priNozzle FNo 46.37348974950035 1430.2341472372018 10.829144667955974 0.023584408000000005
-duct17 FNi 770.1849845963001 488.36710624950706 7.225975370117633 0.0
-duct17 FNo 770.1849845963001 488.3671062499305 7.117585739565868 0.0
-fanNozzle FNi 770.1849845963001 488.3671062499305 7.117585739565868 0.0
-fanNozzle FNo 770.1849845963001 488.3671062499305 7.117585739565868 0.0
+LPT FNideal 17.020149659597003 1601.72888787188 16.51645108264496 0.021209
+LPT FNo 17.020149659597003 1628.4532407535023 16.51645108264496 0.021209
+duct5 FNi 17.020149659597003 1628.4532407535023 16.51645108264496 0.021209
+duct5 FNo 17.020149659597003 1628.4532478250958 16.35128657181851 0.021209
+priNozzle FNi 17.020149659597003 1628.4532478250958 16.35128657181851 0.021209
+priNozzle FNo 17.020149659597003 1628.4532478250958 16.35128657181851 0.021209
+duct17 FNi 83.33333333333333 509.18134791374655 7.91078713551482 0.0
+duct17 FNo 83.33333333333333 509.18134791457317 7.792125328482097 0.0
+fanNozzle FNi 83.33333333333333 509.18134791457317 7.792125328482097 0.0
+fanNozzle FNo 83.33333333333333 509.18134791457317 7.792125328482097 0.0
 
 Mech Ports
-fan MP 10000.0 -10162.478862922178 0.0
-LPC MP 10000.0 -3074.577514628318 0.0
-HPC MP 10000.0 -14805.583168411275 0.0
-HPT MP 10000.0 14655.902241534572 0.0
-LPT MP 10000.0 13236.882886603384 0.0
-HPshaft MPC 10000.0 -14805.583168411275 0.0
-HPshaft MPT 10000.0 14655.902241534572 0.0
-LPshaft MPfan 10000.0 -10162.478862922178 0.0
-LPshaft MPlpc 10000.0 -3074.577514628318 0.0
-LPshaft MPlpt 10000.0 13236.882886603384 0.0
+fan MP 10000.0 -2171.374791995873 0.0
+LPC MP 10000.0 -646.1420186290169 0.0
+HPC MP 10000.0 -4194.663318440438 0.0
+HPT MP 10000.0 4194.659974147028 0.0
+LPT MP 10000.0 2817.520210935066 0.0
+HPshaft MPC 10000.0 -4194.663318440438 0.0
+HPshaft MPT 10000.0 4194.659974147028 0.0
+LPshaft MPfan 10000.0 -2171.374791995873 0.0
+LPshaft MPlpc 10000.0 -646.1420186290169 0.0
+LPshaft MPlpt 10000.0 2817.520210935066 0.0
 
 Elements***********
 
 start FlowStart
      alt 35000.0 ft Altitude
-     Fram 21003.656671357774 lbf Ram Drag
-     MN 0.85  MN
+     Fram 2424.080110257844 lbf Ram Drag
+     MN 0.8  MN
      Pamb 3.45803 lbm/in2 Ambient pressure
      Pt 0.0 lbm/in2 Total pressure
      Tamb 393.854 R Ambient temperature
      Tt 0.0 R Ambient temperature
-     W 815.49 lbm/sec 
+     W 100.0 lbm/sec 
      gams 0.0 ft gamma
      TTcalc 0.0 R temperature
      PTcalc 0.0 lbf/in2 pressure
@@ -86,30 +86,30 @@ inlet Duct
      dP 0.002 none Pressure loss (fractional)
      Q 0.0 BTU Heat added to the duct
 fan Compressor
-     eff 0.9689000000000001 none Efficiency
-     effDes 0.9689 none Design efficiency
+     eff 0.8499999999999999 none Efficiency
+     effDes 0.85 none Design efficiency
      effMap 0.848 none Efficiency read from table
-     effScale 1.1425707547169812 none Scalar on efficiency map
-     hfract1 0.7 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
-     hfract2 0.9 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
-     Nc 470.64055129011547 RPM/R**.5 Corrected speed
-     NcMap 0.9999999999999999 RPM/R**.5 Corrected speed used to read the map
+     effScale 1.0023584905660377 none Scalar on efficiency map
+     hfract1 0.0 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
+     hfract2 0.0 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
+     Nc 474.1045207510188 RPM/R**.5 Corrected speed
+     NcMap 1.0 RPM/R**.5 Corrected speed used to read the map
      NcMapDes 1.0 RPM/R**.5 Design point corrected speed
-     NcScale 0.0021247637868407414 none Scalar on corrected speed
-     PR 1.3 none Pressure ratio
-     PRdes 1.3 none Design pressure ratio
-     PRmap 1.5719999999999998 none Pressure ratio read from table
-     PRscale 0.8269720101781172 none Scalar on pressure ratio map
+     NcScale 0.002109239537340672 none Scalar on corrected speed
+     PR 1.5 none Pressure ratio
+     PRdes 1.5 none Design pressure ratio
+     PRmap 1.572 none Pressure ratio read from table
+     PRscale 0.9541984732824427 none Scalar on pressure ratio map
      Rline 2.0 none Current R-line
      RlineDes 2.0 none Design point R-line
-     Wc 3117.282569222643 lbm/sec Corrected flow
-     WcDes 3117.282569222643 lbm/sec Design corrected flow
-     WcMap 3117.282569222643 lbm/sec Map corrected flow
-     WcScale 2.1772655752381667 none Scalar on corrected flow
-     Wfrac1 1e-08 none Weight flow fraction for bleed flow 1
-     Wfrac2 1e-08 none Weight flow fraction for bleed flow 2
+     Wc 399.9424143025067 lbm/sec Corrected flow
+     WcDes 399.9424143025067 lbm/sec Design corrected flow
+     WcMap 399.9424143025067 lbm/sec Map corrected flow
+     WcScale 0.2793397234295751 none Scalar on corrected flow
+     Wfrac1 0.0 none Weight flow fraction for bleed flow 1
+     Wfrac2 0.0 none Weight flow fraction for bleed flow 2
 splitter Splitter
-     BPR 17.0 none Bypass ratio, W2/W1
+     BPR 5.0 none Bypass ratio, W2/W1
 duct2 Duct
      dP 0.01 none Pressure loss (fractional)
      Q 0.0 BTU Heat added to the duct
@@ -120,20 +120,20 @@ LPC Compressor
      effScale 0.9837425348374252 none Scalar on efficiency map
      hfract1 0.7 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
      hfract2 0.9 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
-     Nc 452.5085586036909 RPM/R**.5 Corrected speed
+     Nc 443.16326849680667 RPM/R**.5 Corrected speed
      NcMap 1.0 RPM/R**.5 Corrected speed used to read the map
      NcMapDes 1.0 RPM/R**.5 Design point corrected speed
-     NcScale 0.002209902953185477 none Scalar on corrected speed
-     PR 3.0000000000000004 none Pressure ratio
-     PRdes 3.0 none Design pressure ratio
+     NcScale 0.0022565047039930968 none Scalar on corrected speed
+     PR 2.0 none Pressure ratio
+     PRdes 2.0 none Design pressure ratio
      PRmap 1.4088 none Pressure ratio read from table
-     PRscale 2.1294718909710393 none Scalar on pressure ratio map
+     PRscale 1.4196479273140261 none Scalar on pressure ratio map
      Rline 2.0 none Current R-line
      RlineDes 2.0 none Design point R-line
-     Wc 139.95475450815914 lbm/sec Corrected flow
-     WcDes 139.95475450815914 lbm/sec Design corrected flow
-     WcMap 139.95475450815914 lbm/sec Map corrected flow
-     WcScale 0.6858509972956931 none Scalar on corrected flow
+     Wc 48.02087836426944 lbm/sec Corrected flow
+     WcDes 48.02087836426944 lbm/sec Design corrected flow
+     WcMap 48.02087836426944 lbm/sec Map corrected flow
+     WcScale 0.23532724867327964 none Scalar on corrected flow
      Wfrac1 1e-08 none Weight flow fraction for bleed flow 1
      Wfrac2 1e-08 none Weight flow fraction for bleed flow 2
 duct25 Duct
@@ -146,97 +146,11 @@ HPC Compressor
      effScale 0.9940140845070422 none Scalar on efficiency map
      hfract1 0.37 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
      hfract2 0.386 BTU/lbm Enthalpy fraction that determines how down the compressor the bleed is taken
-     Nc 381.2418084348081 RPM/R**.5 Corrected speed
+     Nc 400.5160582450473 RPM/R**.5 Corrected speed
      NcMap 1.0 RPM/R**.5 Corrected speed used to read the map
      NcMapDes 1.0 RPM/R**.5 Design point corrected speed
-     NcScale 0.002623007177794874 none Scalar on corrected speed
-     PR 14.103 none Pressure ratio
-     PRdes 14.103 none Design pressure ratio
+     NcScale 0.002496778791796086 none Scalar on corrected speed
+     PR 10.0 none Pressure ratio
+     PRdes 10.0 none Design pressure ratio
      PRmap 22.9999 none Pressure ratio read from table
-     PRscale 0.6131765790286045 none Scalar on pressure ratio map
-     Rline 2.0 none Current R-line
-     RlineDes 2.0 none Design point R-line
-     Wc 56.215546840515486 lbm/sec Corrected flow
-     WcDes 56.215546840515486 lbm/sec Design corrected flow
-     WcMap 56.215546840515486 lbm/sec Map corrected flow
-     WcScale 0.27289100408017225 none Scalar on corrected flow
-     Wfrac1 0.07582 none Weight flow fraction for bleed flow 1
-     Wfrac2 0.07582 none Weight flow fraction for bleed flow 2
-burner Burner
-     dP 0.04 none Pressure loss (fractional)
-     eff 1.0 none Burner efficiency
-     FAR 0.0278 none Fuel to air ratio
-     LHV -1830.0 BTU/lbm Fuel enthalpy
-     Tout 0.0 R Exit temperature
-     Wfuel 1.0684915617003363 lbm/s Fuel flow
-HPT Turbine
-     eff 0.9225 none Efficiency
-     effDes 0.9225 none Desired deisgn efficiency
-     effMap 0.9228 none Efficiency read from map
-     effScale 0.9996749024707413 none Scale factor on efficiency
-     Nc 177.72687448956597 RPM Corrected speed
-     NcMap 0.9 RPM Speed used to read map
-     NcMapDes 0.9 RPM Design speed map location
-     NcScale 0.005063949965838382 none Scale factor on corrected speed
-     PR 4.414826407168609 none Pressure ratio
-     PRmap 3.0 none Pressure ratio read from map
-     PRmapDes 3.0 none Design pressure ratio on map
-     PRmapScale 0.5856813089536499 none Scale on map pressure ratio
-     Wc 7.766224041779667 lbm/sec Correctef flow
-     WcDes 7.766224041779667 lbm/sec Design corrected flow
-     WcMap 7.766224041779667 lbm/sec Corrected flow read from map
-     WcScale 0.2587533831471869 none scale factor of corrected flow
-duct45 Duct
-     dP 0.005 none Pressure loss (fractional)
-     Q 0.0 BTU Heat added to the duct
-LPT Turbine
-     eff 0.9400000000000001 none Efficiency
-     effDes 0.94 none Desired deisgn efficiency
-     effMap 0.9056 none Efficiency read from map
-     effScale 1.0379858657243817 none Scale factor on efficiency
-     Nc 216.27978493153557 RPM Corrected speed
-     NcMap 0.9 RPM Speed used to read map
-     NcMapDes 0.9 RPM Design speed map location
-     NcScale 0.0041612765626010744 none Scale factor on corrected speed
-     PR 5.896881273567909 none Pressure ratio
-     PRmap 6.0 none Pressure ratio read from map
-     PRmapDes 6.0 none Design pressure ratio on map
-     PRmapScale 1.0210580409593957 none Scale on map pressure ratio
-     Wc 33.240879443943385 lbm/sec Correctef flow
-     WcDes 33.240879443943385 lbm/sec Design corrected flow
-     WcMap 33.240879443943385 lbm/sec Corrected flow read from map
-     WcScale 0.21889304844588323 none scale factor of corrected flow
-duct5 Duct
-     dP 0.01 none Pressure loss (fractional)
-     Q 0.0 BTU Heat added to the duct
-priNozzle Nozzle
-     Anoz 2.191957550035617 in2 Throat area
-     Fg 3136.0407313839773 blf Gross thrust
-duct17 Duct
-     dP 0.015 none Pressure loss (fractional)
-     Q 0.0 BTU Heat added to the duct
-fanNozzle Nozzle
-     Anoz 31.127519637213908 in2 Throat area
-     Fg 25035.32139016606 blf Gross thrust
-HPshaft Shaft
-     dNdt 0.027929534059275465 RPM/s Speed derivative
-     HPneg -14805.902241534572 HP Total negative power on the shaft
-     HPpos -14805.583168411275 HP Total positive power on the shaft
-     HPX 150.0 HP Power extraction
-     I 6.0 lbm*ft**2 inertia of the shaft itself 
-     Ispool 6.0 lbm*ft**2 total spool intertia
-     N 10000.0 RPM Shaft speed
-LPshaft Shaft
-     dNdt -0.015186240903909007 RPM/s Speed derivative
-     HPneg -13236.882886603384 HP Total negative power on the shaft
-     HPpos -13237.056377550496 HP Total positive power on the shaft
-     HPX 0.0 HP Power extraction
-     I 6.0 lbm*ft**2 inertia of the shaft itself 
-     Ispool 6.0 lbm*ft**2 total spool intertia
-     N 10000.0 RPM Shaft speed
-buttmunch Shaft
-     Fg 28171.36212155004 lbf Gross thrust
-     Fn 7167.705450192265 lbf Net thrust
-     SFC 0.5366528589728853 ?? Specifc fuel consumption
-     Wfuel 1.0684915617003363 lbm/s Fuel flow
-     Fram 21003.656671357774 lbf Ram drag
+     PRscale 0.4347844990630394

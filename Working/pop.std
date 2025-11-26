@@ -23,7 +23,7 @@ def loadDirectory( dir ):
 			else:
 				temp.write( "from " + f + " import " + f + "\n")
 		
-	os.chdir( "..\Working" )
+	os.chdir( "../Working" )
 	temp.close()
 	
 def setComp( comp ):
