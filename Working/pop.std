@@ -5,7 +5,7 @@ if os.path.exists( "temp.include" ):
 	os.remove( "temp.include" )
 
 
-
+errors = ""
 
 def loadDirectory( dir ):
 	
@@ -77,3 +77,5 @@ def stdOut( ):
 			
 os.system( "del pop.out" )
 out = open( "pop.out", "a")
+os.system( "del pretty.out" )
+pretty = open( "pretty.out", "a")

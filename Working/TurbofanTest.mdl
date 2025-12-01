@@ -433,6 +433,7 @@ estuff.vars = [ start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel ]
 varsg.check()
 varsg.NS.solve()
 varsg.stdOut.print()
+varsg.prettyPrint()
 
 
 case = 0

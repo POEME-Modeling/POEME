@@ -21,7 +21,7 @@ loadDirectory( "../Brayton" )
 exec( open( "temp.include").read())
 import varsg
 varsg.out = open( "pop.out", "a")
-
+varsg.pretty = open( "pretty.out", "a")
 #---------------------------------------------------------------------------
 # create all of the component objects, including the shaft connection ports
 # --------------------------------------------------------------------------
@@ -431,8 +431,8 @@ estuff.vars = [ start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel ]
 varsg.check()
 varsg.NS.solve()
 varsg.stdOut.print()
-
-
+varsg.prettyPrint.print()
+quit()
 
 case = 0
 
@@ -444,7 +444,8 @@ def runThrottleHook( MNset, altitude ):
    start.MN.set( MNset )
    start.alt.set( altitude )
    varsg.NS.saveInds()
-   varsg.NS.run()
+   print( "burner.FAR", burner.FAR )
+   varsg.NS.run()   
    FnetMax = RealT( Perf )
    FnetMax.set( Perf.Fn )
  
@@ -458,6 +459,7 @@ def runThrottleHook( MNset, altitude ):
    burner.con_1.active = False
    burner.ind_FAR.active = False
    varsg.check()
+   varsg.stdOut.print()
 
 
    while( factor > .2 and varsg.NS.converged == True ):
@@ -466,6 +468,7 @@ def runThrottleHook( MNset, altitude ):
       factor = ( Perf.Fn )/FnetMax
       case = case + 1
       printStations()
+      varsg.stdOut.print()
 
 
 
@@ -476,6 +479,7 @@ def runThrottleHook( MNset, altitude ):
    fan.NcDem.set( 1.0 ) 
    varsg.NS.restoreInds()
    varsg.NS.run()
+   printStations()
    case = case + 1
 
 
@@ -577,9 +581,9 @@ runThrottleHook( 0.50, 15000. );
 runThrottleHook( 0.40, 15000. );
 runThrottleHook( 0.30, 15000. );
 
-runThrottleHook( 0.60, 10000. );
-runThrottleHook( 0.50, 10000. );
 runThrottleHook( 0.40, 10000. );
+runThrottleHook( 0.50, 10000. );
+runThrottleHook( 0.60, 10000. );
 
 
 runThrottleHook( 0.00,  5000. );
