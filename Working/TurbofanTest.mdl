@@ -13,6 +13,7 @@ loadDirectory( "../Brayton" )
 exec( open( "temp.include").read())
 import varsg
 varsg.out = open( "pop.out", "a")
+varsg.pretty = open( "pretty.out", "a")
 
 #---------------------------------------------------------------------------
 # create all of the component objects, including the shaft connection ports
@@ -432,8 +433,7 @@ estuff.vars = [ start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel ]
 # ------------------------------------- 
 varsg.check()
 varsg.NS.solve()
-varsg.stdOut.print()
-varsg.prettyPrint()
+varsg.prettyPrint.print()
 
 
 case = 0
@@ -447,6 +447,7 @@ def runThrottleHook( MNset, altitude ):
    start.alt.set( altitude )
    varsg.NS.saveInds()
    varsg.NS.run()
+   varsg.prettyPrint.print()
    FnetMax = RealT( Perf )
    FnetMax.set( Perf.Fn )
  
@@ -466,7 +467,8 @@ def runThrottleHook( MNset, altitude ):
       start.Fdem.set( FnetMax*factor )
       burner.FAR.set( burner.FAR - .0025 )
       varsg.NS.run()
-      factor = ( Perf.Fn)/FnetMax
+      varsg.prettyPrint.print()
+      factor = ( Perf.Fn )/FnetMax
       case = case + 1
 
    fan.dep_NmechC.active=True 
@@ -508,18 +510,13 @@ def printStations():
    print( 'LP power balance: ', fan.MP.hp , '+', LPC.MP.hp, '=', fan.MP.hp+LPC.MP.hp, LPT.MP.hp )
    print( ' ' )
 
-
-print( 'design point turbofan results' )
-print( ' ' )
-printStations()
+varsg.prettyPrint.print()
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 varsg.set("size", False )
 varsg.check()
 varsg.NS.run()
-printStations()
-print( "done od" )
-
+varsg.prettyPrint.print()
 
 
 fan.NcDem = RealT( fan )
