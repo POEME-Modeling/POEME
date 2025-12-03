@@ -140,7 +140,7 @@ class FN( Atom ):
             f.Pt.v=Pt.v
 
         f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v )
-        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v )  
+        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v ) 
         f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v )
         f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v )
         f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v )
@@ -230,6 +230,9 @@ class FN( Atom ):
                 f.PsCalc()
 
                 error = ( f.MN.v - MNor )/ MNor
+                
+            if count > 49:
+                varsg.errors = varsg.errors + "MN iteration failure\n"
 
             f.MN.v = MNor   
     
@@ -269,6 +272,9 @@ class FN( Atom ):
                 #print( f.Ps.v, f.A.v, Aor, f.MN.v )
                 error = ( f.A.v - Aor )/ Aor
                 count = count + 1
+                
+            if ( count > 49 ):
+                vargs.errors = varsg.errors + " failure during static area match\n"
     
             f.A.v = Aor
                 
@@ -468,7 +474,11 @@ class FN( Atom ):
         f.statics()
 
     def dump( f ):
-        print( f.parent.name1, f.name1, f.W.v, f.Tt.v, f.Pt.v, f.FAR.v, file = varsg.out )
+        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = varsg.out )
+
+    def pretty( f ):
+        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = varsg.pretty )
+
 
     def hover( f ):
         return( f.parent.name1 + " " + f.name1 + " " + str( f.W.v ) + " " + str( f.Tt.v ) + " " + str( f.Pt.v ) + " " + str( f.FAR.v ))

@@ -16,8 +16,10 @@ class Perf( Element ):
         p.desc = "Simple overall performance calculation"
         
         # variables
+        p.alt = RealT( p, units="ft", desc="Altitude" )       
         p.Fg = RealT( p, units="lbf", desc="Gross thrust" )
         p.Fn = RealT( p, units="lbf", desc="Net thrust" )
+        p.MN = RealT( p, desc="Mach number" )             
         p.SFC = RealT( p, units="??", desc="Specifc fuel consumption" )
         p.Wfuel = RealT( p, units="lbm/s", desc="Fuel flow" )
         p.Fram = RealT( p, units="lbf", desc="Ram drag" )
@@ -41,6 +43,8 @@ class Perf( Element ):
                 p.Wfuel.set( p.Wfuel + e.Wfuel )
             if e.type == "FlightConditionsSMJ":
                 p.Fram.set( p.Fram + e.Fram )
+                p.alt.set( e.alt )
+                p.MN.set( e.MN )
                  
         # calculate SFC
         p.Fn.set( p.Fg - p.Fram )
@@ -51,3 +55,7 @@ class Perf( Element ):
     def dump( self ):
         print( self.name, "Shaft", file = varsg.out )
         super().realPrint()
+        
+    def pretty( p ):
+        print( f"{"Performance"[:10]:12s}{p.name1[:10]:12s}{("alt:"+str(p.alt))[:10]:12s}{("MN:"+str(p.MN))[:10]:12s}{("Fn:"+str(p.Fn))[:10]:12s}{("SFC:"+str(p.SFC))[:10]:12s}{("Fg:"+str(p.Fg))[:10]:12s}{("Fram:"+str(p.Fram))[:10]:12s}{("Wfuel:"+str(p.Wfuel))[:10]:12s} " , file=varsg.pretty )
+         

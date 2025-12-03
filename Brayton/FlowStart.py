@@ -51,6 +51,6 @@ class FlowStart( Element ):
     	#dump output variables    	
         print( f.name1, "FlowStart", file=varsg.out )
         super().realPrint()       
-  
-       
-       
+     
+    def pretty( f ):
+        print( f"Start {f.name1[:10]:15s} W:{str(f.W)[:4]:10s} Tt:{str(f.W)[:4]:10s}  Pt:{str(f.Pt)[:4]:10s}" , file=varsg.pretty )      

@@ -66,15 +66,20 @@ class Element(Atom):
         if (eval( "hasattr(self."+name+" ,\"name1\")" )):
         	temp = eval( "self."+name )
         	temp.name1 = name
-
-  
     
     def realPrint( self ):
     	for v in self.VIDL:
     		if v.isa( "RealT" ):
-    			print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )
+    			print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.out )
     		if v.isa( "ComplexT" ):
     			print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )
+                
+    def pretty( self ):
+    	for v in self.VIDL:
+    		if v.isa( "RealT" ):
+    			print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.pretty )
+    		if v.isa( "ComplexT" ):
+    			print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )                
     			
     def hover( self ):
     	temp1 = ""

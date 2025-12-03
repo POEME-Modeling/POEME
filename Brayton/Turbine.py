@@ -129,4 +129,7 @@ class Turbine( Element ):
     def dump( self ): 
         print( self.name1, "Turbine", file=varsg.out )
         super().realPrint()       
-      
+ 
+    def pretty( t ):
+        print( f"{"Turbine"[:10]:12s}{t.name1[:10]:12s}{("PR:"+str(t.PR))[:10]:12s}{("eff:"+str(t.eff))[:10]:12s}{("PRmap:"+str(t.PRmap))[:10]:12s}{("NcMap:"+str(t.NcMap))[:10]:12s}" , file=varsg.pretty )
+  

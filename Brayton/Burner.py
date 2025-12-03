@@ -52,7 +52,9 @@ class Burner( Element ):
         print( self.name1, "Burner", file=varsg.out )
         super().realPrint()       
  
-
+    def pretty( b ):
+        print( f"{"Burner"[:10]:12s}{b.name1[:10]:12s}{("FAR:"+str(b.FAR))[:10]:12s}{("Tout:"+str(b.Tout))[:10]:12s}{("Wfuel:"+str(b.Wfuel))[:10]:12s}{("dP:"+str(b.dP))[:10]:12s}" , file=varsg.pretty )
+ 
        
 
        

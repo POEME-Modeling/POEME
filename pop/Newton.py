@@ -29,13 +29,13 @@ class Newton(Element):
         s.numpasses =  RealT( s, v=0., units="Integer", desc="Number of passes" )  
         s.tolerance = RealT( s, v=.0001, units="real", desc="tolernace" )  
         s.constraints = False
-        s.converged = False
         varsg.solver = s
         s.type = "NewtonSolver"
         s.time = RealT( s, v=0.,  units="seconds", dessc="Simulation time" )
         s.dtime = RealT( s, v=0.05,  units="seconds", desc="Simulation time step" ) 
         s.timeLast = RealT( s, v=0.05,  units="seconds", desc="Simulation stop time" ) 
         s.trans = BooleanT( s, v=False,  desc="True for transient, false for SS" )
+        s.converged = BooleanT( s, v=False,  desc="converged flag" ) 
         
         # gui location
         s.x = 0
@@ -45,6 +45,7 @@ class Newton(Element):
     # define one analysis pass
     def onepass( s ):
     
+        varsg.errors = ""
         s.numpasses = s.numpasses + 1
         # run the prepass on all the elements
         for e in varsg.element_list:
@@ -68,7 +69,7 @@ class Newton(Element):
         
     # solve the system
     def solve(s):
-        
+       
         s.numpasses = 0.
         # get the list of all the solver objects
         s.ind_list = list()
@@ -104,9 +105,9 @@ class Newton(Element):
         s.constraints = True
         # start working
         while ( s.constraints == True ):
-            s.converged = False
+            s.converged.set( False )
             iter = 0
-        
+            varsg.errors = ""
             errSumLast = 9e9
             errSum = 8e9
             while ( iter < s.maxJacobians.v and s.converged == False  ):
@@ -210,12 +211,15 @@ class Newton(Element):
                     imatrix = linalg.inv( matrix )
                 except:
                     iter = s.maxJacobians.v
+                    varsg.errors = varsg.errors + "Could not invert solver matrix\n"
                 bc = 0
+                
                 # if the error keeps improving, keep using jacobian
                 #while errSum <= errSumLast and s.converged == False:
                 check = 0
                 while check == 0:
                     try:
+
                         check = 1
                     
                         bc =  bc + 1
@@ -225,8 +229,9 @@ class Newton(Element):
                         ic = 0
                    
                         s.onepass()
+
  
-                    
+                 
                         # determine how much to change an independent by
                         # how it affects the deps, etc
                         for i in s.ind_list:
@@ -304,62 +309,49 @@ class Newton(Element):
                                 errSum =  errSum + c.depError()**2
                 
                         # if error is worse, we stepped to far
-                        # step bac\k
+                        # step back
                         ic = 0
-                    
-                        #if errSum > errSumLast and iter > 1:
-                            #print( "step back" )
-                            #for i in s.ind_list:
-                                #i.ind.v = ( i.ind.v - delxs[ic] )
-                            #ic = ic + 1
-                            #s.onepass()
-                    
-                    # check error for convergence
-                        s.converged = True
+
+                        s.converged.set( True )
                         for d in s.dep_list:
                             if d.active == True:
                                 if abs( d.depError() ) > s.tolerance.v:
-                                    s.converged = False
+                                    s.converged.set( False )
                                 
                                 
                         for st in s.state_list:
                             if st.active == True:
                                 if abs( st.depError() ) > s.tolerance.v:
-                                    s.converged = False 
+                                    s.converged.set( False )
+
                                 
                         for c in s.con_list:
                             if c.active == True:
                                 if abs( c.depError() ) > s.tolerance.v:
-                                    s.converged = False
+                                    s.converged.set( False )
+
                 
-                    except:
+                    except Exception as err:
+                        print( f"exception: {err}" )
                         iter = s.maxJacobians
+                        varsg.errors = varsg.errors + " error during jacbian step\n"
                         
             # check status of the constraints   
             s.constraints = False                           
             for c in s.con_list:
                 if c.errorCheck() and c.active == False:
-                    #print( "constraints", c.active )
                     c.dep.active = False
-                    #for cp in s.con_list:
-                        #if cp.dep == c.dep:
-                            #cp.active =  False
                     c.active = True
-                    #print( c.active )
                     s.constraints =  True  
-
+ 
                     
         # if we are here, model is done
         try:
             s.onepass()
         except:
+            varsg.errors = varsg.errors + " error during final model pass\n"
             pass
-            
-
-        #varsg.stdOut = open( "pop.out", "a" )
-        #varsg.stdOut.print()
-        #varsg.out.close()
-        
+ 
         for c in varsg.con_list:
             if c.on == True:
                 s.con_list.append( c )
@@ -367,9 +359,10 @@ class Newton(Element):
                 c.dep.active = True        
         
         if iter > s.maxJacobians.v - 1:
-            print( "did not converge" )
+            s.converged.set( False )
+            varsg.errors = varsg.errors + " solver exceeded maximu number of iterations\n"
         else:
-            print( "converged" )
+            s.converged.set( True )
            
           
     def trim( s ):
@@ -386,6 +379,8 @@ class Newton(Element):
         for i in varsg.ind_list:
             i.ind.v = ( i.ind.save )
 
+    def pretty( s ):
+        print( "Converged:" + str( s.converged.v ), file=varsg.pretty )
             
     # user wants transient data                         
     def transrun( s ):

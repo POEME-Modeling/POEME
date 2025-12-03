@@ -77,8 +77,12 @@ class Shaft( Element ):
 
         # determine the speed derivative
         s.dNdt.set(( s.HPpos - s.HPneg )/(s.N/5252.) /s.Ispool )
-    
+
 
     def dump( self ):
         print( self.name1, "Shaft", file = varsg.out )
         super().realPrint()
+        
+    def pretty( s ):
+        print( f"{"Shaft"[:10]:12s}{s.name1[:10]:12s}{("N:"+str(s.N))[:10]:12s}{("HPX:"+str(s.HPX))[:10]:12s}" , file=varsg.pretty )
+ 

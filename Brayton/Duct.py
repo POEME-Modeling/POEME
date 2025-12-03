@@ -33,6 +33,8 @@ class Duct( Element ):
     def dump( d ): 
         print( d.name1, "Duct", file=varsg.out )
         super().realPrint()       
-  
-       
+
+    def pretty( d ):
+        print( f"{"Duct":12s}{d.name1[:10]:12s}{("dP:"+str(d.dP))[:10]:12s}{("Q:"+str(d.Q))[:10]:12s}" , file=varsg.pretty )            
+      
        

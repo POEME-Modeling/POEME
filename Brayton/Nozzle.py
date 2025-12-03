@@ -9,6 +9,7 @@ from Dependent import Dependent
 from BooleanT import BooleanT
 from IntT import IntT
 from StringVarT import StringVarT
+import varsg
 
 class Nozzle( Element ):
     
@@ -44,6 +45,8 @@ class Nozzle( Element ):
 
     def calc( n ):
         
+        if ( n.FNo.Pt < n.PsExh.get() ):
+            varsg.errors = varsg.errors + n.name1 + " nozzle pressure ratio < 1 "
         # copy the inlet flow to the exit
         n.FNo.copy( n.FNi )
         
@@ -70,5 +73,6 @@ class Nozzle( Element ):
         print( self.name1, "Nozzle", file=varsg.out )
         super().realPrint()       
   
-       
+    def pretty( n ):
+        print( f"{"Nozzle"[:10]:12s}{n.name1[:10]:12s}{("Fg:"+str(n.Fg))[:10]:12s}", file = varsg.pretty )
        

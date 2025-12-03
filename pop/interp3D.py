@@ -1,5 +1,5 @@
 
-
+import varsg
 
 def interp3D( x1, x2, x3, x1i, x2i, x3i, yi ):
     ix1 = index( x1, x1i )
@@ -48,6 +48,10 @@ def index( x, temp ):
 
 
 def index( x, temp ):
+    if x < temp[0]:
+        varsg.errors = varsg.errors + " interp 3d input to loww " + str( x )+ " < " + str( temp[0] )+"\n"
+    if x > temp[ len( temp ) - 1 ]:
+        varsg.errors = varsg.errors + "interp 3d input to high " + str( x )+ " > " + str( temp[ len( temp )- 1 ] )+"\n"   
     location = 0
     min = 0 
     max = len( temp )

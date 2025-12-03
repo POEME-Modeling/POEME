@@ -122,5 +122,6 @@ class FlightConditionsSMJ( Element ):
         print( f.name1, "FlowStart", file=varsg.out )
         super().realPrint()       
   
-       
+    def pretty( f ):
+        print( f"{"FlightConditions"[:10]:12s}{f.name1[:10]:12s}{("W:"+str(f.W))[:10]:12s}{("Tt:"+str(f.FNo.Tt))[:10]:12s}{("Pt:"+str(f.FNo.Pt))[:10]:12s}{("Tamb:"+str(f.Tamb))[:10]:12s}{("Pamb:"+str(f.Pamb))[:10]:12s}" , file=varsg.pretty )            
        

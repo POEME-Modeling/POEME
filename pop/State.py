@@ -36,7 +36,7 @@ class State:
         s.val_scale = RealT( s, v=s.val_scale, desc="scalar" )
 
         s.dsL = RealT( s, desc= "" ) 
-    	
+        
         s.solveState = "";
         s.trans = BooleanT( s, v=False,  desc="determines if the state is in transient or SS mode" )
         if p == 0:
@@ -45,187 +45,188 @@ class State:
            p.addVID( s )
 
  
- 		# add state to the global space
+        # add state to the global space
         varsg.state_list.append( s )
  
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
         if (eval( "hasattr(self."+name+" ,\"name1\")" )):
-        	temp = eval( "self."+name )
-        	if ( temp.name1 == "" ):
-        		temp.name1 = name
-        	
+            temp = eval( "self."+name )
+            if ( temp.name1 == "" ):
+                temp.name1 = name
+            
     def isa( s, type ):
-    	if type == "State":
-    		return True
-    	else:
-    		return False
-			
+        if type == "State":
+            return True
+        else:
+            return False
+            
 
     def addVID( s,v ):
         s.VIDL.append(v)
         
     def depError( s ):
 
-    	# if we are in steady state mode, just return dep error
-    	if s.trans.v == False:
-    		# deterime the appropriate denominator
-    		denom = max( abs( s.d1.v ), abs( s.d2.v ))
-    		if s.val_scale.v !=0.:
-    			denom = s.val_scale.v
-    		
-    		if ( denom == 0. ):
-    			denom = 1.
-    		
-    		# calculate and return the error
-    		s.err.v =(( s.d1.v ) - ( s.d2.v ))/ denom   	
-    		return s.err.v
-    		
-		# if we are in transient mode the error is the difference
-		# between the current value of the state
-		# and the integrated value of the state using the last time info
-    	if s.trans.v == True:
-    		if s.s.v == 0.:
-    			denom = 1.
-    		else:
-    			denom = s.s.v
-    			
-    		if s.val_scale.v !=0.:
-    			denom = s.val_scale.v
-    			
-    		#return ( s.s.v - ( s.stateL.v + ( s.ds.v  )/2.*varsg.NS.dtime.v ))/ denom
-    		return ( s.s.v - ( s.stateL.v + ( s.ds.v + s.dsL.v )/2.*varsg.NS.dtime.v ))/ denom
-			
+        # if we are in steady state mode, just return dep error
+        if s.trans.v == False:
+            # deterime the appropriate denominator
+            denom = max( abs( s.d1.v ), abs( s.d2.v ))
+            if s.val_scale.v !=0.:
+                denom = s.val_scale.v
+            
+            if ( denom == 0. ):
+                denom = 1.
+            
+            # calculate and return the error
+            s.err.v =(( s.d1.v ) - ( s.d2.v ))/ denom 
+
+            return s.err.v
+            
+        # if we are in transient mode the error is the difference
+        # between the current value of the state
+        # and the integrated value of the state using the last time info
+        if s.trans.v == True:
+            if s.s.v == 0.:
+                denom = 1.
+            else:
+                denom = s.s.v
+                
+            if s.val_scale.v !=0.:
+                denom = s.val_scale.v
+                
+            #return ( s.s.v - ( s.stateL.v + ( s.ds.v  )/2.*varsg.NS.dtime.v ))/ denom
+            return ( s.s.v - ( s.stateL.v + ( s.ds.v + s.dsL.v )/2.*varsg.NS.dtime.v ))/ denom
+            
     def trim( s ):
-		# trim it up by setting last value to current value to start transient
-    	# done to start transient
-    	s.stateL.v = s.s.v
-    	s.dsL.v = 0.
-		
+        # trim it up by setting last value to current value to start transient
+        # done to start transient
+        s.stateL.v = s.s.v
+        s.dsL.v = 0.
+        
     def step( s ):
-    	# step in time by making current value last value
-    	s.stateL.v = s.s.v
-    	s.dsL.v = s.ds.v
+        # step in time by making current value last value
+        s.stateL.v = s.s.v
+        s.dsL.v = s.ds.v
     
-    	
+        
     def precheck( s ):
-    	
-    	
-		# the dependent d1 value might not be in this element
-		# if that is the case, look through all of the elements
-		# first block happens if the variable is local    	
-    	try:
-    		float( s.d1name.v )
-    		s.d1 = RealT( s,float(d.d1name.v) , "", "" ) 
-    		
-    	except ValueError:
-  		   	
-	    	tempname = s.d1name.v
-	    	restofname= s.d1name.v
-	    	top = s.parent
-    	
-	    	while tempname.find( "." )>-1:
-	    		restofname= tempname[tempname.find(".")+1:]
-	    		restofname = tempname
-	    		tempname = tempname[0:tempname.find(".") ] 
-	    		for v in top.VIDL:
-	    			temp =  v.name1
+        
+        
+        # the dependent d1 value might not be in this element
+        # if that is the case, look through all of the elements
+        # first block happens if the variable is local      
+        try:
+            float( s.d1name.v )
+            s.d1 = RealT( s,float(d.d1name.v) , "", "" ) 
+            
+        except ValueError:
+            
+            tempname = s.d1name.v
+            restofname= s.d1name.v
+            top = s.parent
+        
+            while tempname.find( "." )>-1:
+                restofname= tempname[tempname.find(".")+1:]
+                restofname = tempname
+                tempname = tempname[0:tempname.find(".") ] 
+                for v in top.VIDL:
+                    temp =  v.name1
 
-	    			if temp == tempname:
-	    				if restofname.find(".")>-1:
-	    					top = v
-	    				tempname = restofname
-    	
-	    	restofname=restofname[restofname.find(".")+1:] 
-	    	for v in top.VIDL:
-	    		if restofname == v.name1:
-	    			s.d1 = v
+                    if temp == tempname:
+                        if restofname.find(".")>-1:
+                            top = v
+                        tempname = restofname
+        
+            restofname=restofname[restofname.find(".")+1:] 
+            for v in top.VIDL:
+                if restofname == v.name1:
+                    s.d1 = v
 
-		# the dependent d2 value might not be in this element
-		# if that is the case, look through all of the elements
-		# first block happens if the variable is local 
-    	try:
-    		float( s.d2name.v )
-    		s.d2 = RealT( s,v=float( s.d2name.v ) ) 
-    		
-    	except ValueError:
-  		   	
-	    	tempname = s.d2name.v
-	    	restofname= s.d2name.v
-	    	top = s.parent
-    	
-	    	while tempname.find( "." )>-1:
-	    		restofname= tempname[tempname.find(".")+1:]
-	    		restofname = tempname
-	    		tempname = tempname[0:tempname.find(".") ] 
-	    		for v in top.VIDL:
-	    			temp =  v.name1
+        # the dependent d2 value might not be in this element
+        # if that is the case, look through all of the elements
+        # first block happens if the variable is local 
+        try:
+            float( s.d2name.v )
+            s.d2 = RealT( s,v=float( s.d2name.v ) ) 
+            
+        except ValueError:
+            
+            tempname = s.d2name.v
+            restofname= s.d2name.v
+            top = s.parent
+        
+            while tempname.find( "." )>-1:
+                restofname= tempname[tempname.find(".")+1:]
+                restofname = tempname
+                tempname = tempname[0:tempname.find(".") ] 
+                for v in top.VIDL:
+                    temp =  v.name1
 
-	    			if temp == tempname:
-	    				if restofname.find(".")>-1:
-	    					top = v
-	    				tempname = restofname
-    	
-	    	restofname=restofname[restofname.find(".")+1:] 
-	    	for v in top.VIDL:
-	    		if restofname == v.name1:
-	    			s.d2 = v
+                    if temp == tempname:
+                        if restofname.find(".")>-1:
+                            top = v
+                        tempname = restofname
+        
+            restofname=restofname[restofname.find(".")+1:] 
+            for v in top.VIDL:
+                if restofname == v.name1:
+                    s.d2 = v
 
-		# the state value might not be in this element
-		# if that is the case, look through all of the elements
-		# first block happens if the variable is local 
-    	try:
-    		float( s.sname.v )
-    		s.s = RealT( s, float( s.sname.v ) , "", "" ) 
-    	except ValueError:
-  		   	
-	    	tempname = s.sname.v
-	    	restofname= s.sname.v
-	    	top = s.parent
-    	
-	    	while tempname.find( "." )>-1:
-	    		restofname= tempname[tempname.find(".")+1:]
-	    		restofname = tempname
-	    		tempname = tempname[0:tempname.find(".") ] 
-	    		for v in top.VIDL:
-	    			temp =  v.name1
+        # the state value might not be in this element
+        # if that is the case, look through all of the elements
+        # first block happens if the variable is local 
+        try:
+            float( s.sname.v )
+            s.s = RealT( s, float( s.sname.v ) , "", "" ) 
+        except ValueError:
+            
+            tempname = s.sname.v
+            restofname= s.sname.v
+            top = s.parent
+        
+            while tempname.find( "." )>-1:
+                restofname= tempname[tempname.find(".")+1:]
+                restofname = tempname
+                tempname = tempname[0:tempname.find(".") ] 
+                for v in top.VIDL:
+                    temp =  v.name1
 
-	    			if temp == tempname:
-	    				if restofname.find(".")>-1:
-	    					top = v
-	    				tempname = restofname
-    	
-	    	restofname=restofname[restofname.find(".")+1:] 
-	    	for v in top.VIDL:
-	    		if restofname == v.name1:
-	    			s.s = v
+                    if temp == tempname:
+                        if restofname.find(".")>-1:
+                            top = v
+                        tempname = restofname
+        
+            restofname=restofname[restofname.find(".")+1:] 
+            for v in top.VIDL:
+                if restofname == v.name1:
+                    s.s = v
 
-		# the state value might not be in this element
-		# if that is the case, look through all of the elements
-		# first block happens if the variable is local 
-    	try:
-    		float( s.dsname.v )
-    		s.ds = RealT( s, float( s.dsname.v ) , "", "" ) 
+        # the state value might not be in this element
+        # if that is the case, look through all of the elements
+        # first block happens if the variable is local 
+        try:
+            float( s.dsname.v )
+            s.ds = RealT( s, float( s.dsname.v ) , "", "" ) 
 
-    	except ValueError:
-  		   	
-	    	tempname = s.dsname.v
-	    	restofname= s.dsname.v
-	    	top = s.parent
-    	
-	    	while tempname.find( "." )>-1:
-	    		restofname= tempname[tempname.find(".")+1:]
-	    		restofname = tempname
-	    		tempname = tempname[0:tempname.find(".") ] 
-	    		for v in top.VIDL:
-	    			temp =  v.name1
+        except ValueError:
+            
+            tempname = s.dsname.v
+            restofname= s.dsname.v
+            top = s.parent
+        
+            while tempname.find( "." )>-1:
+                restofname= tempname[tempname.find(".")+1:]
+                restofname = tempname
+                tempname = tempname[0:tempname.find(".") ] 
+                for v in top.VIDL:
+                    temp =  v.name1
 
-	    			if temp == tempname:
-	    				if restofname.find(".")>-1:
-	    					top = v
-	    				tempname = restofname
-    	
-	    	restofname=restofname[restofname.find(".")+1:] 
-	    	for v in top.VIDL:
-	    		if restofname == v.name1:
-	    			s.ds = v
+                    if temp == tempname:
+                        if restofname.find(".")>-1:
+                            top = v
+                        tempname = restofname
+        
+            restofname=restofname[restofname.find(".")+1:] 
+            for v in top.VIDL:
+                if restofname == v.name1:
+                    s.ds = v

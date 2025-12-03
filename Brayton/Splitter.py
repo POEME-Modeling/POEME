@@ -33,17 +33,15 @@ class Splitter( Element ):
         spl.initialList()
         
     def calc(spl):
-    	# pass incoming flow information
+        # pass incoming flow information
         spl.FNo1.copy( spl.FNi )
         spl.FNo2.copy( spl.FNi )
 
-    	# keep Pt and Tt constant, only massflow changes
+        # keep Pt and Tt constant, only massflow changes
         spl.FNo1.setW( spl.FNi.W * 1. / (spl.BPR + 1.) )
         spl.FNo2.setW( spl.FNi.W * spl.BPR / (spl.BPR + 1.) )
 
-
-
-    	# spl.FNo.set_hP( spl.FNo.ht + spl.Q/spl.FNi.W, spl.FNo.Pt*( 1.- spl.dP ) )  
+        # spl.FNo.set_hP( spl.FNo.ht + spl.Q/spl.FNi.W, spl.FNo.Pt*( 1.- spl.dP ) )  
         #spl.FNo1.set_hP( spl.FNi.ht, spl.FNi.Pt )
         #spl.FNo2.set_hP( spl.FNi.ht, spl.FNi.Pt )
 
@@ -52,7 +50,7 @@ class Splitter( Element ):
         # design point turn off solver stuff
         if spl.size == True:
             spl.ind_BPR.active = False
-		# off design turn on solver stuff
+        # off design turn on solver stuff
         else:
             spl.ind_BPR.active = True
             
@@ -60,5 +58,7 @@ class Splitter( Element ):
         print( spl.name1, "Splitter", file=varsg.out )
         super().realPrint()       
   
-       
+    def pretty( s ):
+        print( f"{"Splitter"[:10]:12s}{s.name1[:10]:12s}{("BPR:"+str(s.BPR))[:10]:12s}" , file=varsg.pretty )            
+      
        

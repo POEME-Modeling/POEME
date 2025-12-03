@@ -58,7 +58,8 @@ class Compressor( Element ):
         c.PRmap = RealT( c, units="none", desc="Pressure ratio read from table" ) 
         c.PRscale = RealT( c, units="none", desc="Scalar on pressure ratio map" ) 
         c.Rline = RealT( c, units="none", desc="Current R-line" ) 
-        c.RlineDes = RealT( c, units="none", desc="Design point R-line" )        
+        c.RlineDes = RealT( c, units="none", desc="Design point R-line" )
+        c.SMN = RealT( c, units="none", desc="stall margin based on corrected speed" )                
         c.Wc = RealT( c, units="lbm/sec", desc="Corrected flow" ) 
         c.WcDes = RealT( c, units="lbm/sec", desc="Design corrected flow" )   
         c.WcMap = RealT( c, units="lbm/sec", desc="Map corrected flow" )     
@@ -107,6 +108,7 @@ class Compressor( Element ):
         c.eff.set( c.effMap*c.effScale )
         c.PR.set( c.PRmap*c.PRscale )
         c.WcMap.set( c.WcScale*c.WcMap )
+        c.SMN.set( ( c.PRmap - c.PRtable.calc( c.NcMap, c.Rline ) )/ c.PRmap )
 
         # determine the ideal conditions
         c.FNideal.set_sP( c.FNi.s, c.PR*c.FNi.Pt )
@@ -114,11 +116,11 @@ class Compressor( Element ):
         # determine the actual exit conditions
         htOut = c.FNi.ht+( c.FNideal.ht - c.FNi.ht )/ c.eff
         c.FNo.set_hP( htOut, c.PR*c.FNi.Pt )
-  
+
         # set the bleed exit conditions 
         if c.Wfrac1 > 0.:
             c.FNoBld1.setW(  c.Wfrac1*c.FNi.W )
-            c.FNoBld1.set_hP( c.FNi.ht + c.hfract1*( c.FNo.ht - c.FNi.ht ), c.hfract1*(c.FNo.Pt - c.FNi.Pt ))       
+            c.FNoBld1.set_hP( c.FNi.ht + c.hfract1*( c.FNo.ht - c.FNi.ht ), c.hfract1*(c.FNo.Pt - c.FNi.Pt ))
         if c.Wfrac2 > 0.:
             c.FNoBld2.setW( c.Wfrac2*c.FNi.W )
             c.FNoBld2.set_hP( c.FNi.ht + c.hfract2*( c.FNo.ht - c.FNi.ht ), c.hfract2*(c.FNo.Pt - c.FNi.Pt ))
@@ -129,6 +131,7 @@ class Compressor( Element ):
          ( c.FNoBld2.ht - c.FNi.ht )*c.FNoBld2.W*3600./2545. ) )
          
         c.FNo.setW( c.FNo.W - c.FNoBld1.W - c.FNoBld2.W )
+
         
      
     def precheck( c ):
@@ -148,4 +151,7 @@ class Compressor( Element ):
         #dump output variables
         print( c.name1, "Compressor", file=varsg.out )
         super().realPrint()       
-      
+        
+    def pretty( c ):
+        print( f"{"Compressor"[:10]:12s}{c.name1[:10]:12s}{("PR:"+str(c.PR))[:10]:12s}{("eff:"+str(c.eff))[:10]:12s}{("Rline:"+str(c.Rline))[:10]:12s}{("NcMap:"+str(c.NcMap))[:10]:12s}" , file=varsg.pretty )
+     
