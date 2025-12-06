@@ -18,9 +18,9 @@ def index( x, temp, p ):
    
     if x < temp[0]:
         if p.parent != 0:
-            varsg.errors = varsg.erros + p.parent.name1
+            varsg.errors = varsg.errors + p.parent.name1 + "."
             
-        vargs.errors = varsg.errors + p.name1
+        vargs.errors = varsg.errors + p.name1 + "."
         varsg.errors = vargs.errors +  varsg.errors + "interp 2d input to low " + x + " < " + temp[0]+"\n"
     if x > temp[ len( temp ) - 1 ]:
         varsg.errors = varsg.errors + "interp 2d input to low " + x + " < " + temp[ len( temp ) - 1 ]+"\n"   

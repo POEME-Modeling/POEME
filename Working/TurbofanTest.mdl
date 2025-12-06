@@ -101,11 +101,6 @@ fan.NcMapDes.set( 1.000 )
 fan.RlineDes.set( 2.000 ) 
 fan.NcMapDes.set( 1.00 )
 fan.RlineDes.set( 2.00 ) 
-
-fan.Wfrac1.set( 1e-8 )
-fan.hfract1.set( 0.7 )
-fan.Wfrac2.set( 1e-8 )
-fan.hfract2.set( 0.9 )
 #fan.FNo.MN.set( 0.45 )
 
 splitter.BPR.set( 23.8470 )

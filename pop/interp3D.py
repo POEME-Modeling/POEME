@@ -1,10 +1,10 @@
 
 import varsg
 
-def interp3D( x1, x2, x3, x1i, x2i, x3i, yi ):
-    ix1 = index( x1, x1i )
-    ix2 = index( x2, x2i ) 
-    ix3 = index( x3, x3i )
+def interp3D( x1, x2, x3, x1i, x2i, x3i, yi, p ):
+    ix1 = index( x1, x1i, p )
+    ix2 = index( x2, x2i, p ) 
+    ix3 = index( x3, x3i, p )
     
     y0 = yi[ ix1][ix2][ix3]
     y1 = yi[ ix1][ix2][ix3+1]
@@ -47,11 +47,16 @@ def index( x, temp ):
     return location
 
 
-def index( x, temp ):
+def index( x, temp, p ):
+
     if x < temp[0]:
-        varsg.errors = varsg.errors + " interp 3d input to loww " + str( x )+ " < " + str( temp[0] )+"\n"
+        if p.parent != 0:
+            varsg.errors = varsg.errors + p.parent.name1+"."       
+        varsg.errors = varsg.errors + p.name1 + " interp 3d input to low " + str( x )+ " < " + str( temp[0] )+"\n"
     if x > temp[ len( temp ) - 1 ]:
-        varsg.errors = varsg.errors + "interp 3d input to high " + str( x )+ " > " + str( temp[ len( temp )- 1 ] )+"\n"   
+        if p.parent != 0:
+            varsg.errors = varsg.errors + p.parent.name1+"."          
+        varsg.errors = varsg.errors + p.name1 + "interp 3d input to high " + str( x )+ " > " + str( temp[ len( temp )- 1 ] )+"\n"   
     location = 0
     min = 0 
     max = len( temp )

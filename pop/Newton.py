@@ -181,26 +181,26 @@ class Newton(Element):
                         # perturb ind
                         i.ind.v = i.ind.v + dx
                         dcount = 0
-                        try:
-                            s.onepass()
+                        #try:
+                        s.onepass()
 
-                            for d in s.dep_list:
-                                if d.active == True:
-                                    matrix[dcount][icount] =( d.depError() - d.baseError )/dx
-                                    dcount = dcount+1
+                        for d in s.dep_list:
+                            if d.active == True:
+                                matrix[dcount][icount] =( d.depError() - d.baseError )/dx
+                                dcount = dcount+1
                             
-                            for st in s.state_list:
-                                if st.active == True:
-                                    matrix[dcount][icount] =( st.depError() - st.baseError )/dx
-                                    dcount = dcount+1
+                        for st in s.state_list:
+                            if st.active == True:
+                                matrix[dcount][icount] =( st.depError() - st.baseError )/dx
+                                dcount = dcount+1
 
-                            for c in s.con_list:
-                                if c.active == True:
-                                    matrix[ dcount][icount] =( c.depError() - c.baseError )/dx 
-                                    dcount = dcount+1
+                        for c in s.con_list:
+                            if c.active == True:
+                                matrix[ dcount][icount] =( c.depError() - c.baseError )/dx 
+                                dcount = dcount+1
                                 
-                        except:
-                            iter = s.maxJacobians.v
+                        #except:
+                            #iter = s.maxJacobians.v
                             
                         # move independent back
                         i.ind.v = ( i.ind.v - dx )
@@ -218,7 +218,7 @@ class Newton(Element):
                 #while errSum <= errSumLast and s.converged == False:
                 check = 0
                 while check == 0:
-                    try:
+                    #try:
 
                         check = 1
                     
@@ -286,10 +286,10 @@ class Newton(Element):
                             i.ind.v = ( i.ind.v + delxs[ic] )
                             ic = ic + 1
 
-                        try:
-                            s.onepass()
-                        except:
-                            iter = s.maxJacobians.v
+                        #try:
+                        s.onepass()
+                        #except:
+                            #iter = s.maxJacobians.v
                        
                     
 
@@ -331,10 +331,10 @@ class Newton(Element):
                                     s.converged.set( False )
 
                 
-                    except Exception as err:
-                        print( f"exception: {err}" )
-                        iter = s.maxJacobians
-                        varsg.errors = varsg.errors + " error during jacbian step\n"
+                    #except Exception as err:
+                        #print( f"exception: {err}" )
+                        #iter = s.maxJacobians
+                        #varsg.errors = varsg.errors + " error during jacbian step\n"
                         
             # check status of the constraints   
             s.constraints = False                           
@@ -346,11 +346,12 @@ class Newton(Element):
  
                     
         # if we are here, model is done
-        try:
-            s.onepass()
-        except:
-            varsg.errors = varsg.errors + " error during final model pass\n"
-            pass
+        #try:
+        varsg.errors = ""
+        s.onepass()
+        #except:
+            #varsg.errors = varsg.errors + " error during final model pass\n"
+            #pass
  
         for c in varsg.con_list:
             if c.on == True:

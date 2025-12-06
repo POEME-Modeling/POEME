@@ -116,15 +116,15 @@ class FN( Atom ):
         else:
             f.Pt.v=Pt.v
 
-        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )
+        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
         f.statics()
         if f.other !=0:
             f.other.copyDeep( f )
@@ -139,15 +139,15 @@ class FN( Atom ):
         else:
             f.Pt.v=Pt.v
 
-        f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v )
-        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v ) 
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )        
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )
+        f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v, f )
+        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f ) 
+        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )        
+        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
         f.statics()
         if f.other !=0:
             f.other.copyDeep( f )
@@ -162,20 +162,20 @@ class FN( Atom ):
         else:
             f.Pt.v= Pt.v
 
-        f.Tt.v = eval(f.comp.v).T_sP( f.s.v, f.Pt.v, f.FAR.v )
-        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v )
+        f.Tt.v = eval(f.comp.v).T_sP( f.s.v, f.Pt.v, f.FAR.v, f )
+        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
         f.statics()
         if f.other != 0:
             f.other.copyDeep( f )
 
-    def set_hs( f, h, s, P ):
+    def set_hs( f, h, s ):
         if isinstance( h, float ):
             f.ht.v = h
         else:
@@ -185,7 +185,7 @@ class FN( Atom ):
         else:
             f.s.v = s.v
             
-        f.Pt.v = eval(f.comp.v).P_hs( f.ht.v, f.s.v, f.FAR.v, P )
+        f.Pt.v = eval(f.comp.v).P_hs( f.ht.v, f.s.v, f.FAR.v, f )
         f.set_sP( f.s.v, f.Pt.v )
 
     def setPs( f, Ps ):
@@ -274,19 +274,19 @@ class FN( Atom ):
                 count = count + 1
                 
             if ( count > 49 ):
-                vargs.errors = varsg.errors + " failure during static area match\n"
+                varsg.errors = f.parent.name1+"."+f.name1 + " " + varsg.errors + " failure during static area match\n"
     
             f.A.v = Aor
                 
     def PsCalc( f ):
-        f.Ts.v = eval(f.comp.v).T_sP( f.s.v, f.Ps.v, f.FAR.v )
-        f.hs.v = eval(f.comp.v).h_TP( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.rhos.v = eval(f.comp.v).rho( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.Rs.v =  eval(f.comp.v).R( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.Cps.v = eval(f.comp.v).Cp( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.mus.v = eval(f.comp.v).mu( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.ks.v = eval(f.comp.v).k( f.Ts.v, f.Ps.v, f.FAR.v )
-        f.gams.v =  eval(f.comp.v).gam( f.Ts.v, f.Ps.v, f.FAR.v )
+        f.Ts.v = eval(f.comp.v).T_sP( f.s.v, f.Ps.v, f.FAR.v, f )
+        f.hs.v = eval(f.comp.v).h_TP( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.rhos.v = eval(f.comp.v).rho( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.Rs.v =  eval(f.comp.v).R( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.Cps.v = eval(f.comp.v).Cp( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.mus.v = eval(f.comp.v).mu( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.ks.v = eval(f.comp.v).k( f.Ts.v, f.Ps.v, f.FAR.v, f )
+        f.gams.v =  eval(f.comp.v).gam( f.Ts.v, f.Ps.v, f.FAR.v, f )
         f.V.v = math.sqrt( 2*abs(f.ht.v - f.hs.v)*25037. )* abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v)    
         f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037.) *abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v) 
         f.A.v = f.W.v /( f.rhos.v*abs(f.V.v ))
