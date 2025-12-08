@@ -509,6 +509,10 @@ varsg.prettyPrint.print()
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 varsg.set("size", False )
+fanNozzle.ind_Area = Independent( fanNozzle, indname="Anoz", perturb=.05, scale=100, perturb_type="Relative", active=True )        
+fan.RlineLimit = RealT( fan, v=2.0 )
+fan.dep_Rline = Dependent( fan, d1name="Rline", d2name="RlineLimit", active=True )
+
 varsg.check()
 varsg.NS.run()
 varsg.prettyPrint.print()
