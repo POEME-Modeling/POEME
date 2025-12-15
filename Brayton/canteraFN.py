@@ -14,7 +14,7 @@ HC = .1667;
 class canteraFN:
     gFAR = -1.
 
-    def gam( T, P, FAR ):        	
+    def gam( T, P, FAR, p ):        	
         if FAR < .00001:
             if ( abs( gasair.T - T*5./9 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
         	    gasair.TP=T*5./9.,P*6894.76
@@ -28,7 +28,7 @@ class canteraFN:
         	    gas.equilibrate( 'TP' )
             return( gas.cp/gas.cv )
         	
-    def rho( T, P, FAR ):
+    def rho( T, P, FAR, p ):
         if FAR < .00001:    
             if ( abs( gasair.T - T*5./9 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.TP=T*5./9.,P*6894.76
@@ -43,7 +43,7 @@ class canteraFN:
 	            gas.equilibrate( 'TP' )
             return( gas.density*0.062428 )   
                 
-    def Cp( T, P, FAR ):
+    def Cp( T, P, FAR, p ):
         if FAR < .00001:    
             if ( abs( gasair.T - T*5./9 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.TP=T*5./9.,P*6894.76
@@ -59,7 +59,7 @@ class canteraFN:
 	            gas.equilibrate( 'TP' )
             return( gas.cp*0.0002390057 )
 			
-    def h_TP( T, P, FAR ):
+    def h_TP( T, P, FAR, p ):
         if FAR < .00001:     
             if ( abs( gasair.T - T*5./9 ) > .0000001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.TP=T*5./9.,P*6894.76
@@ -74,7 +74,7 @@ class canteraFN:
 	            gas.equilibrate( 'TP' ) 
             return( gas.h*0.0004299226 )
         
-    def s_TP( T, P, FAR ):
+    def s_TP( T, P, FAR, p ):
         if FAR < .00001:
             if ( abs( gasair.T - T*5./9 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.TP=T*5./9.,P*6894.76
@@ -90,7 +90,7 @@ class canteraFN:
                 gas.equilibrate( 'TP' ) 
             return( gas.s*0.0002390057 )
         
-    def R( T, P, FAR ): 
+    def R( T, P, FAR, p ): 
         if FAR < .00001:
             if ( abs( gasair.T - T*5./9 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.TP=T*5./9.,P*6894.76
@@ -105,13 +105,13 @@ class canteraFN:
 	            gas.equilibrate( 'TP' )
             return( 8.314/gas.mean_molecular_weight*0.0002390057*1000. )
 
-    def mu( T, P, FAR ):
+    def mu( T, P, FAR, p ):
         return 0
         
-    def k( T, P, FAR ):
+    def k( T, P, FAR, p ):
     	return 0
     	
-    def T_sP( s, P, FAR ):
+    def T_sP( s, P, FAR, p ):
         if FAR < .00001:
             if (abs( gasair.s - s/0.0002390057 ) > .0001 or abs( gasair.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	            gasair.SP=s/0.0002390057,P*6894.76
@@ -126,13 +126,13 @@ class canteraFN:
                gas.equilibrate( 'SP' )    
             return( gas.T*9./5. )
             
-    def T_hP( h, P, FAR ):
+    def T_hP( h, P, FAR, p ):
     	T = 1500
-    	hcalc = canteraFN.h_TP( T, P, FAR )
+    	hcalc = canteraFN.h_TP( T, P, FAR, p )
     	errorm1 = ( hcalc - h )/h
     	xm1 =  T
     	T = T*.95
-    	hcalc = canteraFN.h_TP( T, P, FAR )    
+    	hcalc = canteraFN.h_TP( T, P, FAR, p )    
     	error = ( hcalc - h )/ h
     	x = T
     	
@@ -146,7 +146,7 @@ class canteraFN:
     		errorm1 = error
     		x = xp1
     		T = x
-    		hcalc = canteraFN.h_TP( T, P, FAR )
+    		hcalc = canteraFN.h_TP( T, P, FAR, p )
     		error = ( hcalc - h )/ h
     
     		
@@ -156,12 +156,12 @@ class canteraFN:
     def P_hs( h, S, FAR, P ):
     	T = canteraFN.T_sP( S, P, FAR )
 
-    	hcalc =  canteraFN.h_TP( T, P, FAR )
+    	hcalc =  canteraFN.h_TP( T, P, FAR, p )
     	errorm1 = ( hcalc - h )/h
     	xm1 =  P
     	P = P*.95
     	T = canteraFN.T_sP( S, P, FAR ) 
-    	hcalc =  canteraFN.h_TP( T, P, FAR )    	
+    	hcalc =  canteraFN.h_TP( T, P, FAR, p )    	
     	error = ( hcalc - h )/ h
     	x = P
     	

@@ -21,8 +21,8 @@ class PIV( Element ):
         p.elast = RealT( p, units="none", desc="Error term from last time step" )
         p.e = RealT( p, units="none", desc="Error term" )
         p.Inte = RealT( p, units="none", desc="Inte" )
-        p.DPi = StringVarT( p, "Sensed value" )
-        p.DPo = StringVarT( p, "Set value" )
+        p.DPi = StringVarT( p, desc="Sensed value" )
+        p.DPo = StringVarT( p, desc="Set value" )
         p.timeLast= RealT( p, units="time", desc="Last time this element ran" )
         p.type = "PIV"
      

@@ -58,7 +58,7 @@ def set( var, value ):
     
     stuff = element_list.copy()
     stuff.append( NS )
-    
+ 
     for e in stuff:
         for v in e.VIDL:
             if v.name1 == var:
@@ -71,7 +71,9 @@ def set( var, value ):
                         for v2 in v1.VIDL():
                             if v2.name1 == var:
                                 v2.v = value
-
+                            for v3 in v2.VIDL():
+                                if v3.name1 == var:
+                                    v3.v = value
                     except:
                         pass
                     
@@ -79,9 +81,9 @@ def set( var, value ):
 
 
 class stdOut( ):
-    
+
     def print():
-        
+
         print( "time = ", NS.time, file=out )
         print( "Ports*************", file=out )
         print ( "", file=out )

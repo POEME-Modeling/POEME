@@ -532,8 +532,6 @@ burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depnam
 
 varsg.check()
 
-
-
 runThrottleHook( 0.90, 45000. );
 runThrottleHook( 0.85, 45000. );
 runThrottleHook( 0.80, 45000. );

@@ -18,6 +18,9 @@ class BooleanT( ValueT ):
     def set(s, val ):
         s.v = val
         
+    def __str__(self):
+        return str( self.v )
+        
     def isa( s, type ):
         if type == "BooleanT":
             return True

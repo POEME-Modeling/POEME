@@ -42,4 +42,7 @@ class Inductor( Element ):
     def dump( self ):
     	print( self.name1, "Inductor", file = varsg.out )
     	super().realPrint()
-   
+
+    def pretty( i ):
+        print( f"{"Inductor"[:10]:12s}{i.name1[:10]:12s}{("L:"+str(i.L))[:10]:12s}{("dVr:"+str(i.EPi.Vr - i.EPo.Vr))[:10]:12s}{("dVi:"+str(i.EPi.Vi - i.EPo.Vi))[:10]:12s}{("Ir:"+str(i.EPi.Ir))[:10]:12s}{("Ii:"+str(i.EPi.Ii))[:10]:12s}" , file=varsg.pretty )
+       

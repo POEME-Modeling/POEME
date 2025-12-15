@@ -46,6 +46,8 @@ class Output(Element):
         	print( temp, file=s.out )
 		
         temp = ""	
+        if( len( varsg.errors ) > 0 ):
+            print( varsg.errors, file=s.out )
         for e in s.vars:
             temp =  temp + " " + e.str()
         print( temp, file=s.out )		

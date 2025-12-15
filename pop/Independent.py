@@ -34,7 +34,7 @@ class Independent( Atom ):
            p.addVID( i )       
         # add the independent to the global space
         varsg.ind_list.append( i )
-    
+
         # gui location
         i.x = 0
         i.y = 0

@@ -1,0 +1,73 @@
+exec( open( "pop.std").read())
+
+loadDirectory( "../pop" ) 
+loadDirectory( "../Brayton" ) 
+
+exec( open( "temp.include").read())
+import varsg
+varsg.out = open( "pop.out", "a")
+varsg.pretty = open( "pretty.out", "a")
+	
+FSE = FlowStartEnd2D( "FSE" )
+FSE.Pt.set( 15. )
+FSE.comp.set( "CPR134" )
+FSE.FNo.comp.set( "CPR134" )
+FSE.FNo.setTP( 400., 15. )
+FSE.ht.set( FSE.FNo.ht )
+FSE.W.set( 1000. )
+
+
+Condensor = Duct( "Condesor" )
+Condensor.dP.set( .05 )
+Condensor.Q.set( 100. )
+
+Valve = Duct( "Valve" )
+Valve.dP.set( .4 )
+
+Evap = Duct( "Evap" )
+Evap.dP.set( .05 )
+Evap.Q.set( -100. )
+
+Comp = Compressor( "Comp" )
+Comp.PRdes.set( 2. )
+Comp.effDes.set( .89 )
+Comp.MP.setN( 6000. )
+Comp.NcMapDes.set( .9 )
+Comp.RlineDes.set( 2.0 ) 
+Comp.effTable.x = [ .8, .95, 1.1 ]
+Comp.effTable.y = [ 1., 2.0, 3.0 ]
+Comp.effTable.data = [ [ .90, .93, .90],\
+               [.92, .95, .92 ],\
+               	   [.89, .92, .88 ]]
+Comp.PRtable.x = [ .8, .95, 1.1 ]
+Comp.PRtable.y = [ 1., 2.0, 3.0 ]
+Comp.PRtable.data = [ [ 6.183, 4.572 ,2.455],\
+               [16.044, 17.705,7.148],\
+			[  37.995, 27.657,14.535]]
+
+Comp.WcTable.x = [ .8, .95, 1.1]
+Comp.WcTable.y = [ 1., 2.0, 3.0 ]
+Comp.WcTable.data = [ [ 32.496, 34.173, 35.169],\
+               [68.234, 72.934,74.243 ],\
+               	   [ 118.945, 126.124,126.182]]
+
+
+FSE.FNo.linkFN( Condensor.FNi )
+Condensor.FNo.linkFN( Valve.FNi )
+Valve.FNo.linkFN( Evap.FNi )
+Evap.FNo.linkFN( Comp.FNi )
+Comp.FNo.linkFN( FSE.FNi )
+
+Comp.ind_PRdes = Independent( Comp, indname="PRdes", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
+
+Condensor.ind_Q = Independent( Condensor, indname="Q", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
+
+
+
+varsg.NS = Newton( "varsg.NS" )
+varsg.check()
+
+varsg.NS.solve()
+varsg.stdOut.print()
+varsg.prettyPrint.print()
+

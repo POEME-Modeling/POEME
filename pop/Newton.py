@@ -63,9 +63,6 @@ class Newton(Element):
             s.solve()
         else:
             s.transrun()
-
-    
-    
         
     # solve the system
     def solve(s):
@@ -76,7 +73,6 @@ class Newton(Element):
         s.dep_list = list()
         s.state_list = list()
         s.con_list = list()
-        
         
         for d in varsg.dep_list:
             if d.active == True:
@@ -95,7 +91,7 @@ class Newton(Element):
                 s.con_list.append( c )
                 c.active = False
                 c.dep.active = True
-        
+
         # create an empty matrix
         matrix = np.zeros( (len( s.ind_list ), len( s.dep_list )+len( s.state_list )))
         delx = np.zeros( len( s.ind_list ))
@@ -391,13 +387,14 @@ class Newton(Element):
             s.time.v = s.time.v + s.dtime.v
             # solve time step
             s.solve()
+            varsg.stdOut.print()
 
             # step the elements and states
             for st in varsg.state_list:
                 st.step()
             for e in varsg.element_list:
                 e.step()
-                
+                 
             # print data for this time step
             
             #varsg.stdOut = open( "pop.out", "a" )

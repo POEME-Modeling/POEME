@@ -1,6 +1,5 @@
 from Atom import Atom
 from BooleanT import BooleanT
-from canteraFN import canteraFN
 from ComplexT import ComplexT
 from Constraint import Constraint
 from Dependent import Dependent
@@ -32,6 +31,7 @@ from Duct import Duct
 from FlightConditions import FlightConditions
 from FlightConditionsSMJ import FlightConditionsSMJ
 from FlowStart import FlowStart
+from FlowStartEnd2D import FlowStartEnd2D
 from FN import FN
 from H2O import H2O
 from MP import MP

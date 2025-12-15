@@ -55,4 +55,6 @@ class Resistor( Element ):
         temp1 = self.name1+ " Resistor\n" + super().hover()
         return temp1
       
-       
+    def pretty( r ):
+        print( f"{"Resistor"[:10]:12s}{r.name1[:10]:12s}{("R:"+str(r.R))[:10]:12s}{("dVr:"+str(r.EPi.Vr - r.EPo.Vr))[:10]:12s}{("dVi:"+str(r.EPi.Vi - r.EPo.Vi))[:10]:12s}{("Ir:"+str(r.EPi.Ir))[:10]:12s}{("Ii:"+str(r.EPi.Ii))[:10]:12s}" , file=varsg.pretty )
+           
