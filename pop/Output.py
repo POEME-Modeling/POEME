@@ -40,20 +40,21 @@ class Output(Element):
         	s.out = open( s.filename.v, "a")
         	for e in s.vars:
         		if e.parent == 0:
-        			temp = temp + " " + e.name1
+        			temp = temp + f"{e.name1[:10]:12s}"
         		else:
-        		   temp = temp + " " + e.parent.name1 + "." + e.name1
+        		   temp = temp + f"{(e.parent.name1 + "." + e.name1)[:10]:12s}"
         	print( temp, file=s.out )
 		
         temp = ""	
-        if( len( varsg.errors ) > 0 ):
+        if( len( varsg.errors ) > 0 ): 
             print( varsg.errors, file=s.out )
         for e in s.vars:
-            temp =  temp + " " + e.str()
+            temp =  temp + f"{str(e)[:10]:12s}"
         print( temp, file=s.out )		
         super().realPrint()
         s.row += 1
         s.out.close()
   
-       
+               #print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" , file=varsg.pretty )
+ 
        

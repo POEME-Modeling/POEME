@@ -43,4 +43,7 @@ class Spring( Element ):
     def dump( s ):
     	print( s.name1, "Spring", file = varsg.out )
     	super().realPrint()
-       
+        
+    def pretty( s ):
+        print( f"{"Fp"[:10]:12s}{s.name1[:10]:12s}{("L:"+str(s.L))[:10]:12s}{("F:"+str(s.F))[:10]:12s}{("k:"+str(s.k))[:10]:12s}" , file=varsg.pretty )
+            

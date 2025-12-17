@@ -115,6 +115,17 @@ class stdOut( ):
         for e in element_list:
             e.dump()
             
+class scottPrint( ):
+   def print():
+      with open( "TTEST.out", 'a' ) as f:
+        print( "******************** TURBOFAN OUTPUT ********************", file=f)
+        print( errors, file=f)
+        print( "time = ", NS.time, file=f)
+        print( "", file=f)
+        print( "******************", file=f)
+        print( "Ports*************", file=f)
+        print( "******************", file=f)
+      
 class prettyPrint( ):
     
     def print():

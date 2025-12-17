@@ -443,6 +443,7 @@ def runThrottleHook( MNset, altitude ):
    varsg.NS.saveInds()
    varsg.NS.run()
    varsg.prettyPrint.print()
+   print( start.MN, start.alt, burner.FAR )
    FnetMax = RealT( Perf )
    FnetMax.set( Perf.Fn )
  
@@ -462,6 +463,7 @@ def runThrottleHook( MNset, altitude ):
       start.Fdem.set( FnetMax*factor )
       burner.FAR.set( burner.FAR - .0025 )
       varsg.NS.run()
+      print( start.MN, start.alt, burner.FAR )	  
       varsg.prettyPrint.print()
       factor = ( Perf.Fn )/FnetMax
       case = case + 1
@@ -516,7 +518,7 @@ fan.dep_Rline = Dependent( fan, d1name="Rline", d2name="RlineLimit", active=True
 varsg.check()
 varsg.NS.run()
 varsg.prettyPrint.print()
-
+varsg.scottPrint.print()
 
 fan.NcDem = RealT( fan )
 fan.NcDem.set( 1. )

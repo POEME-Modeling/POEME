@@ -38,4 +38,8 @@ class Damper( Element ):
     def dump( d ):
     	print( d.name1, "Spring", file = varsg.out )
     	super().realPrint()
+        
+    def pretty( d ):
+        print( f"{"Damper"[:10]:12s}{d.name1[:10]:12s}{("c:"+str(d.c))[:10]:12s}{("F:"+str(d.F))[:10]:12s}{("V:"+str(d.V))[:10]:12s}{("length:"+str(d.length))[:10]:12s}" , file=varsg.pretty )
+         
        
