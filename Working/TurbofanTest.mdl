@@ -3,6 +3,7 @@
 #------------------------------------------------------
 import time
 
+
 start_time  = time.time()
 
 exec( open( "pop.std").read())
@@ -84,14 +85,12 @@ start.alt.set( 35000. )
 start.MN.set( 0.85 )
 start.W.set( 815.49 )
 
-print( start.W )
 # use cantera for fluid properties
 #start.comp.set( "canteraFN" )
 
 
 # use tables for fluid properties
-start.comp.set( "air4" )
-
+start.comp.set( "newtherm" ) 
 
 inlet.dP.set( 0.002 )  # inlet recovery 0.998
 #inlet.FNo.MN.set( 0.625 )
@@ -519,7 +518,9 @@ fan.dep_Rline = Dependent( fan, d1name="Rline", d2name="RlineLimit", active=True
 varsg.check()
 varsg.NS.run()
 varsg.prettyPrint.print()
-varsg.scottPrint.print()
+#varsg.scottPrint.print()
+print( dir() )
+quit()
 
 fan.NcDem = RealT( fan )
 fan.NcDem.set( 1. )

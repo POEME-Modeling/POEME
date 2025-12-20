@@ -22,6 +22,7 @@ from ValueT import ValueT
 from VID import VID
 from air2 import air2
 from air4 import air4
+from air6 import air6
 from Burner import Burner
 from canteraFN import canteraFN
 from Compressor import Compressor
