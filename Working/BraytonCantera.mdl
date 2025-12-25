@@ -1,26 +1,22 @@
 
-exec( open( "pop.std").read())	
+
 exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
+exec( open( "temp.include").read())
 import varsg
-
 varsg.out = open( "pop.out", "a")
 varsg.pretty = open( "pretty.out", "a")
 
-
-exec( open( "temp.include").read())
-
 FS = FlowStart( "FS" )
-#FS.W = 10.;
-#checkType()
-#quit()
 FS.Pamb = RealT( FS, v=10. )
 	
 FS.Pt.set( 15. )
 FS.Tt.set( 500. )
 FS.W.set( 1000. )
 FS.comp.set( "canteraFN" )
+
+FS.W = 10.
 
 D1 = Duct( "D1" )
 D1.dP.set( .05 )
@@ -103,7 +99,6 @@ estuff.vars = [ varsg.NS.time, T1.FNo.MN, T1.FNo.Ps, B1.FAR,B1.FNi.W, B1.Wfuel, 
 estuff.vars = [ varsg.NS.time, B1.FAR,S1.N, B1.Wfuel, B1.FNo.Tt ]
 
 checkType()
-quit()
 varsg.check()
 
 varsg.NS.solve()

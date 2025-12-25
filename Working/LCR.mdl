@@ -1,19 +1,11 @@
 
 exec( open( "pop.std").read())
-
-
-
-
-exec( open( "pop.std").read())
-
 loadDirectory( "../pop" ) 
 loadDirectory( "../Electrical" ) 
-
 exec( open( "temp.include").read())
 import varsg
 varsg.out = open( "pop.out", "a")
 varsg.pretty = open( "pretty.out", "a")
-
 
 R = Resistor( "R" )
 R.R.set( 470. )
@@ -69,7 +61,6 @@ varsg.NS.run()
 print( "converged",  varsg.NS.converged )
 
 varsg.stdOut.print()
-
 
 varsg.prettyPrint.print()
 

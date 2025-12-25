@@ -36,9 +36,37 @@ win=0
 w=0
 NS = Newton( "varsg.NS" )
 
+def checkType():
+    
+    stuff = varsg.element_list.copy()
+    stuff.append( varsg.NS )
+    
+    for e in stuff:
+        for v in e.VIDL:
+            if v.VIDL != 0:
+                for v1 in v.VIDL:
+                    if v1.VIDL  !=0:
+                        for v2 in v1.VIDL():
+                            try:
+                                ( eval(e.name1+"." +v.name1+"."+v1.name1+"."+v2.name1+".desc" ))
+                            except:
+                                print( e.name1+"." +v.name1+"."+v1.name1+"."+v2.name1+" has been retyped" )
+                    else:
+                        try:
+                            eval(e.name1+"." +v.name1+"."+v1.name1+".desc" )
+                        except:
+                            print( e.name1+"."+v.name1+"."+v1.name1+" has been retyped" )
+                
+                           
+            else:
+                try:
+                    eval( e.name1+"."+v.name1+".desc" )
+                except:
+                    print( e.name1+"."+v.name1+" has been retyped" )
 
 
 def check(): 
+    checkType()
 	for e in element_list:
 		e.precheck()   	
 		
@@ -49,7 +77,7 @@ def check():
 		d.precheck()  
 		
 	for s in state_list:
-		s.precheck()  
+		s.precheck()         
 			
 def set( var, value ):
 	

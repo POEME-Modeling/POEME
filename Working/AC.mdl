@@ -1,12 +1,12 @@
-exec( open( "pop.std").read())
 
+
+exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
-
 exec( open( "temp.include").read())
 import varsg
 varsg.out = open( "pop.out", "a")
-varsg.pretty = open( "pretty.out", "a")
+varsg.pretty = open( "pretty.out", "a")	
 	
 FSE = FlowStartEnd2D( "FSE" )
 FSE.Pt.set( 15. )

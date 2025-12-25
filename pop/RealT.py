@@ -90,6 +90,7 @@ class RealT ( ValueT ):
     	return self.v**other.v
 		
     def __str__(self):
+        length = 1
         return str( self.v )
         
     def set( self, v ):

@@ -125,12 +125,14 @@ class Compressor( Element ):
             c.FNoBld2.setW( c.Wfrac2*c.FNi.W )
             c.FNoBld2.set_hP( c.FNi.ht + c.hfract2*( c.FNo.ht - c.FNi.ht ), c.hfract2*(c.FNo.Pt - c.FNi.Pt ))
 
+        c.FNo.setW( c.FNo.W - c.FNoBld1.W - c.FNoBld2.W )
+        
         # set the exit conditions
-        c.MP.setHP(  -1.*(( c.FNo.ht - c.FNi.ht )*c.FNo.W*3600./2545.+
+        c.MP.setHP(  -1.*(( c.FNo.ht - c.FNi.ht )*c.FNo.W*3600./2545. +
          ( c.FNoBld1.ht - c.FNi.ht )*c.FNoBld1.W*3600./2545.+
          ( c.FNoBld2.ht - c.FNi.ht )*c.FNoBld2.W*3600./2545. ) )
          
-        c.FNo.setW( c.FNo.W - c.FNoBld1.W - c.FNoBld2.W )
+
 
         
      

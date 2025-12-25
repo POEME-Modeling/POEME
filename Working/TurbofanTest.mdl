@@ -2,15 +2,11 @@
 #        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
 #------------------------------------------------------
 import time
-
-
 start_time  = time.time()
 
 exec( open( "pop.std").read())
-
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
-
 exec( open( "temp.include").read())
 import varsg
 varsg.out = open( "pop.out", "a")
@@ -20,13 +16,14 @@ varsg.pretty = open( "pretty.out", "a")
 # create all of the component objects, including the shaft connection ports
 # --------------------------------------------------------------------------
 start = FlightConditionsSMJ( "start" )
-inlet = Duct( "inlet" )
+inlet = Inlet( "inlet" )
 fan = Compressor( "fan" )
 splitter = Splitter( "splitter" )
 duct2 = Duct( "duct2" )
 LPC = Compressor( "LPC" )
 duct25 = Duct( "duct25" )
 HPC = Compressor( "HPC" )
+duct3 = Duct( "duct3" )
 burner = Burner( "burner" )
 HPT = Turbine( "HPT" )
 duct45 = Duct( "duct45" )
@@ -60,7 +57,8 @@ duct2.FNi.linkFN( splitter.FNo1 )
 LPC.FNi.linkFN( duct2.FNo )
 duct25.FNi.linkFN( LPC.FNo )
 HPC.FNi.linkFN( duct25.FNo )
-burner.FNi.linkFN( HPC.FNo )
+duct3.FNi.linkFN( HPC.FNo )
+burner.FNi.linkFN( duct3.FNo )
 HPT.FNi.linkFN( burner.FNo )
 duct45.FNi.linkFN( HPT.FNo )
 LPT.FNi.linkFN( duct45.FNo )
@@ -74,25 +72,26 @@ LPshaft.MPlpt.linkMP( LPT.MP )
 HPshaft.MPC.linkMP( HPC.MP )
 HPshaft.MPT.linkMP( HPT.MP )
 
-HPT.FNiBld1.linkFN( HPC.FNoBld2 )
 HPT.FNiBld2.linkFN( HPC.FNoBld1 )
+HPT.FNiBld1.linkFN( duct3.FNobld )
+LPT.FNiBld1.linkFN( HPC.FNoBld2 )
 
 
 #------------------------------------------------------------------------
 # set component variable values to match N+3 reference cycle at SLS
 #------------------------------------------------------------------------ 
 start.alt.set( 35000. )
-start.MN.set( 0.85 )
-start.W.set( 815.49 )
+start.MN.set( 0.80 )
+start.W.set( 813.51 )
 
 # use cantera for fluid properties
-#start.comp.set( "canteraFN" )
+start.comp.set( "canteraFN" )
 
 
 # use tables for fluid properties
 start.comp.set( "newtherm" ) 
 
-inlet.dP.set( 0.002 )  # inlet recovery 0.998
+inlet.rec.set( 0.998 )  # inlet recovery 0.998
 #inlet.FNo.MN.set( 0.625 )
 
 fan.PRdes.set( 1.300 )
@@ -103,8 +102,7 @@ fan.NcMapDes.set( 1.00 )
 fan.RlineDes.set( 2.00 ) 
 #fan.FNo.MN.set( 0.45 )
 
-splitter.BPR.set( 23.8470 )
-splitter.BPR.set( 17. )
+splitter.BPR.set( 23.9878 )
 #splitter.FNo1.MN.set( 0.45 )
 #splitter.FNo2.MN.set( 0.45 )
 
@@ -114,11 +112,7 @@ duct2.dP.set( 0.010 )
 LPC.PRdes.set( 3.000 )
 LPC.effDes.set( 0.8895 )
 LPC.NcMapDes.set( 1.00 )
-LPC.RlineDes.set( 2.00 ) 
-LPC.Wfrac1.set( 1e-8 )
-LPC.hfract1.set( 0.7 )
-LPC.Wfrac2.set( 1e-8 )
-LPC.hfract2.set( 0.9 )
+LPC.RlineDes.set( 2.00 )
 #LPC.FNo.MN.set( 0.45 )
 
 duct25.dP.set( 0.015 )
@@ -128,20 +122,22 @@ HPC.PRdes.set( 14.1030 )
 HPC.effDes.set( 0.8469 )
 HPC.NcMapDes.set( 1.00 )
 HPC.RlineDes.set( 2.00 ) 
-HPC.Wfrac1.set( 0.07582 )
-HPC.hfract1.set( 0.370 )
-HPC.Wfrac2.set( 0.07582 )
-HPC.hfract2.set( 0.386 )
+HPC.Wfrac1.set( 0.0693 )
+HPC.hfract1.set( 1.00 )
+HPC.Wfrac2.set( 0.02)
+HPC.hfract2.set( .5 )
 #HPC.FNo.MN.set( 0.30 )
 
-burner.FAR.set( 0.02780 )
-burner.LHV.set( -1830. )
+duct3.Wbldfrac.set( 2.0354 / ( 31.91 - 2.2566 ))
+
+burner.FAR.set( 0.0283 )
+burner.LHV.set( -2100. )
 burner.dP.set( 0.0400 )
 #burner.FNo.MN.set( 0.10 )
 
 HPT.PRmapDes.set( 3.0 )
 HPT.PR.set( 3.5 )
-HPT.effDes.v = 0.9225
+HPT.effDes.set( 0.9313 )
 HPT.NcMapDes.set( 0.9 )
 #HPT.FNo.MN.set( 0.30 )
 
@@ -150,7 +146,7 @@ duct45.dP.set( 0.005 )
 
 LPT.PRmapDes.set( 6.0 )
 LPT.PR.set( 2. )
-LPT.effDes.v = 0.9400
+LPT.effDes.set( 0.9410 )
 LPT.NcMapDes.set( 0.9 )
 #LPT.FNo.MN.set( 0.35 )
 
@@ -158,17 +154,19 @@ duct5.dP.set( 0.010 )
 #duct5.FNo.MN.set( 0.25 )
 
 priNozzle.PsExh.set( "start.Pamb" )
+priNozzle.Cfg.set(.999)
 
 duct17.dP.set( 0.015 )
 #duct17.FNo.MN.set( 0.45 )
 
 fanNozzle.PsExh.set( "start.Pamb" )
+fanNozzle.Cfg.set(.9975)
 
-HPshaft.N.set( 10000. )
+HPshaft.N.set( 20871. )
 HPshaft.I.set( 6.)
-HPshaft.HPX.set( 150. )
+HPshaft.HPX.set( 350. )
 
-LPshaft.N.set( 10000. )
+LPshaft.N.set( 6772. )
 LPshaft.I.set( 6.)
 
 
@@ -431,6 +429,7 @@ varsg.NS.solve()
 varsg.prettyPrint.print()
 
 
+
 case = 0
 
 def runThrottleHook( MNset, altitude ):
@@ -519,8 +518,6 @@ varsg.check()
 varsg.NS.run()
 varsg.prettyPrint.print()
 #varsg.scottPrint.print()
-print( dir() )
-quit()
 
 fan.NcDem = RealT( fan )
 fan.NcDem.set( 1. )

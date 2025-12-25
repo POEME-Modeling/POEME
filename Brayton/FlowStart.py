@@ -21,7 +21,7 @@ class FlowStart( Element ):
         
         f.Pt = RealT( f, units="lbm/in2", desc="Pressure" )
         f.Tt = RealT( f, units="R", desc="Temperature" )
-        f.W = RealT( f, units="lbm/sec", descc="Weight" )
+        f.W = RealT( f, units="lbm/sec", desc="Weight" )
         f.size = BooleanT( f, v=True, desc="Determine if the element is in design mode or not" )        
 
 		# fluid locations
@@ -48,7 +48,7 @@ class FlowStart( Element ):
             f.ind_1.active = True
            
     def dump( f ): 
-    	#dump output variables    	
+    	#dump output variables
         print( f.name1, "FlowStart", file=varsg.out )
         super().realPrint()       
      

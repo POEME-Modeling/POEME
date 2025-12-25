@@ -11,9 +11,12 @@ class MP( Atom ):
         m.name1 = ""
         m.parent = p
         m.__dict__.update( kwargs )  
-        m.N = RealT( m, units="RPM", desc="Rotational speed" )          
+        m.N = RealT( m, units="RPM", desc="Rotational speed" ) 
+        m.N.name1 = "N"
         m.hp = RealT( m, units="hp", desc="Horse power passed through port" )               
+        m.hp.name1 = "hp"
         m.I = RealT( m, units="lbm*ft**2", desc="Rotational Inertia" )      
+        m.I.name1 = "I"
         m.other = 0
         p.addVID( m )
         m.type = "MP"

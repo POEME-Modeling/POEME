@@ -9,7 +9,7 @@ oxidizer_comp = {'O2': 0.233, 'N2': 0.767} # Mass fractions for dry air
 gas = ct.Solution('gri30.yaml')
 gasair = ct.Solution('air.yaml' )
 
-HC = .1667;
+HC = .16087;
 
 class canteraFN:
     gFAR = -1.

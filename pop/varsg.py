@@ -39,6 +39,8 @@ NS = Newton( "varsg.NS" )
 errors = "test"
 
 def check():
+
+    
     for e in element_list:
         e.precheck()    
         
@@ -58,7 +60,7 @@ def set( var, value ):
     
     stuff = element_list.copy()
     stuff.append( NS )
- 
+    
     for e in stuff:
         for v in e.VIDL:
             if v.name1 == var:
@@ -71,19 +73,18 @@ def set( var, value ):
                         for v2 in v1.VIDL():
                             if v2.name1 == var:
                                 v2.v = value
-                            for v3 in v2.VIDL():
-                                if v3.name1 == var:
-                                    v3.v = value
+
                     except:
                         pass
                     
+               
 
-
+                    
 
 class stdOut( ):
-
+    
     def print():
-
+        
         print( "time = ", NS.time, file=out )
         print( "Ports*************", file=out )
         print ( "", file=out )
@@ -115,17 +116,6 @@ class stdOut( ):
         for e in element_list:
             e.dump()
             
-class scottPrint( ):
-   def print():
-      with open( "TTEST.out", 'a' ) as f:
-        print( "******************** TURBOFAN OUTPUT ********************", file=f)
-        print( errors, file=f)
-        print( "time = ", NS.time, file=f)
-        print( "", file=f)
-        print( "******************", file=f)
-        print( "Ports*************", file=f)
-        print( "******************", file=f)
-      
 class prettyPrint( ):
     
     def print():
@@ -178,6 +168,36 @@ class prettyPrint( ):
         print( "", file=pretty )
         NS.pretty()
         print( "", file=pretty )
+
+class scottPrint( ):
+   def print():
+      print( "******************** TURBOFAN OUTPUT ********************", file=scottfile)
+      print( errors, file=scottfile)
+      print( "time = ", NS.time, file=scottfile)
+      print( "", file=scottfile)
+      print( "******************", file=scottfile)
+      print( "Ports*************", file=scottfile)
+      print( "******************", file=scottfile)
+
+      for e in element_list:
+         for p in e.VIDL:
+            if p.isa( "FN" ):
+               if p.name1 == 'FNo':
+                  print( f"{e.name:12s}", f"{e.FNo.W.v:10.3f}", f"{e.FNo.Pt.v:10.3f}", f"{e.FNo.Tt.v:10.2f}", 
+                    f"{e.FNo.ht.v:10.3f}", f"{e.FNo.s.v:10.5f}", f"{e.FNo.FAR.v:10.6f}", f"{e.FNo.rhos.v:10.6f}",
+                    f"{e.FNo.MN.v:10.4f}", 
+                    f"{e.FNo.Ps.v:10.3f}", f"{e.FNo.Ts.v:10.2f}", f"{e.FNo.A.v:10.3f}", file=scottfile ) 
+
+               if p.name1 == 'FNo1':
+                  print( f"{e.name:12s}", f"{e.FNo1.W.v:10.3f}", f"{e.FNo1.Pt.v:10.3f}", f"{e.FNo1.Tt.v:10.2f}", 
+                    f"{e.FNo1.ht.v:10.3f}", f"{e.FNo1.s.v:10.5f}", f"{e.FNo1.FAR.v:10.6f}", f"{e.FNo1.rhos.v:10.6f}",
+                    f"{e.FNo1.Ps.v:10.3f}", f"{e.FNo1.Ts.v:10.2f}", f"{e.FNo1.A.v:10.3f}", file=scottfile ) 
+
+               if p.name1 == 'FNo2':
+                  print( f"{e.name:12s}", f"{e.FNo2.W.v:10.3f}", f"{e.FNo2.Pt.v:10.3f}", f"{e.FNo2.Tt.v:10.2f}", 
+                    f"{e.FNo2.ht.v:10.3f}", f"{e.FNo2.s.v:10.5f}", f"{e.FNo2.FAR.v:10.6f}", f"{e.FNo2.rhos.v:10.6f}",
+                    f"{e.FNo2.Ps.v:10.3f}", f"{e.FNo2.Ts.v:10.2f}", f"{e.FNo2.A.v:10.3f}", file=scottfile ) 
+
       
         
 os.system( "del pop.out" )

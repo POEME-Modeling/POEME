@@ -8,10 +8,12 @@ from R32 import R32
 from CPR134 import CPR134
 from R134 import R134
 from air4 import air4
+from air6 import air6
 from canteraFN import canteraFN
 from RealT import RealT
 from StringT import StringT
 from BooleanT import BooleanT
+from newtherm import newtherm
 
 class FN( Atom ):
         
@@ -430,8 +432,20 @@ class FN( Atom ):
             if f.other != 0:
                 f.other.W.v = W.v           
     
-    def setTsPsMN( f, Ts, Ps, MN ):
-
+    def setTsPsMN( f, Tsi, Psi, MNi ):
+        if isinstance( Tsi, float ): 
+            Ts= Tsi
+        else:
+            Ts = Tsi.v
+        if isinstance( Psi, float ): 
+            Ps= Psi
+        else:
+            Ps = Psi.v 
+        if isinstance( MNi, float ): 
+            MN= MNi
+        else:
+            MN = MNi.v             
+            
         f.size.v = True
         f.MN.v = 0.
         f.A.v = 0.      

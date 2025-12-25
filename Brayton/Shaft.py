@@ -71,9 +71,9 @@ class Shaft( Element ):
                 s.HPneg.set( s.HPneg - p.hp )
                 
         if s.HPX > 0.:
-            s.HPneg.set( s.HPneg - s.HPX )
+            s.HPneg.set( s.HPneg + s.HPX )
         else:
-            s.HPpos.set( s.HPpos + s.HPX )
+            s.HPpos.set( s.HPpos - s.HPX )
 
         # determine the speed derivative
         s.dNdt.set(( s.HPpos - s.HPneg )/(s.N/5252.) /s.Ispool )

@@ -60,7 +60,7 @@ class Turbine( Element ):
         t.WcMap = RealT( t, units="lbm/sec", desc="Corrected flow read from map" )     
         t.WcScale = RealT( t, units="none", desc="scale factor of corrected flow" )                          
         
-        t.size = BooleanT( t, v=True, des="determines if the turbine is in sizing mode or not" )
+        t.size = BooleanT( t, v=True, desc="determines if the turbine is in sizing mode or not" )
         t.initialList()
         
     def calc(t):
@@ -107,6 +107,7 @@ class Turbine( Element ):
         # add in the second bleed flow
         t.FNo.copy( t.FN42 )
         t.FNo.add( t.FNiBld2 )
+
         
         # set the horse power on the mechanical port
         t.MP.setHP(-1*( t.FN42.ht - t.FN41.ht )*t.FN41.W*3600./2545.)

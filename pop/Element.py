@@ -7,7 +7,7 @@ import varsg
 import __main__
 
 class Element(Atom):
-		
+        
     def __init__(self, name, type):
         varsg.element_list.append(self)
         self.VIDL = list() 
@@ -18,9 +18,9 @@ class Element(Atom):
         self.y = 0.
 
     def initialList( self ):
-    	self.VIDLi = list()
-    	for v in self.VIDL:
-    		self.VIDLi.append( v )
+        self.VIDLi = list()
+        for v in self.VIDL:
+            self.VIDLi.append( v )
 
     def AddIndependent(self, ind):
         self.ind_list.append(ind)
@@ -34,7 +34,7 @@ class Element(Atom):
         variable_id = VID(name, descript, "real")
         self.VIDL.append(variable_id)
         return value
-  	    
+        
     def isA(s, type):
         if (type == "Element"):
             return True
@@ -47,46 +47,46 @@ class Element(Atom):
         pass
     
     def precheck(s):
-    	pass
+        pass
 
     def dump(s):
-    	pass
+        pass
     
     def step(s):
-    	pass
+        pass
            
     def before(e):
-    	pass
+        pass
     
     def after(e):
-    	pass
+        pass
     
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
         if (eval( "hasattr(self."+name+" ,\"name1\")" )):
-        	temp = eval( "self."+name )
-        	temp.name1 = name
+            temp = eval( "self."+name )
+            temp.name1 = name
     
     def realPrint( self ):
-    	for v in self.VIDL:
-    		if v.isa( "RealT" ):
-    			print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.out )
-    		if v.isa( "ComplexT" ):
-    			print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )
+        for v in self.VIDL:
+            if v.isa( "RealT" ):
+                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.out )
+            if v.isa( "ComplexT" ):
+                print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )
                 
     def pretty( self ):
-    	for v in self.VIDL:
-    		if v.isa( "RealT" ):
-    			print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.pretty )
-    		if v.isa( "ComplexT" ):
-    			print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )                
-    			
+        for v in self.VIDL:
+            if v.isa( "RealT" ):
+                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.pretty )
+            if v.isa( "ComplexT" ):
+                print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )                
+                
     def hover( self ):
-    	temp1 = ""
-    	temp1 = self.type + " " + self.name1 + "\n"
-    	for v in self.VIDL:
-    		if v.isa( "RealT" ):
-    			temp1 = temp1 + " " + v.name1+ " " + str( v.v ) +" " + v.units + " "+ v.desc + "\n"
-    		if v.isa( "ComplexT" ):
-    			temp1 = temp1 +" " + v.name1 + " " + str( v.v ) + " " + v.units + " " + v.desc + "\n"
-    	return temp1
+        temp1 = ""
+        temp1 = self.type + " " + self.name1 + "\n"
+        for v in self.VIDL:
+            if v.isa( "RealT" ):
+                temp1 = temp1 + " " + v.name1+ " " + str( v.v ) +" " + v.units + " "+ v.desc + "\n"
+            if v.isa( "ComplexT" ):
+                temp1 = temp1 +" " + v.name1 + " " + str( v.v ) + " " + v.units + " " + v.desc + "\n"
+        return temp1

@@ -18,6 +18,7 @@ class Nozzle( Element ):
         n.type = "Nozzle"
         
         # variables
+        n.Cfg = RealT( n, v=1., units="non", desc="Coefficient of gross thrust" )
         n.desc = "Very basic nozzle.  Just expands flow to giving PsExh"
         n.PsExh = StringVarT( n, desc="Exhaust pressure" )
         n.Anoz = RealT( n, units="in2", desc="Throat area" )
@@ -65,7 +66,7 @@ class Nozzle( Element ):
                 n.Anoz.set( n.FNo.A )           
             
         # calculate gross thrust
-        n.Fg.set( n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() ))
+        n.Fg.set( n.Cfg*(n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() )))
     
     
   

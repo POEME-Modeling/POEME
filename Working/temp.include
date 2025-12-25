@@ -35,6 +35,7 @@ from FlowStart import FlowStart
 from FlowStartEnd2D import FlowStartEnd2D
 from FN import FN
 from H2O import H2O
+from Inlet import Inlet
 from MP import MP
 from Nozzle import Nozzle
 from Perf import Perf

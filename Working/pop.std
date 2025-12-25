@@ -102,6 +102,60 @@ def stdOut( ):
         for e in element_list:
             e.dump()
             
+class prettyPrint( ):
+    
+    def print():
+        
+        print( "******************************************************************************************", file=pretty)
+        print( errors, file=pretty )
+        print( "time = ", NS.time, file=pretty )
+        print( "", file=pretty )
+        print( "******************", file=pretty )
+        print( "Ports*************", file=pretty )
+        print( "******************", file=pretty )
+        print( "", file=pretty )
+        print( "Electric Ports", file=pretty )
+        print( "", file=pretty )
+        for e in element_list:
+            for p in e.VIDL:
+                if p.isa( "EP" ):
+                    p.pretty()
+                    
+        print( "", file=pretty )
+        print( "Fluid Ports", file=pretty )
+        print( "", file=pretty )
+        
+        for e in element_list:
+            for p in e.VIDL:
+                if p.isa( "FN" ):
+                    p.pretty()
+                    
+        print( "", file=pretty )                   
+        print( "Mech Ports", file=pretty )
+        print( "", file=pretty )
+        for e in element_list:
+            for p in e.VIDL:
+                if p.isa( "MP" ):
+                    p.pretty()
+             
+        print( "", file = pretty )
+        print( "*******************", file=pretty )
+        print( "Elements***********", file=pretty )
+        print( "*******************", file=pretty )
+        print( "", file = pretty )
+                    
+        for e in element_list:
+            e.pretty()  
+            
+        print( "", file=pretty )
+        print( "****************", file=pretty )
+        print( "Solver**********", file=pretty )
+        print( "****************", file=pretty )
+        print( "", file=pretty )
+        NS.pretty()
+        print( "", file=pretty )
+			
+			
 os.system( "del pop.out" )
 out = open( "pop.out", "a")
 os.system( "del pretty.out" )
