@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 #from Element import Element
 
-import varsg
+import g
 
 class Independent( Atom ):
  
@@ -33,7 +33,7 @@ class Independent( Atom ):
         else:
            p.addVID( i )       
         # add the independent to the global space
-        varsg.ind_list.append( i )
+        g.ind_list.append( i )
 
         # gui location
         i.x = 0

@@ -1,17 +1,13 @@
 
-
-
 exec( open( "pop.std").read())
-
-
 
 loadDirectory( "../pop" ) 
 loadDirectory( "../SpringMass" ) 
 
 exec( open( "temp.include").read())
-import varsg
-varsg.out = open( "pop.out", "a")
-varsg.pretty = open( "pretty.out", "a")
+import g
+g.out = open( "pop.out", "a")
+g.pretty = open( "pretty.out", "a")
 
 
 W1 = Wall( "W1" )
@@ -38,26 +34,26 @@ S1.Fp2.linkFp( M1.Fp1 )
 D1.Fp1.linkFp( W1.Fp2 )
 D1.Fp2.linkFp( M1.Fp2 )
 
-varsg.check()
+g.check()
 
-varsg.NS = Newton( "varsg.NS" )
+g.NS = Newton( "g.NS" )
 
 estuff=Output( "estuff", filename="estuff.out" )
-estuff.vars = [ varsg.NS.time, S1.L, M1.xloc ]
+estuff.vars = [ g.NS.time, S1.L, M1.xloc ]
  
-varsg.NS.solve()
+g.NS.solve()
 
-varsg.set( "trans", True )
-varsg.NS.timeLast.set( 100. )
-varsg.NS.dtime.set( .01 )
+g.set( "trans", True )
+g.NS.timeLast.set( 100. )
+g.NS.dtime.set( .01 )
 
 M1.xloc.set( M1.xloc + 1. )
 
-varsg.NS.trim()
+g.NS.trim()
 
 
 print( M1.x )
 
 
-varsg.NS.run()
+g.NS.run()
 

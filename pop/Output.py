@@ -5,7 +5,7 @@ from IntT import IntT
 from ComplexT import ComplexT
 #Afrom EP import EP
 from Table1d import Table1d
-import varsg
+import g
 import os
 
 class Output(Element):
@@ -46,8 +46,8 @@ class Output(Element):
         	print( temp, file=s.out )
 		
         temp = ""	
-        if( len( varsg.errors ) > 0 ): 
-            print( varsg.errors, file=s.out )
+        if( len( g.errors ) > 0 ): 
+            print( g.errors, file=s.out )
         for e in s.vars:
             temp =  temp + f"{str(e)[:10]:12s}"
         print( temp, file=s.out )		
@@ -55,6 +55,6 @@ class Output(Element):
         s.row += 1
         s.out.close()
   
-               #print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" , file=varsg.pretty )
+               #print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" , file=g.pretty )
  
        

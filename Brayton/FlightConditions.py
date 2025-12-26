@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 from FN import FN
 from Table1d import Table1d
-import varsg
+import g
 from Independent import Independent
 from BooleanT import BooleanT
 import math
@@ -127,7 +127,7 @@ class FlightConditions( Element ):
            
     def dump( f ): 
     	#dump output variables    	
-        print( f.name1, "FlowStart", file=varsg.out )
+        print( f.name1, "FlowStart", file=g.out )
         super().realPrint()       
   
        

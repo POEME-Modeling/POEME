@@ -3,7 +3,7 @@ from RealT import RealT
 from ComplexT import ComplexT
 from EP import EP
 import math
-import varsg
+import g
 
 class Inductor( Element ):
     def __init__( i ,name, L=0 ):
@@ -40,9 +40,9 @@ class Inductor( Element ):
         i.EPo.setIV ( i.I, i.EPo.V )
         
     def dump( self ):
-    	print( self.name1, "Inductor", file = varsg.out )
+    	print( self.name1, "Inductor", file = g.out )
     	super().realPrint()
 
     def pretty( i ):
-        print( f"{"Inductor"[:10]:12s}{i.name1[:10]:12s}{("L:"+str(i.L))[:10]:12s}{("dVr:"+str(i.EPi.Vr - i.EPo.Vr))[:10]:12s}{("dVi:"+str(i.EPi.Vi - i.EPo.Vi))[:10]:12s}{("Ir:"+str(i.EPi.Ir))[:10]:12s}{("Ii:"+str(i.EPi.Ii))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Inductor"[:10]:12s}{i.name1[:10]:12s}{("L:"+str(i.L))[:10]:12s}{("dVr:"+str(i.EPi.Vr - i.EPo.Vr))[:10]:12s}{("dVi:"+str(i.EPi.Vi - i.EPo.Vi))[:10]:12s}{("Ir:"+str(i.EPi.Ir))[:10]:12s}{("Ii:"+str(i.EPi.Ii))[:10]:12s}" , file=g.pretty )
        

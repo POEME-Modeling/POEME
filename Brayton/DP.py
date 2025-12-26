@@ -1,7 +1,7 @@
 
 from Atom import Atom
 from RealT import RealT
-import varsg
+import g
 
 class DP( Atom ):
 	def __init__( self, p, name, io, desc ):
@@ -37,5 +37,5 @@ class DP( Atom ):
 
 	def dump( self ):
 		
-		print( self.parent.name, self.name, self.D.v, file = varsg.out )
+		print( self.parent.name, self.name, self.D.v, file = g.out )
 		

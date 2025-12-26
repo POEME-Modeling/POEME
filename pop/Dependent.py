@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 
 
-import varsg
+import g
 
 class Dependent( Atom ):
 
@@ -38,7 +38,7 @@ class Dependent( Atom ):
         d.y = 0
 
 		# add the dependent to the global space
-        varsg.dep_list.append( d )
+        g.dep_list.append( d )
 
     def isa( s, type ):
         if type == "Dependent":

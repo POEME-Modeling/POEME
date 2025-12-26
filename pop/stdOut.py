@@ -1,4 +1,4 @@
-import varsg
+import g
 
 class stdOut( ):
 	
@@ -34,9 +34,9 @@ class stdOut( ):
 		print( "Elements***********" )
 		print( "" )
 					
-		for e in varsg.element_list:
+		for e in g.element_list:
 			e.dump()
 			
-		for d in varsg.view_list:
+		for d in g.view_list:
 			d.dump()
 			

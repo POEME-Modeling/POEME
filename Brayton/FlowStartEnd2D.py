@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 from FN import FN
 from Table1d import Table1d
-import varsg
+import g
 from Independent import Independent
 from Dependent import Dependent 
 from BooleanT import BooleanT
@@ -43,10 +43,10 @@ class FlowStartEnd2D( Element ):
     	 
     def dump( f ): 
     	#dump output variables    	
-        print( f.name1, "FlowStart", file=varsg.out )
+        print( f.name1, "FlowStart", file=g.out )
         super().realPrint()       
   
     def pretty( f ):
-        print( f"{"FSE2D"[:10]:12s}{f.name1[:10]:12s}{("W:"+str(f.W))[:10]:12s}{("Pt:"+str(f.FNo.Pt))[:10]:12s}{("Tt:"+str(f.FNo.Tt))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"FSE2D"[:10]:12s}{f.name1[:10]:12s}{("W:"+str(f.W))[:10]:12s}{("Pt:"+str(f.FNo.Pt))[:10]:12s}{("Tt:"+str(f.FNo.Tt))[:10]:12s}" , file=g.pretty )
             
        

@@ -5,7 +5,7 @@ from StringT import StringT
 from FN import FN
 from Table1d import Table1d
 from MP import MP
-import varsg
+import g
 from Table2d import Table2d
 from BooleanT import BooleanT
 from Dependent import Dependent
@@ -78,7 +78,7 @@ class Turbine( Element ):
         if t.size == True:
             t.NcScale.set( t.NcMapDes/ t.Nc )
             t.PRmapScale.set( ( t.PRmapDes.v - 1. )/( t.PR.v - 1. ))
-            t.WcDes.set( t.Wc.v ) 
+            t.WcDes.set( t.Wc ) 
             
         # set the map independents  
         t.NcMap.set( t.NcScale*t.Nc )
@@ -128,9 +128,9 @@ class Turbine( Element ):
 
             
     def dump( self ): 
-        print( self.name1, "Turbine", file=varsg.out )
+        print( self.name1, "Turbine", file=g.out )
         super().realPrint()       
  
     def pretty( t ):
-        print( f"{"Turbine"[:10]:12s}{t.name1[:10]:12s}{("PR:"+str(t.PR))[:10]:12s}{("eff:"+str(t.eff))[:10]:12s}{("PRmap:"+str(t.PRmap))[:10]:12s}{("NcMap:"+str(t.NcMap))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Turbine"[:10]:12s}{t.name1[:10]:12s}{("PR:"+str(t.PR))[:10]:12s}{("eff:"+str(t.eff))[:10]:12s}{("PRmap:"+str(t.PRmap))[:10]:12s}{("NcMap:"+str(t.NcMap))[:10]:12s}" , file=g.pretty )
   

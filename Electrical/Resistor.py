@@ -3,7 +3,7 @@ from RealT import RealT
 from ComplexT import ComplexT
 from EP import EP
 from Table1d import Table1d
-import varsg
+import g
 
 class Resistor( Element ):
     
@@ -48,7 +48,7 @@ class Resistor( Element ):
    
         
     def dump( self ): 
-        print( self.name1, "Resistor", file=varsg.out )
+        print( self.name1, "Resistor", file=g.out )
         super().realPrint()       
   
     def hover( self ):
@@ -56,5 +56,5 @@ class Resistor( Element ):
         return temp1
       
     def pretty( r ):
-        print( f"{"Resistor"[:10]:12s}{r.name1[:10]:12s}{("R:"+str(r.R))[:10]:12s}{("dVr:"+str(r.EPi.Vr - r.EPo.Vr))[:10]:12s}{("dVi:"+str(r.EPi.Vi - r.EPo.Vi))[:10]:12s}{("Ir:"+str(r.EPi.Ir))[:10]:12s}{("Ii:"+str(r.EPi.Ii))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Resistor"[:10]:12s}{r.name1[:10]:12s}{("R:"+str(r.R))[:10]:12s}{("dVr:"+str(r.EPi.Vr - r.EPo.Vr))[:10]:12s}{("dVi:"+str(r.EPi.Vi - r.EPo.Vi))[:10]:12s}{("Ir:"+str(r.EPi.Ir))[:10]:12s}{("Ii:"+str(r.EPi.Ii))[:10]:12s}" , file=g.pretty )
            

@@ -2,7 +2,7 @@
 from Atom import Atom
 from ComplexT import ComplexT
 from RealT import RealT
-import varsg
+import g
 
 class EP( Atom ):
     def __init__( e, p, **kwargs ):
@@ -66,7 +66,7 @@ class EP( Atom ):
         
         
     def dump( e ):
-        print( e.parent.name1, e.name1, e.V.v, e.I.v, file = varsg.out )
+        print( e.parent.name1, e.name1, e.V.v, e.I.v, file = g.out )
 
     def hover( e ):
         return( e.parent.name1 + " " + e.name1 + " "+ str( e.V.v ) + " " + str( e.I.v ))
@@ -75,6 +75,6 @@ class EP( Atom ):
         return ""
         
     def pretty( e ):
-        print( f"{e.parent.name1[:8]:12s}{e.name1[:8]:12s}Vr:{str(e.Vr.v)[:8]:12s}Vi:{str(e.Vi.v)[:8]:12s}Ir:{str(e.Ir.v)[:8]:12s}Ii:{str(e.Ii.v)[:8]:12s}", file = varsg.pretty )
+        print( f"{e.parent.name1[:8]:12s}{e.name1[:8]:12s}Vr:{str(e.Vr.v)[:8]:12s}Vi:{str(e.Vi.v)[:8]:12s}Ir:{str(e.Ir.v)[:8]:12s}Ii:{str(e.Ii.v)[:8]:12s}", file = g.pretty )
         
 

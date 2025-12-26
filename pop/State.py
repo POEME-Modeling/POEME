@@ -5,7 +5,7 @@ from ComplexT import ComplexT
 from BooleanT import BooleanT
 
 
-import varsg
+import g
 
 class State:
 
@@ -46,7 +46,7 @@ class State:
 
  
         # add state to the global space
-        varsg.state_list.append( s )
+        g.state_list.append( s )
  
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
@@ -94,8 +94,8 @@ class State:
             if s.val_scale.v !=0.:
                 denom = s.val_scale.v
                 
-            #return ( s.s.v - ( s.stateL.v + ( s.ds.v  )/2.*varsg.NS.dtime.v ))/ denom
-            return ( s.s.v - ( s.stateL.v + ( s.ds.v + s.dsL.v )/2.*varsg.NS.dtime.v ))/ denom
+            #return ( s.s.v - ( s.stateL.v + ( s.ds.v  )/2.*g.NS.dtime.v ))/ denom
+            return ( s.s.v - ( s.stateL.v + ( s.ds.v + s.dsL.v )/2.*g.NS.dtime.v ))/ denom
             
     def trim( s ):
         # trim it up by setting last value to current value to start transient

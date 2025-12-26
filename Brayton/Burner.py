@@ -5,7 +5,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 from FN import FN
 from Table1d import Table1d
-import varsg
+import g
 
 class Burner( Element ):
     
@@ -49,11 +49,11 @@ class Burner( Element ):
         b.FNo.set_hP( htout, b.FNo.Pt*( 1- b.dP ) )
 
     def dump( self ): 
-        print( self.name1, "Burner", file=varsg.out )
+        print( self.name1, "Burner", file=g.out )
         super().realPrint()       
  
     def pretty( b ):
-        print( f"{"Burner"[:10]:12s}{b.name1[:10]:12s}{("FAR:"+str(b.FAR))[:10]:12s}{("Tout:"+str(b.Tout))[:10]:12s}{("Wfuel:"+str(b.Wfuel))[:10]:12s}{("dP:"+str(b.dP))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Burner"[:10]:12s}{b.name1[:10]:12s}{("FAR:"+str(b.FAR))[:10]:12s}{("Tout:"+str(b.Tout))[:10]:12s}{("Wfuel:"+str(b.Wfuel))[:10]:12s}{("dP:"+str(b.dP))[:10]:12s}" , file=g.pretty )
  
        
 

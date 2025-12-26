@@ -4,7 +4,7 @@ from State import State
 from Independent import Independent
 from ComplexT import ComplexT
 from RealT import RealT
-import varsg
+import g
 
 class Wall( Element ):
     
@@ -64,9 +64,9 @@ class Wall( Element ):
         
     
     def dump( self ):
-        print( self.name, "Node", file = varsg.out )
+        print( self.name, "Node", file = g.out )
         super().realPrint()
     
     def pretty( w ):
-        print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" , file=g.pretty )
             

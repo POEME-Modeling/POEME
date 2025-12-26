@@ -2,7 +2,7 @@
 from Atom import Atom
 from ComplexT import ComplexT
 from RealT import RealT
-import varsg
+import g
 
 class Fp( Atom ):
     def __init__( f, p, io, desc ):
@@ -54,11 +54,11 @@ class Fp( Atom ):
   
 
     def dump( f ):
-        print( f.parent.name1, f.name1, f.x, f.V, file = varsg.out )
+        print( f.parent.name1, f.name1, f.x, f.V, file = g.out )
         
     def hover( f ):
         return( f.parent.name1 + " " + f.name1 + str( f.x.v ) + " " + str( f.V.v ) )
         
     def pretty( f ):
-        print( f"{"Fp"[:10]:12s}{f.name1[:10]:12s}{("F:"+str(f.F))[:10]:12s}{("F:"+str(d.F))[:10]:12s}{("x:"+str(f.x))[:10]:12s}{("V:"+str(f.V))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Fp"[:10]:12s}{f.name1[:10]:12s}{("F:"+str(f.F))[:10]:12s}{("F:"+str(d.F))[:10]:12s}{("x:"+str(f.x))[:10]:12s}{("V:"+str(f.V))[:10]:12s}" , file=g.pretty )
            

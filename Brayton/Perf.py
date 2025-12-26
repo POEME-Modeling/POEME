@@ -5,7 +5,7 @@ from State import State
 from ComplexT import ComplexT
 from RealT import RealT
 from BooleanT import BooleanT
-import varsg
+import g
 
 class Perf( Element ):
     
@@ -36,7 +36,7 @@ class Perf( Element ):
         p.Fram.set( 0. )
         
         # loop through elements to find the nozzles and burners 
-        for e in varsg.element_list:
+        for e in g.element_list:
             if e.type == "Nozzle":
                 p.Fg.set(  p.Fg + e.Fg )
             if e.type == "Burner":
@@ -53,9 +53,9 @@ class Perf( Element ):
         
 
     def dump( self ):
-        print( self.name, "Shaft", file = varsg.out )
+        print( self.name, "Shaft", file = g.out )
         super().realPrint()
         
     def pretty( p ):
-        print( f"{"Performance"[:10]:12s}{p.name1[:10]:12s}{("alt:"+str(p.alt))[:10]:12s}{("MN:"+str(p.MN))[:10]:12s}{("Fn:"+str(p.Fn))[:10]:12s}{("SFC:"+str(p.SFC))[:10]:12s}{("Fg:"+str(p.Fg))[:10]:12s}{("Fram:"+str(p.Fram))[:10]:12s}{("Wfuel:"+str(p.Wfuel))[:10]:12s} " , file=varsg.pretty )
+        print( f"{"Performance"[:10]:12s}{p.name1[:10]:12s}{("alt:"+str(p.alt))[:10]:12s}{("MN:"+str(p.MN))[:10]:12s}{("Fn:"+str(p.Fn))[:10]:12s}{("SFC:"+str(p.SFC))[:10]:12s}{("Fg:"+str(p.Fg))[:10]:12s}{("Fram:"+str(p.Fram))[:10]:12s}{("Wfuel:"+str(p.Wfuel))[:10]:12s} " , file=g.pretty )
          

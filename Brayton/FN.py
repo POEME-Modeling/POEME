@@ -1,7 +1,7 @@
 from RealT import RealT
 import math
 from Atom import Atom
-import varsg
+import g
 
 from H2O import H2O
 from R32 import R32
@@ -234,7 +234,7 @@ class FN( Atom ):
                 error = ( f.MN.v - MNor )/ MNor
                 
             if count > 49:
-                varsg.errors = varsg.errors + "MN iteration failure\n"
+                g.errors = g.errors + "MN iteration failure\n"
 
             f.MN.v = MNor   
     
@@ -276,7 +276,7 @@ class FN( Atom ):
                 count = count + 1
                 
             if ( count > 49 ):
-                varsg.errors = f.parent.name1+"."+f.name1 + " " + varsg.errors + " failure during static area match\n"
+                g.errors = f.parent.name1+"."+f.name1 + " " + g.errors + " failure during static area match\n"
     
             f.A.v = Aor
                 
@@ -488,10 +488,10 @@ class FN( Atom ):
         f.statics()
 
     def dump( f ):
-        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = varsg.out )
+        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = g.out )
 
     def pretty( f ):
-        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = varsg.pretty )
+        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = g.pretty )
 
 
     def hover( f ):

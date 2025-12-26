@@ -5,7 +5,7 @@ from Independent import Independent
 from ComplexT import ComplexT
 from RealT import RealT
 from BooleanT import BooleanT
-import varsg
+import g
 import time
 
 class Mass( Element ):
@@ -81,9 +81,9 @@ class Mass( Element ):
 
             
     def dump( self ):
-        print( self.name, "Node", file = varsg.out )
+        print( self.name, "Node", file = g.out )
         super().realPrint()
     
     def pretty( m ):
-        print( f"{"Fp"[:10]:12s}{m.name1[:10]:12s}{("xloc:"+str(m.xloc))[:10]:12s}{("V:"+str(m.V))[:10]:12s}{("mass:"+str(m.mass))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Fp"[:10]:12s}{m.name1[:10]:12s}{("xloc:"+str(m.xloc))[:10]:12s}{("V:"+str(m.V))[:10]:12s}{("mass:"+str(m.mass))[:10]:12s}" , file=g.pretty )
             

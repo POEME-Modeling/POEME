@@ -7,7 +7,7 @@ from FN import FN
 from Dependent import Dependent
 from Independent import Independent
 #from Table1d import Table1d
-import varsg
+import g
 
 class Splitter( Element ):
     
@@ -55,10 +55,10 @@ class Splitter( Element ):
             spl.ind_BPR.active = True
             
     def dump( spl ): 
-        print( spl.name1, "Splitter", file=varsg.out )
+        print( spl.name1, "Splitter", file=g.out )
         super().realPrint()       
   
     def pretty( s ):
-        print( f"{"Splitter"[:10]:12s}{s.name1[:10]:12s}{("BPR:"+str(s.BPR))[:10]:12s}" , file=varsg.pretty )            
+        print( f"{"Splitter"[:10]:12s}{s.name1[:10]:12s}{("BPR:"+str(s.BPR))[:10]:12s}" , file=g.pretty )            
       
        

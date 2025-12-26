@@ -1,7 +1,7 @@
 from Element import Element
 
 import numpy as np
-import varsg
+import g
 from scipy import linalg
 import time
 from numpy import dot, outer
@@ -23,13 +23,13 @@ class Newton(Element):
         # variables
         s.name1 = name
         s.VIDL = list()
-        s.ind_list = varsg.ind_list
-        s.dep_list = varsg.dep_list
+        s.ind_list = g.ind_list
+        s.dep_list = g.dep_list
         s.maxJacobians =  RealT( s, v=100., units="Integer", desc="Maxium number of Jacobians" )  
         s.numpasses =  RealT( s, v=0., units="Integer", desc="Number of passes" )  
         s.tolerance = RealT( s, v=.0001, units="real", desc="tolernace" )  
         s.constraints = False
-        varsg.solver = s
+        g.solver = s
         s.type = "NewtonSolver"
         s.time = RealT( s, v=0.,  units="seconds", dessc="Simulation time" )
         s.dtime = RealT( s, v=0.05,  units="seconds", desc="Simulation time step" ) 
@@ -45,14 +45,14 @@ class Newton(Element):
     # define one analysis pass
     def onepass( s ):
     
-        varsg.errors = ""
+        g.errors = ""
         s.numpasses = s.numpasses + 1
         # run the prepass on all the elements
-        for e in varsg.element_list:
+        for e in g.element_list:
             e.preset()
             
         # run the calculate section for one element
-        for e in varsg.element_list:    
+        for e in g.element_list:    
             e.before()
             e.calc()
             e.after()
@@ -74,19 +74,19 @@ class Newton(Element):
         s.state_list = list()
         s.con_list = list()
         
-        for d in varsg.dep_list:
+        for d in g.dep_list:
             if d.active == True:
                 s.dep_list.append( d )
 
-        for i in varsg.ind_list:
+        for i in g.ind_list:
             if i.active == True:
                 s.ind_list.append( i )
                   
-        for st in varsg.state_list:
+        for st in g.state_list:
             if st.active == True:
                 s.state_list.append( st )
    
-        for c in varsg.con_list:
+        for c in g.con_list:
             if c.on == True:
                 s.con_list.append( c )
                 c.active = False
@@ -103,7 +103,7 @@ class Newton(Element):
         while ( s.constraints == True ):
             s.converged.set( False )
             iter = 0
-            varsg.errors = ""
+            g.errors = ""
             errSumLast = 9e9
             errSum = 8e9
             while ( iter < s.maxJacobians.v and s.converged == False  ):
@@ -189,7 +189,7 @@ class Newton(Element):
                             if st.active == True:
                                 matrix[dcount][icount] =( st.depError() - st.baseError )/dx
                                 dcount = dcount+1
-
+                                    
                         for c in s.con_list:
                             if c.active == True:
                                 matrix[ dcount][icount] =( c.depError() - c.baseError )/dx 
@@ -207,9 +207,9 @@ class Newton(Element):
                     imatrix = linalg.inv( matrix )
                 except:
                     iter = s.maxJacobians.v
-                    varsg.errors = varsg.errors + "Could not invert solver matrix\n"
+                    g.errors = g.errors + "Could not invert solver matrix\n"
                 bc = 0
-                
+
                 # if the error keeps improving, keep using jacobian
                 #while errSum <= errSumLast and s.converged == False:
                 check = 0
@@ -330,7 +330,7 @@ class Newton(Element):
                     #except Exception as err:
                         #print( f"exception: {err}" )
                         #iter = s.maxJacobians
-                        #varsg.errors = varsg.errors + " error during jacbian step\n"
+                        #g.errors = g.errors + " error during jacbian step\n"
                         
             # check status of the constraints   
             s.constraints = False                           
@@ -343,13 +343,13 @@ class Newton(Element):
                     
         # if we are here, model is done
         #try:
-        varsg.errors = ""
+        g.errors = ""
         s.onepass()
         #except:
-            #varsg.errors = varsg.errors + " error during final model pass\n"
+            #g.errors = g.errors + " error during final model pass\n"
             #pass
  
-        for c in varsg.con_list:
+        for c in g.con_list:
             if c.on == True:
                 s.con_list.append( c )
                 c.active = False
@@ -357,27 +357,27 @@ class Newton(Element):
         
         if iter > s.maxJacobians.v - 1:
             s.converged.set( False )
-            varsg.errors = varsg.errors + " solver exceeded maximu number of iterations\n"
+            g.errors = g.errors + " solver exceeded maximu number of iterations\n"
         else:
             s.converged.set( True )
            
           
     def trim( s ):
         # trim up model
-        for st in varsg.state_list:
+        for st in g.state_list:
             st.trim()   
             
             
     def saveInds( s ):
-        for i in varsg.ind_list:
+        for i in g.ind_list:
             i.ind.save = ( i.ind.v )
          
     def restoreInds( s ):
-        for i in varsg.ind_list:
+        for i in g.ind_list:
             i.ind.v = ( i.ind.save )
 
     def pretty( s ):
-        print( "Converged:" + str( s.converged.v ), file=varsg.pretty )
+        print( "Converged:" + str( s.converged.v ), file=g.pretty )
             
     # user wants transient data                         
     def transrun( s ):
@@ -387,18 +387,18 @@ class Newton(Element):
             s.time.v = s.time.v + s.dtime.v
             # solve time step
             s.solve()
-            varsg.stdOut.print()
+            g.stdOut.print()
 
             # step the elements and states
-            for st in varsg.state_list:
+            for st in g.state_list:
                 st.step()
-            for e in varsg.element_list:
+            for e in g.element_list:
                 e.step()
                  
             # print data for this time step
             
-            #varsg.stdOut = open( "pop.out", "a" )
-            #varsg.stdOut.print()
+            #g.stdOut = open( "pop.out", "a" )
+            #g.stdOut.print()
             
         
 

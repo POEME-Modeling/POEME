@@ -5,7 +5,7 @@ from StringT import StringT
 from FN import FN
 from Table1d import Table1d
 from MP import MP
-import varsg
+import g
 from Table2d import Table2d
 from BooleanT import BooleanT
 from Dependent import Dependent
@@ -151,9 +151,9 @@ class Compressor( Element ):
             
     def dump( c ): 
         #dump output variables
-        print( c.name1, "Compressor", file=varsg.out )
+        print( c.name1, "Compressor", file=g.out )
         super().realPrint()       
         
     def pretty( c ):
-        print( f"{"Compressor"[:10]:12s}{c.name1[:10]:12s}{("PR:"+str(c.PR))[:10]:12s}{("eff:"+str(c.eff))[:10]:12s}{("Rline:"+str(c.Rline))[:10]:12s}{("NcMap:"+str(c.NcMap))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Compressor"[:10]:12s}{c.name1[:10]:12s}{("PR:"+str(c.PR))[:10]:12s}{("eff:"+str(c.eff))[:10]:12s}{("Rline:"+str(c.Rline))[:10]:12s}{("NcMap:"+str(c.NcMap))[:10]:12s}" , file=g.pretty )
      

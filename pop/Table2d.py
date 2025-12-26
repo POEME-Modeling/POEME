@@ -2,7 +2,7 @@
 import numpy as np
 from scipy import interpolate
 from scipy.interpolate import RegularGridInterpolator
-import varsg
+import g
 
 class Table2d ( ):
 
@@ -53,18 +53,18 @@ class Table2d ( ):
             x2 = s.x[1]
             xi,w_x2,w_x1 = 0,(x-x1)/(x2-x1),(x2-x)/(x2-x1)
             if s.parent != 0:
-                varsg.errors = varsg.errors + s.parent.name1+"."
-            varsg.errors = varsg.errors + s.name1
-            varsg.errors = varsg.errors + " Table 2d input to low " + str( x ) + " < " + str( s.x[0] )+"\n"            
+                g.errors = g.errors + s.parent.name1+"."
+            g.errors = g.errors + s.name1
+            g.errors = g.errors + " Table 2d input to low " + str( x ) + " < " + str( s.x[0] )+"\n"            
         
         if x > s.x[len(s.x)-1]:
             x1 = s.x[len(s.x)-2]
             x2 = s.x[len(s.x)-1]
             xi,w_x2,w_x1 = len(s.x)-2,(x-x1)/(x2-x1),(x2-x)/(x2-x1)
             if s.parent != 0:
-                varsg.errors = varsg.errors + s.parent.name1+"."
-            varsg.errors = varsg.errors + s.name1
-            varsg.errors = varsg.errors +  " Table 2d input to high " + str( x ) + " > " + str( s.x[len(s.x)-1] )+"\n"               
+                g.errors = g.errors + s.parent.name1+"."
+            g.errors = g.errors + s.name1
+            g.errors = g.errors +  " Table 2d input to high " + str( x ) + " > " + str( s.x[len(s.x)-1] )+"\n"               
             
     
         if y < s.y[0]:
@@ -72,9 +72,9 @@ class Table2d ( ):
             y2 = s.y[1]
             yi,w_y2,w_y1 = 0,(y-y1)/(y2-y1),(y2-y)/(y2-y1)
             if s.parent != 0:
-                varsg.errors = varsg.errors + s.parent.name1+"."
-            varsg.errors = varsg.errors + s.name1
-            varsg.errors = varsg.errors + " Table 2d input to low " + str( y ) + " < " + str( s.y[0] ) + "\n"            
+                g.errors = g.errors + s.parent.name1+"."
+            g.errors = g.errors + s.name1
+            g.errors = g.errors + " Table 2d input to low " + str( y ) + " < " + str( s.y[0] ) + "\n"            
 
             
         if y > s.y[len(s.y)-1]:
@@ -82,9 +82,9 @@ class Table2d ( ):
             y2 = s.y[len(s.y)-1]
             yi,w_y2,w_y1 = len(s.y)-2,(y-y1)/(y2-y1),(y2-y)/(y2-y1)         
             if s.parent != 0:
-                varsg.errors = varsg.errors + s.parent.name1+"."
-            varsg.errors = varsg.errors + s.name1
-            varsg.errors = varsg.errors + " Table 2d input to high " + str( y ) + " > " + str( s.y[len(s.y)-1] )+"\n"               
+                g.errors = g.errors + s.parent.name1+"."
+            g.errors = g.errors + s.name1
+            g.errors = g.errors + " Table 2d input to high " + str( y ) + " > " + str( s.y[len(s.y)-1] )+"\n"               
 
         
         #if xi is None or yi is None:

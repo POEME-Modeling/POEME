@@ -3,7 +3,7 @@ from RealT import RealT
 from ComplexT import ComplexT
 from StringT import StringT
 
-import varsg
+import g
 
 class Constraint( Atom ):
 
@@ -39,7 +39,7 @@ class Constraint( Atom ):
         c.x = 0
         c.y = 0
         # add constraint to the global list
-        varsg.con_list.append( c )
+        g.con_list.append( c )
         if p == 0:
            pass  
         else:
@@ -86,7 +86,7 @@ class Constraint( Atom ):
         # if that is the case, look through all of the elements
         # first block happens if the variable is local
         
-        for d in varsg.dep_list:
+        for d in g.dep_list:
             if( (d.p.name1+"."+d.name1))==c.depname.v:
                 c.dep = d
         if c.on == True:
@@ -104,7 +104,7 @@ class Constraint( Atom ):
             if tempname.find( "." )>-1:
                 first = tempname[0:tempname.find(".") ]
                 top = 0
-                for e in varsg.element_list:
+                for e in g.element_list:
                     if e.name1 == first:
                         top = e 
                        
@@ -171,7 +171,7 @@ class Constraint( Atom ):
             if tempname.find( "." )>-1:
                 first = tempname[0:tempname.find(".") ]
                 top = 0
-                for e in varsg.element_list:
+                for e in g.element_list:
                     if e.name1 == first:
                         top = e 
                        

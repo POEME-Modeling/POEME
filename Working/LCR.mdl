@@ -3,9 +3,9 @@ exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Electrical" ) 
 exec( open( "temp.include").read())
-import varsg
-varsg.out = open( "pop.out", "a")
-varsg.pretty = open( "pretty.out", "a")
+import g
+g.out = open( "pop.out", "a")
+g.pretty = open( "pretty.out", "a")
 
 R = Resistor( "R" )
 R.R.set( 470. )
@@ -33,7 +33,7 @@ E2.Vi.set( 10. )
 
 S2 = Esource( "S2" )
 
-varsg.set( "freq", 60. )
+g.set( "freq", 60. )
 
 C1.EPi.linkE( S1 )
 C1.EPo.linkE( E1 )
@@ -52,16 +52,16 @@ E1.con_2 = Constraint( E1, d1name="E1.IinIp2", d2name="E1.IoutI", depname="E1.de
 	
 
 
-varsg.check()
+g.check()
 
-varsg.NS = Newton( "varsg.NS" )
+g.NS = Newton( "g.NS" )
 
-varsg.NS.run()
+g.NS.run()
 
-print( "converged",  varsg.NS.converged )
+print( "converged",  g.NS.converged )
 
-varsg.stdOut.print()
+g.stdOut.print()
 
-varsg.prettyPrint.print()
+g.prettyPrint.print()
 
 

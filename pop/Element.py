@@ -3,13 +3,13 @@ from VID import VID
 from RealT import RealT
 from RealT import RealT
 from ComplexT import ComplexT
-import varsg
+import g
 import __main__
 
 class Element(Atom):
         
     def __init__(self, name, type):
-        varsg.element_list.append(self)
+        g.element_list.append(self)
         self.VIDL = list() 
         self.type = type
         self.name = name
@@ -39,7 +39,6 @@ class Element(Atom):
         if (type == "Element"):
             return True
 
-            
     def addVID(self,v):
         self.VIDL.append(v)
         
@@ -70,16 +69,16 @@ class Element(Atom):
     def realPrint( self ):
         for v in self.VIDL:
             if v.isa( "RealT" ):
-                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.out )
+                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=g.out )
             if v.isa( "ComplexT" ):
-                print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )
+                print( "    ", v.name1, v.v, v.units, v.desc, file=g.out )
                 
     def pretty( self ):
         for v in self.VIDL:
             if v.isa( "RealT" ):
-                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=varsg.pretty )
+                print( f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}", file=g.pretty )
             if v.isa( "ComplexT" ):
-                print( "    ", v.name1, v.v, v.units, v.desc, file=varsg.out )                
+                print( "    ", v.name1, v.v, v.units, v.desc, file=g.out )                
                 
     def hover( self ):
         temp1 = ""

@@ -2,7 +2,7 @@
 from Atom import Atom
 from ComplexT import ComplexT
 from RealT import RealT
-import varsg
+import g
 
 class MP( Atom ):
     def __init__( m, p, **kwargs ):
@@ -46,11 +46,11 @@ class MP( Atom ):
             m.other.hp.v = HP
             
     def dump( self ):
-        print( f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  I:{str(self.I.v)[:8]:10s}", file=varsg.out)
-        #print( self.parent.name1, self.name1, self.N.v, self.hp.v, self.I.v, file = varsg.out )
+        print( f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  I:{str(self.I.v)[:8]:10s}", file=g.out)
+        #print( self.parent.name1, self.name1, self.N.v, self.hp.v, self.I.v, file = g.out )
 
     def pretty ( self ):
-        print( f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  I:{str(self.I.v)[:8]:10s}", file=varsg.pretty)
+        print( f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  I:{str(self.I.v)[:8]:10s}", file=g.pretty)
 
     def hover( self ):
         return( self.parent.name1 + "." + self.name1 + "." + str( self.N.v ) + " " + str( self.hp.v ) + " " + str( self.I.v ))

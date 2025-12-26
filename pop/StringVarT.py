@@ -1,5 +1,5 @@
 from ValueT import ValueT
-import varsg
+import g
 import time
 
 class StringVarT ( ValueT ):
@@ -29,7 +29,7 @@ class StringVarT ( ValueT ):
         if self.ptr == 0:
             tempname = self.v
             restofname = self.v
-            for e in varsg.element_list:
+            for e in g.element_list:
                 top = e
                 while tempname.find( "." )>-1:
                     restofname= tempname[tempname.find(".")+1:]
@@ -60,7 +60,7 @@ class StringVarT ( ValueT ):
             restofname = val
             top = self.parent
             
-            for e in varsg.element_list:
+            for e in g.element_list:
                 top = e
                 if ( tempname[0:tempname.find( "." )] == e.name1 ):
                     while tempname.find( "." )>-1:

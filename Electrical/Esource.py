@@ -4,7 +4,7 @@ from Independent import Independent
 from ComplexT import ComplexT
 from RealT import RealT
 from EP import EP
-import varsg
+import g
 
 class Esource( Element ):
     
@@ -79,9 +79,9 @@ class Esource( Element ):
                 e.IoutI.set( e.IoutI - p.I.v.imag )
     
     def dump( self ):
-        print( self.name, "Node", file = varsg.out )
+        print( self.name, "Node", file = g.out )
         super().realPrint()
     
     def pretty( self ):
-        print( f"{"Source"[:8]:12s}{self.name1[:8]:12s}{"Vr:"+str(self.Vr.v)[:8]:12s}{"Vi:"+str(self.Vi.v)[:8]:12s}", file = varsg.pretty )
+        print( f"{"Source"[:8]:12s}{self.name1[:8]:12s}{"Vr:"+str(self.Vr.v)[:8]:12s}{"Vi:"+str(self.Vi.v)[:8]:12s}", file = g.pretty )
         

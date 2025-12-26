@@ -4,9 +4,9 @@ exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
 exec( open( "temp.include").read())
-import varsg
-varsg.out = open( "pop.out", "a")
-varsg.pretty = open( "pretty.out", "a")
+import g
+g.out = open( "pop.out", "a")
+g.pretty = open( "pretty.out", "a")
 
 FS = FlowStart( "FS" )
 FS.Pamb = RealT( FS, v=10. )
@@ -15,8 +15,6 @@ FS.Pt.set( 15. )
 FS.Tt.set( 500. )
 FS.W.set( 1000. )
 FS.comp.set( "canteraFN" )
-
-FS.W = 10.
 
 D1 = Duct( "D1" )
 D1.dP.set( .05 )
@@ -95,56 +93,56 @@ P1 = Perf( "P1" )
 
 
 estuff=Output( "estuff", filename="estuff.out" )
-estuff.vars = [ varsg.NS.time, T1.FNo.MN, T1.FNo.Ps, B1.FAR,B1.FNi.W, B1.Wfuel, S1.N, FS.W, T1.FNo.A ]
-estuff.vars = [ varsg.NS.time, B1.FAR,S1.N, B1.Wfuel, B1.FNo.Tt ]
+estuff.vars = [ g.NS.time, T1.FNo.MN, T1.FNo.Ps, B1.FAR,B1.FNi.W, B1.Wfuel, S1.N, FS.W, T1.FNo.A ]
+estuff.vars = [ g.NS.time, B1.FAR,S1.N, B1.Wfuel, B1.FNo.Tt ]
 
 checkType()
-varsg.check()
+g.check()
 
-varsg.NS.solve()
-varsg.stdOut.print()
+g.NS.solve()
+g.stdOut.print()
 
 
-varsg.set("size", False )
+g.set("size", False )
 
-varsg.check()
+g.check()
 
-varsg.NS.solve()
-
+g.NS.solve()
+g.stdOut.print()
 
 B1.FAR.set( .025 )
 
-varsg.NS.solve()
+g.NS.solve()
+g.stdOut.print()
 
 B1.FAR.set( .026 )
+g.stdOut.print()
 
-varsg.NS.solve()
+g.NS.solve()
+g.stdOut.print()
+B1.FAR.set( .027 )
+
+g.NS.run()
+
+B1.FAR.set( .028 )
+g.stdOut.print()
+g.NS.run()
+
+B1.FAR.set( .030 )
+g.stdOut.print()
+g.NS.run()
+
+B1.FAR.set( .028 )
+
+g.NS.run()
 
 B1.FAR.set( .027 )
 
-varsg.NS.run()
+g.NS.run()
 
+B1.FAR.set( .026 )
 
-B1.FAR.set( .030 )
-
-varsg.NS.run()
-
-B1.FAR.set( .025 )
-
-
-varsg.NS.run()
-
-
-B1.FAR.set( .025 )
-
-varsg.NS.run()
-
-
-
-B1.FAR.set( .025 )
-
-
-varsg.NS.run()
+g.NS.run()
 
 PIV1 = PIV( "PIV1" )
 
@@ -158,12 +156,12 @@ B1.WFset.set( False )
 	
 PIV1.G.set( 10500. )
 
-varsg.NS.timeLast.set( 10. )
-varsg.NS.dtime.set( .01 )
-varsg.set("trans", True )
-varsg.NS.tolerance.set( .0002 )
-varsg.NS.trim()
-varsg.NS.run()
+g.NS.timeLast.set( 10. )
+g.NS.dtime.set( .01 )
+g.set("trans", True )
+g.NS.tolerance.set( .0002 )
+g.NS.trim()
+g.NS.run()
 
 
 

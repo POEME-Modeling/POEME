@@ -5,7 +5,7 @@ from ComplexT import ComplexT
 from RealT import RealT
 from EP import EP
 
-import varsg
+import g
 
 class Enode( Element ):
     
@@ -87,8 +87,8 @@ class Enode( Element ):
                 e.IoutI.set( e.IoutI - p.I.v.imag )
 
     def dump( self ):
-        print( self.name, "Node", file = varsg.out )
+        print( self.name, "Node", file = g.out )
         super().realPrint()
     
     def pretty( self ):
-        print( f"{"Node"[:10]:12s}{self.name1[:10]:12s}{("Vr:"+str(self.Vr))[:10]:12s}{("Vi:"+str(self.Vi ))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Node"[:10]:12s}{self.name1[:10]:12s}{("Vr:"+str(self.Vr))[:10]:12s}{("Vi:"+str(self.Vi ))[:10]:12s}" , file=g.pretty )

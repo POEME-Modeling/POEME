@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 from FN import FN
 from Table1d import Table1d
-import varsg
+import g
 
 class Duct( Element ):
     
@@ -36,10 +36,10 @@ class Duct( Element ):
         d.FNobld.setW( d.FNi.W*( d.Wbldfrac ))       
   
     def dump( d ): 
-        print( d.name1, "Duct", file=varsg.out )
+        print( d.name1, "Duct", file=g.out )
         super().realPrint()       
 
     def pretty( d ):
-        print( f"{"Duct":12s}{d.name1[:10]:12s}{("dP:"+str(d.dP))[:10]:12s}{("Q:"+str(d.Q))[:10]:12s}" , file=varsg.pretty )            
+        print( f"{"Duct":12s}{d.name1[:10]:12s}{("dP:"+str(d.dP))[:10]:12s}{("Q:"+str(d.Q))[:10]:12s}" , file=g.pretty )            
       
        

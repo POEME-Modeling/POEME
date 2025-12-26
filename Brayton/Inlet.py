@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from StringT import StringT
 from FN import FN
 from Table1d import Table1d
-import varsg
+import g
 
 class Inlet( Element ):
     
@@ -29,10 +29,10 @@ class Inlet( Element ):
         i.FNo.set_hP( i.FNo.ht, i.FNo.Pt*( i.rec ) )
   
     def dump( i ): 
-        print( i.name1, "Duct", file=varsg.out )
+        print( i.name1, "Duct", file=g.out )
         super().realPrint()       
 
     def pretty( i ):
-        print( f"{"Inlet":12s}{i.name1[:10]:12s}{("rec:"+str(i.rec))[:10]:12s}", file=varsg.pretty )            
+        print( f"{"Inlet":12s}{i.name1[:10]:12s}{("rec:"+str(i.rec))[:10]:12s}", file=g.pretty )            
       
        

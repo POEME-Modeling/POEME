@@ -18,7 +18,7 @@ def loadDirectory( dir ):
         if ".py" in f and not "~" in f: 
             f=f[:-3]
             exec( "from " + f + " import *" )
-            if "varsg" in f or "." in f:
+            if f== "g" or "." in f:
                 pass
             else:
                 temp.write( "from " + f + " import " + f + "\n")
@@ -27,22 +27,22 @@ def loadDirectory( dir ):
     temp.close()
     
 def setComp( comp ):
-    for e in varsg.element_list:
+    for e in g.element_list:
         for v in e.VIDL:
             if v.isa( "FN" ):
                 if v.comp.v == "none":
                     v.comp.set( comp )
                     
 def setFreq( freq ):
-    for e in varsg.element_list:
+    for e in g.element_list:
         for v in e.VIDL:
             if v.isa( "EP" ):
                 if v.freq.v == 0:
                     v.freq.set( freq )
 def checkType():
     
-    stuff = varsg.element_list.copy()
-    stuff.append( varsg.NS )
+    stuff = g.element_list.copy()
+    stuff.append( g.NS )
     
     for e in stuff:
         for v in e.VIDL:
@@ -154,8 +154,8 @@ class prettyPrint( ):
         print( "", file=pretty )
         NS.pretty()
         print( "", file=pretty )
-			
-			
+            
+            
 os.system( "del pop.out" )
 out = open( "pop.out", "a")
 os.system( "del pretty.out" )

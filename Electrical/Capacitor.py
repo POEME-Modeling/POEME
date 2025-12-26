@@ -4,7 +4,7 @@ from ComplexT import ComplexT
 from EP import EP
 import math
 from Table2d import Table2d
-import varsg
+import g
 
 class Capacitor( Element ):
 
@@ -53,10 +53,10 @@ class Capacitor( Element ):
 
         
     def dump( c ):
-    	print( c.name1, "Capacitor", file = varsg.out )
+    	print( c.name1, "Capacitor", file = g.out )
     	super().realPrint()
         
     def pretty( c ):
-        print( f"{"Capacitor"[:10]:12s}{c.name1[:10]:12s}{("C:"+str(c.C))[:10]:12s}{("dVr:"+str(c.EPi.Vr - c.EPo.Vr))[:10]:12s}{("dVi:"+str(c.EPi.Vi - c.EPo.Vi))[:10]:12s}{("Ir:"+str(c.EPi.Ir))[:10]:12s}{("Ii:"+str(c.EPi.Ii))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Capacitor"[:10]:12s}{c.name1[:10]:12s}{("C:"+str(c.C))[:10]:12s}{("dVr:"+str(c.EPi.Vr - c.EPo.Vr))[:10]:12s}{("dVi:"+str(c.EPi.Vi - c.EPo.Vi))[:10]:12s}{("Ir:"+str(c.EPi.Ir))[:10]:12s}{("Ii:"+str(c.EPi.Ii))[:10]:12s}" , file=g.pretty )
          
        

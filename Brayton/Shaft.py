@@ -5,7 +5,7 @@ from State import State
 from ComplexT import ComplexT
 from RealT import RealT
 from BooleanT import BooleanT
-import varsg
+import g
 
 class Shaft( Element ):
     def __init__( s,name ):
@@ -80,9 +80,9 @@ class Shaft( Element ):
 
 
     def dump( self ):
-        print( self.name1, "Shaft", file = varsg.out )
+        print( self.name1, "Shaft", file = g.out )
         super().realPrint()
         
     def pretty( s ):
-        print( f"{"Shaft"[:10]:12s}{s.name1[:10]:12s}{("N:"+str(s.N))[:10]:12s}{("HPX:"+str(s.HPX))[:10]:12s}" , file=varsg.pretty )
+        print( f"{"Shaft"[:10]:12s}{s.name1[:10]:12s}{("N:"+str(s.N))[:10]:12s}{("HPX:"+str(s.HPX))[:10]:12s}" , file=g.pretty )
  

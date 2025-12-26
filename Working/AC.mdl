@@ -4,9 +4,9 @@ exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
 exec( open( "temp.include").read())
-import varsg
-varsg.out = open( "pop.out", "a")
-varsg.pretty = open( "pretty.out", "a")	
+import g
+g.out = open( "pop.out", "a")
+g.pretty = open( "pretty.out", "a")	
 	
 FSE = FlowStartEnd2D( "FSE" )
 FSE.Pt.set( 15. )
@@ -64,10 +64,10 @@ Condensor.ind_Q = Independent( Condensor, indname="Q", perturb=.05, scale=100, p
 
 
 
-varsg.NS = Newton( "varsg.NS" )
-varsg.check()
+g.NS = Newton( "g.NS" )
+g.check()
 
-varsg.NS.solve()
-varsg.stdOut.print()
-varsg.prettyPrint.print()
+g.NS.solve()
+g.stdOut.print()
+g.prettyPrint.print()
 
