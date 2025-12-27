@@ -2,82 +2,67 @@ time =  0.0
 Ports*************
 
 Electric Ports
-R EPi (49.53311179386161+43.400411025391854j) (-0.10538959956140767-0.09234130005402522j)
-R EPo 0j (0.10538959956140767+0.09234130005402522j)
-C1 EPi (120+0j) (-0.07689937661624376-0.124857337686692j)
-C1 EPo (49.53311179386161+43.400411025391854j) (0.07689937661624376+0.124857337686692j)
-I EPi (49.53311179386161+43.400411025391854j) (0.02849022294516391-0.03251603763266674j)
-I EPo (57.50097910001114+50.381775683477514j) (-0.02849022294516391+0.03251603763266674j)
-C2 EPi (57.50097910001114+50.381775683477514j) (0.02849022294516393-0.03251603763266674j)
-C2 EPo 0j (-0.02849022294516393+0.03251603763266674j)
-S1 C1_EPi (120+0j) (-0.07689937661624376-0.124857337686692j)
-E1 C1_EPo (49.53311179386161+43.400411025391854j) (0.07689937661624376+0.124857337686692j)
-E1 I_EPi (49.53311179386161+43.400411025391854j) (0.02849022294516391-0.03251603763266674j)
-E1 R_EPi (49.53311179386161+43.400411025391854j) (-0.10538959956140767-0.09234130005402522j)
-E2 I_EPo (57.50097910001114+50.381775683477514j) (-0.02849022294516391+0.03251603763266674j)
-E2 C2_EPi (57.50097910001114+50.381775683477514j) (0.02849022294516393-0.03251603763266674j)
-S2 C2_EPo 0j (-0.02849022294516393+0.03251603763266674j)
-S2 R_EPo 0j (0.10538959956140767+0.09234130005402522j)
 
 Fluid Ports
+FSE        FNi         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+FSE        FNo         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNi         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNo         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNobld      W:0.0         Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNi         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNo         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNobld      W:0.0         Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNi         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNo         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNobld      W:0.0         Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNi         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNideal     W:300.0       Tt:399.9941    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNo         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld1     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld2     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
 
 Mech Ports
+Comp       MP          N:6000.0      hp:-6.70808    I:0.0       
 
 Elements***********
 
-R Resistor
-     dV (49.53311179386161+43.400411025391854j) volts Voltage drop
-     I (0.10538959956140767+0.09234130005402522j) amps Current
-  R          470.0    ohms     Resistance
-     Z (470+0j) ohms Impedance
-C1 Capacitor
-  C          4.7e-06  farad    Capacitance
-     dV (70.46688820613839-43.400411025391854j) volts Voltage
-     I (0.07689937661624376+0.124857337686692j) amps Current
-     Z -564.379230822324j ohms Impedance
-I Inductor
-     dV (-7.967867306149536-6.98136465808566j) volts Voltage drop
-     I (-0.02849022294516391+0.03251603763266674j) amps Current
-  L          0.65     ohms     Inductance
-     Z 245.04422698000386j ohms Impedance
-C2 Capacitor
-  C          1.5e-06  farad    Capacitance
-     dV (57.50097910001114+50.381775683477514j) volts Voltage
-     I (-0.02849022294516393+0.03251603763266674j) amps Current
-     Z -1768.388256576615j ohms Impedance
-S1 Node
-     V (120+0j) volts Voltage
-  Vi         0.0      volts    Imaginary component of voltage
-  Vr         120.0    volts    Real component of voltage
-  IinI       0.0      amps     Imaginery component of I coming in
-  IinR       0.0      amps     Real component of I comping in
-  IoutI      0.124857 amps     Imaginary component of I going out
-  IoutR      0.076899 amps     Real component I going out
-     Inet 0j amps Current
-E1 Node
-     V (49.53311179386161+43.400411025391854j) volts Voltage
-  Vi         43.40041 volts    Imaginary component of voltage
-  Vr         49.53311 volts    Real component of voltage
-  IinI       0.124857 amps     Imaginery component of I coming in
-  IinR       0.105389 amps     Real component of I comping in
-  IoutI      0.124857 amps     Imaginary component of I going out
-  IoutR      0.105389 amps     Real component I going out
-     Inet 0j amps Current
-E2 Node
-     V (57.50097910001114+50.381775683477514j) volts Voltage
-  Vi         50.38177 volts    Imaginary component of voltage
-  Vr         57.50097 volts    Real component of voltage
-  IinI       0.032516 amps     Imaginery component of I coming in
-  IinR       0.028490 amps     Real component of I comping in
-  IoutI      0.032516 amps     Imaginary component of I going out
-  IoutR      0.028490 amps     Real component I going out
-     Inet 0j amps Current
-S2 Node
-     V 0j volts Voltage
-  Vi         0.0      volts    Imaginary component of voltage
-  Vr         0.0      volts    Real component of voltage
-  IinI       0.124857 amps     Imaginery component of I coming in
-  IinR       0.105389 amps     Real component of I comping in
-  IoutI      0.0      amps     Imaginary component of I going out
-  IoutR      0.028490 amps     Real component I going out
-     Inet 0j amps Current
+FSE FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  ht         57.84805 Btu/lbm  Specfic enthalpy
+  W          300.0    lbm/sec  Weight flow
+Condesor Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          995.2577 BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+Valve Duct
+  dP         0.4      none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+Evap Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          -1000.0  BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+Comp Compressor
+  eff        0.89     none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943333 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.0      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.0      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         300.0099 RPM/R**.5 Corrected speed
+  NcMap      0.9      RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002999 none     Scalar on corrected speed
+  PR         1.846721 none     Pressure ratio
+  PRdes      1.846721 none     Design pressure ratio
+  PRmap      13.32733 none     Pressure ratio read from table
+  PRscale    0.138566 none     Scalar on pressure ratio map
+  Rline      2.0      none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         738.6643 lbm/sec  Corrected flow
+  WcDes      738.6643 lbm/sec  Design corrected flow
+  WcMap      738.6643 lbm/sec  Map corrected flow
+  WcScale    12.30826 none     Scalar on corrected flow
+  Wfrac1     0.0      none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.0      none     Weight flow fraction for bleed flow 2

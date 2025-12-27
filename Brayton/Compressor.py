@@ -75,40 +75,41 @@ class Compressor( Element ):
         # copy incoming flow to other ports
         c.FNo.copy( c.FNi )
         c.FNoBld1.copy( c.FNi )
-        c.FNoBld1.W.set( 0. )
+        c.FNoBld1.setW( 0. )
         c.FNoBld2.copy( c.FNi )
-        c.FNoBld2.W.set( 0. )        
+        c.FNoBld2.setW( 0. )
         c.FNideal.copy( c.FNi )
 
         # calculate corrected speed amd corrected flow
-        c.Nc.set( c.MP.N/( c.FNi.Tt )**.5 )
-        c.Wc.set( c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt )
-
+        c.Nc += c.MP.N/( c.FNi.Tt )**.5 
+        c.Wc += c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
+        c.Wc += c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
+        
         # if we are in design mode set the conditions   
         if c.size == True:
-            c.NcScale.set( c.NcMapDes / c.Nc )
-            c.WcDes.set( c.Wc )
-            c.Rline.set( c.RlineDes ) 
+            c.NcScale += c.NcMapDes / c.Nc 
+            c.WcDes += c.Wc 
+            c.Rline += c.RlineDes
             
         # scale the corrected speed         
-        c.NcMap.set( c.NcScale*c.Nc ) 
+        c.NcMap += c.NcScale*c.Nc  
                     
-        # read the maps                     
-        c.effMap.set( c.effTable.calc( c.NcMap, c.Rline  ))
-        c.PRmap.set ( c.PRtable.calc( c.NcMap, c.Rline ))
-        c.WcMap.set( c.WcTable.calc( c.NcMap, c.Rline ))
+        # read the maps  
+        c.effMap += c.effTable.calc( c.NcMap, c.Rline  )
+        c.PRmap += c.PRtable.calc( c.NcMap, c.Rline )
+        c.WcMap += c.WcTable.calc( c.NcMap, c.Rline )
 
         # if in desing mode determine the scale factors
         if c.size == True:
-            c.effScale.set( c.effDes / c.effMap )
-            c.PRscale.set( c.PRdes / c.PRmap )
-            c.WcScale.set( c.WcDes / c.WcMap )
+            c.effScale += c.effDes / c.effMap 
+            c.PRscale += c.PRdes / c.PRmap 
+            c.WcScale += c.WcDes / c.WcMap 
             
         # scale the map values  
-        c.eff.set( c.effMap*c.effScale )
-        c.PR.set( c.PRmap*c.PRscale )
-        c.WcMap.set( c.WcScale*c.WcMap )
-        c.SMN.set( ( c.PRmap - c.PRtable.calc( c.NcMap, c.Rline ) )/ c.PRmap )
+        c.eff += c.effMap*c.effScale 
+        c.PR += c.PRmap*c.PRscale 
+        c.WcMap += c.WcScale*c.WcMap 
+        c.SMN += ( c.PRmap - c.PRtable.calc( c.NcMap, c.Rline ) )/ c.PRmap 
 
         # determine the ideal conditions
         c.FNideal.set_sP( c.FNi.s, c.PR*c.FNi.Pt )

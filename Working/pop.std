@@ -40,7 +40,7 @@ def setFreq( freq ):
                 if v.freq.v == 0:
                     v.freq.set( freq )
 def checkType():
-    
+
     stuff = g.element_list.copy()
     stuff.append( g.NS )
     
@@ -53,19 +53,22 @@ def checkType():
                             try:
                                 ( eval(e.name1+"." +v.name1+"."+v1.name1+"."+v2.name1+".desc" ))
                             except:
-                                print( e.name1+"." +v.name1+"."+v1.name1+"."+v2.name1+" has been retyped" )
+                                print( "bung" )
+                                print( e.name1+"." +v.name1+"."+v1.name1+"."+v2.name1+" has been retyped.  This probaby happened because you redefined the object using the '=' operator." )
                     else:
                         try:
                             eval(e.name1+"." +v.name1+"."+v1.name1+".desc" )
                         except:
-                            print( e.name1+"."+v.name1+"."+v1.name1+" has been retyped" )
+                            print( e.name1+"."+v.name1+"."+v1.name1+" has been retyped.  This probaby happened because you redefined the object using the '=' operator." )
                 
                            
             else:
                 try:
                     eval( e.name1+"."+v.name1+".desc" )
                 except:
-                    print( e.name1+"."+v.name1+" has been retyped" )
+                    print( "oops" )
+                    print( e.name1+"."+v.name1+" has been retyped.  This probaby happened because you redefined the object using the '=' operator." )
+                    quit()
                                         
 def stdOut( ):
     

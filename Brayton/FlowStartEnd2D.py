@@ -37,7 +37,7 @@ class FlowStartEnd2D( Element ):
     def calc(f):
     	
     	# set the flow conditions 
-    	f.FNo.comp.set( f.comp );
+    	f.FNo.comp += f.comp
     	f.FNo.set_hP( f.ht, f.Pt )
     	f.FNo.setW( f.W )
     	 

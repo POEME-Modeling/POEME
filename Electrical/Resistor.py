@@ -29,17 +29,17 @@ class Resistor( Element ):
     def calc( r ):
     	
     	# determine the voltage drop
-        r.dV.set( r.EPi.V - r.EPo.V )
+        r.dV += r.EPi.V - r.EPo.V 
    
         # if the table is there, determine resistane from it
         if r.RV.full() == True:
-        	r.R.set( r.RV.calc( r.dV.real() ))
+        	r.R += r.RV.calc( r.dV.real() )
         	
 		# calculate impedence
         r.Z.setP( r.R, 0. )
 
         #calculate the current
-        r.I.set( r.dV/ r.Z )
+        r.I += r.dV/ r.Z 
         
         # set the ports
         # voltage does not chage        

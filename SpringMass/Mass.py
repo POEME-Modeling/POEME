@@ -66,17 +66,17 @@ class Mass( Element ):
         for p in m.port_list:
             if p.io == "in":
                 if p.F > 0.:
-                    m.Fp.set( m.Fp + p.F )
+                    m.Fp += m.Fp + p.F 
                 else:
-                    m.Fn.set( m.Fn - p.F )
+                    m.Fn += m.Fn - p.F 
             else:
                 if p.F > 0.:
-                    m.Fn.set( m.Fn + p.F )
+                    m.Fn += m.Fn + p.F 
                 else:
-                    m.Fp.set( m.Fp - p.F )
+                    m.Fp += m.Fp - p.F 
                     
         # calculate the derivative
-        m.dVdt.set(( m.Fp - m.Fn )/( m.mass )* 32.2 )
+        m.dVdt += ( m.Fp - m.Fn )/( m.mass )* 32.2 
 
 
             

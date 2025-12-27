@@ -27,6 +27,14 @@ class BooleanT( ValueT ):
         else:
             return False
             
+    def __iadd__(self, other):
+        if isinstance( other, bool ):
+           self.v = other
+           return self
+           print( self.v )
+        self.v = other.v
+        return self
+        
     def savePrint( self ):
     	return( self.parent.name1+"."+self.name1+".set("+ str(self.v) + ")" )
 		   

@@ -29,15 +29,15 @@ class PIV( Element ):
     def calc( p ):
     	# if stepping in time them caclulate new conditions
         if ( g.NS.time.v > p.timeLast.v ):     
-        	p.e.set( p.G - p.DPi.get() )
+        	p.e +=  p.G - p.DPi.get() 
         	p.DPo.setVal( p.DPo.get() + ( p.P * p.e + p.D*( p.e - p.elast )/g.NS.dtime + p.I*( p.Inte + p.e*g.NS.dtime )))       
-        	p.timeLast.set( g.NS.time )
+        	p.timeLast += g.NS.time 
 
     
     def step( p ):
     	# step in time
-        p.elast.set( p.e )
-        p.Inte.set( p.Inte + p.e.v*g.NS.dtime )
+        p.elast += p.e
+        p.Inte += p.Inte + p.e.v*g.NS.dtime 
       
 		
     def dump( p ): 

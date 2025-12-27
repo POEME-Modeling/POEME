@@ -9,31 +9,31 @@ g.out = open( "pop.out", "a")
 g.pretty = open( "pretty.out", "a")	
 	
 FSE = FlowStartEnd2D( "FSE" )
-FSE.Pt.set( 15. )
-FSE.comp.set( "CPR134" )
-FSE.FNo.comp.set( "CPR134" )
+FSE.Pt += 15.
+FSE.comp += "CPR134"
+FSE.FNo.comp += "CPR134"
 FSE.FNo.setTP( 400., 15. )
-FSE.ht.set( FSE.FNo.ht )
-FSE.W.set( 1000. )
+FSE.ht += FSE.FNo.ht
+FSE.W += 300.
 
 
 Condensor = Duct( "Condesor" )
-Condensor.dP.set( .05 )
-Condensor.Q.set( 100. )
+Condensor.dP += .05
+Condensor.Q += 100.
 
 Valve = Duct( "Valve" )
-Valve.dP.set( .4 )
+Valve.dP += .4 
 
 Evap = Duct( "Evap" )
-Evap.dP.set( .05 )
-Evap.Q.set( -100. )
+Evap.dP += .05
+Evap.Q += -1000.
 
 Comp = Compressor( "Comp" )
-Comp.PRdes.set( 2. )
-Comp.effDes.set( .89 )
+Comp.PRdes += 2. 
+Comp.effDes += .89 
 Comp.MP.setN( 6000. )
-Comp.NcMapDes.set( .9 )
-Comp.RlineDes.set( 2.0 ) 
+Comp.NcMapDes += .9 
+Comp.RlineDes += 2.0  
 Comp.effTable.x = [ .8, .95, 1.1 ]
 Comp.effTable.y = [ 1., 2.0, 3.0 ]
 Comp.effTable.data = [ [ .90, .93, .90],\

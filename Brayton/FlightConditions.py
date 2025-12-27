@@ -96,11 +96,11 @@ class FlightConditions( Element ):
     def calc(f):
     	
     	# set the comp
-    	f.FNo.comp.set( f.comp );
+    	f.FNo.comp += f.comp
     	
     	# read atmospheric coniditions 
-    	f.Tamb.set( f.Ttable.calc( f.alt ))
-    	f.Pamb.set( f.Ptable.calc( f.alt ))
+    	f.Tamb += f.Ttable.calc( f.alt )
+    	f.Pamb += f.Ptable.calc( f.alt )
 		
 		# determine the total conditions
     	f.FNo.setTP( f.Tamb, f.Pamb )
@@ -109,7 +109,7 @@ class FlightConditions( Element ):
     	V = f.MN * math.sqrt( f.FNo.gamt * f.FNo.Rt.v * f.FNo.Tt*25037. )
 
     	ht = hs + V**2./(2.*25037.)
-    	f.FNo.MN.set( f.MN )
+    	f.FNo.MN += f.MN
     	f.FNo.set_hs( ht, f.FNo.s )
 
     	# determine the weight flow

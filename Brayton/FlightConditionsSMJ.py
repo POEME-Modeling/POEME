@@ -92,20 +92,20 @@ class FlightConditionsSMJ( Element ):
     def calc(f):
 
         # set the comp
-        f.FNo.comp.set( f.comp );
+        f.FNo.comp+= f.comp;
         
         # read atmospheric conditions 
-        f.Tamb.set( f.Ttable.calc( f.alt ))
-        f.Pamb.set( f.Ptable.calc( f.alt ))
+        f.Tamb+= f.Ttable.calc( f.alt )
+        f.Pamb+= f.Ptable.calc( f.alt )
 
         f.FNo.setW( f.W )
         if ( f.MN > 0. ):
             f.FNo.setTsPsMN( f.Tamb, f.Pamb, f.MN )
         else:
-            f.FNo.MN.set( 0. )
+            f.FNo.MN+= 0. 
             f.FNo.setTP( f.Tamb, f.Pamb )
 
-        f.Fram.set( f.FNo.V*f.FNo.W /32.174)
+        f.Fram+= f.FNo.V*f.FNo.W /32.174
 
 
     def precheck( f ):

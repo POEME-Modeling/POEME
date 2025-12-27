@@ -8,41 +8,39 @@ Ports*************
 
 Electric Ports
 
-R           EPi         Vr:49.53311    Vi:43.40041    Ir:-0.10538    Ii:-0.09234    
-R           EPo         Vr:0.0         Vi:0.0         Ir:0.105389    Ii:0.092341    
-C1          EPi         Vr:120.0       Vi:0.0         Ir:-0.07689    Ii:-0.12485    
-C1          EPo         Vr:49.53311    Vi:43.40041    Ir:0.076899    Ii:0.124857    
-I           EPi         Vr:49.53311    Vi:43.40041    Ir:0.028490    Ii:-0.03251    
-I           EPo         Vr:57.50097    Vi:50.38177    Ir:-0.02849    Ii:0.032516    
-C2          EPi         Vr:57.50097    Vi:50.38177    Ir:0.028490    Ii:-0.03251    
-C2          EPo         Vr:0.0         Vi:0.0         Ir:-0.02849    Ii:0.032516    
-S1          C1_EPi      Vr:120.0       Vi:0.0         Ir:-0.07689    Ii:-0.12485    
-E1          C1_EPo      Vr:49.53311    Vi:43.40041    Ir:0.076899    Ii:0.124857    
-E1          I_EPi       Vr:49.53311    Vi:43.40041    Ir:0.028490    Ii:-0.03251    
-E1          R_EPi       Vr:49.53311    Vi:43.40041    Ir:-0.10538    Ii:-0.09234    
-E2          I_EPo       Vr:57.50097    Vi:50.38177    Ir:-0.02849    Ii:0.032516    
-E2          C2_EPi      Vr:57.50097    Vi:50.38177    Ir:0.028490    Ii:-0.03251    
-S2          C2_EPo      Vr:0.0         Vi:0.0         Ir:-0.02849    Ii:0.032516    
-S2          R_EPo       Vr:0.0         Vi:0.0         Ir:0.105389    Ii:0.092341    
 
 Fluid Ports
 
+FSE        FNi         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+FSE        FNo         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNi         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNo         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNobld      W:0.0         Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNi         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNo         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNobld      W:0.0         Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNi         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNo         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNobld      W:0.0         Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNi         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNideal     W:300.0       Tt:399.9941    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNo         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld1     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld2     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
 
 Mech Ports
 
+Comp       MP          N:6000.0      hp:-6.70808    I:0.0       
 
 *******************
 Elements***********
 *******************
 
-Resistor    R           R:470.0     dVr:49.533  dVi:43.400  Ir:-0.1053  Ii:-0.0923  
-Capacitor   C1          C:4.7e-06   dVr:70.466  dVi:-43.40  Ir:-0.0768  Ii:-0.1248  
-Inductor    I           L:0.65      dVr:-7.967  dVi:-6.981  Ir:0.02849  Ii:-0.0325  
-Capacitor   C2          C:1.5e-06   dVr:57.500  dVi:50.381  Ir:0.02849  Ii:-0.0325  
-Source      S1          Vr:120.0    Vi:0.0      
-Node        E1          Vr:49.5331  Vi:43.4004  
-Node        E2          Vr:57.5009  Vi:50.3817  
-Source      S2          Vr:0.0      Vi:0.0      
+FSE2D       FSE         W:300.0     Pt:15.0     Tt:399.999  
+Duct        Condesor    dP:0.05     Q:995.2577  
+Duct        Valve       dP:0.4      Q:0.0       
+Duct        Evap        dP:0.05     Q:-1000.0   
+Compressor  Comp        PR:1.84672  eff:0.89    Rline:2.0   NcMap:0.9   
 
 ****************
 Solver**********

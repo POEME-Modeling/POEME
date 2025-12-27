@@ -38,13 +38,13 @@ class Burner( Element ):
 
         # determine if we are running to input fuel flow or FAR
         if b.WFset == False:
-            b.Wfuel.set( b.FNi.W * b.FAR )
+            b.Wfuel += b.FNi.W * b.FAR
         else:
-            b.FAR.set( b.Wfuel / b.FNi.W )
+            b.FAR += b.Wfuel / b.FNi.W 
 
         #`set the exit conditions
         b.FNo.setW( b.FNi.W + b.Wfuel )
-        b.FNo.FAR.set( b.FAR )
+        b.FNo.FAR += b.FAR 
         htout = ( b.FNi.ht*b.FNi.W + b.Wfuel*b.LHV )/b.FNo.W
         b.FNo.set_hP( htout, b.FNo.Pt*( 1- b.dP ) )
 

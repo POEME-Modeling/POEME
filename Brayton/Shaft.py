@@ -59,24 +59,24 @@ class Shaft( Element ):
     def calc( s ):
         
         # loop through the ports and determine the horsepower and inertia
-        s.HPpos.set( 0. )
-        s.HPneg.set( 0. )
-        s.Ispool.set( s.I )
+        s.HPpos += 0. 
+        s.HPneg += 0. 
+        s.Ispool += s.I 
 
         for p in s.port_list:
-            s.Ispool.set( s.Ispool + p.I )
+            s.Ispool += s.Ispool + p.I 
             if p.hp < 0.:
-                s.HPpos.set( s.HPpos + p.hp )
+                s.HPpos += s.HPpos + p.hp 
             else:
-                s.HPneg.set( s.HPneg - p.hp )
+                s.HPneg += s.HPneg - p.hp 
                 
         if s.HPX > 0.:
-            s.HPneg.set( s.HPneg + s.HPX )
+            s.HPneg += s.HPneg + s.HPX 
         else:
-            s.HPpos.set( s.HPpos - s.HPX )
+            s.HPpos += s.HPpos - s.HPX 
 
         # determine the speed derivative
-        s.dNdt.set(( s.HPpos - s.HPneg )/(s.N/5252.) /s.Ispool )
+        s.dNdt += ( s.HPpos - s.HPneg )/(s.N/5252.) /s.Ispool 
 
 
     def dump( self ):

@@ -71,31 +71,31 @@ class Turbine( Element ):
         t.FN41.add( t.FNiBld1 )
        
         # calculate corrected conditions
-        t.Nc.set( t.MP.N/( t.FNi.Tt )**.5 )
-        t.Wc.set( t.FNi.W*( t.FNi.Tt )**.5/ t.FNi.Pt )  
+        t.Nc += t.MP.N/( t.FNi.Tt )**.5 
+        t.Wc += t.FNi.W*( t.FNi.Tt )**.5/ t.FNi.Pt 
     
         # if we are in sizing mode calculate scalars
         if t.size == True:
-            t.NcScale.set( t.NcMapDes/ t.Nc )
-            t.PRmapScale.set( ( t.PRmapDes.v - 1. )/( t.PR.v - 1. ))
-            t.WcDes.set( t.Wc ) 
+            t.NcScale += t.NcMapDes/ t.Nc 
+            t.PRmapScale += ( t.PRmapDes.v - 1. )/( t.PR.v - 1. )
+            t.WcDes += t.Wc 
             
         # set the map independents  
-        t.NcMap.set( t.NcScale*t.Nc )
-        t.PRmap.set( t.PRmapScale*( t.PR - 1. ) + 1. )
+        t.NcMap += t.NcScale*t.Nc 
+        t.PRmap += t.PRmapScale*( t.PR - 1. ) + 1. 
     
         # read the tables
-        t.effMap.set( t.effTable.calc( t.NcMap, t.PRmap  ))
-        t.WcMap.set( t.WcTable.calc( t.NcMap, t.PRmap ))
+        t.effMap += t.effTable.calc( t.NcMap, t.PRmap  )
+        t.WcMap += t.WcTable.calc( t.NcMap, t.PRmap )
     
         # if in sizing mode calculate scalars
         if t.size == True:
-            t.effScale.set( t.effDes / t.effMap )
-            t.WcScale.set( t.WcDes / t.WcMap )
+            t.effScale += t.effDes / t.effMap 
+            t.WcScale += t.WcDes / t.WcMap 
             
         # scale the map results
-        t.eff.set( t.effMap*t.effScale )
-        t.WcMap.set( t.WcMap*t.WcScale )
+        t.eff += t.effMap*t.effScale 
+        t.WcMap += t.WcMap*t.WcScale 
 
         # calculate the expansions conditions
         t.FNideal.copy( t.FN41 )    

@@ -14,11 +14,8 @@ class Output(Element):
         super().__init__( name, "Output" )
         s.name = name
         s.vars = ()
-        s.filename = ""
+        s.filename = StringT( s, v="", desc="Output file" )  
         s.__dict__.update(kwargs)
-        s.filename = StringT( s, v=s.filename, desc="Output file" )  
-        if s.filename.v!="":
-        	os.system( "del " + s.filename.v )
         s.row = 0 
         s.initialList()
       

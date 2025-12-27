@@ -26,13 +26,13 @@ class Inductor( Element ):
     def calc( i ):
     	
     	# determine the voltage drop
-        i.dV.set( i.EPi.V - i.EPo.V )
+        i.dV +=i.EPi.V - i.EPo.V
         
         # deterine the impedance 
-        i.Z.v = complex( 0., 2 * math.pi * i.EPi.freq * i.L.v )
+        i.Z.setP( 0., 2 * math.pi * i.EPi.freq * i.L )
         
         # calculate the current
-        i.I.set( i.dV/i.Z )
+        i.I+=( i.dV/i.Z )
         
         # set the ports
         # voltage does not chage

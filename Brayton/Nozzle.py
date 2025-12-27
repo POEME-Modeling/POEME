@@ -42,7 +42,7 @@ class Nozzle( Element ):
         # if we are not is sizinig mode than there is a dependent
         else:
             n.dep_NA.active = True                   
-
+   
 
     def calc( n ):
         
@@ -52,21 +52,21 @@ class Nozzle( Element ):
         n.FNo.copy( n.FNi )
         
         # set the exit conditions to Mach 1.
-        n.FNo.size.set( True )
-        n.FNo.MN.set( 1. )  
+        n.FNo.size += True 
+        n.FNo.MN += 1.  
         n.FNo.setTP( n.FNo.Tt, n.FNo.Pt )
         if ( n.FNo.Ps > n.PsExh.get() ):
             # if we are in sizing mode then set the area
             if n.size == True:
-                n.Anoz.set( n.FNo.A )
+                n.Anoz += n.FNo.A 
         else:
-            n.FNo.Ps.set( n.PsExh.get() )
+            n.FNo.Ps += n.PsExh.get()
             n.FNo.PsCalc()
             if n.size == True:
-                n.Anoz.set( n.FNo.A )           
+                n.Anoz += n.FNo.A            
             
         # calculate gross thrust
-        n.Fg.set( n.Cfg*(n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() )))
+        n.Fg += n.Cfg*(n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() ))
     
     
   

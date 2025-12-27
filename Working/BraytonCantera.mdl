@@ -92,7 +92,8 @@ S1.I.set( 6.)
 P1 = Perf( "P1" )
 
 
-estuff=Output( "estuff", filename="estuff.out" )
+estuff=Output( "estuff" )
+estuff.filename+="estuff.out"
 estuff.vars = [ g.NS.time, T1.FNo.MN, T1.FNo.Ps, B1.FAR,B1.FNi.W, B1.Wfuel, S1.N, FS.W, T1.FNo.A ]
 estuff.vars = [ g.NS.time, B1.FAR,S1.N, B1.Wfuel, B1.FNo.Tt ]
 
