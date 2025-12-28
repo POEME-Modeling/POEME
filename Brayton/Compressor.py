@@ -71,7 +71,7 @@ class Compressor( Element ):
         c.initialList()
         
     def calc(c):
-        
+
         # copy incoming flow to other ports
         c.FNo.copy( c.FNi )
         c.FNoBld1.copy( c.FNi )

@@ -11,36 +11,36 @@ Electric Ports
 
 Fluid Ports
 
-FSE        FNi         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-FSE        FNo         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Condesor   FNi         W:300.0       Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Condesor   FNo         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Condesor   FNobld      W:0.0         Tt:399.9999    Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Valve      FNi         W:300.0       Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Valve      FNo         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Valve      FNobld      W:0.0         Tt:411.1913    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Evap       FNi         W:300.0       Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Evap       FNo         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Evap       FNobld      W:0.0         Tt:411.2128    Pt:8.549999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Comp       FNi         W:300.0       Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Comp       FNideal     W:300.0       Tt:399.9941    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Comp       FNo         W:300.0       Tt:400.0000    Pt:14.99999    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Comp       FNoBld1     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
-Comp       FNoBld2     W:0.0         Tt:399.9734    Pt:8.122499    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+FSE        FNi         W:30.0        Tt:506.0000    Pt:43.50000    ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+FSE        FNo         W:30.0        Tt:506.0000    Pt:43.5        ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNi         W:30.0        Tt:506.0000    Pt:43.5        ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNideal     W:30.0        Tt:633.6277    Pt:279.6428    ht:191.6497    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNo         W:30.0        Tt:640.7160    Pt:279.6428    ht:193.7888    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld1     W:0.0         Tt:506.0000    Pt:43.5        ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Comp       FNoBld2     W:0.0         Tt:506.0000    Pt:43.5        ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNi         W:30.0        Tt:640.7160    Pt:279.6428    ht:193.7888    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNo         W:30.0        Tt:610.2420    Pt:279.6428    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Condesor   FNobld      W:0.0         Tt:640.7160    Pt:279.6428    ht:193.7888    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNi         W:30.0        Tt:610.2420    Pt:279.6428    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNo         W:30.0        Tt:492.8667    Pt:43.50000    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Valve      FNobld      W:0.0         Tt:610.2420    Pt:279.6428    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNi         W:30.0        Tt:492.8667    Pt:43.50000    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNo         W:30.0        Tt:506.0000    Pt:43.50000    ht:174.3427    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+Evap       FNobld      W:0.0         Tt:492.8667    Pt:43.50000    ht:157.6760    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
 
 Mech Ports
 
-Comp       MP          N:6000.0      hp:-6.70808    I:0.0       
+Comp       MP          N:6000.0      hp:-825.218    I:0.0       
 
 *******************
 Elements***********
 *******************
 
-FSE2D       FSE         W:300.0     Pt:15.0     Tt:399.999  
-Duct        Condesor    dP:0.05     Q:995.2577  
-Duct        Valve       dP:0.4      Q:0.0       
-Duct        Evap        dP:0.05     Q:-1000.0   
-Compressor  Comp        PR:1.84672  eff:0.89    Rline:2.0   NcMap:0.9   
+FSE2D       FSE         W:30.0      Pt:43.5     Tt:506.000  
+Compressor  Comp        PR:6.42857  eff:0.89    Rline:2.0   NcMap:0.9   
+Duct        Condesor    dP:0.0      Q:-1083.38  
+Duct        Valve       dP:0.84444  Q:0.0       
+Duct        Evap        dP:0.0      Q:500.0     
 
 ****************
 Solver**********

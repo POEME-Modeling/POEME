@@ -1,5 +1,4 @@
 
-
 exec( open( "pop.std").read())
 loadDirectory( "../pop" ) 
 loadDirectory( "../Brayton" ) 
@@ -8,27 +7,51 @@ import g
 g.out = open( "pop.out", "a")
 g.pretty = open( "pretty.out", "a")	
 	
+	
+	
 FSE = FlowStartEnd2D( "FSE" )
-FSE.Pt += 43.5
+FSE.Pt += 29.00
 FSE.comp += "CPR134"
 FSE.FNo.twoPhase += True
 FSE.FNo.comp += "CPR134"
-FSE.FNo.setTP( 506., 43.5 )
+
+ 
+FSE.FNo.setTP( 600., 29.  )
+print( FSE.FNo.ht )
+FSE.FNo.set_hP( FSE.FNo.ht, 29.  )
+print( FSE.FNo.ht )
+FSE.FNo.set_hP( FSE.FNo.ht-1., 145. )
+print( FSE.FNo.Tt )
+FSE.FNo.set_hP( FSE.FNo.ht-1., 145. )
+print( FSE.FNo.Tt )
+while True:
+	FSE.FNo.set_hP( FSE.FNo.ht-1., 145. )
+	print( FSE.FNo.Tt )
+
+quit()
+
+
+
+
+
+quit()
+
+FSE.FNo.setTP( 473., 20.30 )
 FSE.ht += FSE.FNo.ht
-FSE.W += 30.
+FSE.W += 40.
 
 Comp = Compressor( "Comp" )
 
 Condensor = Duct( "Condesor" )
 Condensor.dP += .0
-Condensor.Q +=-1000.
+Condensor.Q +=-100.
 
 Valve = Duct( "Valve" )
 Valve.dP += ( 1.-1.4/9. )
 
 Evap = Duct( "Evap" )
 Evap.dP += .00
-Evap.Q += +500.
+Evap.Q += +50.
 
 Comp.PRdes += 9./1.4 
 Comp.effDes += .89 
@@ -61,7 +84,7 @@ Evap.FNo.linkFN( FSE.FNi )
 
 Comp.ind_PRdes = Independent( Comp, indname="PRdes", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
 
-Condensor.ind_Q = Independent( Condensor, indname="Q", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
+Evap.ind_Q = Independent( Evap, indname="Q", perturb=.05, scale=100, perturb_type="Relative", active=True, desc="Varies R-line" )        
 
 
 

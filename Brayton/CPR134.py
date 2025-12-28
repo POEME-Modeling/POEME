@@ -13,7 +13,7 @@ class CPR134:
     def h_TP( Tt, Pt, FAR, p ):
         return( CP.PropsSI( 'H', 'T', Tt*5./9., 'P', Pt*6894.76, fluid )/2326. )
 
-    def h_SP( Tt, Pt, FAR, p ):
+    def h_SP( S, Pt, FAR, p ):
         return( CP.PropsSI( 'H', 'S', S/.0002388 , 'P', Pt*6894.76, fluid )/2326. )
 
     def h_QP( Q, Pt, FAR, p ):
@@ -28,22 +28,22 @@ class CPR134:
     def s_TP( Tt, Pt, FAR, p ):
         return( CP.PropsSI( 'S', 'T', Tt*5./9., 'P', Pt*6894.76, fluid )*.0002388 )
         
-    def rho( Tt, Pt, FAR, p ):
-        return( CP.PropsSI( 'D', 'T', Tt*5./9., 'P', Pt*6894.76, fluid )*0.0624279606 )   
+    def rho( ht, Pt, FAR, p ):
+        return( CP.PropsSI( 'D', 'H', ht*2326., 'P', Pt*6894.76, fluid )*0.0624279606 )   
 
-    def R( Tt, Pt, FAR, p ):
+    def R( ht, Pt, FAR, p ):
         return( 0. )   
 
-    def Cp( Tt, Pt, FAR, p ):
+    def Cp( ht, Pt, FAR, p ):
         return( 0. )
 
-    def gam( Tt, Pt, FAR, p ):
+    def gam( ht, Pt, FAR, p ):
         return( 0. )
   
-    def k( Tt, Pt, FAR, p ):
+    def k( ht, Pt, FAR, p ):
         return( 0. )
 
-    def mu( Tt, Pt, FAR, p ):
+    def mu( ht, Pt, FAR, p ):
         return( 0. ) 
  
     def Q( ht, Pt, FAR, p ):

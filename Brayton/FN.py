@@ -75,8 +75,11 @@ class FN( Atom ):
         f.Cps.name1 = "Cps"
         f.gams = RealT( f, v=0., units="", desc="" )
         f.gams.name1 = "gams"
-        f.size = BooleanT( f, v=True, desc="Determine if we are running to fixed Mach or Area" )
+        f.size = BooleanT( f, v=True, desc="Determines if we are running to fixed Mach or Area" )
         f.size.name1 = "size"
+        f.twoPhase = BooleanT( f, v=False, desc="Determines if we need to use enthalpy for all properties " )
+        f.twoPhase.name1 = "twoPhase"
+        
         f.type = "FN"
         if p != 0:
             p.addVID( f )
@@ -117,16 +120,24 @@ class FN( Atom ):
             f.Pt.v = Pt
         else:
             f.Pt.v=Pt.v
-
-        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        if f.twoPhase == False:
+            f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        else:
+            f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.rhot.v = eval(f.comp.v).rho( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.Cpt.v = eval(f.comp.v).Cp( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.ht.v, f.Pt.v, f.FAR.v, f )
         f.statics()
         if f.other !=0:
             f.other.copyDeep( f )
@@ -140,16 +151,27 @@ class FN( Atom ):
             f.Pt.v = Pt
         else:
             f.Pt.v=Pt.v
-
-        f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v, f )
-        f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f ) 
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )        
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        if f.twoPhase == False:
+            f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.s.v = eval(f.comp.v).s_TP( f.Tt.v, f.Pt.v, f.FAR.v, f ) 
+            f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )        
+            f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        else:
+            f.Tt.v = eval(f.comp.v).T_hP( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.s.v = eval(f.comp.v).s_hP( f.ht.v, f.Pt.v, f.FAR.v, f ) 
+            f.rhot.v = eval(f.comp.v).rho( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.ht.v, f.Pt.v, f.FAR.v, f )        
+            f.Cpt.v = eval(f.comp.v).Cp( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.ht.v, f.Pt.v, f.FAR.v, f )            
+            
         f.statics()
         if f.other !=0:
             f.other.copyDeep( f )
@@ -163,16 +185,26 @@ class FN( Atom ):
             f.Pt.v = Pt
         else:
             f.Pt.v= Pt.v
-
-        f.Tt.v = eval(f.comp.v).T_sP( f.s.v, f.Pt.v, f.FAR.v, f )
-        f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
-        f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        if f.twoPhase == False:
+            f.Tt.v = eval(f.comp.v).T_sP( f.s.v, f.Pt.v, f.FAR.v, f )
+            f.ht.v = eval(f.comp.v).h_TP( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.rhot.v = eval(f.comp.v).rho( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.Cpt.v = eval(f.comp.v).Cp( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.Tt.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.Tt.v, f.Pt.v, f.FAR.v, f )
+        else:
+            f.Tt.v = eval(f.comp.v).T_sP( f.s.v, f.Pt.v, f.FAR.v, f )
+            f.ht.v = eval(f.comp.v).h_SP( f.s.v, f.Pt.v, f.FAR.v, f )
+            f.rhot.v = eval(f.comp.v).rho( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.Rt.v =  eval(f.comp.v).R( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.gamt.v = eval(f.comp.v).gam( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.Cpt.v = eval(f.comp.v).Cp( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.mut.v = eval(f.comp.v).mu( f.ht.v, f.Pt.v, f.FAR.v, f )
+            f.kt.v = eval(f.comp.v).k( f.ht.v, f.Pt.v, f.FAR.v, f )            
         f.statics()
         if f.other != 0:
             f.other.copyDeep( f )
@@ -281,18 +313,30 @@ class FN( Atom ):
             f.A.v = Aor
                 
     def PsCalc( f ):
-        f.Ts.v = eval(f.comp.v).T_sP( f.s.v, f.Ps.v, f.FAR.v, f )
-        f.hs.v = eval(f.comp.v).h_TP( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.rhos.v = eval(f.comp.v).rho( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.Rs.v =  eval(f.comp.v).R( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.Cps.v = eval(f.comp.v).Cp( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.mus.v = eval(f.comp.v).mu( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.ks.v = eval(f.comp.v).k( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.gams.v =  eval(f.comp.v).gam( f.Ts.v, f.Ps.v, f.FAR.v, f )
-        f.V.v = math.sqrt( 2*abs(f.ht.v - f.hs.v)*25037. )* abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v)    
-        f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037.) *abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v) 
-        f.A.v = f.W.v /( f.rhos.v*abs(f.V.v ))
-    
+        if f.twoPhase == False:
+            f.Ts.v = eval(f.comp.v).T_sP( f.s.v, f.Ps.v, f.FAR.v, f )
+            f.hs.v = eval(f.comp.v).h_TP( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.rhos.v = eval(f.comp.v).rho( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.Rs.v =  eval(f.comp.v).R( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.Cps.v = eval(f.comp.v).Cp( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.mus.v = eval(f.comp.v).mu( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.ks.v = eval(f.comp.v).k( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.gams.v =  eval(f.comp.v).gam( f.Ts.v, f.Ps.v, f.FAR.v, f )
+            f.V.v = math.sqrt( 2*abs(f.ht.v - f.hs.v)*25037. )* abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v)    
+            f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037.) *abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v) 
+            f.A.v = f.W.v /( f.rhos.v*abs(f.V.v ))
+        else:
+            f.Ts.v = eval(f.comp.v).T_sP( f.s.v, f.Ps.v, f.FAR.v, f )
+            f.hs.v = eval(f.comp.v).h_SP( f.s.v, f.Ps.v, f.FAR.v, f )
+            f.rhos.v = eval(f.comp.v).rho( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.Rs.v =  eval(f.comp.v).R( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.Cps.v = eval(f.comp.v).Cp( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.mus.v = eval(f.comp.v).mu( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.ks.v = eval(f.comp.v).k( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.gams.v =  eval(f.comp.v).gam( f.hs.v, f.Ps.v, f.FAR.v, f )
+            f.V.v = math.sqrt( 2*abs(f.ht.v - f.hs.v)*25037. )* abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v)    
+            f.MN.v = f.V.v/math.sqrt( f.gams.v * f.Rs.v * f.Ts.v*25037.) *abs(f.ht.v - f.hs.v)/(f.ht.v - f.hs.v) 
+            f.A.v = f.W.v /( f.rhos.v*abs(f.V.v ))    
     def isa( m, type ):
         if type == "FN":
             return True
@@ -305,6 +349,7 @@ class FN( Atom ):
         
     def copy( f, e ):
         f.comp.v = e.comp.v
+        f.twoPhase.v = e.twoPhase.v
         f.FAR.v = e.FAR.v
         f.W.v = e.W.v
         f.Tt.v = e.Tt.v
@@ -334,6 +379,7 @@ class FN( Atom ):
     
             
     def copyDeep( f, e ):
+        f.twoPhase.v = e.twoPhase.v
         f.comp.v = e.comp.v
         f.FAR.v = e.FAR.v
         f.W.v = e.W.v
@@ -491,7 +537,7 @@ class FN( Atom ):
         print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = g.out )
 
     def pretty( f ):
-        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = g.pretty )
+        print( f"{f.parent.name1[:8]:10s} {f.name1[:8]:10s}  W:{str(f.W.v)[:8]:10s}  Tt:{str(f.Tt.v)[:8]:10s}  Pt:{str(f.Pt.v)[:8]:10s}  ht:{str(f.ht.v)[:8]:10s}  FAR:{str(f.FAR.v)[:8]:10s}  MN:{str(f.MN.v)[:8]:10s}  Ts:{str(f.Ts.v)[:8]:10s}  Ps:{str(f.Ps.v)[:8]:10s}", file = g.pretty )
 
 
     def hover( f ):

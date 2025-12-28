@@ -33,7 +33,8 @@ class Duct( Element ):
         d.FNo.set_hP( d.FNo.ht + d.Q/d.FNi.W, d.FNo.Pt*( 1.- d.dP ) )
         d.FNobld.copy( d.FNi )
         d.FNo.setW( d.FNi.W*( 1. - d.Wbldfrac ))
-        d.FNobld.setW( d.FNi.W*( d.Wbldfrac ))       
+        d.FNobld.setW( d.FNi.W*( d.Wbldfrac ))
+
   
     def dump( d ): 
         print( d.name1, "Duct", file=g.out )
