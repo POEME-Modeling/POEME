@@ -20,7 +20,7 @@ inlet = Inlet( "inlet" )
 fan = Compressor( "fan" )
 splitter = Splitter( "splitter" )
 duct2 = Duct( "duct2" )
-LPC = Compressor( "LPC" )
+LPC  = Compressor( "LPC" )
 duct25 = Duct( "duct25" )
 HPC = Compressor( "HPC" )
 duct3 = Duct( "duct3" )
@@ -106,7 +106,7 @@ splitter.BPR += 23.9878
 #splitter.FNo1.MN += 0.45
 #splitter.FNo2.MN += 0.45
 
-duct2.FNo.MN += 0.45
+#duct2.FNo.MN += 0.45
 
 LPC.PRdes += 3.000 
 LPC.effDes += 0.8895 
@@ -445,7 +445,7 @@ def runThrottleHook( MNset, altitude ):
    g.prettyPrint.print()
    print( start.MN, start.alt, burner.FAR )
    FnetMax = RealT( Perf )
-   FnetMax += Perf.Fn 
+   FnetMax = Perf.Fn 
  
    case = case + 1
    g.NS.saveInds()

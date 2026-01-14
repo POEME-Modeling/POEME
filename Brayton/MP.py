@@ -5,7 +5,7 @@ from RealT import RealT
 import g
 
 class MP( Atom ):
-    def __init__( m, p, **kwargs ):
+    def __init__( m, p, io, **kwargs ):
         
         m.VIDL = list()
         m.name1 = ""
@@ -18,6 +18,7 @@ class MP( Atom ):
         m.I = RealT( m, units="lbm*ft**2", desc="Rotational Inertia" )      
         m.I.name1 = "I"
         m.other = 0
+        m.io = io
         p.addVID( m )
         m.type = "MP"
         

@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 if os.path.exists( "temp.include" ):
     os.remove( "temp.include" )
@@ -15,6 +16,30 @@ def loadDirectory( dir ):
     sys.path.insert(0, dir)
     os.chdir( dir )
     for f in files:
+        if ".pop" in f and not "~" in f:
+            out = open( f[:f.index('.')+1]+"py", 'w' )
+            file = open(f, "r")
+            start = False
+            for line in file: 
+                line = line[:len(line)]
+                if "def calc" in line:
+                    start = True
+                templine = line.lstrip()
+
+                if '=' in templine and not "==" in templine:
+                    templine = templine[ :templine.index('=')+1]  
+                if "." in templine and "=" in templine and start == True and not "==" in templine and not "(" in templine:
+                    if templine.count('.') == 1:
+                        out.write( line[:line.index('=')]+"+"+line[line.index('='):] )
+                    else:
+                        out.write( line )
+                else:
+                    out.write( line )
+            out.close()
+
+    files = os.listdir( dir )               
+    for f in files:
+
         if ".py" in f and not "~" in f: 
             f=f[:-3]
             exec( "from " + f + " import *" )
@@ -22,13 +47,13 @@ def loadDirectory( dir ):
                 pass
             else:
                 temp.write( "from " + f + " import " + f + "\n")
-        
-    os.chdir( "../Working" )
+                
+    os.chdir( "../Working" ),
     temp.close()
     
 def setComp( comp ):
     for e in g.element_list:
-        for v in e.VIDL:
+        for v in e.VID:
             if v.isa( "FN" ):
                 if v.comp.v == "none":
                     v.comp.set( comp )
@@ -79,7 +104,6 @@ def stdOut( ):
         print ( "", file=out )
         print( "Electric Ports", file=out )
         for e in element_list:
-
             for p in e.VIDL:
                 if p.isa( "EP" ):
                     p.dump()
