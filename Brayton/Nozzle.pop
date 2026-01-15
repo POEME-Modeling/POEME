@@ -47,26 +47,26 @@ class Nozzle( Element ):
     def calc( n ):
         
         if ( n.FNo.Pt < n.PsExh.get() ):
-            g.errors += g.errors + n.name1 + " nozzle pressure ratio < 1 "
+            g.errors = g.errors + n.name1 + " nozzle pressure ratio < 1 "
         # copy the inlet flow to the exit
         n.FNo.copy( n.FNi )
         
         # set the exit conditions to Mach 1.
-        n.FNo.size += True 
-        n.FNo.MN += 1.  
+        n.FNo.size = True 
+        n.FNo.MN = 1.  
         n.FNo.setTP( n.FNo.Tt, n.FNo.Pt )
         if ( n.FNo.Ps > n.PsExh.get() ):
             # if we are in sizing mode then set the area
             if n.size == True:
-                n.Anoz += n.FNo.A 
+                n.Anoz = n.FNo.A 
         else:
-            n.FNo.Ps += n.PsExh.get()
+            n.FNo.Ps = n.PsExh.get()
             n.FNo.PsCalc()
             if n.size == True:
-                n.Anoz += n.FNo.A            
+                n.Anoz = n.FNo.A            
             
         # calculate gross thrust
-        n.Fg += n.Cfg*(n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() ))
+        n.Fg = n.Cfg*(n.FNo.W*n.FNo.V/32.17 + n.FNo.A*144.*( n.FNo.Ps - n.PsExh.get() ))
     
     
   

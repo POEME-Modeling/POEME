@@ -1,4 +1,6 @@
-f = "Turbofantest.pop"
+import sys 
+
+f = sys.argv[1]
 
 
 
@@ -17,8 +19,7 @@ for line in file:
         if '=' in templine and not "==" in templine:
             templine = templine[ :templine.index('=')+1] 
         if "." in templine and "=" in templine and start == True and not "==" in templine and not "(" in templine:
-            if templine.count('.') == 1 or ".MN" in templine:
-                print( "do it" )
+            if templine.count('.') == 1 or ".NS." in templine or ".MN" in templine or ".FAR" in templine:
                 out.write( line[:line.index('=')]+"+"+line[line.index('='):] )
             else:
                 out.write( line )

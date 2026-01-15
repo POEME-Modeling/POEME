@@ -38,17 +38,17 @@ class Perf( Element ):
         # loop through elements to find the nozzles and burners 
         for e in g.element_list:
             if e.type == "Nozzle":
-                p.Fg +=  p.Fg + e.Fg 
+                p.Fg =  p.Fg + e.Fg 
             if e.type == "Burner":
-                p.Wfuel += p.Wfuel + e.Wfuel 
+                p.Wfuel = p.Wfuel + e.Wfuel 
             if e.type == "FlightConditionsSMJ":
-                p.Fram += p.Fram + e.Fram 
-                p.alt += e.alt 
-                p.MN += e.MN 
+                p.Fram = p.Fram + e.Fram 
+                p.alt = e.alt 
+                p.MN = e.MN 
                  
         # calculate SFC
-        p.Fn += p.Fg - p.Fram 
-        p.SFC += p.Wfuel/ p.Fn*3600.  
+        p.Fn = p.Fg - p.Fram 
+        p.SFC = p.Wfuel/ p.Fn*3600.  
 
         
 
