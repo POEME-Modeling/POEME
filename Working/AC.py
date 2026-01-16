@@ -9,32 +9,32 @@ g.out = open( "pop.out", "a")
 g.pretty = open( "pretty.out", "a")	
 	
 FSE = FlowStartEnd2D( "FSE" )
-FSE.Pt = 43.5
-FSE.comp = "CPR134"
-FSE.FNo.twoPhase = True
-FSE.FNo.comp = "CPR134"
+FSE.Pt += 43.5
+FSE.comp += "CPR134"
+FSE.FNo.twoPhase += True
+FSE.FNo.comp += "CPR134"
 FSE.FNo.setTP( 506., 43.5 )
-FSE.ht = FSE.FNo.ht
-FSE.W = 30.
+FSE.ht += FSE.FNo.ht
+FSE.W += 30.
 
 Comp = Compressor( "Comp" )
 
 Condensor = Duct( "Condesor" )
-Condensor.dP = .0
-Condensor.Q =-1000.
+Condensor.dP += .0
+Condensor.Q +=-1000.
 
 Valve = Duct( "Valve" )
-Valve.dP = ( 1.-1.4/9. )
+Valve.dP += ( 1.-1.4/9. )
 
 Evap = Duct( "Evap" )
-Evap.dP = .00
-Evap.Q = +500.
+Evap.dP += .00
+Evap.Q += +500.
 
-Comp.PRdes = 9./1.4 
-Comp.effDes = .89 
+Comp.PRdes += 9./1.4 
+Comp.effDes += .89 
 Comp.MP.setN( 6000. )
-Comp.NcMapDes = .9 
-Comp.RlineDes = 2.0  
+Comp.NcMapDes += .9 
+Comp.RlineDes += 2.0  
 Comp.effTable.x = [ .8, .95, 1.1 ]
 Comp.effTable.y = [ 1., 2.0, 3.0 ]
 Comp.effTable.data = [ [ .90, .93, .90],\
