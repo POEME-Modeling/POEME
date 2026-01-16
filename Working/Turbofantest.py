@@ -442,10 +442,10 @@ def runThrottleHook( MNset, altitude ):
    start.alt += altitude 
    g.NS.saveInds()
    g.NS.run()
-   g.prettyPrint.print()
-   print( start.MN, start.alt, burner.FAR )
-   FnetMax = RealT( Perf )
-   FnetMax = Perf.Fn 
+   #g.prettyPrint.print()
+   print( start.MN, start.alt, burner.FAR, Perf.Fn )
+   Perf.FnetMax = RealT( Perf )
+   Perf.FnetMax += Perf.Fn 
  
    case = case + 1
    g.NS.saveInds()
@@ -460,12 +460,12 @@ def runThrottleHook( MNset, altitude ):
    g.check()
 
    while( factor > .2 and g.NS.converged == True ):
-      start.Fdem += FnetMax*factor 
+      start.Fdem += Perf.FnetMax*factor 
       burner.FAR += burner.FAR - .0025 
-      g.NS.run()
-      print( start.MN, start.alt, burner.FAR )	  
-      g.prettyPrint.print()
-      factor = ( Perf.Fn )/FnetMax
+      g.NS.run()  
+      #g.prettyPrint.print()
+      factor = ( Perf.Fn )/Perf.FnetMax
+      print( start.MN, start.alt, burner.FAR, Perf.Fn, factor, g.NS.converged ) 	  
       case = case + 1
 
    fan.dep_NmechC.active=True 

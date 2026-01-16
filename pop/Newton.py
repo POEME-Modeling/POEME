@@ -25,7 +25,7 @@ class Newton(Element):
         s.VIDL = list()
         s.ind_list = g.ind_list
         s.dep_list = g.dep_list
-        s.maxJacobians =  RealT( s, v=100., units="Integer", desc="Maxium number of Jacobians" )  
+        s.maxJacobians =  RealT( s, v=50., units="Integer", desc="Maxium number of Jacobians" )  
         s.numpasses =  RealT( s, v=0., units="Integer", desc="Number of passes" )  
         s.tolerance = RealT( s, v=.0001, units="real", desc="tolernace" )  
         s.constraints = False
