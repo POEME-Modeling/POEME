@@ -1,4 +1,5 @@
 import sys 
+import os
 
 f = sys.argv[1]
 
@@ -20,8 +21,12 @@ for line in file:
             templine = templine[ :templine.index('=')+1] 
         if "." in templine and "=" in templine and start == True and not "==" in templine and not "(" in templine:
             if templine.count('.') == 1 or ".NS." in templine or ".comp" in templine or ".twoPhase" in templine or ".MN" in templine or ".FAR" in templine:
-                out.write( line[:line.index('=')]+"+"+line[line.index('='):] )
+                out.write( line[:line.index('=')]+".v"+line[line.index('='):] )
             else:
                 out.write( line )
         else:
             out.write( line )
+            
+out.close()
+
+os.system( "python " + f[:f.index('.')+1]+"py"  )
