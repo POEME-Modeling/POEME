@@ -60,23 +60,23 @@ class Esource( Element ):
     def calc( e ):
         
         # zero out the running current totals
-        e.IinR += 0.
-        e.IoutR += 0.
-        e.IinI += 0.
-        e.IoutI += 0.
+        e.IinR+= 0.
+        e.IoutR+= 0.
+        e.IinI+= 0.
+        e.IoutI+= 0.
 
         # loops through the ports
         # if current coming in, add it to in total
         # if current going out, add it to the out total
         for p in e.port_list:
             if p.I.v.real > 0:
-                e.IinR += e.IinR + p.I.v.real
+                e.IinR+= e.IinR + p.I.v.real
             else:
-                e.IoutR += e.IoutR - p.I.v.real
+                e.IoutR+= e.IoutR - p.I.v.real
             if p.I.v.imag > 0:
-                e.IinI += e.IinI + p.I.v.imag
+                e.IinI+= e.IinI + p.I.v.imag
             else:
-                e.IoutI += e.IoutI - p.I.v.imag
+                e.IoutI+= e.IoutI - p.I.v.imag
     
     def dump( self ):
         print( self.name, "Node", file = g.out )

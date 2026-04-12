@@ -28,10 +28,10 @@ class Damper( Element ):
     def calc( d ):
     
     	# calculate the length of the spring from the port
-        d.V += d.Fp2.V - d.Fp1.V 
+        d.V+= d.Fp2.V - d.Fp1.V 
 
         # determin the force 
-        d.F +=  -1.*d.c *( d.V )
+        d.F+=  -1.*d.c *( d.V )
         d.Fp1.setF( d.F )
         d.Fp2.setF( d.F )     
         

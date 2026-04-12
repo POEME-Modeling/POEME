@@ -33,10 +33,10 @@ class Spring( Element ):
     def calc( s ):
     
     	# calculate the length of the spring from the port
-        s.L += s.Fp2.x - s.Fp1.x 
+        s.L+= s.Fp2.x - s.Fp1.x 
 
         # determin the force 
-        s.F += -1.*s.k *( s.L - s.LN )
+        s.F+= -1.*s.k *( s.L - s.LN )
         s.Fp1.setF( s.F )
         s.Fp2.setF( s.F )     
         

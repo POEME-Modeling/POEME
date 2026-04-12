@@ -53,14 +53,14 @@ class Wall( Element ):
         for p in m.port_list:
             if p.F > 0.:
                 if p.io == "in":
-                    m.Fp += m.Fp + p.F 
+                    m.Fp+= m.Fp + p.F 
                 else:
-                    m.Fn +=  m.Fp - p.F 
+                    m.Fn+=  m.Fp - p.F 
             if p.F < 0.:
                 if p.io == "out":
-                    m.Fp += m.Fp - p.F 
+                    m.Fp+= m.Fp - p.F 
                 else:
-                    m.Fn += m.Fp + p.F           
+                    m.Fn+= m.Fp + p.F           
         
     
     def dump( self ):

@@ -38,7 +38,7 @@ class Table2d ( ):
             y = yin
         else:
             y = yin.v
-            
+             
         xi,yi = None,None
         for i,(x1,x2) in enumerate(zip(s.x[:-1],s.x[1:])):
             if x1 <= x <= x2:

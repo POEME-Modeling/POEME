@@ -33,7 +33,7 @@ class Output(Element):
         temp =  ""
         s.out = open( s.filename.v, "a")
         if s.row == 0:
-        	os.system( "del " + s.filename.v )
+        	os.system( "del /f " + s.filename.v )
         	s.out = open( s.filename.v, "a")
         	for e in s.vars:
         		if e.parent == 0:

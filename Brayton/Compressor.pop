@@ -95,7 +95,7 @@ class Compressor( Element ):
         c.NcMap = c.NcScale*c.Nc  
                     
         # read the maps  
-        c.effMap = c.effTable.calc( c.NcMap, c.Rline  )
+        c.effMap = c.effTable.calc( c.NcMap, c.Rline )
         c.PRmap = c.PRtable.calc( c.NcMap, c.Rline )
         c.WcMap = c.WcTable.calc( c.NcMap, c.Rline )
 

@@ -81,35 +81,35 @@ class Compressor( Element ):
         c.FNideal.copy( c.FNi )
 
         # calculate corrected speed amd corrected flow
-        c.Nc += c.MP.N/( c.FNi.Tt )**.5 
-        c.Wc += c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
-        c.Wc += c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
+        c.Nc+= c.MP.N/( c.FNi.Tt )**.5 
+        c.Wc+= c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
+        c.Wc+= c.FNi.W*( c.FNi.Tt )**.5/ c.FNi.Pt 
         
         # if we are in design mode set the conditions   
         if c.size == True:
-            c.NcScale += c.NcMapDes / c.Nc 
-            c.WcDes += c.Wc 
-            c.Rline += c.RlineDes
+            c.NcScale+= c.NcMapDes / c.Nc 
+            c.WcDes+= c.Wc 
+            c.Rline+= c.RlineDes
             
         # scale the corrected speed         
-        c.NcMap += c.NcScale*c.Nc  
+        c.NcMap+= c.NcScale*c.Nc  
                     
         # read the maps  
-        c.effMap += c.effTable.calc( c.NcMap, c.Rline  )
-        c.PRmap += c.PRtable.calc( c.NcMap, c.Rline )
-        c.WcMap += c.WcTable.calc( c.NcMap, c.Rline )
+        c.effMap+= c.effTable.calc( c.NcMap, c.Rline )
+        c.PRmap+= c.PRtable.calc( c.NcMap, c.Rline )
+        c.WcMap+= c.WcTable.calc( c.NcMap, c.Rline )
 
         # if in desing mode determine the scale factors
         if c.size == True:
-            c.effScale += c.effDes / c.effMap 
-            c.PRscale += c.PRdes / c.PRmap 
-            c.WcScale += c.WcDes / c.WcMap 
+            c.effScale+= c.effDes / c.effMap 
+            c.PRscale+= c.PRdes / c.PRmap 
+            c.WcScale+= c.WcDes / c.WcMap 
             
         # scale the map values  
-        c.eff += c.effMap*c.effScale 
-        c.PR += c.PRmap*c.PRscale 
-        c.WcMap += c.WcScale*c.WcMap 
-        c.SMN += ( c.PRmap - c.PRtable.calc( c.NcMap, c.Rline ) )/ c.PRmap 
+        c.eff+= c.effMap*c.effScale 
+        c.PR+= c.PRmap*c.PRscale 
+        c.WcMap+= c.WcScale*c.WcMap 
+        c.SMN+= ( c.PRmap - c.PRtable.calc( c.NcMap, c.Rline ) )/ c.PRmap 
 
         # determine the ideal conditions
         c.FNideal.set_sP( c.FNi.s, c.PR*c.FNi.Pt )

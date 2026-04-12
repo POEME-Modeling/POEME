@@ -33,7 +33,7 @@ class Capacitor( Element ):
     def calc( c ):
     
     	# calculate pressure drop
-        c.dV += c.EPi.V - c.EPo.V 
+        c.dV+= c.EPi.V - c.EPo.V 
         
         # if there is a table, read it to determine C
         if c.CVc.full() == True:
@@ -43,7 +43,7 @@ class Capacitor( Element ):
         c.Z.setP( 0., -1. /( c.C * 2. * math.pi * c.EPi.freq ))
         
         # determine current
-        c.I += c.dV/c.Z 
+        c.I+= c.dV/c.Z 
         
         # set the current in the ports
         # voltage does not change
