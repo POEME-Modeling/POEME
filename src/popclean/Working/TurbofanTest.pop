@@ -5,8 +5,8 @@ import time
 start_time  = time.time()
 
 exec( open( "pop.std").read())
-loadDirectory( "../pop" ) 
-loadDirectory( "../Brayton" ) 
+loadDirectory( "../pop" )
+loadDirectory( "../Brayton" )
 exec( open( "temp.include").read())
 import g
 g.out = open( "pop.out", "a")
@@ -47,7 +47,7 @@ Perf = Perf( "Perf" )
 
 #--------------------------------------
 # link the objects together
-# ------------------------------------- 
+# -------------------------------------
 inlet.FNi.linkFN( start.FNo )
 fan.FNi.linkFN( inlet.FNo )
 splitter.FNi.linkFN( fan.FNo )
@@ -79,28 +79,28 @@ LPT.FNiBld1.linkFN( HPC.FNoBld2 )
 
 #------------------------------------------------------------------------
 # set component variable values to match N+3 reference cycle at SLS
-#------------------------------------------------------------------------ 
+#------------------------------------------------------------------------
 start.alt = 35000.
-start.MN = 0.80 
-start.W = 813.51 
+start.MN = 0.80
+start.W = 813.51
 
 # use cantera for fluid properties
 start.comp = "canteraFN"
 
 
 # use tables for fluid properties
-start.comp = "newtherm" 
+start.comp = "newtherm"
 
 inlet.rec = 0.998  # inlet recovery 0.998
 #inlet.FNo.MN = 0.625
 
-fan.PRdes = 1.300 
-fan.effDes = 0.9689 
-fan.NcMapDes = 1.000 
-fan.RlineDes = 2.000  
-fan.NcMapDes = 1.00 
-fan.RlineDes = 2.00  
-#fan.FNo.MN = 0.45 
+fan.PRdes = 1.300
+fan.effDes = 0.9689
+fan.NcMapDes = 1.000
+fan.RlineDes = 2.000
+fan.NcMapDes = 1.00
+fan.RlineDes = 2.00
+#fan.FNo.MN = 0.45
 
 splitter.BPR = 23.9878
 #splitter.FNo1.MN = 0.45
@@ -108,64 +108,64 @@ splitter.BPR = 23.9878
 
 #duct2.FNo.MN = 0.45
 
-LPC.PRdes = 3.000 
-LPC.effDes = 0.8895 
-LPC.NcMapDes = 1.00 
-LPC.RlineDes = 2.00 
-#LPC.FNo.MN = 0.45 
+LPC.PRdes = 3.000
+LPC.effDes = 0.8895
+LPC.NcMapDes = 1.00
+LPC.RlineDes = 2.00
+#LPC.FNo.MN = 0.45
 
-duct25.dP = 0.015 
-#duct25.FNo.MN = 0.45 
+duct25.dP = 0.015
+#duct25.FNo.MN = 0.45
 
-HPC.PRdes = 14.1030 
-HPC.effDes = 0.8469 
-HPC.NcMapDes = 1.00 
-HPC.RlineDes = 2.00 
+HPC.PRdes = 14.1030
+HPC.effDes = 0.8469
+HPC.NcMapDes = 1.00
+HPC.RlineDes = 2.00
 HPC.Wfrac1 = 0.0693
 HPC.hfract1 = 1.00
 HPC.Wfrac2 = 0.02
-HPC.hfract2 = .5 
-#HPC.FNo.MN = 0.30 
+HPC.hfract2 = .5
+#HPC.FNo.MN = 0.30
 
 duct3.Wbldfrac = 2.0354 / ( 31.91 - 2.2566 )
 
-burner.FAR = 0.0283 
-burner.LHV = -2100. 
-burner.dP = 0.0400 
-#burner.FNo.MN = 0.10 
+burner.FAR = 0.0283
+burner.LHV = -2100.
+burner.dP = 0.0400
+#burner.FNo.MN = 0.10
 
-HPT.PRmapDes = 3.0 
-HPT.PR = 3.5 
-HPT.effDes = 0.9313 
-HPT.NcMapDes = 0.9 
-#HPT.FNo.MN = 0.30 
+HPT.PRmapDes = 3.0
+HPT.PR = 3.5
+HPT.effDes = 0.9313
+HPT.NcMapDes = 0.9
+#HPT.FNo.MN = 0.30
 
-duct45.dP = 0.005 
-#duct45.FNo.MN = 0.45 
+duct45.dP = 0.005
+#duct45.FNo.MN = 0.45
 
-LPT.PRmapDes = 6.0 
-LPT.PR = 2. 
-LPT.effDes = 0.9410 
-LPT.NcMapDes = 0.9 
-#LPT.FNo.MN = 0.35 
+LPT.PRmapDes = 6.0
+LPT.PR = 2.
+LPT.effDes = 0.9410
+LPT.NcMapDes = 0.9
+#LPT.FNo.MN = 0.35
 
-duct5.dP = 0.010 
-#duct5.FNo.MN = 0.25 
+duct5.dP = 0.010
+#duct5.FNo.MN = 0.25
 
-priNozzle.PsExh = "start.Pamb" 
+priNozzle.PsExh = "start.Pamb"
 priNozzle.Cfg =.999
 
-duct17.dP = 0.015 
-#duct17.FNo.MN = 0.45 
+duct17.dP = 0.015
+#duct17.FNo.MN = 0.45
 
-fanNozzle.PsExh = "start.Pamb" 
+fanNozzle.PsExh = "start.Pamb"
 fanNozzle.Cfg =.9975
 
-HPshaft.N = 20871. 
+HPshaft.N = 20871.
 HPshaft.I = 6.
-HPshaft.HPX = 350. 
+HPshaft.HPX = 350.
 
-LPshaft.N = 6772. 
+LPshaft.N = 6772.
 LPshaft.I = 6.
 
 
@@ -176,7 +176,7 @@ LPshaft.I = 6.
 # 16 speeds
 # 10 index (stall margins)
 fan.WcTable.x = [ 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10 ]
-fan.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ] 
+fan.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ]
 fan.WcTable.data = [
 [  224.751,  231.480,  238.209,  244.908,  251.637,  258.337,  265.066,  271.765,  278.435,  281.710 ],
 [  342.216,  352.280,  362.373,  372.437,  382.471,  392.565,  402.569,  412.603,  420.925,  430.929 ],
@@ -197,7 +197,7 @@ fan.WcTable.data = [
 ]
 
 fan.effTable.x = [ 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10 ]
-fan.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ] 
+fan.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ]
 fan.effTable.data = [
 [ 0.6800, 0.6800, 0.6800, 0.6800, 0.6840, 0.6860, 0.6850, 0.6800, 0.6800, 0.6800 ],
 [ 0.7230, 0.7150, 0.7480, 0.7430, 0.7500, 0.7500, 0.7500, 0.7070, 0.6840, 0.6800 ],
@@ -218,7 +218,7 @@ fan.effTable.data = [
 ]
 
 fan.PRtable.x = [ 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10 ]
-fan.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ] 
+fan.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80 ]
 fan.PRtable.data = [
 [ 1.020, 1.020, 1.020, 1.018, 1.018, 1.016, 1.016, 1.014, 1.011, 1.006 ],
 [ 1.049, 1.047, 1.047, 1.045, 1.042, 1.042, 1.037, 1.033, 1.028, 1.023 ],
@@ -247,7 +247,7 @@ fan.PRtable.data = [
 # 11 speeds
 # 12 index (stall margins)
 LPC.WcTable.x = [ 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.10, 1.20, 1.25 ]
-LPC.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ] 
+LPC.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ]
 LPC.WcTable.data = [
 [  38.07,  42.93,  47.75,  52.50,  57.18,  61.79,  66.33,  70.79,  75.15,  76.56,  76.56,  76.56 ],
 [  54.03,  60.03,  65.92,  71.68,  77.30,  82.78,  88.10,  93.26,  98.25, 101.05, 101.05, 101.05 ],
@@ -263,7 +263,7 @@ LPC.WcTable.data = [
 ]
 
 LPC.effTable.x = [ 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.10, 1.20, 1.25 ]
-LPC.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ] 
+LPC.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ]
 LPC.effTable.data = [
 [ 0.7256, 0.7656, 0.7978, 0.8195, 0.8274, 0.8164, 0.7494, 0.5651, 0.1931, 0.0000, 0.0000, 0.0000 ],
 [ 0.7474, 0.7848, 0.8147, 0.8351, 0.8430, 0.8339, 0.7757, 0.6161, 0.3003, 0.0000, 0.0000, 0.0000 ],
@@ -279,7 +279,7 @@ LPC.effTable.data = [
 ]
 
 LPC.PRtable.x = [ 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.10, 1.20, 1.25 ]
-LPC.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ] 
+LPC.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20 ]
 LPC.PRtable.data = [
 [ 1.0423, 1.0412, 1.0393, 1.0367, 1.0333, 1.0292, 1.0234, 1.0151, 1.0043, 1.0000, 1.0000, 1.0000 ],
 [ 1.0760, 1.0738, 1.0704, 1.0658, 1.0600, 1.0530, 1.0434, 1.0297, 1.0122, 1.0000, 1.0000, 1.0000 ],
@@ -301,7 +301,7 @@ LPC.PRtable.data = [
 # 13 speeds
 # 11 index (stall margins)
 HPC.WcTable.x = [ 0.50, 0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.925, 0.95, 0.975, 1.00, 1.025, 1.05 ]
-HPC.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ] 
+HPC.WcTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ]
 HPC.WcTable.data = [
 [  22.7411,  24.0487,  25.1548,  26.0615,  26.7738,  27.2992,  27.6470,  27.8286,  27.8634,  27.8634,  27.8634 ],
 [  31.7548,  33.1181,  34.2670,  35.2054,  35.9397,  36.4783,  36.8308,  37.0085,  37.0362,  37.0362,  37.0362 ],
@@ -319,7 +319,7 @@ HPC.WcTable.data = [
 ]
 
 HPC.effTable.x = [ 0.50, 0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.925, 0.95, 0.975, 1.00, 1.025, 1.05 ]
-HPC.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ] 
+HPC.effTable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ]
 HPC.effTable.data = [
 [ 0.6753, 0.6913, 0.7016, 0.7050, 0.7004, 0.6864, 0.6570, 0.6044, 0.5236, 0.4075, 0.2467 ],
 [ 0.6953, 0.7094, 0.7184, 0.7214, 0.7176, 0.7058, 0.6812, 0.6378, 0.5717, 0.4783, 0.3512 ],
@@ -337,7 +337,7 @@ HPC.effTable.data = [
 ]
 
 HPC.PRtable.x = [ 0.50, 0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.925, 0.95, 0.975, 1.00, 1.025, 1.05 ]
-HPC.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ] 
+HPC.PRtable.y = [ 1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00 ]
 HPC.PRtable.data = [
 [  2.4769,  2.4288,  2.3620,  2.2778,  2.1774,  2.0627,  1.9284,  1.7711,  1.5958,  1.4083,  1.2146 ],
 [  3.4633,  3.3778,  3.2643,  3.1248,  2.9619,  2.7787,  2.5679,  2.3253,  2.0595,  1.7802,  1.4973 ],
@@ -416,14 +416,14 @@ LPT.effTable.data = [
 
 #--------------------------------------
 # declare some output
-# ------------------------------------- 
-estuff = Output( "estuff" ) 
-estuff.filename = "turbofan.out" 
+# -------------------------------------
+estuff = Output( "estuff" )
+estuff.filename = "turbofan.out"
 estuff.vars = [ start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel ]
- 
+
 #--------------------------------------
 # run the DESIGN case
-# ------------------------------------- 
+# -------------------------------------
 g.check()
 checkType()
 g.NS.solve()
@@ -437,42 +437,42 @@ def runThrottleHook( MNset, altitude ):
 
    global case
    case = case + 1
-   fan.NcDem = 1. 
-   start.MN = MNset 
-   start.alt = altitude 
+   fan.NcDem = 1.
+   start.MN = MNset
+   start.alt = altitude
    g.NS.saveInds()
    g.NS.run()
    #g.prettyPrint.print()
    print( start.MN, start.alt, burner.FAR, Perf.Fn )
    Perf.FnetMax = RealT( Perf )
-   Perf.FnetMax = Perf.Fn 
- 
+   Perf.FnetMax = Perf.Fn
+
    case = case + 1
    g.NS.saveInds()
-   factor = .9   
-   start.Fdem = start.Fnet*factor 
-   
-   fan.dep_NmechC.active=False 
-   burner.con_1.on=False 
+   factor = .9
+   start.Fdem = start.Fnet*factor
+
+   fan.dep_NmechC.active=False
+   burner.con_1.on=False
    burner.con_1.active = False
 
    burner.ind_FAR.active = False
    g.check()
 
    while( factor > .2 and g.NS.converged == True ):
-      start.Fdem = Perf.FnetMax*factor 
-      burner.FAR = burner.FAR - .0025 
-      g.NS.run()  
+      start.Fdem = Perf.FnetMax*factor
+      burner.FAR = burner.FAR - .0025
+      g.NS.run()
       #g.prettyPrint.print()
       factor = ( Perf.Fn )/Perf.FnetMax
-      print( start.MN, start.alt, burner.FAR, Perf.Fn, factor, g.NS.converged ) 	  
+      print( start.MN, start.alt, burner.FAR, Perf.Fn, factor, g.NS.converged )
       case = case + 1
 
-   fan.dep_NmechC.active=True 
-   burner.con_1.on=True 
+   fan.dep_NmechC.active=True
+   burner.con_1.on=True
    burner.ind_FAR.active = True
    g.check()
-   fan.NcDem = 1.0 
+   fan.NcDem = 1.0
    g.NS.restoreInds()
    g.NS.run()
    case = case + 1
@@ -511,7 +511,7 @@ g.prettyPrint.print()
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 g.set("size", False )
-fanNozzle.ind_Area = Independent( fanNozzle, indname="Anoz", perturb=.05, scale=100, perturb_type="Relative", active=True )        
+fanNozzle.ind_Area = Independent( fanNozzle, indname="Anoz", perturb=.05, scale=100, perturb_type="Relative", active=True )
 fan.RlineLimit = RealT( fan, v=2.0 )
 fan.dep_Rline = Dependent( fan, d1name="Rline", d2name="RlineLimit", active=True )
 
@@ -521,13 +521,13 @@ g.prettyPrint.print()
 #g.scottPrint.print()
 
 fan.NcDem = RealT( fan )
-fan.NcDem = 1. 
+fan.NcDem = 1.
 burner.Tmax = RealT( burner )
-burner.Tmax = 3360. 
+burner.Tmax = 3360.
 start.Fdem = RealT( start )
 
 start.Fnet = RealT( start )
-burner.ind_FAR = Independent( burner, indname="FAR", perturb=.05, perturb_type="Relative", active=True, desc="Varies R-line" )        
+burner.ind_FAR = Independent( burner, indname="FAR", perturb=.05, perturb_type="Relative", active=True, desc="Varies R-line" )
 fan.dep_NmechC = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True, desc="Handles weight flow error" )
 burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True )
 #start.dep_Fnet = Dependent( fan, d1name="start.Fnet", d2name="start.Fdem", active=True, desc="Handles weight flow error" )

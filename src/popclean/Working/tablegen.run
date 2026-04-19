@@ -16,8 +16,8 @@ start_time  = time.time()
 
 exec( open( "pop.std").read())
 
-loadDirectory( "../pop" ) 
-loadDirectory( "../Brayton" ) 
+loadDirectory( "../pop" )
+loadDirectory( "../Brayton" )
 
 exec( open( "temp.include").read())
 import varsg
@@ -87,11 +87,11 @@ for FAR in FAR_TP:
 	gam1=[]
 	Cp2.append( Cp1 )
 	Cp1=[]
-	
-	
-	
+
+
+
 f = open("table.data", "w")
-			
+
 print( "    T_TP = ", T_TP, file=f )
 print( "    P_TP = ", P_TP, file=f )
 print( "    FAR_TP = ", FAR_TP, file=f )

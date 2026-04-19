@@ -7,19 +7,19 @@ from EP import EP
 import g
 
 class Esource( Element ):
-    
+
     def __init__( e,name ):
         super().__init__( name, "Enode" )
         e.name = name
-        
+
         e.desc = "This element is an electrical node location.  It has a voltage " \
         + " that is represented by a complex number.  Any number of impedance " \
         + " elements can be hooked into this element.  It will determine the net" \
         + " current it is seeing based on the system conditions. "
-        
+
         # eletrical connections
         e.port_list = list()
-        
+
         # Variables
         e.V = ComplexT( e, units="volts", desc="Voltage" )
         e.Vi = RealT( e, units="volts", desc="Imaginary component of voltage" )
@@ -47,18 +47,18 @@ class Esource( Element ):
             temp.io = "in"
         temp.name1 = ep.parent.name1 + "_" + ep.name1
 
-        
-    # before anything is run at all, loop through all substructures to find the 
+
+    # before anything is run at all, loop through all substructures to find the
     # ports
     def precheck( e ):
         e.port_list = list()
         for v in e.VIDL:
             if v.isa( "EP" ):
                 e.port_list.append( v )
-    
-    
+
+
     def calc( e ):
-        
+
         # zero out the running current totals
         e.IinR = 0.
         e.IoutR = 0.
@@ -77,11 +77,10 @@ class Esource( Element ):
                 e.IinI = e.IinI + p.I.v.imag
             else:
                 e.IoutI = e.IoutI - p.I.v.imag
-    
+
     def dump( self ):
         print( self.name, "Node", file = g.out )
         super().realPrint()
-    
+
     def pretty( self ):
         print( f"{"Source"[:8]:12s}{self.name1[:8]:12s}{"Vr:"+str(self.Vr.v)[:8]:12s}{"Vi:"+str(self.Vi.v)[:8]:12s}", file = g.pretty )
-        

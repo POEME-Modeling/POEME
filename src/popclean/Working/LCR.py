@@ -1,68 +1,69 @@
-
-exec( open( "pop.std").read())
-loadDirectory( "../pop" ) 
-loadDirectory( "../Electrical" ) 
-exec( open( "temp.include").read())
+exec(open("pop.std").read())
+loadDirectory("../pop")
+loadDirectory("../Electrical")
+exec(open("temp.include").read())
 import g
-g.out = open( "pop.out", "a")
-g.pretty = open( "pretty.out", "a")
 
-R = Resistor( "R" )
-R.R += 470.
+g.out = open("pop.out", "a")
+g.pretty = open("pretty.out", "a")
 
-C1 = Capacitor( "C1" )
-C1.C += 4.7*10**-6
-          
-I = Inductor( "I" )
-I.L += 65.*10.**-2
+R = Resistor("R")
+R.R += 470.0
 
-C2 = Capacitor( "C2" )
-C2.C += 1.5*10**-6
+C1 = Capacitor("C1")
+C1.C += 4.7 * 10**-6
 
-S1 = Esource( "S1" )
-S1.Vr += 120.
+I = Inductor("I")
+I.L += 65.0 * 10.0**-2
 
-E1 = Enode( "E1" )
-E1.Vr += -50.
-E1.Vi += 10.
+C2 = Capacitor("C2")
+C2.C += 1.5 * 10**-6
 
-E2 = Enode( "E2" )
-E2.Vr += -50.
-E2.Vi += 10.
+S1 = Esource("S1")
+S1.Vr += 120.0
+
+E1 = Enode("E1")
+E1.Vr += -50.0
+E1.Vi += 10.0
+
+E2 = Enode("E2")
+E2.Vr += -50.0
+E2.Vi += 10.0
 
 
-S2 = Esource( "S2" )
+S2 = Esource("S2")
 
-g.set( "freq", 60. )
+g.set("freq", 60.0)
 
-C1.EPi.linkE( S1 )
-C1.EPo.linkE( E1 )
-I.EPi.linkE( E1 )
-I.EPo.linkE( E2 )
-C2.EPi.linkE( E2 )
-C2.EPo.linkE( S2 )
-R.EPi.linkE( E1 )
-R.EPo.linkE( S2 )
+C1.EPi.linkE(S1)
+C1.EPo.linkE(E1)
+I.EPi.linkE(E1)
+I.EPo.linkE(E2)
+C2.EPi.linkE(E2)
+C2.EPo.linkE(S2)
+R.EPi.linkE(E1)
+R.EPo.linkE(S2)
 
-estuff=Output( "estuff" ) 
+estuff = Output("estuff")
 estuff.filename += "estuff.out"
-estuff.vars = [ ]
+estuff.vars = []
 
-E1.con_1 = Constraint( E1, d1name="E1.IinIp1", d2name="E1.IoutI", depname="E1.dep_2", active=False )
-E1.con_2 = Constraint( E1, d1name="E1.IinIp2", d2name="E1.IoutI", depname="E1.dep_2", active=False )
-	
+E1.con_1 = Constraint(
+    E1, d1name="E1.IinIp1", d2name="E1.IoutI", depname="E1.dep_2", active=False
+)
+E1.con_2 = Constraint(
+    E1, d1name="E1.IinIp2", d2name="E1.IoutI", depname="E1.dep_2", active=False
+)
 
 
 g.check()
 
-g.NS = Newton( "g.NS" )
+g.NS = Newton("g.NS")
 
 g.NS.run()
 
-print( "converged",  g.NS.converged )
+print("converged", g.NS.converged)
 
 g.stdOut.print()
 
 g.prettyPrint.print()
-
-

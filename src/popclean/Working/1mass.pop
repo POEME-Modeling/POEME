@@ -1,8 +1,8 @@
 
 exec( open( "pop.std").read())
 
-loadDirectory( "../pop" ) 
-loadDirectory( "../SpringMass" ) 
+loadDirectory( "../pop" )
+loadDirectory( "../SpringMass" )
 
 exec( open( "temp.include").read())
 import g
@@ -16,15 +16,15 @@ W1.Fp1 = Fp( W1, "in", "" )
 W1.Fp2 = Fp( W1, "in", "" )
 
 S1 = Spring( "S1" )
-S1.k = .1 
-S1.LN = 3. 
+S1.k = .1
+S1.LN = 3.
 
 D1 = Damper( "Damper" )
-D1.c = .01 
+D1.c = .01
 
 M1 = Mass( "Mass" )
-M1.mass = 1. 
-M1.xloc = 3. 
+M1.mass = 1.
+M1.xloc = 3.
 M1.Fp1 = Fp( M1, "in", "" )
 M1.Fp2 = Fp( M1, "in", "" )
 
@@ -41,14 +41,14 @@ g.NS = Newton( "g.NS" )
 estuff=Output( "estuff" )
 estuff.filename = "1mass.out"
 estuff.vars = [ g.NS.time, S1.L, M1.xloc ]
- 
+
 g.NS.solve()
 
 g.set( "trans", True )
 g.NS.timeLast = 100.
 g.NS.dtime=.01
 
-M1.xloc = M1.xloc + 1. 
+M1.xloc = M1.xloc + 1.
 
 g.NS.trim()
 
@@ -56,4 +56,3 @@ g.NS.trim()
 print( M1.x )
 
 g.NS.run()
-

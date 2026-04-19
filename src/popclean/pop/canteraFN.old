@@ -14,7 +14,7 @@ class canteraFN:
     gFAR = -1.
     T_TP = [500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500, 1550, 1600, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 2650, 2700, 2750, 2800, 2850, 2900, 2950, 3000, 3050, 3100, 3150, 3200, 3250, 3300, 3350, 3400, 3450, 3500, 3550, 3600, 3650, 3700, 3750, 3800, 3850, 3900, 3950]
     P_TP = [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 9, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9, 10, 10.1, 20.1, 30.1, 40.1, 50.1, 60.1, 70.1, 80.1, 90.1, 100.1, 150.1, 200.1, 250.1, 300.1, 350.1, 400.1, 450.1, 500.1, 550.1, 600.1, 650.1, 700.1, 750.1, 800.1, 850.1, 900.1, 950.1]
-    FAR_TP = [0, 0.0025, 0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.0225, 0.025, 0.0275, 0.03, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05]   
+    FAR_TP = [0, 0.0025, 0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.0225, 0.025, 0.0275, 0.03, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05]
     h_TPt =[
         [
             [-10.6592, 1.33623, 13.3493, 25.3865, 37.4553, 49.5626, 61.7158, 73.9213, 86.1852, 98.5129, 110.909, 123.377, 135.921, 148.543, 161.243, 174.024, 186.885, 199.827, 212.848, 225.947, 239.123, 252.375, 265.701, 279.099, 292.567, 306.104, 319.71, 333.383, 347.121, 360.922, 374.786, 388.711, 402.695, 416.739, 430.84, 444.998, 459.213, 473.484, 487.811, 502.194, 516.633, 531.128, 545.68, 560.288, 574.955, 589.68, 604.465, 619.313, 634.224, 649.202, 664.249, 679.37, 694.57, 709.853, 725.227, 740.699, 756.278, 771.977, 787.806, 803.781, 819.918, 836.237, 852.759, 869.509, 886.514, 903.805, 921.417, 939.388, 957.759, 976.577],
@@ -17669,14 +17669,14 @@ class canteraFN:
             [1.26571, 1.29328, 1.32021, 1.34897, 1.38324, 1.42828, 1.47389, 1.48955, 1.5044, 1.51855, 1.53207, 1.54502, 1.55745, 1.56942, 1.58097, 1.59212, 1.60292, 1.61338, 1.62353, 1.63339, 1.64299, 1.65232, 1.66143, 1.6703, 1.67896, 1.68742, 1.69569, 1.70378, 1.71169, 1.71944, 1.72703, 1.73448, 1.74177, 1.74893, 1.75595, 1.76285, 1.76962, 1.77628, 1.78282, 1.78926, 1.79559, 1.80181, 1.80794, 1.81398, 1.81992, 1.82578, 1.83156, 1.83725, 1.84286, 1.8484, 1.85386, 1.85925, 1.86458, 1.86984, 1.87503, 1.88016, 1.88524, 1.89026, 1.89522, 1.90013, 1.90499, 1.9098, 1.91457, 1.9193, 1.92398, 1.92862, 1.93323, 1.93781, 1.94235, 1.94687]
         ]
     ]
-   
-    
+
+
     def gam( T, P, FAR ):
         gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
         gas.TP=T*5./9.,P*6894.76
         gas.equilibrate( 'TP' )
         return( gas.cp/gas.cv )
-        
+
     def rho( T, P, FAR ):
         if ( abs( gas.T - T*5./9 ) > .0001 or abs( gas.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	        gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
@@ -17684,7 +17684,7 @@ class canteraFN:
 	        canteraFN.gFAR = FAR
 	        gas.equilibrate( 'TP' )
         return( gas.density*0.062428 )
-        
+
     def Cp( T, P, FAR ):
         if ( abs( gas.T - T*5./9 ) > .0001 or abs( gas.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	        gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
@@ -17698,18 +17698,18 @@ class canteraFN:
 	        gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
 	        gas.TP=T*5./9.,P*6894.76
 	        canteraFN.gFAR = FAR
-	        gas.equilibrate( 'TP' ) 
+	        gas.equilibrate( 'TP' )
         return( gas.h*0.0004299226 )
- 
+
     def s_TP( T, P, FAR ):
         if ( abs( gas.T - T*5./9 ) > .0001 or abs( gas.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	        gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
 	        gas.TP=T*5./9.,P*6894.76
 	        canteraFN.gFAR = FAR
-	        gas.equilibrate( 'TP' )    
+	        gas.equilibrate( 'TP' )
         return( gas.s*0.0002390057 )
-   
-    def R( T, P, FAR ): 
+
+    def R( T, P, FAR ):
         if ( abs( gas.T - T*5./9 ) > .0001 or abs( gas.P - P*6894.76) > .0001 or abs( canteraFN.gFAR - FAR ) > .00001 ):
 	        gas.set_mixture_fraction(FAR/( 1 - FAR ), fuel=fuel_comp, oxidizer=oxidizer_comp, basis='mass')
 	        gas.TP=T*5./9.,P*6894.76
@@ -17720,10 +17720,10 @@ class canteraFN:
 
     def mu( T, P, FAR ):
         return 0
-        
+
     def k( T, P, FAR ):
     	return 0
-    	
+
     def T_sP( s, P, FAR ):
     	T = 1500
     	scalc = canteraFN.s_TP( T, P, FAR )
@@ -17731,13 +17731,13 @@ class canteraFN:
     	errorm1 = ( scalc - s )/s
     	xm1 =  T
     	T = T*.95
-    	scalc = canteraFN.s_TP( T, P, FAR )    
+    	scalc = canteraFN.s_TP( T, P, FAR )
     	error = ( scalc - s )/ s
     	x = T
     	while abs( error ) > .0000001:
     		xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
     		if xp1 - x > .3*T:
-    			xp1 = x + .3*T    			
+    			xp1 = x + .3*T
     		if xp1 - x < -.3*T:
     			xp1 = x - .3*T
     		xm1 = x
@@ -17747,7 +17747,7 @@ class canteraFN:
     		scalc = canteraFN.s_TP( T, P, FAR )
     		error = ( scalc - s )/ s
 
-    	return T			
+    	return T
 
     def T_hP( h, P, FAR ):
     	T = 1500
@@ -17755,14 +17755,14 @@ class canteraFN:
     	errorm1 = ( hcalc - h )/h
     	xm1 =  T
     	T = T*.95
-    	hcalc = canteraFN.h_TP( T, P, FAR )    
+    	hcalc = canteraFN.h_TP( T, P, FAR )
     	error = ( hcalc - h )/ h
     	x = T
-    	
+
     	while abs( error ) > .000001:
     		xp1 = x - error * (x - xm1 ) / ( error - errorm1 )
     		if xp1 - x > .3*T:
-    			xp1 = x + .3*T    			
+    			xp1 = x + .3*T
     		if xp1 - x < -.3*T:
     			xp1 = x - .3*T
     		xm1 = x
@@ -17771,6 +17771,6 @@ class canteraFN:
     		T = x
     		hcalc = canteraFN.h_TP( T, P, FAR )
     		error = ( hcalc - h )/ h
-    
-    		
-    	return T 
+
+
+    	return T

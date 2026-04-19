@@ -7,82 +7,98 @@ from RealT import RealT
 from BooleanT import BooleanT
 import g
 
-class Shaft( Element ):
-    def __init__( s,name ):
-        super().__init__( name, "Shaft" )
+
+class Shaft(Element):
+    def __init__(s, name):
+        super().__init__(name, "Shaft")
         s.type = "Shaft"
         s.desc = "Shaft determines to total power and inertiat on the shaft"
 
         # dynamic mechanical port list
         s.port_list = list()
-        
+
         # solver stuff
-        s.ind_1 = Independent( s, indname="N", perturb=.05, perturb_type="Relative", active=False, desc="Vary shaft speed" )
-        s.state_1 = State( s, d1name="HPpos", d2name="HPneg", sname="N", dsname="dNdt", active=True, desc="Shaft speed power error/state" )
+        s.ind_1 = Independent(
+            s,
+            indname="N",
+            perturb=0.05,
+            perturb_type="Relative",
+            active=False,
+            desc="Vary shaft speed",
+        )
+        s.state_1 = State(
+            s,
+            d1name="HPpos",
+            d2name="HPneg",
+            sname="N",
+            dsname="dNdt",
+            active=True,
+            desc="Shaft speed power error/state",
+        )
 
         # variables
-        s.dNdt = RealT( s, units="RPM/s", desc="Speed derivative" )
-        s.HPneg = RealT( s, units="HP", desc="Total negative power on the shaft" )  
-        s.HPpos = RealT( s, units="HP", desc="Total positive power on the shaft" )
-        s.HPX = RealT( s, units="HP", desc="Power extraction" )
-        s.I = RealT( s, units="lbm*ft**2", desc="inertia of the shaft itself " )
-        s.Ispool = RealT( s, units="lbm*ft**2", desc="total spool intertia" )
-        s.N = RealT( s, units="RPM", desc="Shaft speed" )
-        
-        s.size = BooleanT( s, v=True, desc="determines if the mode is sizing mode" )
+        s.dNdt = RealT(s, units="RPM/s", desc="Speed derivative")
+        s.HPneg = RealT(s, units="HP", desc="Total negative power on the shaft")
+        s.HPpos = RealT(s, units="HP", desc="Total positive power on the shaft")
+        s.HPX = RealT(s, units="HP", desc="Power extraction")
+        s.I = RealT(s, units="lbm*ft**2", desc="inertia of the shaft itself ")
+        s.Ispool = RealT(s, units="lbm*ft**2", desc="total spool intertia")
+        s.N = RealT(s, units="RPM", desc="Shaft speed")
+
+        s.size = BooleanT(s, v=True, desc="determines if the mode is sizing mode")
         s.initialList()
- 
-            
-    def preset( s ):
-        
+
+    def preset(s):
+
         # before each solver pass set the speed in all connected elements
         for p in s.port_list:
-            p.setN( s.N.v ) 
-            
-    def precheck( s ):
+            p.setN(s.N.v)
+
+    def precheck(s):
         # determine the current port list
         s.port_list = list()
         for v in s.VIDL:
-            if v.isa( "MP" ):
-                s.port_list.append( v )
-        
+            if v.isa("MP"):
+                s.port_list.append(v)
+
         # if in sizing mode than speed is not an independent
         if s.size.v == True:
             s.ind_1.active = False
             s.state_1.active = True
-    
+
         # if not in sizing mode than we need to vary speed
         else:
             s.ind_1.active = True
-            s.state_1.active = True     
-            
-    def calc( s ):
-        
+            s.state_1.active = True
+
+    def calc(s):
+
         # loop through the ports and determine the horsepower and inertia
-        s.HPpos+= 0. 
-        s.HPneg+= 0. 
-        s.Ispool+= s.I 
+        s.HPpos += 0.0
+        s.HPneg += 0.0
+        s.Ispool += s.I
 
         for p in s.port_list:
-            s.Ispool+= s.Ispool + p.I 
-            if p.hp < 0.:
-                s.HPpos+= s.HPpos + p.hp 
+            s.Ispool += s.Ispool + p.I
+            if p.hp < 0.0:
+                s.HPpos += s.HPpos + p.hp
             else:
-                s.HPneg+= s.HPneg - p.hp 
-                
-        if s.HPX > 0.:
-            s.HPneg+= s.HPneg + s.HPX 
+                s.HPneg += s.HPneg - p.hp
+
+        if s.HPX > 0.0:
+            s.HPneg += s.HPneg + s.HPX
         else:
-            s.HPpos+= s.HPpos - s.HPX 
+            s.HPpos += s.HPpos - s.HPX
 
         # determine the speed derivative
-        s.dNdt+= ( s.HPpos - s.HPneg )/(s.N/5252.) /s.Ispool 
+        s.dNdt += (s.HPpos - s.HPneg) / (s.N / 5252.0) / s.Ispool
 
-
-    def dump( self ):
-        print( self.name1, "Shaft", file = g.out )
+    def dump(self):
+        print(self.name1, "Shaft", file=g.out)
         super().realPrint()
-        
-    def pretty( s ):
-        print( f"{"Shaft"[:10]:12s}{s.name1[:10]:12s}{("N:"+str(s.N))[:10]:12s}{("HPX:"+str(s.HPX))[:10]:12s}" , file=g.pretty )
- 
+
+    def pretty(s):
+        print(
+            f"{"Shaft"[:10]:12s}{s.name1[:10]:12s}{("N:"+str(s.N))[:10]:12s}{("HPX:"+str(s.HPX))[:10]:12s}",
+            file=g.pretty,
+        )

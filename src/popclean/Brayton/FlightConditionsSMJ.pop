@@ -9,27 +9,27 @@ from Independent import Independent
 from BooleanT import BooleanT
 
 class FlightConditionsSMJ( Element ):
-    
+
     def __init__(f,name):
         super().__init__(name, "FlowStart" )
         f.type = "FlightConditionsSMJ"
 
         f.desc = "Start a Flow stream."
-        
+
         # variables
         f.comp = StringT( f, desc="Composition of the stream." )
         f.alt = RealT( f, units="ft", desc="Altitude" )
         f.Fram = RealT( f, units="lbf", desc="Ram Drag" )
         f.MN =  RealT( f, desc = "MN" )
         f.Pamb = RealT( f, units="lbm/in2", desc="Ambient pressure" )
-        f.Pt = RealT( f, units="lbm/in2", desc="Total pressure" )        
+        f.Pt = RealT( f, units="lbm/in2", desc="Total pressure" )
         f.Tamb = RealT( f, units="R", desc="Ambient temperature" )
-        f.Tt = RealT( f, units="R", desc="Ambient temperature" )        
+        f.Tt = RealT( f, units="R", desc="Ambient temperature" )
         f.W = RealT( f, units="lbm/sec", descc="Weight" )
         f.gams = RealT( f, units="ft", desc="gamma" )
         f.TTcalc = RealT( f, units="R", desc="temperature" )
         f.PTcalc = RealT( f, units="lbf/in2", desc="pressure" )
-        f.size = BooleanT( f, v=True, desc="Determine if the element is in design mode or not" )        
+        f.size = BooleanT( f, v=True, desc="Determine if the element is in design mode or not" )
 
         # altitude pressure temperature tables
         # data from https://www.digitaldutch.com/atmoscalc
@@ -86,15 +86,15 @@ class FlightConditionsSMJ( Element ):
         # fluid locations
         f.FNo = FN( f, io="out", desc="Outgoing flow" )
 
-        # solver stuff  
-        f.ind_1 = Independent( f, indname="W", perturb=.05, scale = 100, perturb_type="Relative", active=False, desc="Vary mass flow" )   
-            
+        # solver stuff
+        f.ind_1 = Independent( f, indname="W", perturb=.05, scale = 100, perturb_type="Relative", active=False, desc="Vary mass flow" )
+
     def calc(f):
 
         # set the comp
         f.FNo.comp+= f.comp;
-        
-        # read atmospheric conditions 
+
+        # read atmospheric conditions
         f.Tamb = f.Ttable.calc( f.alt )
         f.Pamb = f.Ptable.calc( f.alt )
 
@@ -102,7 +102,7 @@ class FlightConditionsSMJ( Element ):
         if ( f.MN > 0. ):
             f.FNo.setTsPsMN( f.Tamb, f.Pamb, f.MN )
         else:
-            f.FNo.MN = 0. 
+            f.FNo.MN = 0.
             f.FNo.setTP( f.Tamb, f.Pamb )
 
         f.Fram = f.FNo.V*f.FNo.W /32.174
@@ -113,15 +113,14 @@ class FlightConditionsSMJ( Element ):
         # design point turn off solver stuff
         if f.size == True:
             f.ind_1.active = False
-        # off design turn on solver stuff           
+        # off design turn on solver stuff
         else:
             f.ind_1.active = True
-           
-    def dump( f ): 
-        #dump output variables      
+
+    def dump( f ):
+        #dump output variables
         print( f.name1, "FlowStart", file=g.out )
-        super().realPrint()       
-  
+        super().realPrint()
+
     def pretty( f ):
-        print( f"{"FlightConditions"[:10]:12s}{f.name1[:10]:12s}{("W:"+str(f.W))[:10]:12s}{("Tt:"+str(f.FNo.Tt))[:10]:12s}{("Pt:"+str(f.FNo.Pt))[:10]:12s}{("Tamb:"+str(f.Tamb))[:10]:12s}{("Pamb:"+str(f.Pamb))[:10]:12s}" , file=g.pretty )            
-       
+        print( f"{"FlightConditions"[:10]:12s}{f.name1[:10]:12s}{("W:"+str(f.W))[:10]:12s}{("Tt:"+str(f.FNo.Tt))[:10]:12s}{("Pt:"+str(f.FNo.Pt))[:10]:12s}{("Tamb:"+str(f.Tamb))[:10]:12s}{("Pamb:"+str(f.Pamb))[:10]:12s}" , file=g.pretty )

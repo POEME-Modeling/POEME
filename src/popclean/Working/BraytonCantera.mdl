@@ -1,8 +1,8 @@
 
 
 exec( open( "pop.std").read())
-loadDirectory( "../pop" ) 
-loadDirectory( "../Brayton" ) 
+loadDirectory( "../pop" )
+loadDirectory( "../Brayton" )
 exec( open( "temp.include").read())
 import g
 g.out = open( "pop.out", "a")
@@ -10,7 +10,7 @@ g.pretty = open( "pretty.out", "a")
 
 FS = FlowStart( "FS" )
 FS.Pamb = RealT( FS, v=10. )
-	
+
 FS.Pt.set( 15. )
 FS.Tt.set( 500. )
 FS.W.set( 1000. )
@@ -29,7 +29,7 @@ C1.Wfrac1.set( .02 )
 C1.hfract2.set(  .9 )
 C1.Wfrac2.set( .03 )
 C1.NcMapDes.set( .9 )
-C1.RlineDes.set( 2.0 ) 
+C1.RlineDes.set( 2.0 )
 C1.effTable.x = [ .8, .95, 1.1 ]
 C1.effTable.y = [ 1., 2.0, 3.0 ]
 C1.effTable.data = [ [ .90, .93, .90],\
@@ -68,7 +68,7 @@ T1.WcTable.x = [.8, .9, 1.1 ]
 T1.WcTable.y = [ 1.0, 3.0, 6.0 ]
 T1.WcTable.data = [ [ 21.6, 21.6, 21.6],\
                [19.4, 19.4, 19.4 ],\
-               	   [ 17.3, 17.3, 17.3]] 
+               	   [ 17.3, 17.3, 17.3]]
 
 
 T1.NcMapDes.set( .9 )
@@ -149,12 +149,12 @@ PIV1 = PIV( "PIV1" )
 
 PIV1.P.set( .00000005 )
 
- 
+
 PIV1.DPo.set( "B1.FAR" )
 PIV1.DPi.set( "S1.N" )
 
 B1.WFset.set( False )
-	
+
 PIV1.G.set( 10500. )
 
 g.NS.timeLast.set( 10. )
@@ -163,8 +163,3 @@ g.set("trans", True )
 g.NS.tolerance.set( .0002 )
 g.NS.trim()
 g.NS.run()
-
-
-
-
-	
