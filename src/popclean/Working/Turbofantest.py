@@ -82,93 +82,93 @@ LPT.FNiBld1.linkFN(HPC.FNoBld2)
 # ------------------------------------------------------------------------
 # set component variable values to match N+3 reference cycle at SLS
 # ------------------------------------------------------------------------
-start.alt += 35000.0
-start.MN += 0.80
-start.W += 813.51
+start.alt = 35000.0
+start.MN = 0.80
+start.W = 813.51
 
 # use cantera for fluid properties
-start.comp += "canteraFN"
+start.comp = "canteraFN"
 
 
 # use tables for fluid properties
-start.comp += "newtherm"
+start.comp = "newtherm"
 
-inlet.rec += 0.998  # inlet recovery 0.998
-# inlet.FNo.MN += 0.625
+inlet.rec = 0.998  # inlet recovery 0.998
+# inlet.FNo.MN = 0.625
 
-fan.PRdes += 1.300
-fan.effDes += 0.9689
-fan.NcMapDes += 1.000
-fan.RlineDes += 2.000
-fan.NcMapDes += 1.00
-fan.RlineDes += 2.00
-# fan.FNo.MN += 0.45
+fan.PRdes = 1.300
+fan.effDes = 0.9689
+fan.NcMapDes = 1.000
+fan.RlineDes = 2.000
+fan.NcMapDes = 1.00
+fan.RlineDes = 2.00
+# fan.FNo.MN = 0.45
 
-splitter.BPR += 23.9878
-# splitter.FNo1.MN += 0.45
-# splitter.FNo2.MN += 0.45
+splitter.BPR = 23.9878
+# splitter.FNo1.MN = 0.45
+# splitter.FNo2.MN = 0.45
 
-# duct2.FNo.MN += 0.45
+# duct2.FNo.MN = 0.45
 
-LPC.PRdes += 3.000
-LPC.effDes += 0.8895
-LPC.NcMapDes += 1.00
-LPC.RlineDes += 2.00
-# LPC.FNo.MN += 0.45
+LPC.PRdes = 3.000
+LPC.effDes = 0.8895
+LPC.NcMapDes = 1.00
+LPC.RlineDes = 2.00
+# LPC.FNo.MN = 0.45
 
-duct25.dP += 0.015
-# duct25.FNo.MN += 0.45
+duct25.dP = 0.015
+# duct25.FNo.MN = 0.45
 
-HPC.PRdes += 14.1030
-HPC.effDes += 0.8469
-HPC.NcMapDes += 1.00
-HPC.RlineDes += 2.00
-HPC.Wfrac1 += 0.0693
-HPC.hfract1 += 1.00
-HPC.Wfrac2 += 0.02
-HPC.hfract2 += 0.5
-# HPC.FNo.MN += 0.30
+HPC.PRdes = 14.1030
+HPC.effDes = 0.8469
+HPC.NcMapDes = 1.00
+HPC.RlineDes = 2.00
+HPC.Wfrac1 = 0.0693
+HPC.hfract1 = 1.00
+HPC.Wfrac2 = 0.02
+HPC.hfract2 = 0.5
+# HPC.FNo.MN = 0.30
 
-duct3.Wbldfrac += 2.0354 / (31.91 - 2.2566)
+duct3.Wbldfrac = 2.0354 / (31.91 - 2.2566)
 
-burner.FAR += 0.0283
-burner.LHV += -2100.0
-burner.dP += 0.0400
-# burner.FNo.MN += 0.10
+burner.FAR = 0.0283
+burner.LHV = -2100.0
+burner.dP = 0.0400
+# burner.FNo.MN = 0.10
 
-HPT.PRmapDes += 3.0
-HPT.PR += 3.5
-HPT.effDes += 0.9313
-HPT.NcMapDes += 0.9
-# HPT.FNo.MN += 0.30
+HPT.PRmapDes = 3.0
+HPT.PR = 3.5
+HPT.effDes = 0.9313
+HPT.NcMapDes = 0.9
+# HPT.FNo.MN = 0.30
 
-duct45.dP += 0.005
-# duct45.FNo.MN += 0.45
+duct45.dP = 0.005
+# duct45.FNo.MN = 0.45
 
-LPT.PRmapDes += 6.0
-LPT.PR += 2.0
-LPT.effDes += 0.9410
-LPT.NcMapDes += 0.9
-# LPT.FNo.MN += 0.35
+LPT.PRmapDes = 6.0
+LPT.PR = 2.0
+LPT.effDes = 0.9410
+LPT.NcMapDes = 0.9
+# LPT.FNo.MN = 0.35
 
-duct5.dP += 0.010
-# duct5.FNo.MN += 0.25
+duct5.dP = 0.010
+# duct5.FNo.MN = 0.25
 
-priNozzle.PsExh += "start.Pamb"
-priNozzle.Cfg += 0.999
+priNozzle.PsExh = "start.Pamb"
+priNozzle.Cfg = 0.999
 
-duct17.dP += 0.015
-# duct17.FNo.MN += 0.45
+duct17.dP = 0.015
+# duct17.FNo.MN = 0.45
 
-fanNozzle.PsExh += "start.Pamb"
-fanNozzle.Cfg += 0.9975
+fanNozzle.PsExh = "start.Pamb"
+fanNozzle.Cfg = 0.9975
 
-HPshaft.N += 20871.0
-HPshaft.I += 6.0
-HPshaft.HPX += 350.0
+HPshaft.N = 20871.0
+HPshaft.I = 6.0
+HPshaft.HPX = 350.0
 
-LPshaft.N += 6772.0
-LPshaft.I += 6.0
+LPshaft.N = 6772.0
+LPshaft.I = 6.0
 
 
 # =======================================================================
@@ -2227,7 +2227,7 @@ LPT.effTable.data = [
 # declare some output
 # -------------------------------------
 estuff = Output("estuff")
-estuff.filename += "turbofan.out"
+estuff.filename = "turbofan.out"
 estuff.vars = [start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel]
 
 # --------------------------------------
@@ -2246,20 +2246,20 @@ def runThrottleHook(MNset, altitude):
 
     global case
     case = case + 1
-    fan.NcDem += 1.0
-    start.MN += MNset
-    start.alt += altitude
+    fan.NcDem = 1.0
+    start.MN = MNset
+    start.alt = altitude
     g.NS.saveInds()
     g.NS.run()
     # g.prettyPrint.print()
     print(start.MN, start.alt, burner.FAR, Perf.Fn)
     Perf.FnetMax = RealT(Perf)
-    Perf.FnetMax += Perf.Fn
+    Perf.FnetMax = Perf.Fn
 
     case = case + 1
     g.NS.saveInds()
     factor = 0.9
-    start.Fdem += start.Fnet * factor
+    start.Fdem = start.Fnet * factor
 
     fan.dep_NmechC.active = False
     burner.con_1.on = False
@@ -2269,8 +2269,8 @@ def runThrottleHook(MNset, altitude):
     g.check()
 
     while factor > 0.2 and g.NS.converged == True:
-        start.Fdem += Perf.FnetMax * factor
-        burner.FAR += burner.FAR - 0.0025
+        start.Fdem = Perf.FnetMax * factor
+        burner.FAR = burner.FAR - 0.0025
         g.NS.run()
         # g.prettyPrint.print()
         factor = (Perf.Fn) / Perf.FnetMax
@@ -2281,7 +2281,7 @@ def runThrottleHook(MNset, altitude):
     burner.con_1.on = True
     burner.ind_FAR.active = True
     g.check()
-    fan.NcDem += 1.0
+    fan.NcDem = 1.0
     g.NS.restoreInds()
     g.NS.run()
     case = case + 1
@@ -2491,9 +2491,9 @@ g.prettyPrint.print()
 # g.scottPrint.print()
 
 fan.NcDem = RealT(fan)
-fan.NcDem += 1.0
+fan.NcDem = 1.0
 burner.Tmax = RealT(burner)
-burner.Tmax += 3360.0
+burner.Tmax = 3360.0
 start.Fdem = RealT(start)
 
 start.Fnet = RealT(start)

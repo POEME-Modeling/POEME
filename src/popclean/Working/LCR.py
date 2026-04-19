@@ -8,27 +8,27 @@ g.out = open("pop.out", "a")
 g.pretty = open("pretty.out", "a")
 
 R = Resistor("R")
-R.R += 470.0
+R.R = 470.0
 
 C1 = Capacitor("C1")
-C1.C += 4.7 * 10**-6
+C1.C = 4.7 * 10**-6
 
 I = Inductor("I")
-I.L += 65.0 * 10.0**-2
+I.L = 65.0 * 10.0**-2
 
 C2 = Capacitor("C2")
-C2.C += 1.5 * 10**-6
+C2.C = 1.5 * 10**-6
 
 S1 = Esource("S1")
-S1.Vr += 120.0
+S1.Vr = 120.0
 
 E1 = Enode("E1")
-E1.Vr += -50.0
-E1.Vi += 10.0
+E1.Vr = -50.0
+E1.Vi = 10.0
 
 E2 = Enode("E2")
-E2.Vr += -50.0
-E2.Vi += 10.0
+E2.Vr = -50.0
+E2.Vi = 10.0
 
 
 S2 = Esource("S2")
@@ -45,7 +45,7 @@ R.EPi.linkE(E1)
 R.EPo.linkE(S2)
 
 estuff = Output("estuff")
-estuff.filename += "estuff.out"
+estuff.filename = "estuff.out"
 estuff.vars = []
 
 E1.con_1 = Constraint(
