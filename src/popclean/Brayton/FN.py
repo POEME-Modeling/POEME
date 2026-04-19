@@ -1,4 +1,5 @@
 from RealT import RealT
+from ValueT import ValueT
 import math
 from Atom import Atom
 import g
@@ -18,77 +19,65 @@ from newtherm import newtherm
 
 class FN(Atom):
 
-    def __init__(f, p, **kwargs):
-        f.parent = p
-        f.name1 = ""
-        f.VIDL = list()
-        f.__dict__.update(kwargs)
-        f.comp = StringT(f, v="none", desc="")
-        f.comp.name1 = "comp"
-        f.FAR = RealT(f, v=0.0, units="", desc="")
-        f.FAR.name1 = "FAR"
-        f.WAR = RealT(f, v=0.0, units="", desc="")
-        f.WAR.name1 = "WAR"
-        f.W = RealT(f, v=0.0, units="", desc="")
-        f.W.name1 = "W"
-        f.Tt = RealT(f, v=0.0, units="", desc="")
-        f.Tt.name1 = "Tt"
-        f.Pt = RealT(f, v=0.0, units="", desc="")
-        f.Pt.name1 = "Pt"
-        f.ht = RealT(f, v=0.0, units="", desc="")
-        f.ht.name1 = "ht"
-        f.rhot = RealT(f, v=0.0, unit="", desc="")
-        f.rhot.name1 = "rhot"
-        f.mut = RealT(f, v=0.0, units="", desc="")
-        f.mut.name1 = "mut"
-        f.kt = RealT(f, v=0.0, units="", desc="")
-        f.kt.name1 = "kt"
-        f.Cpt = RealT(f, v=0.0, units="", desc="")
-        f.Cpt.name1 = "Cpt"
-        f.gamt = RealT(f, v=0.0, units="", desc="")
-        f.gamt.name1 = "gamt"
-        f.Rt = RealT(f, v=0.0, units="", desc="")
-        f.Rt.name1 = "Rt"
-        f.Rs = RealT(f, v=0.0, units="", desc="")
-        f.Rs.name1 = "Rs"
-        f.s = RealT(f, v=0.0, units="", desc="")
-        f.s.name1 = "s"
-        f.MN = RealT(f, v=0.0, units="", desc="")
-        f.MN.name1 = "MN"
-        f.A = RealT(f, v=0.0, units="", desc="")
-        f.A.name1 = "A"
-        f.V = RealT(f, v=0.0, units="", desc="")
-        f.V.name1 = "V"
-        f.Ts = RealT(f, v=0.0, units="", desc="")
-        f.Ts.name1 = "Ts"
-        f.Ps = RealT(f, v=0.0, units="", desc="")
-        f.Ps.name1 = "Ps"
-        f.hs = RealT(f, v=0.0, units="", desc="")
-        f.hs.name1 = "hs"
-        f.rhos = RealT(f, v=0.0, units="", desc="")
-        f.rhos.name1 = "rhos"
-        f.mus = RealT(f, v=0.0, units="", desc="")
-        f.mus.name1 = "mus"
-        f.ks = RealT(f, v=0.0, units="", desc="")
-        f.ks.name1 = "ks"
-        f.Cps = RealT(f, v=0.0, units="", desc="")
-        f.Cps.name1 = "Cps"
-        f.gams = RealT(f, v=0.0, units="", desc="")
-        f.gams.name1 = "gams"
-        f.size = BooleanT(
-            f, v=True, desc="Determines if we are running to fixed Mach or Area"
+    def __init__(self, p, **kwargs):
+        # Bypass __setattr__ during init — ValueT objects don't exist yet
+        self.__dict__.update(
+            {
+                "parent": p,
+                "name1": "",
+                "VIDL": [],
+                "type": "FN",
+                "other": 0,
+            }
         )
-        f.size.name1 = "size"
-        f.twoPhase = BooleanT(
-            f, v=False, desc="Determines if we need to use enthalpy for all properties "
-        )
-        f.twoPhase.name1 = "twoPhase"
-
-        f.type = "FN"
+        self.__dict__.update(kwargs)
         if p != 0:
-            p.addVID(f)
-        f.type = "FN"
-        f.other = 0
+            p.addVID(self)
+
+        # All name1 tagging is handled automatically by __setattr__
+        self.comp = StringT(self, v="none", desc="")
+        self.FAR = RealT(self, v=0.0, units="", desc="")
+        self.WAR = RealT(self, v=0.0, units="", desc="")
+        self.W = RealT(self, v=0.0, units="", desc="")
+        self.Tt = RealT(self, v=0.0, units="", desc="")
+        self.Pt = RealT(self, v=0.0, units="", desc="")
+        self.ht = RealT(self, v=0.0, units="", desc="")
+        self.rhot = RealT(self, v=0.0, units="", desc="")
+        self.mut = RealT(self, v=0.0, units="", desc="")
+        self.kt = RealT(self, v=0.0, units="", desc="")
+        self.Cpt = RealT(self, v=0.0, units="", desc="")
+        self.gamt = RealT(self, v=0.0, units="", desc="")
+        self.Rt = RealT(self, v=0.0, units="", desc="")
+        self.Rs = RealT(self, v=0.0, units="", desc="")
+        self.s = RealT(self, v=0.0, units="", desc="")
+        self.MN = RealT(self, v=0.0, units="", desc="")
+        self.A = RealT(self, v=0.0, units="", desc="")
+        self.V = RealT(self, v=0.0, units="", desc="")
+        self.Ts = RealT(self, v=0.0, units="", desc="")
+        self.Ps = RealT(self, v=0.0, units="", desc="")
+        self.hs = RealT(self, v=0.0, units="", desc="")
+        self.rhos = RealT(self, v=0.0, units="", desc="")
+        self.mus = RealT(self, v=0.0, units="", desc="")
+        self.ks = RealT(self, v=0.0, units="", desc="")
+        self.Cps = RealT(self, v=0.0, units="", desc="")
+        self.gams = RealT(self, v=0.0, units="", desc="")
+        self.size = BooleanT(
+            self, v=True, desc="Determines if we are running to fixed Mach or Area"
+        )
+        self.twoPhase = BooleanT(
+            self,
+            v=False,
+            desc="Determines if we need to use enthalpy for all properties",
+        )
+
+    def __setattr__(self, name, value):
+        existing = self.__dict__.get(name)
+        if isinstance(existing, ValueT):
+            existing.set(value)
+        else:
+            super().__setattr__(name, value)
+        if hasattr(value, "name1"):
+            value.name1 = name
 
     def addVID(f, v):
         f.VIDL.append(v)
@@ -375,9 +364,9 @@ class FN(Atom):
         else:
             return False
 
-    def linkFN(f, FN):
-        f.other = FN
-        FN.other = f
+    def linkFN(self, FN):
+        self.__dict__.update({"other": FN})
+        FN.__dict__.update({"other": self})
 
     def copy(f, e):
         f.comp.v = e.comp.v

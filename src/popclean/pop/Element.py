@@ -1,7 +1,7 @@
 from Atom import Atom
 from VID import VID
 from RealT import RealT
-from RealT import RealT
+from ValueT import ValueT
 from ComplexT import ComplexT
 import g
 import __main__
@@ -10,13 +10,26 @@ import __main__
 class Element(Atom):
 
     def __init__(self, name, type):
+        # Bypass custom __setattr__ for internal attributes during init
+        super().__setattr__("VIDL", [])
+        super().__setattr__("type", type)
+        super().__setattr__("name", name)
+        super().__setattr__("name1", name)
+        super().__setattr__("x", -1.0)
+        super().__setattr__("y", 0.0)
         g.element_list.append(self)
-        self.VIDL = list()
-        self.type = type
-        self.name = name
-        self.name1 = name
-        self.x = -1.0
-        self.y = 0.0
+
+    def __setattr__(self, name, value):
+        existing = self.__dict__.get(name)  # direct dict lookup, no descriptor overhead
+        if isinstance(existing, ValueT):
+            # Update the ValueT in-place, don't replace the object
+            existing.set(value)
+        else:
+            super().__setattr__(name, value)
+
+        # Assign name1 if the value has that attribute
+        if hasattr(getattr(self, name), "name1"):
+            getattr(self, name).name1 = name
 
     def initialList(self):
         self.VIDLi = list()
@@ -60,12 +73,6 @@ class Element(Atom):
 
     def after(e):
         pass
-
-    def __setattr__(self, name, value):
-        super().__setattr__(name, value)
-        if eval("hasattr(self." + name + ' ,"name1")'):
-            temp = eval("self." + name)
-            temp.name1 = name
 
     def realPrint(self):
         for v in self.VIDL:
