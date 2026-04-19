@@ -1,5 +1,7 @@
 from ValueT import ValueT
 
+# TODO: remove iadd, check all T types and operators
+
 
 class BooleanT(ValueT):
 
