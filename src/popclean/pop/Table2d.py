@@ -116,10 +116,10 @@ class Table2d:
         # return False
 
         ave = s.data[xi][yi] * w_x1 * w_y1
-        ave = s.data[xi][yi + 1] * w_x1 * w_y2
+        ave += s.data[xi][yi + 1] * w_x1 * w_y2
 
-        ave = s.data[xi + 1][yi] * w_x2 * w_y1
-        ave = s.data[xi + 1][yi + 1] * w_x2 * w_y2
+        ave += s.data[xi + 1][yi] * w_x2 * w_y1
+        ave += s.data[xi + 1][yi + 1] * w_x2 * w_y2
 
         return ave
 
