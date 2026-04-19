@@ -3,3 +3,4 @@
 .vscode/
 __pycache__/
 _version.py
+*.egg-info/
