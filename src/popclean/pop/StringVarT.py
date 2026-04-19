@@ -51,9 +51,9 @@ class StringVarT(ValueT):
 
         return self.ptr.v
 
-    def __iadd__(self, other):
-        self.set(other)
-        return self
+    # def __iadd__(self, other):
+    #     self.set(other)
+    #     return self
 
     def set(self, val):
 

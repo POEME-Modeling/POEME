@@ -26,19 +26,19 @@ class RealT(ValueT):
 
     def __truediv__(self, other):
 
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return self.v / other
 
         return self.v / other.v
 
     def __rtruediv__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return other / self.v
 
         return other.v / self.f
 
     def __mul__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return self.v * other
         return self.v * other.v
 
@@ -46,7 +46,7 @@ class RealT(ValueT):
         return self.v * other
 
     def __gt__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             temp = self.v
             return temp > other
         else:
@@ -56,7 +56,7 @@ class RealT(ValueT):
         return other > self.v
 
     def __lt__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             temp = self.v
             return temp < other
         else:
@@ -66,7 +66,7 @@ class RealT(ValueT):
         return other < self.v
 
     def __sub__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return self.v - other
         return self.v - other.v
 
@@ -75,7 +75,7 @@ class RealT(ValueT):
         return other - temp
 
     def __add__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return self.v + other
         return self.v + other.v
 
@@ -84,7 +84,7 @@ class RealT(ValueT):
         return other + temp
 
     def __pow__(self, other):
-        if isinstance(other, float):
+        if isinstance(other, (int, float)):
             return self.v**other
         return self.v**other.v
 
@@ -92,16 +92,16 @@ class RealT(ValueT):
         length = 1
         return str(self.v)
 
-    def __iadd__(self, other):
-        if isinstance(other, float):
-            self.v = other
-            return self
-            print(self.v)
-        self.v = other.v
-        return self
+    # def __iadd__(self, other):
+    #     if isinstance(other, (int, float)):
+    #         self.v = other
+    #         return self
+    #         print(self.v)
+    #     self.v = other.v
+    #     return self
 
     def set(self, v):
-        if isinstance(v, float):
+        if isinstance(v, (int, float)):
             self.v = v
         else:
             self.v = v.v
