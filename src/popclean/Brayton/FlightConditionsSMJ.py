@@ -490,7 +490,7 @@ class FlightConditionsSMJ(Element):
     def calc(f):
 
         # set the comp
-        f.FNo.comp += f.comp
+        f.FNo.comp = f.comp
 
         # read atmospheric conditions
         f.Tamb = f.Ttable.calc(f.alt)

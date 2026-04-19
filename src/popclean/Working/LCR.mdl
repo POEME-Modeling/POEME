@@ -45,7 +45,7 @@ R.EPi.linkE( E1 )
 R.EPo.linkE( S2 )
 
 estuff=Output( "estuff" )
-estuff.filename += "estuff.out"
+estuff.filename = "estuff.out"
 estuff.vars = [ ]
 
 E1.con_1 = Constraint( E1, d1name="E1.IinIp1", d2name="E1.IoutI", depname="E1.dep_2", active=False )
