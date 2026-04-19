@@ -237,7 +237,7 @@ class scottPrint:
                         )
 
 
-os.system("del pop.out")
+os.remove("pop.out")
 out = open("pop.out", "a")
-os.system("del pretty.out")
+os.remove("pretty.out")
 pretty = open("pretty.out", "a")
