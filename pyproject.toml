@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "popclean"
+description = "A Python package for thermodynamic cycle analysis."
+readme = "README.rst"
+dynamic = ["version"]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "Coolprop",
+    "cantera",
+]
+
+[dependency-groups]
+lint = ["ruff"]
+
+dev = [
+    {include-group = "lint"},
+]
+
+[tool.setuptools_scm]
+write_to = "src/popclean/_version.py"
+
+[tool.ruff]
+exclude = ["design/*"]
+
+[tool.ruff.lint]
+select = [
+    "S", # flake8-bandit
+    "B", # flake8-bugbear
+    "EM", # flake8-errmsg
+    "PT", # flake8-pytest-style
+    "SIM", # flake8-simplify
+    "I", # isort
+    "NPY", # numpy-specific-rules
+    "N", # pep8-naming
+    "PERF", # perflint
+    "E","W", # pycodestyle
+    # "D", # pydocstyle
+    "F", # pyflakes
+    "PL", # pylint
+    "UP", # pyupgrade
+]
+ignore = [
+    "F821", # Undefined name ... (too dynamic)
+    "D1", # Missing docstring in ... (use doc coverage for now)
+    "PLR09", # Too many statements/arguments/etc (preference)
+    "PLR2004", # Magic value used in comparison (preference)
+]
+
+[tool.isort]
+profile = "black"
