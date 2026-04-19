@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: popclean
+Version: 0.1.dev60+g3d95d2e17.d20260419
+Summary: A Python package for thermodynamic cycle analysis.
+Description-Content-Type: text/x-rst
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: Coolprop
+Requires-Dist: cantera
