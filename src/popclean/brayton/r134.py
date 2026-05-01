@@ -1,0 +1,29 @@
+import os
+
+import numpy as np
+
+from popclean import interp2D
+
+
+class R134:
+    # Load data from file
+    _data_file = os.path.join(os.path.dirname(__file__), "r134_data.npz")
+    _data = np.load(_data_file)
+
+    h_hp = _data["h_hp"].tolist()
+    p_hp = _data["P_hp"].tolist()
+    t_hpt = _data["T_hPt"].tolist()
+    s_hpt = _data["s_hPt"].tolist()
+    rho_hp = _data["rho_hp"].tolist()
+
+    @staticmethod
+    def t_hp(ht, pt):
+        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.t_hpt)
+
+    @staticmethod
+    def s_hp(ht, pt):
+        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.s_hpt)
+
+    @staticmethod
+    def rho(ht, pt):
+        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.rho_hp)

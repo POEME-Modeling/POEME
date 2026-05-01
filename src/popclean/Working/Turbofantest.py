@@ -3,14 +3,22 @@
 # ------------------------------------------------------
 import time
 
+from popclean import Constraint, Dependent, Independent, Output, RealT, g
+from popclean.brayton import (
+    MP,
+    Burner,
+    Compressor,
+    Duct,
+    FlightConditionsSMJ,
+    Inlet,
+    Nozzle,
+    Perf,
+    Shaft,
+    Splitter,
+    Turbine,
+)
+
 start_time = time.time()
-
-exec(open("pop.std").read())
-loadDirectory("../pop")
-loadDirectory("../Brayton")
-exec(open("temp.include").read())
-import g
-
 g.out = open("pop.out", "a")
 g.pretty = open("pretty.out", "a")
 
@@ -31,52 +39,52 @@ HPT = Turbine("HPT")
 duct45 = Duct("duct45")
 LPT = Turbine("LPT")
 duct5 = Duct("duct5")
-priNozzle = Nozzle("priNozzle")
+pri_nozzle = Nozzle("pri_nozzle")
 
 duct17 = Duct("duct17")
-fanNozzle = Nozzle("fanNozzle")
-HPshaft = Shaft("HPshaft")
-LPshaft = Shaft("LPshaft")
+fan_nozzle = Nozzle("fan_nozzle")
+hp_shaft = Shaft("HPshaft")
+lp_shaft = Shaft("LPshaft")
 
-LPshaft.MPfan = MP(LPshaft, "in")
-LPshaft.MPlpc = MP(LPshaft, "in")
-LPshaft.MPlpt = MP(LPshaft, "in")
+lp_shaft.MPfan = MP(lp_shaft, "in")
+lp_shaft.MPlpc = MP(lp_shaft, "in")
+lp_shaft.MPlpt = MP(lp_shaft, "in")
 
-HPshaft.MPC = MP(HPshaft, "in")
-HPshaft.MPT = MP(HPshaft, "in")
+hp_shaft.MPC = MP(hp_shaft, "in")
+hp_shaft.MPT = MP(hp_shaft, "in")
 
 Perf = Perf("Perf")
 
 # --------------------------------------
 # link the objects together
 # -------------------------------------
-inlet.FNi.linkFN(start.FNo)
-fan.FNi.linkFN(inlet.FNo)
-splitter.FNi.linkFN(fan.FNo)
-duct17.FNi.linkFN(splitter.FNo2)
-fanNozzle.FNi.linkFN(duct17.FNo)
-duct2.FNi.linkFN(splitter.FNo1)
-LPC.FNi.linkFN(duct2.FNo)
-duct25.FNi.linkFN(LPC.FNo)
-HPC.FNi.linkFN(duct25.FNo)
-duct3.FNi.linkFN(HPC.FNo)
-burner.FNi.linkFN(duct3.FNo)
-HPT.FNi.linkFN(burner.FNo)
-duct45.FNi.linkFN(HPT.FNo)
-LPT.FNi.linkFN(duct45.FNo)
-duct5.FNi.linkFN(LPT.FNo)
-priNozzle.FNi.linkFN(duct5.FNo)
+inlet.FNi.link_fn(start.FNo)
+fan.FNi.link_fn(inlet.FNo)
+splitter.FNi.link_fn(fan.FNo)
+duct17.FNi.link_fn(splitter.FNo2)
+fan_nozzle.FNi.link_fn(duct17.FNo)
+duct2.FNi.link_fn(splitter.FNo1)
+LPC.FNi.link_fn(duct2.FNo)
+duct25.FNi.link_fn(LPC.FNo)
+HPC.FNi.link_fn(duct25.FNo)
+duct3.FNi.link_fn(HPC.FNo)
+burner.FNi.link_fn(duct3.FNo)
+HPT.FNi.link_fn(burner.FNo)
+duct45.FNi.link_fn(HPT.FNo)
+LPT.FNi.link_fn(duct45.FNo)
+duct5.FNi.link_fn(LPT.FNo)
+pri_nozzle.FNi.link_fn(duct5.FNo)
 
-LPshaft.MPfan.linkMP(fan.MP)
-LPshaft.MPlpc.linkMP(LPC.MP)
-LPshaft.MPlpt.linkMP(LPT.MP)
+lp_shaft.MPfan.link_mp(fan.MP)
+lp_shaft.MPlpc.link_mp(LPC.MP)
+lp_shaft.MPlpt.link_mp(LPT.MP)
 
-HPshaft.MPC.linkMP(HPC.MP)
-HPshaft.MPT.linkMP(HPT.MP)
+hp_shaft.MPC.link_mp(HPC.MP)
+hp_shaft.MPT.link_mp(HPT.MP)
 
-HPT.FNiBld2.linkFN(HPC.FNoBld1)
-HPT.FNiBld1.linkFN(duct3.FNobld)
-LPT.FNiBld1.linkFN(HPC.FNoBld2)
+HPT.FNiBld2.link_fn(HPC.FNoBld1)
+HPT.FNiBld1.link_fn(duct3.FNobld)
+LPT.FNiBld1.link_fn(HPC.FNoBld2)
 
 
 # ------------------------------------------------------------------------
@@ -87,7 +95,7 @@ start.MN = 0.80
 start.W = 813.51
 
 # use cantera for fluid properties
-start.comp = "canteraFN"
+start.comp = "CanteraFN"
 
 
 # use tables for fluid properties
@@ -154,21 +162,21 @@ LPT.NcMapDes = 0.9
 duct5.dP = 0.010
 # duct5.FNo.MN = 0.25
 
-priNozzle.PsExh = "start.Pamb"
-priNozzle.Cfg = 0.999
+pri_nozzle.PsExh = "start.Pamb"
+pri_nozzle.Cfg = 0.999
 
 duct17.dP = 0.015
 # duct17.FNo.MN = 0.45
 
-fanNozzle.PsExh = "start.Pamb"
-fanNozzle.Cfg = 0.9975
+fan_nozzle.PsExh = "start.Pamb"
+fan_nozzle.Cfg = 0.9975
 
-HPshaft.N = 20871.0
-HPshaft.I = 6.0
-HPshaft.HPX = 350.0
+hp_shaft.N = 20871.0
+hp_shaft.I = 6.0
+hp_shaft.HPX = 350.0
 
-LPshaft.N = 6772.0
-LPshaft.I = 6.0
+lp_shaft.N = 6772.0
+lp_shaft.I = 6.0
 
 
 # =======================================================================
@@ -2234,20 +2242,19 @@ estuff.vars = [start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel]
 # run the DESIGN case
 # -------------------------------------
 g.check()
-checkType()
+
 g.NS.solve()
 g.prettyPrint.print()
 
 
-case = 0
+_case_counter = {"count": 0}
 
 
-def runThrottleHook(MNset, altitude):
+def run_throttle_hook(mnset, altitude):
 
-    global case
-    case = case + 1
+    _case_counter["count"] += 1
     fan.NcDem = 1.0
-    start.MN = MNset
+    start.MN = mnset
     start.alt = altitude
     g.NS.saveInds()
     g.NS.run()
@@ -2256,7 +2263,7 @@ def runThrottleHook(MNset, altitude):
     Perf.FnetMax = RealT(Perf)
     Perf.FnetMax = Perf.Fn
 
-    case = case + 1
+    _case_counter["count"] += 1
     g.NS.saveInds()
     factor = 0.9
     start.Fdem = start.Fnet * factor
@@ -2275,7 +2282,7 @@ def runThrottleHook(MNset, altitude):
         # g.prettyPrint.print()
         factor = (Perf.Fn) / Perf.FnetMax
         print(start.MN, start.alt, burner.FAR, Perf.Fn, factor, g.NS.converged)
-        case = case + 1
+        _case_counter["count"] += 1
 
     fan.dep_NmechC.active = True
     burner.con_1.on = True
@@ -2284,11 +2291,11 @@ def runThrottleHook(MNset, altitude):
     fan.NcDem = 1.0
     g.NS.restoreInds()
     g.NS.run()
-    case = case + 1
+    _case_counter["count"] += 1
 
 
-def printStations():
-    print("CASE # ", case)
+def print_stations():
+    print("CASE # ", _case_counter["count"])
     print(
         "---",
         start.MN,
@@ -2428,34 +2435,34 @@ def printStations():
     )
     print(
         "core nozzle out",
-        priNozzle.FNo.W,
-        priNozzle.FNo.Pt,
-        priNozzle.FNo.Tt,
-        priNozzle.FNo.Ps,
-        priNozzle.FNo.Ts,
-        priNozzle.FNo.rhos,
-        priNozzle.FNo.MN,
+        pri_nozzle.FNo.W,
+        pri_nozzle.FNo.Pt,
+        pri_nozzle.FNo.Tt,
+        pri_nozzle.FNo.Ps,
+        pri_nozzle.FNo.Ts,
+        pri_nozzle.FNo.rhos,
+        pri_nozzle.FNo.MN,
     )
-    print("duct 17 out", fanNozzle.FNi.W, fanNozzle.FNi.Pt, fanNozzle.FNi.Tt)
+    print("duct 17 out", fan_nozzle.FNi.W, fan_nozzle.FNi.Pt, fan_nozzle.FNi.Tt)
     print(
         "bypass nozzle out",
-        fanNozzle.FNo.W,
-        fanNozzle.FNo.Pt,
-        fanNozzle.FNo.Tt,
-        fanNozzle.FNo.Ps,
-        fanNozzle.FNo.Ts,
-        fanNozzle.FNo.rhos,
-        fanNozzle.FNo.MN,
+        fan_nozzle.FNo.W,
+        fan_nozzle.FNo.Pt,
+        fan_nozzle.FNo.Tt,
+        fan_nozzle.FNo.Ps,
+        fan_nozzle.FNo.Ts,
+        fan_nozzle.FNo.rhos,
+        fan_nozzle.FNo.MN,
     )
     print(" ")
-    print(priNozzle.FNo.V / fanNozzle.FNo.V)
+    print(pri_nozzle.FNo.V / fan_nozzle.FNo.V)
     print(
         "HP power balance: ",
         HPC.MP.hp,
         "=",
         HPT.MP.hp,
         " + ",
-        HPshaft.HPX,
+        hp_shaft.HPX,
         " HP extraction",
     )
     print(
@@ -2474,8 +2481,8 @@ g.prettyPrint.print()
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 g.set("size", False)
-fanNozzle.ind_Area = Independent(
-    fanNozzle,
+fan_nozzle.ind_Area = Independent(
+    fan_nozzle,
     indname="Anoz",
     perturb=0.05,
     scale=100,
@@ -2511,82 +2518,87 @@ fan.dep_NmechC = Dependent(
 burner.con_1 = Constraint(
     burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True
 )
-# start.dep_Fnet = Dependent( fan, d1name="start.Fnet", d2name="start.Fdem", active=True, desc="Handles weight flow error" )
+# start.dep_Fnet = Dependent( fan, d1name="start.Fnet",
+# d2name="start.Fdem", active=True, desc="Handles weight flow error" )
 
 g.check()
 
-runThrottleHook(0.90, 45000.0)
-runThrottleHook(0.85, 45000.0)
-runThrottleHook(0.80, 45000.0)
-runThrottleHook(0.75, 45000.0)
-runThrottleHook(0.70, 45000.0)
+run_throttle_hook(0.90, 45000.0)
+run_throttle_hook(0.85, 45000.0)
+run_throttle_hook(0.80, 45000.0)
+run_throttle_hook(0.75, 45000.0)
+run_throttle_hook(0.70, 45000.0)
 
-runThrottleHook(0.60, 40000.0)
-runThrottleHook(0.70, 40000.0)
-runThrottleHook(0.75, 40000.0)
-runThrottleHook(0.80, 40000.0)
-runThrottleHook(0.85, 40000.0)
-runThrottleHook(0.90, 40000.0)
+run_throttle_hook(0.60, 40000.0)
+run_throttle_hook(0.70, 40000.0)
+run_throttle_hook(0.75, 40000.0)
+run_throttle_hook(0.80, 40000.0)
+run_throttle_hook(0.85, 40000.0)
+run_throttle_hook(0.90, 40000.0)
 
-runThrottleHook(0.90, 36089.0)
-runThrottleHook(0.85, 36089.0)
-runThrottleHook(0.80, 36089.0)
-runThrottleHook(0.75, 36089.0)
-runThrottleHook(0.70, 36089.0)
-runThrottleHook(0.60, 36089.0)
+run_throttle_hook(0.90, 36089.0)
+run_throttle_hook(0.85, 36089.0)
+run_throttle_hook(0.80, 36089.0)
+run_throttle_hook(0.75, 36089.0)
+run_throttle_hook(0.70, 36089.0)
+run_throttle_hook(0.60, 36089.0)
 
-runThrottleHook(0.50, 30000.0)
-runThrottleHook(0.60, 30000.0)
-runThrottleHook(0.70, 30000.0)
-runThrottleHook(0.75, 30000.0)
-runThrottleHook(0.80, 30000.0)
-runThrottleHook(0.85, 30000.0)
+run_throttle_hook(0.50, 30000.0)
+run_throttle_hook(0.60, 30000.0)
+run_throttle_hook(0.70, 30000.0)
+run_throttle_hook(0.75, 30000.0)
+run_throttle_hook(0.80, 30000.0)
+run_throttle_hook(0.85, 30000.0)
 
-runThrottleHook(0.80, 25000.0)
-runThrottleHook(0.75, 25000.0)
-runThrottleHook(0.70, 25000.0)
-runThrottleHook(0.60, 25000.0)
-runThrottleHook(0.50, 25000.0)
+run_throttle_hook(0.80, 25000.0)
+run_throttle_hook(0.75, 25000.0)
+run_throttle_hook(0.70, 25000.0)
+run_throttle_hook(0.60, 25000.0)
+run_throttle_hook(0.50, 25000.0)
 
-runThrottleHook(0.40, 20000.0)
-runThrottleHook(0.50, 20000.0)
-runThrottleHook(0.60, 20000.0)
-runThrottleHook(0.70, 20000.0)
-runThrottleHook(0.75, 20000.0)
+run_throttle_hook(0.40, 20000.0)
+run_throttle_hook(0.50, 20000.0)
+run_throttle_hook(0.60, 20000.0)
+run_throttle_hook(0.70, 20000.0)
+run_throttle_hook(0.75, 20000.0)
 
-runThrottleHook(0.70, 15000.0)
-runThrottleHook(0.60, 15000.0)
-runThrottleHook(0.50, 15000.0)
-runThrottleHook(0.40, 15000.0)
-runThrottleHook(0.30, 15000.0)
+run_throttle_hook(0.70, 15000.0)
+run_throttle_hook(0.60, 15000.0)
+run_throttle_hook(0.50, 15000.0)
+run_throttle_hook(0.40, 15000.0)
+run_throttle_hook(0.30, 15000.0)
 
-runThrottleHook(0.60, 10000.0)
-runThrottleHook(0.50, 10000.0)
-runThrottleHook(0.40, 10000.0)
+run_throttle_hook(0.60, 10000.0)
+run_throttle_hook(0.50, 10000.0)
+run_throttle_hook(0.40, 10000.0)
 
 
-runThrottleHook(0.00, 5000.0)
-runThrottleHook(0.10, 5000.0)
-runThrottleHook(0.20, 5000.0)
-runThrottleHook(0.25, 5000.0)
-runThrottleHook(0.30, 5000.0)
-runThrottleHook(0.40, 5000.0)
-runThrottleHook(0.50, 5000.0)
+run_throttle_hook(0.00, 5000.0)
+run_throttle_hook(0.10, 5000.0)
+run_throttle_hook(0.20, 5000.0)
+run_throttle_hook(0.25, 5000.0)
+run_throttle_hook(0.30, 5000.0)
+run_throttle_hook(0.40, 5000.0)
+run_throttle_hook(0.50, 5000.0)
 
-runThrottleHook(0.50, 2000.0)
-runThrottleHook(0.40, 2000.0)
-runThrottleHook(0.30, 2000.0)
-runThrottleHook(0.25, 2000.0)
-runThrottleHook(0.20, 2000.0)
-runThrottleHook(0.10, 2000.0)
-runThrottleHook(0.00, 2000.0)
+run_throttle_hook(0.50, 2000.0)
+run_throttle_hook(0.40, 2000.0)
+run_throttle_hook(0.30, 2000.0)
+run_throttle_hook(0.25, 2000.0)
+run_throttle_hook(0.20, 2000.0)
+run_throttle_hook(0.10, 2000.0)
+run_throttle_hook(0.00, 2000.0)
 
-runThrottleHook(0.50, 0.0)
-runThrottleHook(0.40, 0.0)
-runThrottleHook(0.30, 0.0)
-runThrottleHook(0.25, 0.0)
-runThrottleHook(0.20, 0.0)
-runThrottleHook(0.10, 0.0)
-runThrottleHook(0.00, 0.0)
+run_throttle_hook(0.50, 0.0)
+run_throttle_hook(0.40, 0.0)
+run_throttle_hook(0.30, 0.0)
+run_throttle_hook(0.25, 0.0)
+run_throttle_hook(0.20, 0.0)
+run_throttle_hook(0.10, 0.0)
+run_throttle_hook(0.00, 0.0)
 
-print(time.time() - start_time, case, (time.time() - start_time) / case)
+print(
+    time.time() - start_time,
+    _case_counter["count"],
+    (time.time() - start_time) / _case_counter["count"],
+)

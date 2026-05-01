@@ -46,6 +46,8 @@ select = [
     "UP", # pyupgrade
 ]
 ignore = [
+    "E712", # Avoid equality comparisons to `False` (needed for BooleanT)
+    "SIM115", # Global variables used for printing: GET RID OF THIS ASAP!
     "F821", # Undefined name ... (too dynamic)
     "D1", # Missing docstring in ... (use doc coverage for now)
     "PLR09", # Too many statements/arguments/etc (preference)
