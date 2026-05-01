@@ -1,10 +1,5 @@
-exec(open("pop.std").read())
-
-loadDirectory("../pop")
-loadDirectory("../SpringMass")
-
-exec(open("temp.include").read())
-import g
+from popclean import Newton, Output, g
+from popclean.spring_mass import Damper, Fp, Mass, Spring, Wall
 
 g.out = open("pop.out", "a")
 g.pretty = open("pretty.out", "a")
@@ -28,11 +23,11 @@ M1.xloc = 3.0
 M1.Fp1 = Fp(M1, "in", "")
 M1.Fp2 = Fp(M1, "in", "")
 
-S1.Fp1.linkFp(W1.Fp1)
-S1.Fp2.linkFp(M1.Fp1)
+S1.Fp1.link_fp(W1.Fp1)
+S1.Fp2.link_fp(M1.Fp1)
 
-D1.Fp1.linkFp(W1.Fp2)
-D1.Fp2.linkFp(M1.Fp2)
+D1.Fp1.link_fp(W1.Fp2)
+D1.Fp2.link_fp(M1.Fp2)
 
 g.check()
 

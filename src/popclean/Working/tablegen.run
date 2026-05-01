@@ -51,12 +51,12 @@ Cp2=[]
 
 FN = FN( 0 )
 
-FN.comp.set( "canteraFN" )
+FN.comp.set( "CanteraFN" )
 for FAR in FAR_TP:
 	for P in P_TP:
 		for T in T_TP:
 			FN.FAR.set( FAR )
-			FN.setTP( T, float( P ) )
+			FN.set_tp( T, float( P ) )
 			s.append( FN.s.v )
 			h.append( FN.ht.v )
 			rho.append( FN.rhot.v )
@@ -104,4 +104,4 @@ print( "    Cp_TPt = ", Cp2, file=f )
 
 f.close()
 
-os.system( "type table.top table.data table.bottom > newtherm.py" )
+os.system( "type table.top table.data table.bottom > Newtherm.py" )

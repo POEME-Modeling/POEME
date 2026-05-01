@@ -1,21 +1,21 @@
 
-    def gam( T, P, FAR, p ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.gam_TPt, p )
+    def gamma( T, P, FAR, p ):
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.gam_TPt, p )
 
     def rho( T, P, FAR, p  ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.rho_TPt, p )
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.rho_TPt, p )
 
-    def Cp( T, P, FAR, p ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.Cp_TPt, p )
+    def cp( T, P, FAR, p ):
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.Cp_TPt, p )
 
-    def h_TP( T, P, FAR, p ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.h_TPt, p )
+    def h_tp( T, P, FAR, p ):
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.h_TPt, p )
 
-    def s_TP( T, P, FAR, p ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.s_TPt, p )
+    def s_tp( T, P, FAR, p ):
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.s_TPt, p )
 
-    def R( T, P, FAR, p ):
-        return interp3D( FAR, P, T, newtherm.FAR_TP, newtherm.P_TP, newtherm.T_TP, newtherm.R_TPt, p )
+    def r( T, P, FAR, p ):
+        return interp3D( FAR, P, T, Newtherm.FAR_TP, Newtherm.P_TP, Newtherm.T_TP, Newtherm.R_TPt, p )
 
     def mu( T, P, FAR, p ):
         return 0
@@ -23,14 +23,14 @@
     def k( T, P, FAR, p ):
         return 0
 
-    def T_sP( s, P, FAR, p ):
+    def t_sp( s, P, FAR, p ):
         T = 1500
-        scalc = newtherm.s_TP( T, P, FAR, p )
+        scalc = Newtherm.s_tp( T, P, FAR, p )
 
         errorm1 = ( scalc - s )/s
         xm1 =  T
         T = T*.95
-        scalc = newtherm.s_TP( T, P, FAR, p )
+        scalc = Newtherm.s_tp( T, P, FAR, p )
         error = ( scalc - s )/ s
         x = T
         count = 0
@@ -45,7 +45,7 @@
             errorm1 = error
             x = xp1
             T = x
-            scalc = newtherm.s_TP( T, P, FAR, p )
+            scalc = Newtherm.s_tp( T, P, FAR, p )
             error = ( scalc - s )/ s
 
         if count > 49:
@@ -53,13 +53,13 @@
 
         return T
 
-    def T_hP( h, P, FAR, p ):
+    def t_hp( h, P, FAR, p ):
         T = 1500
-        hcalc = newtherm.h_TP( T, P, FAR, p )
+        hcalc = Newtherm.h_tp( T, P, FAR, p )
         errorm1 = ( hcalc - h )/h
         xm1 =  T
         T = T*.95
-        hcalc = newtherm.h_TP( T, P, FAR, p )
+        hcalc = Newtherm.h_tp( T, P, FAR, p )
         error = ( hcalc - h )/ h
         x = T
         count = 0
@@ -74,7 +74,7 @@
             errorm1 = error
             x = xp1
             T = x
-            hcalc = newtherm.h_TP( T, P, FAR, p )
+            hcalc = Newtherm.h_tp( T, P, FAR, p )
             error = ( hcalc - h )/ h
         if count > 49:
             varsg.errors = varsg.errors + "Error in T_hp"

@@ -2,4 +2,4 @@ from interp3D import interp3D
 import numpy as np
 import varsg
 
-class newtherm:
+class Newtherm:

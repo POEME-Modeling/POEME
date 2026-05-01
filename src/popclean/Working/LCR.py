@@ -1,8 +1,5 @@
-exec(open("pop.std").read())
-loadDirectory("../pop")
-loadDirectory("../Electrical")
-exec(open("temp.include").read())
-import g
+from popclean import Constraint, Newton, Output, g
+from popclean.electrical import Capacitor, Enode, Esource, Inductor, Resistor
 
 g.out = open("pop.out", "a")
 g.pretty = open("pretty.out", "a")
@@ -13,8 +10,8 @@ R.R = 470.0
 C1 = Capacitor("C1")
 C1.C = 4.7 * 10**-6
 
-I = Inductor("I")
-I.L = 65.0 * 10.0**-2
+I1 = Inductor("I1")
+I1.L = 65.0 * 10.0**-2
 
 C2 = Capacitor("C2")
 C2.C = 1.5 * 10**-6
@@ -35,14 +32,14 @@ S2 = Esource("S2")
 
 g.set("freq", 60.0)
 
-C1.EPi.linkE(S1)
-C1.EPo.linkE(E1)
-I.EPi.linkE(E1)
-I.EPo.linkE(E2)
-C2.EPi.linkE(E2)
-C2.EPo.linkE(S2)
-R.EPi.linkE(E1)
-R.EPo.linkE(S2)
+C1.EPi.link_e(S1)
+C1.EPo.link_e(E1)
+I1.EPi.link_e(E1)
+I1.EPo.link_e(E2)
+C2.EPi.link_e(E2)
+C2.EPo.link_e(S2)
+R.EPi.link_e(E1)
+R.EPo.link_e(S2)
 
 estuff = Output("estuff")
 estuff.filename = "estuff.out"

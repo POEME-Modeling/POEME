@@ -1,8 +1,5 @@
-exec(open("pop.std").read())
-loadDirectory("../pop")
-loadDirectory("../Brayton")
-exec(open("temp.include").read())
-import g
+from popclean import Independent, Newton, g
+from popclean.brayton import Compressor, Duct, FlowStartEnd2D
 
 g.out = open("pop.out", "a")
 g.pretty = open("pretty.out", "a")
@@ -12,7 +9,7 @@ FSE.Pt = 43.5
 FSE.comp = "CPR134"
 FSE.FNo.twoPhase = True
 FSE.FNo.comp = "CPR134"
-FSE.FNo.setTP(506.0, 43.5)
+FSE.FNo.set_tp(506.0, 43.5)
 FSE.ht = FSE.FNo.ht
 FSE.W = 30.0
 
@@ -31,7 +28,7 @@ Evap.Q = +500.0
 
 Comp.PRdes = 9.0 / 1.4
 Comp.effDes = 0.89
-Comp.MP.setN(6000.0)
+Comp.MP.set_n(6000.0)
 Comp.NcMapDes = 0.9
 Comp.RlineDes = 2.0
 Comp.effTable.x = [0.8, 0.95, 1.1]
@@ -54,11 +51,11 @@ Comp.WcTable.data = [
 ]
 
 
-FSE.FNo.linkFN(Comp.FNi)
-Comp.FNo.linkFN(Condensor.FNi)
-Condensor.FNo.linkFN(Valve.FNi)
-Valve.FNo.linkFN(Evap.FNi)
-Evap.FNo.linkFN(FSE.FNi)
+FSE.FNo.link_fn(Comp.FNi)
+Comp.FNo.link_fn(Condensor.FNi)
+Condensor.FNo.link_fn(Valve.FNi)
+Valve.FNo.link_fn(Evap.FNi)
+Evap.FNo.link_fn(FSE.FNi)
 
 Comp.ind_PRdes = Independent(
     Comp,

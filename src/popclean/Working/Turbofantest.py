@@ -99,7 +99,7 @@ start.comp = "CanteraFN"
 
 
 # use tables for fluid properties
-start.comp = "newtherm"
+start.comp = "Newtherm"
 
 inlet.rec = 0.998  # inlet recovery 0.998
 # inlet.FNo.MN = 0.625
