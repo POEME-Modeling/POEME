@@ -1,4 +1,4 @@
-import CoolProp.CoolProp
+from CoolProp import CoolProp
 
 fluid = "R134a"
 

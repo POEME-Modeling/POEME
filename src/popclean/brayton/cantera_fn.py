@@ -227,11 +227,11 @@ class CanteraFN:
     @staticmethod
     def t_hp(h, pressure, fuel_air_ratio, p):
         temperature = 1500
-        hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio, p)
+        hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio, p)
         errorm1 = (hcalc - h) / h
         xm1 = temperature
         temperature = temperature * 0.95
-        hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio, p)
+        hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio, p)
         error = (hcalc - h) / h
         x = temperature
 
@@ -245,21 +245,21 @@ class CanteraFN:
             errorm1 = error
             x = xp1
             temperature = x
-            hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio, p)
+            hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio, p)
             error = (hcalc - h) / h
 
         return temperature
 
     @staticmethod
-    def p_hs(h, s, fuel_air_ratio, pressure):
-        temperature = CanteraFN.T_sP(s, pressure, fuel_air_ratio)
+    def p_hs(h, s, fuel_air_ratio, pressure, p):
+        temperature = CanteraFN.t_sp(s, pressure, fuel_air_ratio)
 
-        hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio, p)
+        hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio, p)
         errorm1 = (hcalc - h) / h
         xm1 = pressure
         pressure = pressure * 0.95
         temperature = CanteraFN.T_sP(s, pressure, fuel_air_ratio)
-        hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio, p)
+        hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio, p)
         error = (hcalc - h) / h
         x = pressure
 
@@ -273,8 +273,8 @@ class CanteraFN:
             errorm1 = error
             x = xp1
             pressure = x
-            temperature = CanteraFN.T_sP(s, pressure, fuel_air_ratio)
-            hcalc = CanteraFN.h_TP(temperature, pressure, fuel_air_ratio)
+            temperature = CanteraFN.t_sp(s, pressure, fuel_air_ratio)
+            hcalc = CanteraFN.h_tp(temperature, pressure, fuel_air_ratio)
             error = (hcalc - h) / h
 
         return pressure
