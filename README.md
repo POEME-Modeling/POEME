@@ -3,7 +3,7 @@
 > Short one-line description of what this project does.
 
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
-<!-- ![License](https://img.shields.io/badge/license-MIT-green) -->
+![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
 ---
