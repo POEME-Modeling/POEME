@@ -181,13 +181,7 @@ Please make sure your code follows the existing style and that all tests pass be
 ---
 
 ## License
-
-<!-- Replace this section with your chosen license. For example: -->
-TODO: Choose license file!!!
 This project is licensed under the [MIT License](LICENSE).
-
-<!-- Or: -->
-<!-- This project is licensed under the Apache 2.0 License — see the [LICENSE](LICENSE) file for details. -->
 
 ---
 
