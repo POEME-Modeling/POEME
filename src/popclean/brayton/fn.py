@@ -1,7 +1,6 @@
 import math
 
 from popclean import Atom, BooleanT, RealT, StringT, ValueT, g
-from popclean.working.newtherm import Newtherm
 
 from .air2 import Air2
 from .air4 import Air4
@@ -9,6 +8,7 @@ from .air6 import Air6
 from .cantera_fn import CanteraFN
 from .cpr134 import CPR134
 from .h2o import H2O
+from .newtherm import Newtherm
 from .r32 import R32
 from .r134 import R134
 
