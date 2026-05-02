@@ -71,7 +71,7 @@ class CPR134:
         return 0.0
 
     @staticmethod
-    def gam(ht, pt, fuel_air_ratio, p):
+    def gamma(ht, pt, fuel_air_ratio, p):
         return 0.0
 
     @staticmethod

@@ -1,5 +1,5 @@
 
-    def gam( T, P, FAR, p ):
+    def gamma( T, P, FAR, p ):
         return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.gam_TPt, p )
 
     def rho( T, P, FAR, p  ):

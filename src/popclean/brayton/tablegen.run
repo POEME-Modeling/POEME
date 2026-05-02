@@ -43,7 +43,7 @@ rho2=[]
 R=[]
 R1=[]
 R2=[]
-gam=[]
+gamma=[]
 gam1=[]
 gam2=[]
 Cp=[]
@@ -62,7 +62,7 @@ for FAR in FAR_TP:
 			h.append( FN.ht.v )
 			rho.append( FN.rhot.v )
 			R.append( FN.Rt.v )
-			gam.append( FN.gamt.v )
+			gamma.append( FN.gamt.v )
 			Cp.append( FN.Cpt.v )
 		h1.append( h )
 		h=[]
@@ -72,8 +72,8 @@ for FAR in FAR_TP:
 		rho=[]
 		R1.append( R )
 		R=[]
-		gam1.append( gam )
-		gam=[]
+		gam1.append( gamma )
+		gamma=[]
 		Cp1.append( Cp )
 		Cp=[]
 	h2.append( h1 )

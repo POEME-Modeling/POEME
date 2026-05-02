@@ -21,7 +21,7 @@ class Newtherm:
     s_tpt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def gam(temperature, pressure, fuel_air_ratio, p):
+    def gamma(temperature, pressure, fuel_air_ratio, p):
         return interp_3d(
             fuel_air_ratio,
             pressure,

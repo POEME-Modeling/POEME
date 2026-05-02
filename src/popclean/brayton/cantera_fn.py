@@ -13,7 +13,7 @@ class CanteraFN:
     g_fuel_air_ratio = -1.0
 
     @staticmethod
-    def gam(temperature, pressure, fuel_air_ratio, p):
+    def gamma(temperature, pressure, fuel_air_ratio, p):
         if fuel_air_ratio < 0.00001:
             if (
                 abs(gasair.T - temperature * 5.0 / 9) > 0.0001

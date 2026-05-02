@@ -137,7 +137,7 @@ class FN(Atom):
             self.Cpt.v = GAS_MODELS[self.comp.v].cp(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -162,7 +162,7 @@ class FN(Atom):
             self.Cpt.v = GAS_MODELS[self.comp.v].cp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -197,7 +197,7 @@ class FN(Atom):
             self.Rt.v = GAS_MODELS[self.comp.v].r(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -225,7 +225,7 @@ class FN(Atom):
             self.Rt.v = GAS_MODELS[self.comp.v].r(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -267,7 +267,7 @@ class FN(Atom):
             self.Rt.v = GAS_MODELS[self.comp.v].r(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -295,7 +295,7 @@ class FN(Atom):
             self.Rt.v = GAS_MODELS[self.comp.v].r(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.gamt.v = GAS_MODELS[self.comp.v].gam(
+            self.gamt.v = GAS_MODELS[self.comp.v].gamma(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.kt.v = GAS_MODELS[self.comp.v].k(
@@ -440,7 +440,7 @@ class FN(Atom):
             self.ks.v = GAS_MODELS[self.comp.v].k(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
-            self.gams.v = GAS_MODELS[self.comp.v].gam(
+            self.gams.v = GAS_MODELS[self.comp.v].gamma(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
             self.V.v = (
@@ -477,7 +477,7 @@ class FN(Atom):
             self.ks.v = GAS_MODELS[self.comp.v].k(
                 self.hs.v, self.Ps.v, self.FAR.v, self
             )
-            self.gams.v = GAS_MODELS[self.comp.v].gam(
+            self.gams.v = GAS_MODELS[self.comp.v].gamma(
                 self.hs.v, self.Ps.v, self.FAR.v, self
             )
             self.V.v = (

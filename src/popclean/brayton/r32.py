@@ -27,7 +27,7 @@ class R32:
         return 0.0
 
     @staticmethod
-    def gam(temperature, pressure, fuel_air_ratio, p):
+    def gamma(temperature, pressure, fuel_air_ratio, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P, "R32")
         return 0.0
 
