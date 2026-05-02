@@ -3,7 +3,7 @@
 > Short one-line description of what this project does.
 
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+<!-- ![License](https://img.shields.io/badge/license-MIT-green) -->
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
 ---
@@ -57,8 +57,8 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
+git clone https://github.com/cheesie1967/popclean.git
+cd popclean
 ```
 
 ### 2. Set Up a Virtual Environment
@@ -107,13 +107,7 @@ pip install .
 **For development**, install in editable mode with development dependencies:
 
 ```bash
-pip install -e ".[dev]"
-```
-
-**Alternatively**, if a `requirements.txt` is provided:
-
-```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 ---
@@ -123,7 +117,7 @@ pip install -r requirements.txt
 <!-- Provide basic usage examples here. Show the most common use cases with code snippets. -->
 
 ```python
-import yourpackage
+import popclean
 
 # Example usage
 ```
@@ -139,7 +133,7 @@ yourpackage --help
 ## Project Structure
 
 ```
-yourproject/
+popclean/
 ├── yourpackage/
 │   ├── __init__.py
 │   └── ...
@@ -189,7 +183,7 @@ Please make sure your code follows the existing style and that all tests pass be
 ## License
 
 <!-- Replace this section with your chosen license. For example: -->
-
+TODO: Choose license file!!!
 This project is licensed under the [MIT License](LICENSE).
 
 <!-- Or: -->
@@ -201,6 +195,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 <!-- Add your contact information or links here. For example: -->
 
-**Your Name** — [@yourtwitter](https://twitter.com/yourtwitter) — your@email.com
+<!-- **Your Name** — [@yourtwitter](https://twitter.com/yourtwitter) — your@email.com -->
 
-Project Link: [https://github.com/yourusername/yourproject](https://github.com/yourusername/yourproject)
+Project Link: [https://github.com/cheesie1967/popclean](https://github.com/cheesie1967/popclean)
