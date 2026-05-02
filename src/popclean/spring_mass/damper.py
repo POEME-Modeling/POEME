@@ -19,7 +19,7 @@ class Damper(Element):
         self.V = RealT(self, units="ft/sec", desc="Net velocity of the spring")
         self.length = RealT(self, units="ft", desc="Actual length of the spring")
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -33,7 +33,7 @@ class Damper(Element):
 
     def dump(self):
         print(self.name1, "Spring", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

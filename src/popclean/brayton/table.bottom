@@ -1,21 +1,21 @@
 
     def gam( T, P, FAR, p ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.gam_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.gam_TPt, p )
 
     def rho( T, P, FAR, p  ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.rho_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.rho_TPt, p )
 
     def Cp( T, P, FAR, p ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.Cp_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.Cp_TPt, p )
 
     def h_TP( T, P, FAR, p ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.h_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.h_TPt, p )
 
     def s_TP( T, P, FAR, p ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.s_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.s_TPt, p )
 
     def R( T, P, FAR, p ):
-        return interp3D( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.R_TPt, p )
+        return interp_3d( FAR, P, T, air4.FAR_TP, air4.P_TP, air4.T_TP, air4.R_TPt, p )
 
     def mu( T, P, FAR, p ):
         return 0

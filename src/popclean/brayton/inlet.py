@@ -16,7 +16,7 @@ class Inlet(Element):
         self.FNi = FN(self, io="in", desc="Incoming flow")
         self.FNo = FN(self, io="out", desc="Outgoing flow")
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
         # pass incoming flow information
@@ -26,7 +26,7 @@ class Inlet(Element):
 
     def dump(self):
         print(self.name1, "Duct", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

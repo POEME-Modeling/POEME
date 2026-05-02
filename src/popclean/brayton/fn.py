@@ -1,7 +1,7 @@
 import math
 
 from popclean import Atom, BooleanT, RealT, StringT, ValueT, g
-from popclean.Working.newtherm import Newtherm
+from popclean.working.newtherm import Newtherm
 
 from .air2 import Air2
 from .air4 import Air4

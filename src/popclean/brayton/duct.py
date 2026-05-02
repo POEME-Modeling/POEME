@@ -20,7 +20,7 @@ class Duct(Element):
         self.FNo = FN(self, io="out", desc="Outgoing flow")
         self.FNobld = FN(self, io="out", desc="Bleed flow")
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
         # pass incoming flow information
@@ -35,7 +35,7 @@ class Duct(Element):
 
     def dump(self):
         print(self.name1, "Duct", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

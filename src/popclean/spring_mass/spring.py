@@ -22,7 +22,7 @@ class Spring(Element):
 
         self.type = "Spring"
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -36,7 +36,7 @@ class Spring(Element):
 
     def dump(self):
         print(self.name1, "Spring", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

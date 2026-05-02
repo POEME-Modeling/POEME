@@ -19,7 +19,7 @@ class Wall(Element):
         self.Fp = RealT(self, units="lbf", desc="Force in the positive direction")
         self.Fn = RealT(self, units="lbf", desc="Force in the negative direction")
 
-        self.initialList()
+        self.initial_list()
 
     # first step in solver pass is to set the voltage in all of the ports
     def preset(self):
@@ -57,7 +57,7 @@ class Wall(Element):
 
     def dump(self):
         print(self.name, "Node", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

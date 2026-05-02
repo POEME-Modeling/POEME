@@ -65,7 +65,7 @@ class Enode(Element):
         )
         self.IoutR = RealT(self, units="amps", desc="Real component I going out")
         self.Inet = ComplexT(self, units="amps", desc="Current")
-        self.initialList()
+        self.initial_list()
 
     # def LinkPort( self, port ):
     # self.port_list.append( port )
@@ -117,7 +117,7 @@ class Enode(Element):
 
     def dump(self):
         print(self.name, "Node", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

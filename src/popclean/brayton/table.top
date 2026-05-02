@@ -1,4 +1,4 @@
-from interp3D import interp3D
+from interp_3d import interp_3d
 import numpy as np
 import varsg
 

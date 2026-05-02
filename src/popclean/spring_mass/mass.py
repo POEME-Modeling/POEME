@@ -71,7 +71,7 @@ class Mass(Element):
             self, v=True, desc="deterimes in gravity is acting on spring"
         )
 
-        self.initialList()
+        self.initial_list()
 
     # first step in solver pass is to set the voltage in all of the ports
     def preset(self):
@@ -113,7 +113,7 @@ class Mass(Element):
 
     def dump(self):
         print(self.name, "Node", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

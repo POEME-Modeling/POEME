@@ -112,7 +112,7 @@ class Compressor(Element):
         self.size = BooleanT(
             self, v=True, desc="Determine if the element is in design mode or not"
         )
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -202,7 +202,7 @@ class Compressor(Element):
     def dump(self):
         # dump output variables
         print(self.name1, "Compressor", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

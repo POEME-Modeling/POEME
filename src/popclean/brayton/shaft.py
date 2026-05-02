@@ -46,7 +46,7 @@ class Shaft(Element):
         self.N = RealT(self, units="RPM", desc="Shaft speed")
 
         self.size = BooleanT(self, v=True, desc="determines if the mode is sizing mode")
-        self.initialList()
+        self.initial_list()
 
     def preset(self):
 
@@ -95,7 +95,7 @@ class Shaft(Element):
 
     def dump(self):
         print(self.name1, "Shaft", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

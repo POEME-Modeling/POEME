@@ -80,7 +80,7 @@ class Turbine(Element):
         self.size = BooleanT(
             self, v=True, desc="determines if the turbine is in sizing mode or not"
         )
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -146,7 +146,7 @@ class Turbine(Element):
 
     def dump(self):
         print(self.name1, "Turbine", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

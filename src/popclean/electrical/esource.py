@@ -29,7 +29,7 @@ class Esource(Element):
         )
         self.IoutR = RealT(self, units="amps", desc="Real component I going out")
         self.Inet = ComplexT(self, units="amps", desc="Current")
-        self.initialList()
+        self.initial_list()
 
     # first step in solver pass is to set the voltage in all of the ports
     def preset(self):
@@ -78,7 +78,7 @@ class Esource(Element):
 
     def dump(self):
         print(self.name, "Node", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

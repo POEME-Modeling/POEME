@@ -35,7 +35,7 @@ class Nozzle(Element):
             self, v=True, desc="determines if nozzle is in sizing mode or not"
         )
 
-        self.initialList()
+        self.initial_list()
 
     def precheck(self):
 
@@ -75,7 +75,7 @@ class Nozzle(Element):
 
     def dump(self):
         print(self.name1, "Nozzle", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

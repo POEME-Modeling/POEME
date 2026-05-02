@@ -63,7 +63,7 @@ class FlowStartEnd2D(Element):
     def dump(self):
         # dump output variables
         print(self.name1, "FlowStart", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-from popclean import interp2D
+from popclean import interp_2d
 
 
 class R134:
@@ -18,12 +18,12 @@ class R134:
 
     @staticmethod
     def t_hp(ht, pt):
-        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.t_hpt)
+        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.t_hpt)
 
     @staticmethod
     def s_hp(ht, pt):
-        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.s_hpt)
+        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.s_hpt)
 
     @staticmethod
     def rho(ht, pt):
-        return interp2D(pt, ht, R134.p_hp, R134.h_hp, R134.rho_hp)
+        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.rho_hp)

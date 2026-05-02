@@ -23,7 +23,7 @@ class Resistor(Element):
         self.I = ComplexT(self, units="amps", desc="Current")
         self.R = RealT(self, units="ohms", desc="Resistance")
         self.Z = ComplexT(self, units="ohms", desc="Impedance")
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -35,7 +35,7 @@ class Resistor(Element):
             self.R = self.RV.calc(self.dV.real())
 
         # calculate impedence
-        self.Z.setP(self.R, 0.0)
+        self.Z.set_p(self.R, 0.0)
 
         # calculate the current
         self.I = self.dV / self.Z
@@ -47,7 +47,7 @@ class Resistor(Element):
 
     def dump(self):
         print(self.name1, "Resistor", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def hover(self):
         temp1 = self.name1 + " Resistor\n" + super().hover()

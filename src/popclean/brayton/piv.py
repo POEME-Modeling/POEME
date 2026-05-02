@@ -23,7 +23,7 @@ class PIV(Element):
         # if stepping in time them caclulate new conditions
         if g.NS.time.v > self.timeLast.v:
             self.e = self.G - self.DPi.get()
-            self.DPo.setVal(
+            self.DPo.set_val(
                 self.DPo.get()
                 + (
                     self.P * self.e
@@ -40,4 +40,4 @@ class PIV(Element):
 
     def dump(self):
         print(self.name1, "PIV", file=g.out)
-        super().realPrint()
+        super().real_print()

@@ -25,7 +25,7 @@ class Burner(Element):
         self.Tout = RealT(self, units="R", desc="Exit temperature")
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -46,7 +46,7 @@ class Burner(Element):
 
     def dump(self):
         print(self.name1, "Burner", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

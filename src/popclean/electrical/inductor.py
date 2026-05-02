@@ -21,7 +21,7 @@ class Inductor(Element):
         self.I = ComplexT(self, units="amps", desc="Current")
         self.L = RealT(self, units="henries", desc="Inductance")
         self.Z = ComplexT(self, units="ohms", desc="Impedance")
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -29,7 +29,7 @@ class Inductor(Element):
         self.dV = self.EPi.V - self.EPo.V
 
         # deterine the impedance
-        self.Z.setP(0.0, 2 * math.pi * self.EPi.freq * self.L)
+        self.Z.set_p(0.0, 2 * math.pi * self.EPi.freq * self.L)
 
         # calculate the current
         self.I = self.dV / self.Z
@@ -41,7 +41,7 @@ class Inductor(Element):
 
     def dump(self):
         print(self.name1, "Inductor", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         output = (

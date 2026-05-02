@@ -39,7 +39,7 @@ class Splitter(Element):
             desc="Bypass Ratio",
         )
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
         # pass incoming flow information
@@ -65,7 +65,7 @@ class Splitter(Element):
 
     def dump(self):
         print(self.name1, "Splitter", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

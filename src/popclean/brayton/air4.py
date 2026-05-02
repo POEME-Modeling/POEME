@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-from popclean import g, interp3D
+from popclean import g, interp_3d
 
 
 class Air4:
@@ -22,7 +22,7 @@ class Air4:
 
     @staticmethod
     def gamma(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,
@@ -35,7 +35,7 @@ class Air4:
 
     @staticmethod
     def rho(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,
@@ -48,7 +48,7 @@ class Air4:
 
     @staticmethod
     def cp(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,
@@ -61,7 +61,7 @@ class Air4:
 
     @staticmethod
     def h_tp(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,
@@ -74,7 +74,7 @@ class Air4:
 
     @staticmethod
     def s_tp(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,
@@ -87,7 +87,7 @@ class Air4:
 
     @staticmethod
     def r(temperature, pressure, fuel_air_ratio, p):
-        return interp3D(
+        return interp_3d(
             fuel_air_ratio,
             pressure,
             temperature,

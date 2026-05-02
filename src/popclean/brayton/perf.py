@@ -21,7 +21,7 @@ class Perf(Element):
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
         self.Fram = RealT(self, units="lbf", desc="Ram drag")
 
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -46,7 +46,7 @@ class Perf(Element):
 
     def dump(self):
         print(self.name, "Shaft", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(

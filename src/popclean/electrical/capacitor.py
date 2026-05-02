@@ -26,7 +26,7 @@ class Capacitor(Element):
         self.Z = ComplexT(self, units="ohms", desc="Impedance")
 
         self.type = "Capacitor"
-        self.initialList()
+        self.initial_list()
 
     def calc(self):
 
@@ -38,7 +38,7 @@ class Capacitor(Element):
             self.C.v = self.CVc.calc(self.dV.num.real, self.dV.num.imag)
 
         # calculate impendance
-        self.Z.setP(0.0, -1.0 / (self.C * 2.0 * math.pi * self.EPi.freq))
+        self.Z.set_p(0.0, -1.0 / (self.C * 2.0 * math.pi * self.EPi.freq))
 
         # determine current
         self.I = self.dV / self.Z
@@ -50,7 +50,7 @@ class Capacitor(Element):
 
     def dump(self):
         print(self.name1, "Capacitor", file=g.out)
-        super().realPrint()
+        super().real_print()
 
     def pretty(self):
         print(
