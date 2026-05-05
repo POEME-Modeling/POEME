@@ -17,13 +17,13 @@ class R134:
     rho_hp = _data["rho_hp"].tolist()
 
     @staticmethod
-    def t_hp(ht, pt):
-        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.t_hpt)
+    def T_hp(ht, Pt):
+        return interp_2d(Pt, ht, R134.p_hp, R134.h_hp, R134.t_hpt)
 
     @staticmethod
-    def s_hp(ht, pt):
-        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.s_hpt)
+    def s_hP(ht, Pt):
+        return interp_2d(Pt, ht, R134.p_hp, R134.h_hp, R134.s_hpt)
 
     @staticmethod
-    def rho(ht, pt):
-        return interp_2d(pt, ht, R134.p_hp, R134.h_hp, R134.rho_hp)
+    def rho(ht, Pt):
+        return interp_2d(Pt, ht, R134.p_hp, R134.h_hp, R134.rho_hp)

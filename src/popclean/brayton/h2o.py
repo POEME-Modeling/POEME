@@ -3,40 +3,36 @@ class H2O:
         pass
 
     @staticmethod
-    def h_tp(temperature, pressure, fract):
-        return temperature
+    def h_TP(T, P, fract):
+        return T
 
     @staticmethod
-    def s_tp(temperature, pressure, fract):
-        temperature = temperature - 460.0
-        return temperature / 200.0 * 0.28
+    def s_TP(T, P, fract):
+        T = T - 460.0
+        return T / 200.0 * 0.28
 
     @staticmethod
-    def t_hp(h, pressure, fract):
+    def T_hp(h, P, fract):
         return h
 
     @staticmethod
-    def t_sp(s, pressure, fract):
+    def T_sP(s, P, fract):
         return s * 200.0 / 0.28 + 460
 
     @staticmethod
-    def rho(temperature, pressure, fract):
+    def rho(T, P, fract):
         return 62.424 / 12.0**3.0
 
     @staticmethod
-    def cp(temperature, pressure, fract):
+    def Cp(T, P, fract):
         return 1.0
 
     @staticmethod
-    def mu(temperature, pressure, fract):
-        temperature = temperature - 460.0
-        return (0.000006342 - 0.000037418) * (temperature - 32.0) / (
-            200.0 - 32.0
-        ) + 0.000037418
+    def mu(T, P, fract):
+        T = T - 460.0
+        return (0.000006342 - 0.000037418) * (T - 32.0) / (200.0 - 32.0) + 0.000037418
 
     @staticmethod
-    def k(temperature, pressure, fract):
-        temperature = temperature - 460.0
-        return (
-            (0.3987 - 0.3211) * (temperature - 32.0) / (200.0 - 32.0) + 0.3211
-        ) / 3600.0
+    def k(T, P, fract):
+        T = T - 460.0
+        return ((0.3987 - 0.3211) * (T - 32.0) / (200.0 - 32.0) + 0.3211) / 3600.0

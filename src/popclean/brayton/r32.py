@@ -3,69 +3,63 @@ from CoolProp import CoolProp
 
 class R32:
     @staticmethod
-    def rho(temperature, pressure, fuel_air_ratio, p):
+    def rho(T, P, FAR, p):
         return (
-            CoolProp.PropsSI(
-                "D", "T", temperature * 5.0 / 9.0, "P", pressure * 6894.76, "R32"
-            )
+            CoolProp.PropsSI("D", "T", T * 5.0 / 9.0, "P", P * 6894.76, "R32")
             * 0.062428
         )
 
     @staticmethod
-    def cp(temperature, pressure, fuel_air_ratio, p):
+    def Cp(T, P, FAR, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P, "R32")
         return 0.0
 
     @staticmethod
-    def k(temperature, pressure, fuel_air_ratio, p):
+    def k(T, P, FAR, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P, "R32")
         return 0.0
 
     @staticmethod
-    def mu(temperature, pressure, fuel_air_ratio, p):
+    def mu(T, P, FAR, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P, "R32")
         return 0.0
 
     @staticmethod
-    def gamma(temperature, pressure, fuel_air_ratio, p):
+    def gamma(T, P, FAR, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P, "R32")
         return 0.0
 
     @staticmethod
-    def h_tp(temperature, pressure, fuel_air_ratio, p):
+    def h_TP(T, P, FAR, p):
         return (
-            CoolProp.PropsSI(
-                "H", "T", temperature * 5.0 / 9.0, "P", pressure * 6894.76, "R32"
-            )
+            CoolProp.PropsSI("H", "T", T * 5.0 / 9.0, "P", P * 6894.76, "R32")
             * 0.4299226
         )
 
     @staticmethod
-    def t_hp(h, pressure, fuel_air_ratio, p):
+    def T_hp(h, P, FAR, p):
         return (
-            CoolProp.PropsSI("T", "H", h / 0.4299226, "P", pressure * 6894.76, "R32")
+            CoolProp.PropsSI("T", "H", h / 0.4299226, "P", P * 6894.76, "R32")
             * 9.0
             / 5.0
         )
 
     @staticmethod
-    def t_sp(s, pressure, fuel_air_ratio, p):
+    def T_sP(s, P, FAR, p):
         return (
-            CoolProp.PropsSI("T", "S", s / 0.2388459, "P", pressure * 6894.76, "R32")
+            CoolProp.PropsSI("T", "S", s / 0.2388459, "P", P * 6894.76, "R32")
             * 9.0
             / 5.0
         )
 
     @staticmethod
-    def s_tp(temperature, pressure, fuel_air_ratio, p):
+    def s_TP(T, P, FAR, p):
         return (
-            CoolProp.PropsSI(
-                "S", "T", temperature * 5.0 / 9.0, "P", pressure * 6894.76, "R32"
-            )
+            CoolProp.PropsSI("S", "T", T * 5.0 / 9.0, "P", P * 6894.76, "R32")
             * 0.2388459
         )
 
     @staticmethod
-    def r(temperature, pressure, fuel_air_ratio, p):
+    def R(T, P, FAR, p):
         # return CoolProp.PropsSI("D", "T", T, "P", P*, "R32")
         return 0.0

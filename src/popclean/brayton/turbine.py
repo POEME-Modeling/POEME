@@ -30,7 +30,7 @@ class Turbine(Element):
         self.WcTable = Table2d(
             self,
             units="lbm/sec",
-            desc="Table of corrected weight flow versus corrected speed and pressure"
+            desc="Table of corrected weight flow versus corrected speed and pressure "
             "ratio",
         )
 

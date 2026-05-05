@@ -10,158 +10,158 @@ class Air6:
     _data_file = os.path.join(os.path.dirname(__file__), "air2_data.npz")
     _data = np.load(_data_file)
 
-    t_tp = _data["T_TP"].tolist()
-    p_tp = _data["P_TP"].tolist()
-    far_tp = _data["FAR_TP"].tolist()
-    h_tpt = _data["h_TPt"].tolist()
-    cp_tpt = _data["Cp_TPt"].tolist()
-    gam_tpt = _data["gam_TPt"].tolist()
-    rho_tpt = _data["rho_TPt"].tolist()
-    r_tpt = _data["R_TPt"].tolist()
-    s_tpt = _data["s_TPt"].tolist()
+    T_TP = _data["T_TP"].tolist()
+    P_TP = _data["P_TP"].tolist()
+    FAR_TP = _data["FAR_TP"].tolist()
+    h_TPt = _data["h_TPt"].tolist()
+    Cp_TPt = _data["Cp_TPt"].tolist()
+    gam_TPt = _data["gam_TPt"].tolist()
+    rho_TPt = _data["rho_TPt"].tolist()
+    r_TPt = _data["R_TPt"].tolist()
+    s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def gamma(temperature, pressure, fuel_air_ratio, p):
+    def gamma(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.gam_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.gam_TPt,
             p,
         )
 
     @staticmethod
-    def rho(temperature, pressure, fuel_air_ratio, p):
+    def rho(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.rho_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.rho_TPt,
             p,
         )
 
     @staticmethod
-    def cp(temperature, pressure, fuel_air_ratio, p):
+    def Cp(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.cp_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.Cp_TPt,
             p,
         )
 
     @staticmethod
-    def h_tp(temperature, pressure, fuel_air_ratio, p):
+    def h_TP(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.h_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.h_TPt,
             p,
         )
 
     @staticmethod
-    def s_tp(temperature, pressure, fuel_air_ratio, p):
+    def s_TP(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.s_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.s_TPt,
             p,
         )
 
     @staticmethod
-    def r(temperature, pressure, fuel_air_ratio, p):
+    def R(T, P, FAR, p):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air6.far_tp,
-            Air6.p_tp,
-            Air6.t_tp,
-            Air6.r_tpt,
+            FAR,
+            P,
+            T,
+            Air6.FAR_TP,
+            Air6.P_TP,
+            Air6.T_TP,
+            Air6.r_TPt,
             p,
         )
 
     @staticmethod
-    def mu(temperature, pressure, fuel_air_ratio, p):
+    def mu(T, P, FAR, p):
         return 0
 
     @staticmethod
-    def k(temperature, pressure, fuel_air_ratio, p):
+    def k(T, P, FAR, p):
         return 0
 
     @staticmethod
-    def t_sp(s, pressure, fuel_air_ratio, p):
-        temperature = 1500
-        scalc = Air6.s_tp(temperature, pressure, fuel_air_ratio, p)
+    def T_sP(s, P, FAR, p):
+        T = 1500
+        scalc = Air6.s_TP(T, P, FAR, p)
 
         errorm1 = (scalc - s) / s
-        xm1 = temperature
-        temperature = temperature * 0.95
-        scalc = Air6.s_tp(temperature, pressure, fuel_air_ratio, p)
+        xm1 = T
+        T = T * 0.95
+        scalc = Air6.s_TP(T, P, FAR, p)
         error = (scalc - s) / s
-        x = temperature
+        x = T
         count = 0
         while abs(error) > 0.0000001 and count < 50:
             count = count + 1
             xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * temperature:
-                xp1 = x + 0.3 * temperature
-            if xp1 - x < -0.3 * temperature:
-                xp1 = x - 0.3 * temperature
+            if xp1 - x > 0.3 * T:
+                xp1 = x + 0.3 * T
+            if xp1 - x < -0.3 * T:
+                xp1 = x - 0.3 * T
             xm1 = x
             errorm1 = error
             x = xp1
-            temperature = x
-            scalc = Air6.s_tp(temperature, pressure, fuel_air_ratio, p)
+            T = x
+            scalc = Air6.s_TP(T, P, FAR, p)
             error = (scalc - s) / s
 
         if count > 49:
             g.errors = g.errors + "Error in T_sp"
 
-        return temperature
+        return T
 
     @staticmethod
-    def t_hp(h, pressure, fuel_air_ratio, p):
-        temperature = 1500
-        hcalc = Air6.h_tp(temperature, pressure, fuel_air_ratio, p)
+    def T_hp(h, P, FAR, p):
+        T = 1500
+        hcalc = Air6.h_TP(T, P, FAR, p)
         errorm1 = (hcalc - h) / h
-        xm1 = temperature
-        temperature = temperature * 0.95
-        hcalc = Air6.h_tp(temperature, pressure, fuel_air_ratio, p)
+        xm1 = T
+        T = T * 0.95
+        hcalc = Air6.h_TP(T, P, FAR, p)
         error = (hcalc - h) / h
-        x = temperature
+        x = T
         count = 0
         while abs(error) > 0.000001 and count < 50:
             count = count + 1
             xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * temperature:
-                xp1 = x + 0.3 * temperature
-            if xp1 - x < -0.3 * temperature:
-                xp1 = x - 0.3 * temperature
+            if xp1 - x > 0.3 * T:
+                xp1 = x + 0.3 * T
+            if xp1 - x < -0.3 * T:
+                xp1 = x - 0.3 * T
             xm1 = x
             errorm1 = error
             x = xp1
-            temperature = x
-            hcalc = Air6.h_tp(temperature, pressure, fuel_air_ratio, p)
+            T = x
+            hcalc = Air6.h_TP(T, P, FAR, p)
             error = (hcalc - h) / h
         if count > 49:
             g.errors = g.errors + "Error in T_hp"
 
-        return temperature
+        return T

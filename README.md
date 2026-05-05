@@ -107,7 +107,7 @@ pip install .
 **For development**, install in editable mode with development dependencies:
 
 ```bash
-pip install -e .
+pip install -e ".[dev]"
 ```
 
 ---

@@ -17,9 +17,11 @@ dependencies = [
 
 [dependency-groups]
 lint = ["ruff"]
+test = ["pytest", "pytest-cov"]
 
 dev = [
     {include-group = "lint"},
+    {include-group = "test"},
 ]
 
 [tool.setuptools_scm]
@@ -47,6 +49,10 @@ select = [
 ]
 ignore = [
     "E712", # Avoid equality comparisons to `False` (needed for BooleanT)
+    "N802", # Function name should be lowercase (use engineering notation for funcs)
+    "N803", # Argument name should be lowercase (use engineering notation for vars)
+    "N806", # Variable should be lowercase (use engineering notation for vars)
+    "N815", # Variable should not be mixedCase (use engineering notation for vars)
     "SIM115", # Global variables used for printing: GET RID OF THIS ASAP!
     "F821", # Undefined name ... (too dynamic)
     "D1", # Missing docstring in ... (use doc coverage for now)

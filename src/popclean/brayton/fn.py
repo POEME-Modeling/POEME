@@ -112,29 +112,29 @@ class FN(Atom):
         self.W.v = self.W.v + o.W.v
         self.set_hp(self.ht.v, self.Pt.v)
 
-    def set_tp(self, tt, pt):
-        if isinstance(tt, float):
-            self.Tt.v = tt
+    def set_tp(self, Tt, Pt):
+        if isinstance(Tt, float):
+            self.Tt.v = Tt
         else:
-            self.Tt.v = tt.v
-        if isinstance(pt, float):
-            self.Pt.v = pt
+            self.Tt.v = Tt.v
+        if isinstance(Pt, float):
+            self.Pt.v = Pt
         else:
-            self.Pt.v = pt.v
+            self.Pt.v = Pt.v
         if self.twoPhase == False:
-            self.ht.v = GAS_MODELS[self.comp.v].h_tp(
+            self.ht.v = GAS_MODELS[self.comp.v].h_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.s.v = GAS_MODELS[self.comp.v].s_tp(
+            self.s.v = GAS_MODELS[self.comp.v].s_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -147,19 +147,19 @@ class FN(Atom):
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
         else:
-            self.ht.v = GAS_MODELS[self.comp.v].h_tp(
+            self.ht.v = GAS_MODELS[self.comp.v].h_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.s.v = GAS_MODELS[self.comp.v].s_tp(
+            self.s.v = GAS_MODELS[self.comp.v].s_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -175,26 +175,26 @@ class FN(Atom):
         if self.other != 0:
             self.other.copy_deep(self)
 
-    def set_hp(self, ht, pt):
+    def set_hp(self, ht, Pt):
         if isinstance(ht, float):
             self.ht.v = ht
         else:
             self.ht.v = ht.v
-        if isinstance(pt, float):
-            self.Pt.v = pt
+        if isinstance(Pt, float):
+            self.Pt.v = Pt
         else:
-            self.Pt.v = pt.v
+            self.Pt.v = Pt.v
         if self.twoPhase == False:
-            self.Tt.v = GAS_MODELS[self.comp.v].t_hp(
+            self.Tt.v = GAS_MODELS[self.comp.v].T_hp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.s.v = GAS_MODELS[self.comp.v].s_tp(
+            self.s.v = GAS_MODELS[self.comp.v].s_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -203,7 +203,7 @@ class FN(Atom):
             self.kt.v = GAS_MODELS[self.comp.v].k(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.mut.v = GAS_MODELS[self.comp.v].mu(
@@ -213,16 +213,16 @@ class FN(Atom):
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
         else:
-            self.Tt.v = GAS_MODELS[self.comp.v].t_hp(
+            self.Tt.v = GAS_MODELS[self.comp.v].T_hp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.s.v = GAS_MODELS[self.comp.v].s_hp(
+            self.s.v = GAS_MODELS[self.comp.v].s_hP(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -231,7 +231,7 @@ class FN(Atom):
             self.kt.v = GAS_MODELS[self.comp.v].k(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.mut.v = GAS_MODELS[self.comp.v].mu(
@@ -245,26 +245,26 @@ class FN(Atom):
         if self.other != 0:
             self.other.copy_deep(self)
 
-    def set_sp(self, s, pt):
+    def set_sp(self, s, Pt):
         if isinstance(s, float):
             self.s.v = s
         else:
             self.s.v = s.v
-        if isinstance(pt, float):
-            self.Pt.v = pt
+        if isinstance(Pt, float):
+            self.Pt.v = Pt
         else:
-            self.Pt.v = pt.v
+            self.Pt.v = Pt.v
         if self.twoPhase == False:
-            self.Tt.v = GAS_MODELS[self.comp.v].t_sp(
+            self.Tt.v = GAS_MODELS[self.comp.v].T_sP(
                 self.s.v, self.Pt.v, self.FAR.v, self
             )
-            self.ht.v = GAS_MODELS[self.comp.v].h_tp(
+            self.ht.v = GAS_MODELS[self.comp.v].h_TP(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -273,7 +273,7 @@ class FN(Atom):
             self.kt.v = GAS_MODELS[self.comp.v].k(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
             self.mut.v = GAS_MODELS[self.comp.v].mu(
@@ -283,7 +283,7 @@ class FN(Atom):
                 self.Tt.v, self.Pt.v, self.FAR.v, self
             )
         else:
-            self.Tt.v = GAS_MODELS[self.comp.v].t_sp(
+            self.Tt.v = GAS_MODELS[self.comp.v].T_sP(
                 self.s.v, self.Pt.v, self.FAR.v, self
             )
             self.ht.v = GAS_MODELS[self.comp.v].h_sp(
@@ -292,7 +292,7 @@ class FN(Atom):
             self.rhot.v = GAS_MODELS[self.comp.v].rho(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Rt.v = GAS_MODELS[self.comp.v].r(
+            self.Rt.v = GAS_MODELS[self.comp.v].R(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.gamt.v = GAS_MODELS[self.comp.v].gamma(
@@ -301,7 +301,7 @@ class FN(Atom):
             self.kt.v = GAS_MODELS[self.comp.v].k(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
-            self.Cpt.v = GAS_MODELS[self.comp.v].cp(
+            self.Cpt.v = GAS_MODELS[self.comp.v].Cp(
                 self.ht.v, self.Pt.v, self.FAR.v, self
             )
             self.mut.v = GAS_MODELS[self.comp.v].mu(
@@ -327,8 +327,8 @@ class FN(Atom):
         self.Pt.v = GAS_MODELS[self.comp.v].P_hs(self.ht.v, self.s.v, self.FAR.v, self)
         self.set_sp(self.s.v, self.Pt.v)
 
-    def set_ps(self, ps):
-        self.ps.v = ps
+    def set_ps(self, Ps):
+        self.Ps.v = Ps
         self.ps_calc()
 
     def statics(self):
@@ -419,19 +419,19 @@ class FN(Atom):
 
     def ps_calc(self):
         if self.twoPhase == False:
-            self.Ts.v = GAS_MODELS[self.comp.v].t_sp(
+            self.Ts.v = GAS_MODELS[self.comp.v].T_sP(
                 self.s.v, self.Ps.v, self.FAR.v, self
             )
-            self.hs.v = GAS_MODELS[self.comp.v].h_tp(
+            self.hs.v = GAS_MODELS[self.comp.v].h_TP(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
             self.rhos.v = GAS_MODELS[self.comp.v].rho(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
-            self.Rs.v = GAS_MODELS[self.comp.v].r(
+            self.Rs.v = GAS_MODELS[self.comp.v].R(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
-            self.Cps.v = GAS_MODELS[self.comp.v].cp(
+            self.Cps.v = GAS_MODELS[self.comp.v].Cp(
                 self.Ts.v, self.Ps.v, self.FAR.v, self
             )
             self.mus.v = GAS_MODELS[self.comp.v].mu(
@@ -456,7 +456,7 @@ class FN(Atom):
             )
             self.A.v = self.W.v / (self.rhos.v * abs(self.V.v))
         else:
-            self.Ts.v = GAS_MODELS[self.comp.v].t_sp(
+            self.Ts.v = GAS_MODELS[self.comp.v].T_sP(
                 self.s.v, self.Ps.v, self.FAR.v, self
             )
             self.hs.v = GAS_MODELS[self.comp.v].h_sp(
@@ -465,10 +465,10 @@ class FN(Atom):
             self.rhos.v = GAS_MODELS[self.comp.v].rho(
                 self.hs.v, self.Ps.v, self.FAR.v, self
             )
-            self.Rs.v = GAS_MODELS[self.comp.v].r(
+            self.Rs.v = GAS_MODELS[self.comp.v].R(
                 self.hs.v, self.Ps.v, self.FAR.v, self
             )
-            self.Cps.v = GAS_MODELS[self.comp.v].cp(
+            self.Cps.v = GAS_MODELS[self.comp.v].Cp(
                 self.hs.v, self.Ps.v, self.FAR.v, self
             )
             self.mus.v = GAS_MODELS[self.comp.v].mu(
@@ -627,33 +627,33 @@ class FN(Atom):
             if self.other != 0:
                 self.other.W.v = w.v
 
-    def set_ts_ps_mn(self, ts_i, ps_i, mach_i):
-        ts = ts_i if isinstance(ts_i, float) else ts_i.v
-        ps = ps_i if isinstance(ps_i, float) else ps_i.v
-        mach = mach_i if isinstance(mach_i, float) else mach_i.v
+    def set_ts_ps_mn(self, Ts_i, Ps_i, MN_i):
+        Ts = Ts_i if isinstance(Ts_i, float) else Ts_i.v
+        Ps = Ps_i if isinstance(Ps_i, float) else Ps_i.v
+        MN = MN_i if isinstance(MN_i, float) else MN_i.v
 
         self.size.v = True
         self.MN.v = 0.0
         self.A.v = 0.0
-        self.set_tp(ts, ps)
+        self.set_tp(Ts, Ps)
 
         s = self.s
         # TODO: do we need the Tt calculation here? It doesn't seem to be used
-        # tt = ts * (1.0 + (self.gamt.v - 1.0) / 2.0 * mach**2.0)
-        pt = ps * (1.0 + (self.gamt.v - 1.0) / 2.0 * mach**2.0) ** (
+        # Tt = Ts * (1.0 + (self.gamt.v - 1.0) / 2.0 * MN**2.0)
+        Pt = Ps * (1.0 + (self.gamt.v - 1.0) / 2.0 * MN**2.0) ** (
             (self.gamt.v - 1.0) / self.gamt.v
         )
-        self.V.v = mach * math.sqrt(self.gamt.v * self.Rt.v * ts * 25037.0)
+        self.V.v = MN * math.sqrt(self.gamt.v * self.Rt.v * Ts * 25037.0)
         ht = self.V.v**2.0 / 25037.0 / 2.0 + self.ht.v
-        self.set_sp(s, pt)
+        self.set_sp(s, Pt)
 
         errorm1 = self.ht - ht
 
-        xm1 = pt
-        pt = self.Pt.v * 0.95
-        self.set_sp(s, pt)
+        xm1 = Pt
+        Pt = self.Pt.v * 0.95
+        self.set_sp(s, Pt)
         error = self.ht - ht
-        x = pt
+        x = Pt
 
         i = 0
         count = 0
@@ -667,13 +667,13 @@ class FN(Atom):
             xm1 = x
             errorm1 = error
             x = xp1
-            pt = x
-            self.set_sp(s, pt)
+            Pt = x
+            self.set_sp(s, Pt)
             error = self.ht - ht
             i = i + 1
 
         self.size.v = True
-        self.MN.v = mach
+        self.MN.v = MN
         self.statics()
 
     def dump(self):

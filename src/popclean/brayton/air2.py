@@ -10,143 +10,143 @@ class Air2:
     _data_file = os.path.join(os.path.dirname(__file__), "air2_data.npz")
     _data = np.load(_data_file)
 
-    t_tp = _data["T_TP"].tolist()
-    p_tp = _data["P_TP"].tolist()
-    far_tp = _data["FAR_TP"].tolist()
-    h_tpt = _data["h_TPt"].tolist()
-    cp_tpt = _data["Cp_TPt"].tolist()
-    gam_tpt = _data["gam_TPt"].tolist()
-    rho_tpt = _data["rho_TPt"].tolist()
-    r_tpt = _data["R_TPt"].tolist()
-    s_tpt = _data["s_TPt"].tolist()
+    T_TP = _data["T_TP"].tolist()
+    P_TP = _data["P_TP"].tolist()
+    FAR_TP = _data["FAR_TP"].tolist()
+    h_TPt = _data["h_TPt"].tolist()
+    Cp_TPt = _data["Cp_TPt"].tolist()
+    gam_TPt = _data["gam_TPt"].tolist()
+    rho_TPt = _data["rho_TPt"].tolist()
+    r_TPt = _data["R_TPt"].tolist()
+    s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def gamma(temperature, pressure, fuel_air_ratio):
+    def gamma(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.gam_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.gam_TPt,
         )
 
     @staticmethod
-    def rho(temperature, pressure, fuel_air_ratio):
+    def rho(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.rho_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.rho_TPt,
         )
 
     @staticmethod
-    def cp(temperature, pressure, fuel_air_ratio):
+    def Cp(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.cp_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.Cp_TPt,
         )
 
     @staticmethod
-    def h_tp(temperature, pressure, fuel_air_ratio):
+    def h_TP(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.h_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.h_TPt,
         )
 
     @staticmethod
-    def s_tp(temperature, pressure, fuel_air_ratio):
+    def s_TP(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.s_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.s_TPt,
         )
 
     @staticmethod
-    def r(temperature, pressure, fuel_air_ratio):
+    def R(T, P, FAR):
         return interp_3d(
-            fuel_air_ratio,
-            pressure,
-            temperature,
-            Air2.far_tp,
-            Air2.p_tp,
-            Air2.t_tp,
-            Air2.r_tpt,
+            FAR,
+            P,
+            T,
+            Air2.FAR_TP,
+            Air2.P_TP,
+            Air2.T_TP,
+            Air2.r_TPt,
         )
 
     @staticmethod
-    def mu(temperature, pressure, fuel_air_ratio):
+    def mu(T, P, FAR):
         return 0
 
     @staticmethod
-    def k(temperature, pressure, fuel_air_ratio):
+    def k(T, P, FAR):
         return 0
 
     @staticmethod
-    def t_sp(s, pressure, fuel_air_ratio):
-        temperature = 1500
-        scalc = Air2.s_tp(temperature, pressure, fuel_air_ratio)
+    def T_sP(s, P, FAR):
+        T = 1500
+        scalc = Air2.s_TP(T, P, FAR)
 
         errorm1 = (scalc - s) / s
-        xm1 = temperature
-        temperature = temperature * 0.95
-        scalc = Air2.s_tp(temperature, pressure, fuel_air_ratio)
+        xm1 = T
+        T = T * 0.95
+        scalc = Air2.s_TP(T, P, FAR)
         error = (scalc - s) / s
-        x = temperature
+        x = T
         while abs(error) > 0.0000001:
             xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * temperature:
-                xp1 = x + 0.3 * temperature
-            if xp1 - x < -0.3 * temperature:
-                xp1 = x - 0.3 * temperature
+            if xp1 - x > 0.3 * T:
+                xp1 = x + 0.3 * T
+            if xp1 - x < -0.3 * T:
+                xp1 = x - 0.3 * T
             xm1 = x
             errorm1 = error
             x = xp1
-            temperature = x
-            scalc = Air2.s_tp(temperature, pressure, fuel_air_ratio)
+            T = x
+            scalc = Air2.s_TP(T, P, FAR)
             error = (scalc - s) / s
 
-        return temperature
+        return T
 
     @staticmethod
-    def t_hp(h, pressure, fuel_air_ratio):
-        temperature = 1500
-        hcalc = Air2.h_tp(temperature, pressure, fuel_air_ratio)
+    def T_hp(h, P, FAR):
+        T = 1500
+        hcalc = Air2.h_TP(T, P, FAR)
         errorm1 = (hcalc - h) / h
-        xm1 = temperature
-        temperature = temperature * 0.95
-        hcalc = Air2.h_tp(temperature, pressure, fuel_air_ratio)
+        xm1 = T
+        T = T * 0.95
+        hcalc = Air2.h_TP(T, P, FAR)
         error = (hcalc - h) / h
-        x = temperature
+        x = T
         while abs(error) > 0.000001:
             xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * temperature:
-                xp1 = x + 0.3 * temperature
-            if xp1 - x < -0.3 * temperature:
-                xp1 = x - 0.3 * temperature
+            if xp1 - x > 0.3 * T:
+                xp1 = x + 0.3 * T
+            if xp1 - x < -0.3 * T:
+                xp1 = x - 0.3 * T
             xm1 = x
             errorm1 = error
             x = xp1
-            temperature = x
-            hcalc = Air2.h_tp(temperature, pressure, fuel_air_ratio)
+            T = x
+            hcalc = Air2.h_TP(T, P, FAR)
             error = (hcalc - h) / h
 
-        return temperature
+        return T
