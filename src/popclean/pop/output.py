@@ -23,7 +23,7 @@ class Output(Element):
     def calc(self):
         pass
 
-    def dump(self):
+    def dump(self, output_file):
         # print( "in dump" )
         temp = ""
         self.out = open(self.filename.v, "a")
@@ -43,9 +43,10 @@ class Output(Element):
         for e in self.vars:
             temp = temp + f"{str(e)[:10]:12s}"
         print(temp, file=self.out)
-        super().real_print()
+        super().real_print(output_file)
         self.row = 1
         self.out.close()
 
-        # print( f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}" ,
-        #  file=g.pretty )
+        # output_file.write(
+        #     f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}",
+        # )

@@ -5,7 +5,6 @@ from popclean import (
     Independent,
     RealT,
     Table2d,
-    g,
 )
 
 from .fn import FN
@@ -144,15 +143,14 @@ class Turbine(Element):
             self.ind_TPR.active = True
             self.dep_TW.active = True
 
-    def dump(self):
-        print(self.name1, "Turbine", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Turbine\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Turbine'[:10]:12s}{self.name1[:10]:12s}"
             f"{('PR:' + str(self.PR))[:10]:12s}{('eff:' + str(self.eff))[:10]:12s}"
             f"{('PRmap:' + str(self.PRmap))[:10]:12s}"
-            f"{('NcMap:' + str(self.NcMap))[:10]:12s}",
-            file=g.pretty,
+            f"{('NcMap:' + str(self.NcMap))[:10]:12s}\n"
         )

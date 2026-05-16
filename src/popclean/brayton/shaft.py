@@ -4,7 +4,6 @@ from popclean import (
     Independent,
     RealT,
     State,
-    g,
 )
 
 
@@ -93,13 +92,12 @@ class Shaft(Element):
         # determine the speed derivative
         self.dNdt = (self.HPpos - self.HPneg) / (self.N / 5252.0) / self.Ispool
 
-    def dump(self):
-        print(self.name1, "Shaft", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Shaft\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Shaft'[:10]:12s}{self.name1[:10]:12s}{('N:' + str(self.N))[:10]:12s}"
-            f"{('HPX:' + str(self.HPX))[:10]:12s}",
-            file=g.pretty,
+            f"{('HPX:' + str(self.HPX))[:10]:12s}\n"
         )

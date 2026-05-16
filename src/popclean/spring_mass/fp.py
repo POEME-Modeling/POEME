@@ -1,4 +1,4 @@
-from popclean import Atom, RealT, g
+from popclean import Atom, RealT
 
 
 class Fp(Atom):
@@ -46,18 +46,17 @@ class Fp(Atom):
         self.other = fp
         fp.other = self
 
-    def dump(self):
-        print(self.parent.name1, self.name1, self.x, self.V, file=g.out)
+    def dump(self, output_file):
+        output_file.write(f"{self.parent.name1} {self.name1} {self.x} {self.V}\n")
 
     def hover(self):
         return (
             self.parent.name1 + " " + self.name1 + str(self.x.v) + " " + str(self.V.v)
         )
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Fp'[:10]:12s}{self.name1[:10]:12s}{('F:' + str(self.F))[:10]:12s}"
             f"{('F:' + str(self.F))[:10]:12s}{('x:' + str(self.x))[:10]:12s}"
-            f"{('V:' + str(self.V))[:10]:12s}",
-            file=g.pretty,
+            f"{('V:' + str(self.V))[:10]:12s}\n"
         )

@@ -1,4 +1,4 @@
-from popclean import Atom, RealT, g
+from popclean import Atom, RealT
 
 
 class MP(Atom):
@@ -39,21 +39,19 @@ class MP(Atom):
         if self.other != 0:
             self.other.hp.v = hp
 
-    def dump(self):
-        print(
+    def dump(self, output_file):
+        output_file.write(
             f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  "
             f"N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  "
-            f"I:{str(self.I.v)[:8]:10s}",
-            file=g.out,
+            f"I:{str(self.I.v)[:8]:10s}\n"
         )
         # print( self.parent.name1, self.name1, self.N.v, self.hp.v, self.I.v)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{self.parent.name1[:8]:10} {self.name1[:8]:10}  "
             f"N:{str(self.N.v)[:8]:10s}  hp:{str(self.hp.v)[:8]:10s}  "
-            f"I:{str(self.I.v)[:8]:10s}",
-            file=g.pretty,
+            f"I:{str(self.I.v)[:8]:10s}\n"
         )
 
     def hover(self):

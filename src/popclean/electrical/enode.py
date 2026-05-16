@@ -1,4 +1,4 @@
-from popclean import ComplexT, Dependent, Element, Independent, RealT, g
+from popclean import ComplexT, Dependent, Element, Independent, RealT
 
 from .ep import EP
 
@@ -115,14 +115,13 @@ class Enode(Element):
             else:
                 self.IoutI = self.IoutI - port.I.v.imag
 
-    def dump(self):
-        print(self.name, "Node", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name} Node\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Node'[:10]:12s}{self.name1[:10]:12s}"
             f"{('Vr:' + str(self.Vr))[:10]:12s}"
-            f"{('Vi:' + str(self.Vi))[:10]:12s}",
-            file=g.pretty,
+            f"{('Vi:' + str(self.Vi))[:10]:12s}\n"
         )

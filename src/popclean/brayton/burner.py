@@ -1,4 +1,4 @@
-from popclean import BooleanT, Element, RealT, g
+from popclean import BooleanT, Element, RealT
 
 from .fn import FN
 
@@ -44,16 +44,15 @@ class Burner(Element):
         htout = (self.FNi.ht * self.FNi.W + self.Wfuel * self.LHV) / self.FNo.W
         self.FNo.set_hp(htout, self.FNo.Pt * (1 - self.dP))
 
-    def dump(self):
-        print(self.name1, "Burner", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Burner\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Burner'[:10]:12s}{self.name1[:10]:12s}"
             f"{('FAR:' + str(self.FAR))[:10]:12s}"
             f"{('Tout:' + str(self.Tout))[:10]:12s}"
             f"{('Wfuel:' + str(self.Wfuel))[:10]:12s}"
-            f"{('dP:' + str(self.dP))[:10]:12s}",
-            file=g.pretty,
+            f"{('dP:' + str(self.dP))[:10]:12s}\n"
         )

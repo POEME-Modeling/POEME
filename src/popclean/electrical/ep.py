@@ -1,4 +1,4 @@
-from popclean import Atom, ComplexT, RealT, g
+from popclean import Atom, ComplexT, RealT
 
 
 class EP(Atom):
@@ -58,8 +58,8 @@ class EP(Atom):
     def link_e(self, other):
         other.link_e(self)
 
-    def dump(self):
-        print(self.parent.name1, self.name1, self.V.v, self.I.v, file=g.out)
+    def dump(self, output_file):
+        output_file.write(f"{self.parent.name1} {self.name1} {self.V.v} {self.I.v}\n")
 
     def hover(self):
         return (
@@ -75,10 +75,9 @@ class EP(Atom):
     def save_print(self):
         return ""
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{self.parent.name1[:8]:12s}{self.name1[:8]:12s}"
             f"Vr:{str(self.Vr.v)[:8]:12s}Vi:{str(self.Vi.v)[:8]:12s}"
-            f"Ir:{str(self.Ir.v)[:8]:12s}Ii:{str(self.Ii.v)[:8]:12s}",
-            file=g.pretty,
+            f"Ir:{str(self.Ir.v)[:8]:12s}Ii:{str(self.Ii.v)[:8]:12s}\n"
         )

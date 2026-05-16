@@ -73,13 +73,12 @@ class Nozzle(Element):
             + self.FNo.A * 144.0 * (self.FNo.Ps - self.PsExh.get())
         )
 
-    def dump(self):
-        print(self.name1, "Nozzle", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Nozzle\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Nozzle'[:10]:12s}{self.name1[:10]:12s}"
-            f"{('Fg:' + str(self.Fg))[:10]:12s}",
-            file=g.pretty,
+            f"{('Fg:' + str(self.Fg))[:10]:12s}\n"
         )

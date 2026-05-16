@@ -1,4 +1,4 @@
-from popclean import ComplexT, Element, RealT, g
+from popclean import ComplexT, Element, RealT
 
 from .ep import EP
 
@@ -76,14 +76,13 @@ class Esource(Element):
             else:
                 self.IoutI = self.IoutI - port.I.v.imag
 
-    def dump(self):
-        print(self.name, "Node", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name} Node\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Source'[:8]:12s}{self.name1[:8]:12s}"
             f"{'Vr:' + str(self.Vr.v)[:8]:12s}"
-            f"{'Vi:' + str(self.Vi.v)[:8]:12s}",
-            file=g.pretty,
+            f"{'Vi:' + str(self.Vi.v)[:8]:12s}\n"
         )

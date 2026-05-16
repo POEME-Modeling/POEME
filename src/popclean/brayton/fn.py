@@ -676,24 +676,22 @@ class FN(Atom):
         self.MN.v = MN
         self.statics()
 
-    def dump(self):
-        print(
+    def dump(self, output_file):
+        output_file.write(
             f"{self.parent.name1[:8]:10s} {self.name1[:8]:10s}  "
             f"W:{str(self.W.v)[:8]:10s}  Tt:{str(self.Tt.v)[:8]:10s}  "
             f"Pt:{str(self.Pt.v)[:8]:10s}  FAR:{str(self.FAR.v)[:8]:10s}  "
             f"MN:{str(self.MN.v)[:8]:10s}  Ts:{str(self.Ts.v)[:8]:10s}  "
-            f"Ps:{str(self.Ps.v)[:8]:10s}",
-            file=g.out,
+            f"Ps:{str(self.Ps.v)[:8]:10s}\n"
         )
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{self.parent.name1[:8]:10s} {self.name1[:8]:10s}  "
             f"W:{str(self.W.v)[:8]:10s}  Tt:{str(self.Tt.v)[:8]:10s}  "
             f"Pt:{str(self.Pt.v)[:8]:10s}  ht:{str(self.ht.v)[:8]:10s}  "
             f"FAR:{str(self.FAR.v)[:8]:10s}  MN:{str(self.MN.v)[:8]:10s}  "
-            f"Ts:{str(self.Ts.v)[:8]:10s}  Ps:{str(self.Ps.v)[:8]:10s}",
-            file=g.pretty,
+            f"Ts:{str(self.Ts.v)[:8]:10s}  Ps:{str(self.Ps.v)[:8]:10s}\n"
         )
 
     def hover(self):

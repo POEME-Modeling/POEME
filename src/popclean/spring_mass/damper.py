@@ -1,4 +1,4 @@
-from popclean import Element, RealT, g
+from popclean import Element, RealT
 
 from .fp import Fp
 
@@ -31,14 +31,13 @@ class Damper(Element):
         self.Fp1.set_f(self.F)
         self.Fp2.set_f(self.F)
 
-    def dump(self):
-        print(self.name1, "Spring", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Spring\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Damper'[:10]:12s}{self.name1[:10]:12s}{('c:' + str(self.c))[:10]:12s}"
             f"{('F:' + str(self.F))[:10]:12s}{('V:' + str(self.V))[:10]:12s}"
-            f"{('length:' + str(self.length))[:10]:12s}",
-            file=g.pretty,
+            f"{('length:' + str(self.length))[:10]:12s}\n"
         )

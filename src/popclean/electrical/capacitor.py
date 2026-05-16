@@ -1,6 +1,6 @@
 import math
 
-from popclean import ComplexT, Element, RealT, Table2d, g
+from popclean import ComplexT, Element, RealT, Table2d
 
 from .ep import EP
 
@@ -48,17 +48,16 @@ class Capacitor(Element):
         self.EPi.set_iv(-1.0 * self.I, self.EPi.V)
         self.EPo.set_iv(self.I, self.EPo.V)
 
-    def dump(self):
-        print(self.name1, "Capacitor", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Capacitor\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Capacitor'[:10]:12s}{self.name1[:10]:12s}"
             f"{('self:' + str(self.C))[:10]:12s}"
             f"{('dVr:' + str(self.EPi.Vr - self.EPo.Vr))[:10]:12s}"
             f"{('dVi:' + str(self.EPi.Vi - self.EPo.Vi))[:10]:12s}"
             f"{('Ir:' + str(self.EPi.Ir))[:10]:12s}"
-            f"{('Ii:' + str(self.EPi.Ii))[:10]:12s}",
-            file=g.pretty,
+            f"{('Ii:' + str(self.EPi.Ii))[:10]:12s}\n"
         )

@@ -1,4 +1,4 @@
-from popclean import Atom, RealT, g
+from popclean import Atom, RealT
 
 
 class DP(Atom):
@@ -27,6 +27,5 @@ class DP(Atom):
         self.other = dp
         dp.other = self
 
-    def dump(self):
-
-        print(self.parent.name, self.name, self.D.v, file=g.out)
+    def dump(self, output_file):
+        output_file.write(f"{self.parent.name} {self.name} {self.D.v}\n")

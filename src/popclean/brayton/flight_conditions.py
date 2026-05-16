@@ -7,7 +7,6 @@ from popclean import (
     RealT,
     StringT,
     Table1d,
-    g,
 )
 
 from .fn import FN
@@ -533,7 +532,7 @@ class FlightConditions(Element):
         else:
             self.ind_1.active = True
 
-    def dump(self):
+    def dump(self, output_file):
         # dump output variables
-        print(self.name1, "FlowStart", file=g.out)
-        super().real_print()
+        output_file.write(f"{self.name1} FlowStart\n")
+        super().real_print(output_file)

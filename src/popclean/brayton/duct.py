@@ -1,4 +1,4 @@
-from popclean import Element, RealT, g
+from popclean import Element, RealT
 
 from .fn import FN
 
@@ -33,13 +33,12 @@ class Duct(Element):
         self.FNo.set_w(self.FNi.W * (1.0 - self.Wbldfrac))
         self.FNobld.set_w(self.FNi.W * (self.Wbldfrac))
 
-    def dump(self):
-        print(self.name1, "Duct", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Duct\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Duct':12s}{self.name1[:10]:12s}{('dP:' + str(self.dP))[:10]:12s}"
-            f"{('Q:' + str(self.Q))[:10]:12s}",
-            file=g.pretty,
+            f"{('Q:' + str(self.Q))[:10]:12s}\n"
         )

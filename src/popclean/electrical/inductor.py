@@ -1,6 +1,6 @@
 import math
 
-from popclean import ComplexT, Element, RealT, g
+from popclean import ComplexT, Element, RealT
 
 from .ep import EP
 
@@ -39,17 +39,16 @@ class Inductor(Element):
         self.EPi.set_iv(-1.0 * self.I, self.EPi.V)
         self.EPo.set_iv(self.I, self.EPo.V)
 
-    def dump(self):
-        print(self.name1, "Inductor", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Inductor\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        output = (
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Inductor'[:10]:12s}{self.name1[:10]:12s}"
             f"{('L:' + str(self.L))[:10]:12s}"
             f"{('dVr:' + str(self.EPi.Vr - self.EPo.Vr))[:10]:12s}"
             f"{('dVi:' + str(self.EPi.Vi - self.EPo.Vi))[:10]:12s}"
             f"{('Ir:' + str(self.EPi.Ir))[:10]:12s}"
-            f"{('Ii:' + str(self.EPi.Ii))[:10]:12s}"
+            f"{('Ii:' + str(self.EPi.Ii))[:10]:12s}\n"
         )
-        print(output, file=g.pretty)

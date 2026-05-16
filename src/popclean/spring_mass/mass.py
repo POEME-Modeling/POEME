@@ -4,7 +4,6 @@ from popclean import (
     Independent,
     RealT,
     State,
-    g,
 )
 
 
@@ -111,14 +110,13 @@ class Mass(Element):
         # calculate the derivative
         self.dVdt = (self.Fp - self.Fn) / (self.mass) * 32.2
 
-    def dump(self):
-        print(self.name, "Node", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name} Node\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Fp'[:10]:12s}{self.name1[:10]:12s}"
             f"{('xloc:' + str(self.xloc))[:10]:12s}{('V:' + str(self.V))[:10]:12s}"
-            f"{('mass:' + str(self.mass))[:10]:12s}",
-            file=g.pretty,
+            f"{('mass:' + str(self.mass))[:10]:12s}\n"
         )

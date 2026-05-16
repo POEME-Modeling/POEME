@@ -38,6 +38,6 @@ class PIV(Element):
         self.elast = self.e
         self.Inte = self.Inte + self.e.v * g.NS.dtime
 
-    def dump(self):
-        print(self.name1, "PIV", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} PIV\n")
+        super().real_print(output_file)

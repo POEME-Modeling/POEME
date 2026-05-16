@@ -1,4 +1,4 @@
-from popclean import Element, RealT, g
+from popclean import Element, RealT
 
 
 class Wall(Element):
@@ -55,13 +55,12 @@ class Wall(Element):
                 else:
                     self.Fn = self.Fp + p.F
 
-    def dump(self):
-        print(self.name, "Node", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name} Node\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Fp'[:10]:12s}{self.name1[:10]:12s}"
-            f"{('xloc:' + str(self.xloc))[:10]:12s}",
-            file=g.pretty,
+            f"{('xloc:' + str(self.xloc))[:10]:12s}\n"
         )

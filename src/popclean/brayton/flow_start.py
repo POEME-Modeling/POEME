@@ -4,7 +4,6 @@ from popclean import (
     Independent,
     RealT,
     StringT,
-    g,
 )
 
 from .fn import FN
@@ -57,14 +56,13 @@ class FlowStart(Element):
         else:
             self.ind_1.active = True
 
-    def dump(self):
+    def dump(self, output_file):
         # dump output variables
-        print(self.name1, "FlowStart", file=g.out)
-        super().real_print()
+        output_file.write(f"{self.name1} FlowStart\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"Start {self.name1[:10]:15s} W:{str(self.W)[:4]:10s} "
-            f"Tt:{str(self.W)[:4]:10s}  Pt:{str(self.Pt)[:4]:10s}",
-            file=g.pretty,
+            f"Tt:{str(self.W)[:4]:10s}  Pt:{str(self.Pt)[:4]:10s}\n"
         )

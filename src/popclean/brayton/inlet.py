@@ -1,4 +1,4 @@
-from popclean import Element, RealT, g
+from popclean import Element, RealT
 
 from .fn import FN
 
@@ -24,12 +24,11 @@ class Inlet(Element):
         # keep enthalpy constant and apply a pressure drop
         self.FNo.set_hp(self.FNo.ht, self.FNo.Pt * (self.rec))
 
-    def dump(self):
-        print(self.name1, "Duct", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Duct\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
-            f"{'Inlet':12s}{self.name1[:10]:12s}{('rec:' + str(self.rec))[:10]:12s}",
-            file=g.pretty,
+    def pretty(self, output_file):
+        output_file.write(
+            f"{'Inlet':12s}{self.name1[:10]:12s}{('rec:' + str(self.rec))[:10]:12s}\n"
         )

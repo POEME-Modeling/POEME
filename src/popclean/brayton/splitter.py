@@ -4,7 +4,6 @@ from popclean import (
     Element,
     Independent,
     RealT,
-    g,
 )
 
 from .fn import FN
@@ -63,13 +62,12 @@ class Splitter(Element):
         else:
             self.ind_BPR.active = True
 
-    def dump(self):
-        print(self.name1, "Splitter", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name1} Splitter\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Splitter'[:10]:12s}{self.name1[:10]:12s}"
-            f"{('BPR:' + str(self.BPR))[:10]:12s}",
-            file=g.pretty,
+            f"{('BPR:' + str(self.BPR))[:10]:12s}\n",
         )

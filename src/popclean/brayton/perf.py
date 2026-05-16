@@ -44,16 +44,15 @@ class Perf(Element):
         self.Fn = self.Fg - self.Fram
         self.SFC = self.Wfuel / self.Fn * 3600.0
 
-    def dump(self):
-        print(self.name, "Shaft", file=g.out)
-        super().real_print()
+    def dump(self, output_file):
+        output_file.write(f"{self.name} Shaft\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'Performance'[:10]:12s}{self.name1[:10]:12s}"
             f"{('alt:' + str(self.alt))[:10]:12s}{('MN:' + str(self.MN))[:10]:12s}"
             f"{('Fn:' + str(self.Fn))[:10]:12s}{('SFC:' + str(self.SFC))[:10]:12s}"
             f"{('Fg:' + str(self.Fg))[:10]:12s}{('Fram:' + str(self.Fram))[:10]:12s}"
-            f"{('Wfuel:' + str(self.Wfuel))[:10]:12s} ",
-            file=g.pretty,
+            f"{('Wfuel:' + str(self.Wfuel))[:10]:12s} \n"
         )

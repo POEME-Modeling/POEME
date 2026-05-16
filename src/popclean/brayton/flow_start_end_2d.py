@@ -4,7 +4,6 @@ from popclean import (
     Element,
     RealT,
     StringT,
-    g,
 )
 
 from .fn import FN
@@ -60,15 +59,14 @@ class FlowStartEnd2D(Element):
         self.FNo.set_hp(self.ht, self.Pt)
         self.FNo.set_w(self.W)
 
-    def dump(self):
+    def dump(self, output_file):
         # dump output variables
-        print(self.name1, "FlowStart", file=g.out)
-        super().real_print()
+        output_file.write(f"{self.name1} FlowStart\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'FSE2D'[:10]:12s}{self.name1[:10]:12s}{('W:' + str(self.W))[:10]:12s}"
             f"{('Pt:' + str(self.FNo.Pt))[:10]:12s}"
-            f"{('Tt:' + str(self.FNo.Tt))[:10]:12s}",
-            file=g.pretty,
+            f"{('Tt:' + str(self.FNo.Tt))[:10]:12s}\n"
         )

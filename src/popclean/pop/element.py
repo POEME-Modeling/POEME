@@ -58,7 +58,7 @@ class Element(Atom):
     def precheck(self):
         pass
 
-    def dump(self):
+    def dump(self, output_file):
         pass
 
     def step(self):
@@ -70,25 +70,23 @@ class Element(Atom):
     def after(self):
         pass
 
-    def real_print(self):
+    def real_print(self, output_file):
         for v in self.VIDL:
             if v.isa("RealT"):
-                print(
-                    f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}",
-                    file=g.out,
+                output_file.write(
+                    f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}\n",
                 )
             if v.isa("ComplexT"):
-                print("    ", v.name1, v.v, v.units, v.desc, file=g.out)
+                output_file.write(f"    {v.name1} {v.v} {v.units} {v.desc}\n")
 
-    def pretty(self):
+    def pretty(self, output_file):
         for v in self.VIDL:
             if v.isa("RealT"):
-                print(
-                    f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}",
-                    file=g.pretty,
+                output_file.write(
+                    f"  {v.name1[:8]:10s} {str(v.v)[:8]:8} {v.units:8} {v.desc}\n"
                 )
             if v.isa("ComplexT"):
-                print("    ", v.name1, v.v, v.units, v.desc, file=g.out)
+                output_file.write(f"    {v.name1} {v.v} {v.units} {v.desc}\n")
 
     def hover(self):
         temp1 = ""

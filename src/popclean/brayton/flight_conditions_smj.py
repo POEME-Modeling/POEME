@@ -5,7 +5,6 @@ from popclean import (
     RealT,
     StringT,
     Table1d,
-    g,
 )
 
 from .fn import FN
@@ -515,17 +514,16 @@ class FlightConditionsSMJ(Element):
         else:
             self.ind_1.active = True
 
-    def dump(self):
+    def dump(self, output_file):
         # dump output variables
-        print(self.name1, "FlowStart", file=g.out)
-        super().real_print()
+        output_file.write(f"{self.name1} FlowStart\n")
+        super().real_print(output_file)
 
-    def pretty(self):
-        print(
+    def pretty(self, output_file):
+        output_file.write(
             f"{'FlightConditions'[:10]:12s}{self.name1[:10]:12s}"
             f"{('W:' + str(self.W))[:10]:12s}{('Tt:' + str(self.FNo.Tt))[:10]:12s}"
             f"{('Pt:' + str(self.FNo.Pt))[:10]:12s}"
             f"{('Tamb:' + str(self.Tamb))[:10]:12s}"
-            f"{('Pamb:' + str(self.Pamb))[:10]:12s}",
-            file=g.pretty,
+            f"{('Pamb:' + str(self.Pamb))[:10]:12s}\n"
         )

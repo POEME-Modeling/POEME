@@ -7,6 +7,7 @@ from scipy import linalg
 from . import g
 from .boolean_t import BooleanT
 from .element import Element
+from .print import print_stdout
 from .real_t import RealT
 
 
@@ -17,10 +18,11 @@ def magnitude(vector):
 # No dependents or constraints yet
 # Still need to generate independent list from elements
 class Newton(Element):
-    def __init__(self, name):
+    def __init__(self, name, output_file):
 
         # variables
         self.name1 = name
+        self.output_file = output_file
         self.VIDL = list()
         self.ind_list = g.ind_list
         self.dep_list = g.dep_list
@@ -372,7 +374,7 @@ class Newton(Element):
             i.ind.v = i.ind.save
 
     def pretty(self):
-        print("Converged:" + str(self.converged.v), file=g.pretty)
+        self.output_file.write("Converged:" + str(self.converged.v) + "\n")
 
     # user wants transient data
     def transrun(self):
@@ -381,7 +383,7 @@ class Newton(Element):
             self.time.v = self.time.v + self.dtime.v
             # solve time step
             self.solve()
-            g.StdOut.print()
+            print_stdout(self.output_file)
 
             # step the elements and states
             for st in g.state_list:
@@ -391,5 +393,4 @@ class Newton(Element):
 
             # print data for this time step
 
-            # g.StdOut = open( "pop.out", "a" )
-            # g.StdOut.print()
+            # print_stdout(self.output_file)
