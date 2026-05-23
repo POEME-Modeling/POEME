@@ -62,5 +62,5 @@ print("converged", solver.converged)
 
 output_file = open("pop.out", "a")
 print_stdout(output_file, session)
-pretty_file = open("pop.out", "a")
+pretty_file = open("pretty.out", "a")
 print_pretty(pretty_file, session)
