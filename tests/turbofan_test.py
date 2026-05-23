@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 import time
 
-from popclean import (
+from poeme import (
     Constraint,
     Dependent,
     Independent,
@@ -12,7 +12,7 @@ from popclean import (
     Output,
     RealT,
 )
-from popclean.brayton import (
+from poeme.brayton import (
     MP,
     Burner,
     Compressor,
@@ -25,7 +25,7 @@ from popclean.brayton import (
     Splitter,
     Turbine,
 )
-from popclean.pop.print import print_pretty
+from poeme.core.print import print_pretty
 
 start_time = time.time()
 

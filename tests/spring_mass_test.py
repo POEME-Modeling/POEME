@@ -1,5 +1,5 @@
-from popclean import ModelSession, Newton, Output
-from popclean.spring_mass import Damper, Fp, Mass, Spring, Wall
+from poeme import ModelSession, Newton, Output
+from poeme.spring_mass import Damper, Fp, Mass, Spring, Wall
 
 with ModelSession() as session:
     W1 = Wall("W1")
