@@ -77,7 +77,7 @@ def index(x, temp, p):
             + str(temp[len(temp) - 1])
             + "\n"
         )
-        _add_error(msg, p)
+
     # location = 0
     min = 0
     max = len(temp)
