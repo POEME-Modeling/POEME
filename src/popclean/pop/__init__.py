@@ -1,4 +1,3 @@
-from . import g
 from .atom import Atom
 from .boolean_t import BooleanT
 from .complex_t import ComplexT
@@ -29,7 +28,6 @@ __all__ = [
     "Constraint",
     "Dependent",
     "Element",
-    "g",
     "H2O",
     "Independent",
     "IntT",
