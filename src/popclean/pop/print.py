@@ -45,9 +45,9 @@ def _print_section_header(output_file, title, style="simple"):
         style: 'simple', 'decorative', or 'turbofan'
     """
     if style == "decorative":
-        output_file.write("*" * 50 + "\n")
+        output_file.write("*" * 18 + "\n")
         output_file.write(f"{title}\n")
-        output_file.write("*" * 50 + "\n")
+        output_file.write("*" * 18 + "\n")
     elif style == "turbofan":
         output_file.write("*" * 56 + "\n")
     else:  # simple
@@ -80,7 +80,7 @@ def print_stdout(output_file, session):
     output_file.write("Ports*************\n")
     _print_ports(output_file, session, method_name="dump")
     output_file.write("\n")
-    output_file.write("Elements***********\n")
+    output_file.write("Elements**********\n")
     output_file.write("\n")
     _print_elements(output_file, session, method_name="dump")
 
@@ -96,11 +96,11 @@ def print_pretty(output_file, session):
     output_file.write("\n")
     _print_ports(output_file, session, method_name="pretty")
     output_file.write("\n")
-    _print_section_header(output_file, "Elements***********", style="decorative")
+    _print_section_header(output_file, "Elements**********", style="decorative")
     output_file.write("\n")
     _print_elements(output_file, session, method_name="pretty")
     output_file.write("\n")
-    _print_section_header(output_file, "Solver**********", style="decorative")
+    _print_section_header(output_file, "Solver************", style="decorative")
     output_file.write("\n")
     if session.solver:
         session.solver.pretty(output_file)
