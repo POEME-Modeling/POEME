@@ -1,14 +1,14 @@
 import math
 
-from popclean import ComplexT, Element, RealT
+from popclean import ComplexT, Element, ModelSession, RealT
 
 from .ep import EP
 
 
 class Inductor(Element):
-    def __init__(self, name, inductance=0):
+    def __init__(self, name, inductance=0, session: ModelSession | None = None):
         # TODO: inductance not used
-        super().__init__(name, "Inductor")
+        super().__init__(name, "Inductor", session=session)
         self.type = "Inductor"
         self.desc = "Simple inductor element"
 

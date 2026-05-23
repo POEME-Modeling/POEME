@@ -2,6 +2,7 @@ from popclean import (
     BooleanT,
     Dependent,
     Element,
+    ModelSession,
     RealT,
     StringT,
 )
@@ -10,8 +11,8 @@ from .fn import FN
 
 
 class FlowStartEnd2D(Element):
-    def __init__(self, name):
-        super().__init__(name, "FlowStart")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "FlowStart", session=session)
         self.type = "FlowStart"
 
         self.desc = "Start a Flow stream."

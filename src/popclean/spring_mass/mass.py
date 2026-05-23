@@ -2,14 +2,15 @@ from popclean import (
     BooleanT,
     Element,
     Independent,
+    ModelSession,
     RealT,
     State,
 )
 
 
 class Mass(Element):
-    def __init__(self, name):
-        super().__init__(name, "Mass")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Mass", session=session)
         self.name = name
 
         self.desc = "This element is nodal x location for a mass spring system."

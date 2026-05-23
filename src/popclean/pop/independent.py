@@ -1,5 +1,3 @@
-# from Element import Element
-from . import g
 from .atom import Atom
 from .real_t import RealT
 from .string_t import StringT
@@ -7,6 +5,7 @@ from .string_t import StringT
 
 class Independent(Atom):
     def __init__(self, p, **kwargs):
+        self.session = p.session
         self.p = p
         self.type = "Independent"
         self.name1 = ""
@@ -29,8 +28,8 @@ class Independent(Atom):
             pass
         else:
             p.add_vid(self)
-        # add the independent to the global space
-        g.ind_list.append(self)
+        # add the independent to the session
+        self.session.independents.append(self)
 
         # gui location
         self.x = 0

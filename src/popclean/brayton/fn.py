@@ -1,6 +1,6 @@
 import math
 
-from popclean import Atom, BooleanT, RealT, StringT, ValueT, g
+from popclean import Atom, BooleanT, RealT, StringT, ValueT
 
 from .air2 import Air2
 from .air4 import Air4
@@ -31,6 +31,7 @@ class FN(Atom):
         self.__dict__.update(
             {
                 "parent": p,
+                "session": p.session,
                 "name1": "",
                 "VIDL": [],
                 "type": "FN",
@@ -367,7 +368,7 @@ class FN(Atom):
                 error = (self.MN.v - mnor) / mnor
 
             if count > 49:
-                g.errors = g.errors + "MN iteration failure\n"
+                self.session.errors += "MN iteration failure\n"
 
             self.MN.v = mnor
 
@@ -386,7 +387,7 @@ class FN(Atom):
 
             count = 0
             while abs(error) > 0.00001 and count < 50:
-                count = count + 1
+                count += 1
 
                 xp1 = x - error * (x - xm1) / (error - errorm1)
 
@@ -403,17 +404,11 @@ class FN(Atom):
                 self.ps_calc()
                 # print( self.Ps.v, self.A.v, aor, self.MN.v )
                 error = (self.A.v - aor) / aor
-                count = count + 1
 
-            if count > 49:
-                g.errors = (
-                    self.parent.name1
-                    + "."
-                    + self.name1
-                    + " "
-                    + g.errors
-                    + " failure during static area match\n"
-                )
+            if count >= 49:
+                new_error = f"{self.parent.name1}.{self.name1} failure "
+                "during static area match\n"
+                self.session.errors += new_error
 
             self.A.v = aor
 

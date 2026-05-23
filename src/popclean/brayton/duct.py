@@ -1,11 +1,11 @@
-from popclean import Element, RealT
+from popclean import Element, ModelSession, RealT
 
 from .fn import FN
 
 
 class Duct(Element):
-    def __init__(self, name):
-        super().__init__(name, "Duct")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Duct", session=session)
         self.type = "Duct"
 
         self.desc = "Applies a constant enthalpy pressure drop"

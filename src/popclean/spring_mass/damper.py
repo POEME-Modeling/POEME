@@ -1,11 +1,11 @@
-from popclean import Element, RealT
+from popclean import Element, ModelSession, RealT
 
 from .fp import Fp
 
 
 class Damper(Element):
-    def __init__(self, name):
-        super().__init__(name, "Damper")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Damper", session=session)
 
         self.desc = "Simple spring element"
 

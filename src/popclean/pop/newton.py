@@ -4,11 +4,11 @@ import numpy as np
 from numpy import dot, outer
 from scipy import linalg
 
-from . import g
 from .boolean_t import BooleanT
 from .element import Element
 from .print import print_stdout
 from .real_t import RealT
+from .session import ModelSession, _active_session
 
 
 def magnitude(vector):
@@ -18,21 +18,30 @@ def magnitude(vector):
 # No dependents or constraints yet
 # Still need to generate independent list from elements
 class Newton(Element):
-    def __init__(self, name, output_file):
-
+    def __init__(self, name, output_file=None, session: ModelSession | None = None):
+        if session is None:
+            session = _active_session.get()
+        if session is None:
+            error_msg = f"Newton {name} requires a session parameter or active "
+            "ModelSession context"
+            raise ValueError(error_msg)
+        self.session = session
         # variables
         self.name1 = name
-        self.output_file = output_file
+        # TODO: fix this to use a better default
+        self.output_file = (
+            output_file if output_file is not None else open("newton.out", "w")
+        )
         self.VIDL = list()
-        self.ind_list = g.ind_list
-        self.dep_list = g.dep_list
+        self.ind_list = self.session.independents
+        self.dep_list = self.session.dependents
         self.maxJacobians = RealT(
             self, v=50.0, units="Integer", desc="Maxium number of Jacobians"
         )
         self.numpasses = RealT(self, v=0.0, units="Integer", desc="Number of passes")
         self.tolerance = RealT(self, v=0.0001, units="real", desc="tolernace")
         self.constraints = False
-        g.solver = self
+        self.session.solver = self
         self.type = "NewtonSolver"
         self.time = RealT(self, v=0.0, units="seconds", dessc="Simulation time")
         self.dtime = RealT(self, v=0.05, units="seconds", desc="Simulation time step")
@@ -49,14 +58,14 @@ class Newton(Element):
     # define one analysis pass
     def onepass(self):
 
-        g.errors = ""
+        self.session.errors = ""
         self.numpasses = self.numpasses + 1
         # run the prepass on all the elements
-        for e in g.element_list:
+        for e in self.session.elements:
             e.preset()
 
         # run the calculate section for one element
-        for e in g.element_list:
+        for e in self.session.elements:
             e.before()
             e.calc()
             e.after()
@@ -78,19 +87,19 @@ class Newton(Element):
         self.state_list = list()
         self.con_list = list()
 
-        for d in g.dep_list:
+        for d in self.session.dependents:
             if d.active == True:
                 self.dep_list.append(d)
 
-        for i in g.ind_list:
+        for i in self.session.independents:
             if i.active == True:
                 self.ind_list.append(i)
 
-        for st in g.state_list:
+        for st in self.session.states:
             if st.active == True:
                 self.state_list.append(st)
 
-        for c in g.con_list:
+        for c in self.session.constraints:
             if c.on == True:
                 self.con_list.append(c)
                 c.active = False
@@ -109,7 +118,7 @@ class Newton(Element):
         while self.constraints == True:
             self.converged.set(False)
             iter = 0
-            g.errors = ""
+            self.session.errors = ""
             err_sum_last = 9e9
             err_sum = 8e9
             while iter < self.maxJacobians.v and self.converged == False:
@@ -218,7 +227,7 @@ class Newton(Element):
                     imatrix = linalg.inv(matrix)
                 except:  # noqa: E722
                     iter = self.maxJacobians.v
-                    g.errors = g.errors + "Could not invert solver matrix\n"
+                    self.session.errors += "Could not invert solver matrix\n"
                 bc = 0
 
                 # if the error keeps improving, keep using jacobian
@@ -342,13 +351,13 @@ class Newton(Element):
 
         # if we are here, model is done
         # try:
-        g.errors = ""
+        self.session.errors = ""
         self.onepass()
         # except:
         # g.errors = g.errors + " error during final model pass\n"
         # pass
 
-        for c in g.con_list:
+        for c in self.session.constraints:
             if c.on == True:
                 self.con_list.append(c)
                 c.active = False
@@ -356,25 +365,25 @@ class Newton(Element):
 
         if iter > self.maxJacobians.v - 1:
             self.converged.set(False)
-            g.errors = g.errors + " solver exceeded maximu number of iterations\n"
+            self.session.errors += " solver exceeded maximu number of iterations\n"
         else:
             self.converged.set(True)
 
     def trim(self):
         # trim up model
-        for st in g.state_list:
+        for st in self.session.states:
             st.trim()
 
     def save_independents(self):
-        for i in g.ind_list:
+        for i in self.session.independents:
             i.ind.save = i.ind.v
 
     def restore_independents(self):
-        for i in g.ind_list:
+        for i in self.session.independents:
             i.ind.v = i.ind.save
 
-    def pretty(self):
-        self.output_file.write("Converged:" + str(self.converged.v) + "\n")
+    def pretty(self, output_file):
+        output_file.write("Converged:" + str(self.converged.v) + "\n")
 
     # user wants transient data
     def transrun(self):
@@ -383,14 +392,14 @@ class Newton(Element):
             self.time.v = self.time.v + self.dtime.v
             # solve time step
             self.solve()
-            print_stdout(self.output_file)
+            print_stdout(self.output_file, self.session)
 
             # step the elements and states
-            for st in g.state_list:
+            for st in self.session.states:
                 st.step()
-            for e in g.element_list:
+            for e in self.session.elements:
                 e.step()
 
             # print data for this time step
 
-            # print_stdout(self.output_file)
+            # print_stdout(self.output_file, self.session)

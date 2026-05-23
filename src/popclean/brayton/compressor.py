@@ -3,6 +3,7 @@ from popclean import (
     Dependent,
     Element,
     Independent,
+    ModelSession,
     RealT,
     Table2d,
 )
@@ -12,8 +13,8 @@ from .mp import MP
 
 
 class Compressor(Element):
-    def __init__(self, name):
-        super().__init__(name, "Compressor")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Compressor", session=session)
         self.type = "Compressor"
 
         self.desc = (

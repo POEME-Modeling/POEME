@@ -1,11 +1,11 @@
-from popclean import ComplexT, Element, RealT, Table1d
+from popclean import ComplexT, Element, ModelSession, RealT, Table1d
 
 from .ep import EP
 
 
 class Resistor(Element):
-    def __init__(self, name):
-        super().__init__(name, "Resistor")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Resistor", session=session)
         self.type = "Resistor"
         self.desc = "Simple reistor element"
 

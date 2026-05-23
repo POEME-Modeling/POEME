@@ -1,4 +1,3 @@
-from . import g
 from .boolean_t import BooleanT
 from .real_t import RealT
 from .string_t import StringT
@@ -10,6 +9,7 @@ class State:
     active = True
 
     def __init__(self, p, **kwargs):
+        self.session = p.session
         self.parent = p
         self.type = "State"
         self.name1 = ""
@@ -42,8 +42,8 @@ class State:
         else:
             p.add_vid(self)
 
-        # add state to the global space
-        g.state_list.append(self)
+        # add state to the session
+        self.session.states.append(self)
 
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
@@ -84,11 +84,15 @@ class State:
             if self.val_scale.v != 0.0:
                 denom = self.val_scale.v
 
-            # return ( self.self.v - ( self.stateL.v + ( self.ds.v  )/2.*g.NS.dtime.v ))
+            # return ( self.self.v - ( self.stateL.v + ( self.ds.v  )/
+            # 2.*self.session.solver.dtime.v ))
             # / denom
             return (
                 self.self.v
-                - (self.stateL.v + (self.ds.v + self.dsL.v) / 2.0 * g.NS.dtime.v)
+                - (
+                    self.stateL.v
+                    + (self.ds.v + self.dsL.v) / 2.0 * self.session.solver.dtime.v
+                )
             ) / denom
 
     def trim(self):

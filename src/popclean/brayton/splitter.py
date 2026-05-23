@@ -3,6 +3,7 @@ from popclean import (
     BooleanT,
     Element,
     Independent,
+    ModelSession,
     RealT,
 )
 
@@ -10,8 +11,8 @@ from .fn import FN
 
 
 class Splitter(Element):
-    def __init__(self, name):
-        super().__init__(name, "Splitter")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Splitter", session=session)
         self.type = "Splitter"
 
         self.desc = "Divides an incoming flow into 2 streams"

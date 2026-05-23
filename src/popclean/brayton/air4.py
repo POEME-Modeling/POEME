@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-from popclean import g, interp_3d
+from popclean import interp_3d
 
 
 class Air4:
@@ -133,7 +133,10 @@ class Air4:
             error = (scalc - s) / s
 
         if count > 49:
-            g.errors = g.errors + "Error in T_sp"
+            error = "T_sP did not converge"
+            raise ValueError(error)
+            # TODO: fix this
+            # p.session.errors += "Error in T_sp"
 
         return T
 
@@ -162,6 +165,9 @@ class Air4:
             hcalc = Air4.h_TP(T, P, FAR, p)
             error = (hcalc - h) / h
         if count > 49:
-            g.errors = g.errors + "Error in T_hp"
+            error = "T_hp did not converge"
+            raise ValueError(error)
+            # TODO: fix this
+            # p.session.errors += "Error in T_hp"
 
         return T

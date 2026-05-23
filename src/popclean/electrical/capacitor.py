@@ -1,13 +1,13 @@
 import math
 
-from popclean import ComplexT, Element, RealT, Table2d
+from popclean import ComplexT, Element, ModelSession, RealT, Table2d
 
 from .ep import EP
 
 
 class Capacitor(Element):
-    def __init__(self, name):
-        super().__init__(name, "Capacitor")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Capacitor", session=session)
         self.type = "Capacitor"
 
         self.desc = "Simple capacitor element"

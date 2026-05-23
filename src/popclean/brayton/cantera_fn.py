@@ -22,7 +22,7 @@ class CanteraFN:
             ):
                 gasair.TP = T * 5.0 / 9.0, P * 6894.76
                 gasair.equilibrate("TP")
-            return gasair.Cp / gasair.cv
+            return gasair.cp / gasair.cv
         else:
             if (
                 abs(gas.T - T * 5.0 / 9) > 0.0001
@@ -38,7 +38,7 @@ class CanteraFN:
                 gas.TP = T * 5.0 / 9.0, P * 6894.76
                 CanteraFN.g_fuel_air_ratio = FAR
                 gas.equilibrate("TP")
-            return gas.Cp / gas.cv
+            return gas.cp / gas.cv
 
     @staticmethod
     def rho(T, P, FAR, p):
@@ -80,7 +80,7 @@ class CanteraFN:
                 gasair.TP = T * 5.0 / 9.0, P * 6894.76
                 CanteraFN.g_fuel_air_ratio = FAR
                 gasair.equilibrate("TP")
-            return gasair.Cp * 0.0002390057
+            return gasair.cp * 0.0002390057
 
         else:
             if (
@@ -97,7 +97,7 @@ class CanteraFN:
                 gas.TP = T * 5.0 / 9.0, P * 6894.76
                 CanteraFN.g_fuel_air_ratio = FAR
                 gas.equilibrate("TP")
-            return gas.Cp * 0.0002390057
+            return gas.cp * 0.0002390057
 
     @staticmethod
     def h_TP(T, P, FAR, p):

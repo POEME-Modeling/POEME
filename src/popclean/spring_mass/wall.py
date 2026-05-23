@@ -1,9 +1,9 @@
-from popclean import Element, RealT
+from popclean import Element, ModelSession, RealT
 
 
 class Wall(Element):
-    def __init__(self, name):
-        super().__init__(name, "Wall")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Wall", session=session)
         self.name = name
 
         self.desc = (

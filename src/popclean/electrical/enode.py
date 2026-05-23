@@ -1,11 +1,18 @@
-from popclean import ComplexT, Dependent, Element, Independent, RealT
+from popclean import (
+    ComplexT,
+    Dependent,
+    Element,
+    Independent,
+    ModelSession,
+    RealT,
+)
 
 from .ep import EP
 
 
 class Enode(Element):
-    def __init__(self, name):
-        super().__init__(name, "Enode")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Enode", session=session)
         self.name = name
 
         self.desc = (

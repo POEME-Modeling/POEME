@@ -13,8 +13,8 @@ from .interp_3d import interp_3d
 from .newton import Newton
 from .output import Output
 from .real_t import RealT
+from .session import ModelSession
 from .state import State
-from .std_out import StdOut
 from .string_t import StringT
 from .string_var_t import StringVarT
 from .table_1d import Table1d
@@ -35,11 +35,11 @@ __all__ = [
     "IntT",
     "interp_2d",
     "interp_3d",
+    "ModelSession",
     "Newton",
     "Output",
     "RealT",
     "State",
-    "StdOut",
     "StringT",
     "StringVarT",
     "Table1d",

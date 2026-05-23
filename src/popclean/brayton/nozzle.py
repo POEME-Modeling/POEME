@@ -3,17 +3,17 @@ from popclean import (
     BooleanT,
     Dependent,
     Element,
+    ModelSession,
     RealT,
     StringVarT,
-    g,
 )
 
 from .fn import FN
 
 
 class Nozzle(Element):
-    def __init__(self, name):
-        super().__init__(name, "Duct")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Duct", session=session)
         self.type = "Nozzle"
 
         # variables
@@ -49,7 +49,7 @@ class Nozzle(Element):
     def calc(self):
 
         if self.FNo.Pt < self.PsExh.get():
-            g.errors = g.errors + self.name1 + " nozzle pressure ratio < 1 "
+            self.session.errors += self.name1 + " nozzle pressure ratio < 1 "
         # copy the inlet flow to the exit
         self.FNo.copy(self.FNi)
 

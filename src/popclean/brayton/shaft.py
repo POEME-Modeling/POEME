@@ -2,14 +2,15 @@ from popclean import (
     BooleanT,
     Element,
     Independent,
+    ModelSession,
     RealT,
     State,
 )
 
 
 class Shaft(Element):
-    def __init__(self, name):
-        super().__init__(name, "Shaft")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Shaft", session=session)
         self.type = "Shaft"
         self.desc = "Shaft determines to total power and inertiat on the shaft"
 

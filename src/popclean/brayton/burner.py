@@ -1,11 +1,11 @@
-from popclean import BooleanT, Element, RealT
+from popclean import BooleanT, Element, ModelSession, RealT
 
 from .fn import FN
 
 
 class Burner(Element):
-    def __init__(self, name):
-        super().__init__(name, "Burner")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Burner", session=session)
         self.type = "Burner"
 
         self.desc = "Adds fuel to fuel and burns it."

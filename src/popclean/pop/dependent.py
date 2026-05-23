@@ -1,4 +1,3 @@
-from . import g
 from .atom import Atom
 from .real_t import RealT
 from .string_t import StringT
@@ -7,6 +6,7 @@ from .string_t import StringT
 class Dependent(Atom):
     # def __init__( self, p, d1name, d2name, val_scale, active, desc ):
     def __init__(self, p, **kwargs):
+        self.session = p.session
         self.p = p
         self.name1 = ""
         self.type = "Dependent"
@@ -34,8 +34,8 @@ class Dependent(Atom):
         self.x = 0
         self.y = 0
 
-        # add the dependent to the global space
-        g.dep_list.append(self)
+        # add the dependent to the session
+        self.session.dependents.append(self)
 
     def isa(self, type):
         return type == "Dependent"

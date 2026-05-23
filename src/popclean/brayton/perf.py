@@ -1,13 +1,13 @@
 from popclean import (
     Element,
+    ModelSession,
     RealT,
-    g,
 )
 
 
 class Perf(Element):
-    def __init__(self, name):
-        super().__init__(name, "Shaft")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Shaft", session=session)
         self.type = "Perf"
 
         self.desc = "Simple overall performance calculation"
@@ -30,7 +30,7 @@ class Perf(Element):
         self.Fram = 0.0
 
         # loop through elements to find the nozzles and burners
-        for e in g.element_list:
+        for e in self.session.elements:
             if e.type == "Nozzle":
                 self.Fg = self.Fg + e.Fg
             if e.type == "Burner":

@@ -1,16 +1,16 @@
-from popclean import g
-from popclean.brayton import FlowStartEnd2D
+import sys
 
-g.out = open("pop.out", "a")
-g.pretty = open("pretty.out", "a")
+from popclean import Independent, ModelSession, Newton
+from popclean.brayton import Compressor, Duct, FlowStartEnd2D
+from popclean.pop.print import print_pretty, print_stdout
 
-
-FSE = FlowStartEnd2D("FSE")
+session = ModelSession()
+with session:
+    FSE = FlowStartEnd2D("FSE")
 FSE.Pt = 29.00
 FSE.comp = "CPR134"
 FSE.FNo.twoPhase = True
 FSE.FNo.comp = "CPR134"
-
 
 FSE.FNo.set_tp(600.0, 29.0)
 print(FSE.FNo.ht)
@@ -25,7 +25,6 @@ while True:
     print(FSE.FNo.Tt)
 
 sys.exit()
-
 
 sys.exit()
 
@@ -70,7 +69,6 @@ Comp.WcTable.data = [
     [118.945, 126.124, 126.182],
 ]
 
-
 FSE.FNo.link_fn(Comp.FNi)
 Comp.FNo.link_fn(Condensor.FNi)
 Condensor.FNo.link_fn(Valve.FNi)
@@ -85,6 +83,7 @@ Comp.ind_PRdes = Independent(
     perturb_type="Relative",
     active=True,
     desc="Varies R-line",
+    session=session,
 )
 
 Evap.ind_Q = Independent(
@@ -95,17 +94,19 @@ Evap.ind_Q = Independent(
     perturb_type="Relative",
     active=True,
     desc="Varies R-line",
+    session=session,
 )
 
+solver = Newton("solver")
+session.solver = solver
+session.check()
 
-g.NS = Newton("g.NS")
-g.check()
+solver.solve()
+solver.solve()
+solver.solve()
+solver.solve()
+solver.solve()
+solver.solve()
 
-g.NS.solve()
-g.NS.solve()
-g.NS.solve()
-g.NS.solve()
-g.NS.solve()
-g.NS.solve()
-g.StdOut.print()
-g.PrettyPrint.print()
+print_stdout("pop.out")
+print_pretty("pretty.out")

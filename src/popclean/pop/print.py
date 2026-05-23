@@ -1,17 +1,10 @@
-# TODO: fix this and get rid of noqa after g is fully refactored
-def _get_g():
-    """Lazily import g to avoid circular imports."""
-    from . import g  # noqa PLC0415
-
-    return g
-
-
-def _print_ports(output_file, method_name="dump", port_types=None):
+def _print_ports(output_file, session, method_name="dump", port_types=None):
     """
     Write ports of specified types by calling the given method.
 
     Args:
         output_file: File object to write to
+        session: ModelSession instance
         method_name: Name of method to call on ports ('dump' or 'pretty')
         port_types: List of port type strings to filter (e.g., ['EP', 'FN', 'MP'])
     """
@@ -19,27 +12,26 @@ def _print_ports(output_file, method_name="dump", port_types=None):
         port_types = ["EP", "FN", "MP"]
 
     port_labels = {"EP": "Electric Ports", "FN": "Fluid Ports", "MP": "Mech Ports"}
-    g_module = _get_g()
 
     for port_type in port_types:
         output_file.write("\n")
         output_file.write(f"{port_labels[port_type]}\n")
-        for e in g_module.element_list:
+        for e in session.elements:
             for p in e.VIDL:
                 if p.isa(port_type):
                     getattr(p, method_name)(output_file)
 
 
-def _print_elements(output_file, method_name="dump"):
+def _print_elements(output_file, session, method_name="dump"):
     """
     Write all elements by calling the given method.
 
     Args:
         output_file: File object to write to
+        session: ModelSession instance
         method_name: Name of method to call on elements ('dump' or 'pretty')
     """
-    g_module = _get_g()
-    for e in g_module.element_list:
+    for e in session.elements:
         getattr(e, method_name)(output_file)
 
 
@@ -81,50 +73,51 @@ def _print_turbofan_port_data(output_file, element, port_name):
     )
 
 
-def print_stdout(output_file):
-    g_module = _get_g()
+def print_stdout(output_file, session):
     """Write standard output format."""
-    output_file.write(f"time = {g_module.NS.time}\n")
+    if session.solver:
+        output_file.write(f"time = {session.solver.time}\n")
     output_file.write("Ports*************\n")
-    _print_ports(output_file, method_name="dump")
+    _print_ports(output_file, session, method_name="dump")
     output_file.write("\n")
     output_file.write("Elements***********\n")
     output_file.write("\n")
-    _print_elements(output_file, method_name="dump")
+    _print_elements(output_file, session, method_name="dump")
 
 
-def print_pretty(output_file, errors):
-    g_module = _get_g()
+def print_pretty(output_file, session):
     """Write pretty-formatted output with detailed sections."""
     output_file.write("*" * 96 + "\n")
-    output_file.write(f"{errors}\n")
-    output_file.write(f"time = {g_module.NS.time}\n")
+    output_file.write(f"{session.errors}\n")
+    if session.solver:
+        output_file.write(f"time = {session.solver.time}\n")
     output_file.write("\n")
     _print_section_header(output_file, "Ports*************", style="decorative")
     output_file.write("\n")
-    _print_ports(output_file, method_name="pretty")
+    _print_ports(output_file, session, method_name="pretty")
     output_file.write("\n")
     _print_section_header(output_file, "Elements***********", style="decorative")
     output_file.write("\n")
-    _print_elements(output_file, method_name="pretty")
+    _print_elements(output_file, session, method_name="pretty")
     output_file.write("\n")
     _print_section_header(output_file, "Solver**********", style="decorative")
     output_file.write("\n")
-    g_module.NS.pretty(output_file)
+    if session.solver:
+        session.solver.pretty(output_file)
     output_file.write("\n")
 
 
-def print_scott(output_file, errors):
+def print_scott(output_file, session):
     """Write turbofan-formatted output."""
-    g_module = _get_g()
+
     output_file.write("** TURBOFAN OUTPUT **".center(56, "*") + "\n")
-    output_file.write(f"{errors}\n")
-    output_file.write(f"time = {g_module.NS.time}\n")
+    output_file.write(f"{session.errors}\n")
+    output_file.write(f"time = {session.solver.time}\n")
     output_file.write("\n")
     _print_section_header(output_file, "Ports*************", style="turbofan")
     output_file.write("*" * 56 + "\n")
 
-    for e in g_module.element_list:
+    for e in session.elements:
         for p in e.VIDL:
             if p.isa("FN"):
                 # TODO: validate that this always works. If not, put in better logic

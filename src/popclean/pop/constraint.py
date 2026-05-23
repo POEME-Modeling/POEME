@@ -1,6 +1,5 @@
 import sys
 
-from . import g
 from .atom import Atom
 from .real_t import RealT
 from .string_t import StringT
@@ -8,6 +7,7 @@ from .string_t import StringT
 
 class Constraint(Atom):
     def __init__(self, p, **kwargs):
+        self.session = p.session
         self.d1name = ""
         self.d2name = ""
         self.depname = ""
@@ -36,8 +36,8 @@ class Constraint(Atom):
         # gui location
         self.x = 0
         self.y = 0
-        # add constraint to the global list
-        g.con_list.append(self)
+        # add constraint to the session
+        self.session.constraints.append(self)
         if p == 0:
             pass
         else:
@@ -74,7 +74,7 @@ class Constraint(Atom):
         # if that is the case, look through all of the elements
         # first block happens if the variable is local
 
-        for d in g.dep_list:
+        for d in self.session.dependents:
             if (d.p.name1 + "." + d.name1) == self.depname.v:
                 self.dep = d
         if self.on == True:
@@ -91,7 +91,7 @@ class Constraint(Atom):
             if tempname.find(".") > -1:
                 first = tempname[0 : tempname.find(".")]
                 top = 0
-                for e in g.element_list:
+                for e in self.session.elements:
                     if e.name1 == first:
                         top = e
 
@@ -156,7 +156,7 @@ class Constraint(Atom):
             if tempname.find(".") > -1:
                 first = tempname[0 : tempname.find(".")]
                 top = 0
-                for e in g.element_list:
+                for e in self.session.elements:
                     if e.name1 == first:
                         top = e
 

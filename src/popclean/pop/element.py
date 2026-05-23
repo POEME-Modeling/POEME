@@ -1,12 +1,19 @@
-from . import g
 from .atom import Atom
 from .real_t import RealT
+from .session import ModelSession, _active_session
 from .value_t import ValueT
 from .vid import VID
 
 
 class Element(Atom):
-    def __init__(self, name, type):
+    def __init__(self, name, type, session: ModelSession | None = None):
+        if session is None:
+            session = _active_session.get()
+        if session is None:
+            error_msg = f"Newton {name} requires a session parameter or active "
+            "ModelSession context"
+            raise ValueError(error_msg)
+        self.session = session
         # Bypass custom __setattr__ for internal attributes during init
         super().__setattr__("VIDL", [])
         super().__setattr__("type", type)
@@ -14,7 +21,7 @@ class Element(Atom):
         super().__setattr__("name1", name)
         super().__setattr__("x", -1.0)
         super().__setattr__("y", 0.0)
-        g.element_list.append(self)
+        self.session.elements.append(self)
 
     def __setattr__(self, name, value):
         existing = self.__dict__.get(name)  # direct dict lookup, no descriptor overhead

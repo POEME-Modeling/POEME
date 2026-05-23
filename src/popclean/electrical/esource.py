@@ -1,11 +1,11 @@
-from popclean import ComplexT, Element, RealT
+from popclean import ComplexT, Element, ModelSession, RealT
 
 from .ep import EP
 
 
 class Esource(Element):
-    def __init__(self, name):
-        super().__init__(name, "Enode")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Enode", session=session)
         self.name = name
 
         self.desc = (

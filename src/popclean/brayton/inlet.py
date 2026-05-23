@@ -1,11 +1,11 @@
-from popclean import Element, RealT
+from popclean import Element, ModelSession, RealT
 
 from .fn import FN
 
 
 class Inlet(Element):
-    def __init__(self, name):
-        super().__init__(name, "Inlet")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "Inlet", session=session)
         self.type = "Inlet"
         self.desc = "Inlet with simple recovery"
 

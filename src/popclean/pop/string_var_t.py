@@ -1,10 +1,10 @@
-from . import g
 from .real_t import RealT
 from .value_t import ValueT
 
 
 class StringVarT(ValueT):
     def __init__(self, p, **kwargs):
+        self.session = p.session
         self.v = ""
         self.ptr = 0
         self.desc = ""
@@ -26,7 +26,7 @@ class StringVarT(ValueT):
         if self.ptr == 0:
             tempname = self.v
             restofname = self.v
-            for e in g.element_list:
+            for e in self.session.elements:
                 top = e
                 while tempname.find(".") > -1:
                     restofname = tempname[tempname.find(".") + 1 :]
@@ -60,7 +60,7 @@ class StringVarT(ValueT):
             restofname = val
             top = self.parent
 
-            for e in g.element_list:
+            for e in self.session.elements:
                 top = e
                 if tempname[0 : tempname.find(".")] == e.name1:
                     while tempname.find(".") > -1:

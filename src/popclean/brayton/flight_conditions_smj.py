@@ -2,6 +2,7 @@ from popclean import (
     BooleanT,
     Element,
     Independent,
+    ModelSession,
     RealT,
     StringT,
     Table1d,
@@ -11,8 +12,8 @@ from .fn import FN
 
 
 class FlightConditionsSMJ(Element):
-    def __init__(self, name):
-        super().__init__(name, "FlowStart")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "FlowStart", session=session)
         self.type = "FlightConditionsSMJ"
 
         self.desc = "Start a Flow stream."

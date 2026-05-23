@@ -1,9 +1,9 @@
-from popclean import Element, RealT, StringVarT, g
+from popclean import Element, ModelSession, RealT, StringVarT
 
 
 class PIV(Element):
-    def __init__(self, name):
-        super().__init__(name, "PIV")
+    def __init__(self, name, session: ModelSession | None = None):
+        super().__init__(name, "PIV", session=session)
         self.type = "PIV"
 
         # variables
@@ -21,22 +21,22 @@ class PIV(Element):
 
     def calc(self):
         # if stepping in time them caclulate new conditions
-        if g.NS.time.v > self.timeLast.v:
+        if self.session.solver.time.v > self.timeLast.v:
             self.e = self.G - self.DPi.get()
             self.DPo.set_val(
                 self.DPo.get()
                 + (
                     self.P * self.e
-                    + self.D * (self.e - self.elast) / g.NS.dtime
-                    + self.I * (self.Inte + self.e * g.NS.dtime)
+                    + self.D * (self.e - self.elast) / self.session.solver.dtime
+                    + self.I * (self.Inte + self.e * self.session.solver.dtime)
                 )
             )
-            self.timeLast = g.NS.time
+            self.timeLast = self.session.solver.time
 
     def step(self):
         # step in time
         self.elast = self.e
-        self.Inte = self.Inte + self.e.v * g.NS.dtime
+        self.Inte = self.Inte + self.e.v * self.session.solver.dtime
 
     def dump(self, output_file):
         output_file.write(f"{self.name1} PIV\n")

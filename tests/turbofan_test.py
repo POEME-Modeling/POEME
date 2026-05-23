@@ -3,7 +3,15 @@
 # ------------------------------------------------------
 import time
 
-from popclean import Constraint, Dependent, Independent, Output, RealT, g
+from popclean import (
+    Constraint,
+    Dependent,
+    Independent,
+    ModelSession,
+    Newton,
+    Output,
+    RealT,
+)
 from popclean.brayton import (
     MP,
     Burner,
@@ -17,43 +25,45 @@ from popclean.brayton import (
     Splitter,
     Turbine,
 )
+from popclean.pop.print import print_pretty
 
 start_time = time.time()
-g.out = open("pop.out", "a")
-g.pretty = open("pretty.out", "a")
 
-# ---------------------------------------------------------------------------
-# create all of the component objects, including the shaft connection ports
-# --------------------------------------------------------------------------
-start = FlightConditionsSMJ("start")
-inlet = Inlet("inlet")
-fan = Compressor("fan")
-splitter = Splitter("splitter")
-duct2 = Duct("duct2")
-LPC = Compressor("LPC")
-duct25 = Duct("duct25")
-HPC = Compressor("HPC")
-duct3 = Duct("duct3")
-burner = Burner("burner")
-HPT = Turbine("HPT")
-duct45 = Duct("duct45")
-LPT = Turbine("LPT")
-duct5 = Duct("duct5")
-pri_nozzle = Nozzle("pri_nozzle")
+session = ModelSession()
 
-duct17 = Duct("duct17")
-fan_nozzle = Nozzle("fan_nozzle")
-hp_shaft = Shaft("HPshaft")
-lp_shaft = Shaft("LPshaft")
+with session:
+    # ---------------------------------------------------------------------------
+    # create all of the component objects, including the shaft connection ports
+    # --------------------------------------------------------------------------
+    start = FlightConditionsSMJ("start")
+    inlet = Inlet("inlet")
+    fan = Compressor("fan")
+    splitter = Splitter("splitter")
+    duct2 = Duct("duct2")
+    LPC = Compressor("LPC")
+    duct25 = Duct("duct25")
+    HPC = Compressor("HPC")
+    duct3 = Duct("duct3")
+    burner = Burner("burner")
+    HPT = Turbine("HPT")
+    duct45 = Duct("duct45")
+    LPT = Turbine("LPT")
+    duct5 = Duct("duct5")
+    pri_nozzle = Nozzle("pri_nozzle")
 
-lp_shaft.MPfan = MP(lp_shaft, "in")
-lp_shaft.MPlpc = MP(lp_shaft, "in")
-lp_shaft.MPlpt = MP(lp_shaft, "in")
+    duct17 = Duct("duct17")
+    fan_nozzle = Nozzle("fan_nozzle")
+    hp_shaft = Shaft("HPshaft")
+    lp_shaft = Shaft("LPshaft")
 
-hp_shaft.MPC = MP(hp_shaft, "in")
-hp_shaft.MPT = MP(hp_shaft, "in")
+    lp_shaft.MPfan = MP(lp_shaft, "in")
+    lp_shaft.MPlpc = MP(lp_shaft, "in")
+    lp_shaft.MPlpt = MP(lp_shaft, "in")
 
-Perf = Perf("Perf")
+    hp_shaft.MPC = MP(hp_shaft, "in")
+    hp_shaft.MPT = MP(hp_shaft, "in")
+
+    perf = Perf("Perf")
 
 # --------------------------------------
 # link the objects together
@@ -86,7 +96,6 @@ HPT.FNiBld2.link_fn(HPC.FNoBld1)
 HPT.FNiBld1.link_fn(duct3.FNobld)
 LPT.FNiBld1.link_fn(HPC.FNoBld2)
 
-
 # ------------------------------------------------------------------------
 # set component variable values to match N+3 reference cycle at SLS
 # ------------------------------------------------------------------------
@@ -96,7 +105,6 @@ start.W = 813.51
 
 # use cantera for fluid properties
 start.comp = "CanteraFN"
-
 
 # use tables for fluid properties
 start.comp = "Newtherm"
@@ -177,7 +185,6 @@ hp_shaft.HPX = 350.0
 
 lp_shaft.N = 6772.0
 lp_shaft.I = 6.0
-
 
 # =======================================================================
 #                           E3 fan tip map
@@ -418,22 +425,198 @@ fan.effTable.x = [
 ]
 fan.effTable.y = [1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80]
 fan.effTable.data = [
-    [0.6800, 0.6800, 0.6800, 0.6800, 0.6840, 0.6860, 0.6850, 0.6800, 0.6800, 0.6800],
-    [0.7230, 0.7150, 0.7480, 0.7430, 0.7500, 0.7500, 0.7500, 0.7070, 0.6840, 0.6800],
-    [0.7520, 0.7410, 0.7630, 0.8000, 0.8000, 0.7930, 0.7630, 0.7520, 0.7170, 0.6800],
-    [0.7630, 0.7790, 0.8110, 0.8240, 0.8340, 0.8210, 0.7960, 0.7440, 0.6990, 0.6800],
-    [0.7500, 0.7880, 0.8160, 0.8400, 0.8400, 0.8400, 0.8070, 0.7620, 0.6800, 0.6800],
-    [0.7070, 0.7780, 0.8200, 0.8420, 0.8540, 0.8460, 0.8070, 0.7490, 0.6800, 0.6800],
-    [0.7460, 0.7990, 0.8430, 0.8600, 0.8600, 0.8410, 0.7650, 0.7030, 0.6800, 0.6800],
-    [0.7010, 0.7520, 0.8090, 0.8430, 0.8720, 0.8740, 0.8300, 0.7210, 0.6800, 0.6800],
-    [0.7000, 0.7330, 0.7750, 0.8360, 0.8700, 0.8900, 0.8590, 0.7750, 0.6800, 0.6800],
-    [0.7000, 0.7120, 0.7770, 0.8370, 0.8750, 0.9000, 0.8610, 0.7770, 0.6800, 0.6800],
-    [0.7000, 0.7110, 0.7840, 0.8220, 0.8860, 0.9000, 0.8300, 0.7290, 0.6800, 0.6800],
-    [0.7030, 0.7450, 0.7930, 0.8500, 0.8940, 0.8950, 0.8230, 0.7150, 0.6800, 0.6800],
-    [0.7660, 0.8120, 0.8380, 0.8780, 0.8910, 0.8750, 0.8150, 0.7570, 0.6800, 0.6800],
-    [0.8170, 0.8400, 0.8630, 0.8800, 0.8760, 0.8480, 0.8260, 0.7790, 0.7230, 0.6800],
-    [0.8200, 0.8420, 0.8600, 0.8600, 0.8590, 0.8440, 0.8370, 0.8090, 0.7710, 0.7300],
-    [0.6800, 0.7440, 0.7940, 0.7360, 0.8010, 0.7100, 0.7570, 0.6800, 0.7080, 0.7090],
+    [
+        0.6800,
+        0.6800,
+        0.6800,
+        0.6800,
+        0.6840,
+        0.6860,
+        0.6850,
+        0.6800,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7230,
+        0.7150,
+        0.7480,
+        0.7430,
+        0.7500,
+        0.7500,
+        0.7500,
+        0.7070,
+        0.6840,
+        0.6800,
+    ],
+    [
+        0.7520,
+        0.7410,
+        0.7630,
+        0.8000,
+        0.8000,
+        0.7930,
+        0.7630,
+        0.7520,
+        0.7170,
+        0.6800,
+    ],
+    [
+        0.7630,
+        0.7790,
+        0.8110,
+        0.8240,
+        0.8340,
+        0.8210,
+        0.7960,
+        0.7440,
+        0.6990,
+        0.6800,
+    ],
+    [
+        0.7500,
+        0.7880,
+        0.8160,
+        0.8400,
+        0.8400,
+        0.8400,
+        0.8070,
+        0.7620,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7070,
+        0.7780,
+        0.8200,
+        0.8420,
+        0.8540,
+        0.8460,
+        0.8070,
+        0.7490,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7460,
+        0.7990,
+        0.8430,
+        0.8600,
+        0.8600,
+        0.8410,
+        0.7650,
+        0.7030,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7010,
+        0.7520,
+        0.8090,
+        0.8430,
+        0.8720,
+        0.8740,
+        0.8300,
+        0.7210,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7000,
+        0.7330,
+        0.7750,
+        0.8360,
+        0.8700,
+        0.8900,
+        0.8590,
+        0.7750,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7000,
+        0.7120,
+        0.7770,
+        0.8370,
+        0.8750,
+        0.9000,
+        0.8610,
+        0.7770,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7000,
+        0.7110,
+        0.7840,
+        0.8220,
+        0.8860,
+        0.9000,
+        0.8300,
+        0.7290,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7030,
+        0.7450,
+        0.7930,
+        0.8500,
+        0.8940,
+        0.8950,
+        0.8230,
+        0.7150,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.7660,
+        0.8120,
+        0.8380,
+        0.8780,
+        0.8910,
+        0.8750,
+        0.8150,
+        0.7570,
+        0.6800,
+        0.6800,
+    ],
+    [
+        0.8170,
+        0.8400,
+        0.8630,
+        0.8800,
+        0.8760,
+        0.8480,
+        0.8260,
+        0.7790,
+        0.7230,
+        0.6800,
+    ],
+    [
+        0.8200,
+        0.8420,
+        0.8600,
+        0.8600,
+        0.8590,
+        0.8440,
+        0.8370,
+        0.8090,
+        0.7710,
+        0.7300,
+    ],
+    [
+        0.6800,
+        0.7440,
+        0.7940,
+        0.7360,
+        0.8010,
+        0.7100,
+        0.7570,
+        0.6800,
+        0.7080,
+        0.7090,
+    ],
 ]
 
 fan.PRtable.x = [
@@ -475,14 +658,26 @@ fan.PRtable.data = [
 ]
 # =======================================================================
 
-
 # =======================================================================
 #                           PR 1.8 LPC map
 # =======================================================================
 # 11 speeds
 # 12 index (stall margins)
 LPC.WcTable.x = [0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.10, 1.20, 1.25]
-LPC.WcTable.y = [1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20]
+LPC.WcTable.y = [
+    1.00,
+    1.20,
+    1.40,
+    1.60,
+    1.80,
+    2.00,
+    2.20,
+    2.40,
+    2.60,
+    2.80,
+    3.00,
+    3.20,
+]
 LPC.WcTable.data = [
     [
         38.07,
@@ -813,7 +1008,20 @@ LPC.effTable.data = [
 ]
 
 LPC.PRtable.x = [0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00, 1.10, 1.20, 1.25]
-LPC.PRtable.y = [1.00, 1.20, 1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20]
+LPC.PRtable.y = [
+    1.00,
+    1.20,
+    1.40,
+    1.60,
+    1.80,
+    2.00,
+    2.20,
+    2.40,
+    2.60,
+    2.80,
+    3.00,
+    3.20,
+]
 LPC.PRtable.data = [
     [
         1.0423,
@@ -970,7 +1178,6 @@ LPC.PRtable.data = [
         1.0546,
     ],
 ]
-
 
 # =======================================================================
 #                           PR 23 HPC map
@@ -1541,7 +1748,6 @@ HPC.PRtable.data = [
     ],
 ]
 
-
 # =======================================================================
 #                                 HPT map
 # =======================================================================
@@ -1863,7 +2069,6 @@ HPT.effTable.data = [
         0.9161,
     ],
 ]
-
 
 # =======================================================================
 #                                 LPT map
@@ -2234,18 +2439,22 @@ LPT.effTable.data = [
 # --------------------------------------
 # declare some output
 # -------------------------------------
-estuff = Output("estuff")
+with session:
+    estuff = Output("estuff")
 estuff.filename = "turbofan.out"
-estuff.vars = [start.alt, start.MN, start.W, Perf.Fn, Perf.Wfuel]
+estuff.vars = [start.alt, start.MN, start.W, perf.Fn, perf.Wfuel]
 
 # --------------------------------------
 # run the DESIGN case
 # -------------------------------------
-g.check()
+session.check()
+with session:
+    solver = Newton("solver")
+session.solver = solver
 
-g.NS.solve()
-g.PrettyPrint.print()
-
+solver.solve()
+output_file = open("turbofan.out", "w")
+print_pretty(output_file, session)
 
 _case_counter = {"count": 0}
 
@@ -2256,15 +2465,15 @@ def run_throttle_hook(mnset, altitude):
     fan.NcDem = 1.0
     start.MN = mnset
     start.alt = altitude
-    g.NS.save_independents()
-    g.NS.run()
-    # g.PrettyPrint.print()
-    print(start.MN, start.alt, burner.FAR, Perf.Fn)
-    Perf.FnetMax = RealT(Perf)
-    Perf.FnetMax = Perf.Fn
+    solver.save_independents()
+    solver.run()
+    # print_pretty("pretty.out")
+    print(start.MN, start.alt, burner.FAR, perf.Fn)
+    perf.FnetMax = RealT(perf)
+    perf.FnetMax = perf.Fn
 
     _case_counter["count"] += 1
-    g.NS.save_independents()
+    solver.save_independents()
     factor = 0.9
     start.Fdem = start.Fnet * factor
 
@@ -2273,24 +2482,24 @@ def run_throttle_hook(mnset, altitude):
     burner.con_1.active = False
 
     burner.ind_FAR.active = False
-    g.check()
+    session.check()
 
-    while factor > 0.2 and g.NS.converged == True:
-        start.Fdem = Perf.FnetMax * factor
+    while factor > 0.2 and solver.converged == True:
+        start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
-        g.NS.run()
-        # g.PrettyPrint.print()
-        factor = (Perf.Fn) / Perf.FnetMax
-        print(start.MN, start.alt, burner.FAR, Perf.Fn, factor, g.NS.converged)
+        solver.run()
+        # print_pretty("pretty.out")
+        factor = (perf.Fn) / perf.FnetMax
+        print(start.MN, start.alt, burner.FAR, perf.Fn, factor, solver.converged)
         _case_counter["count"] += 1
 
     fan.dep_NmechC.active = True
     burner.con_1.on = True
     burner.ind_FAR.active = True
-    g.check()
+    session.check()
     fan.NcDem = 1.0
-    g.NS.restore_independents()
-    g.NS.run()
+    solver.restore_independents()
+    solver.run()
     _case_counter["count"] += 1
 
 
@@ -2477,10 +2686,10 @@ def print_stations():
     print(" ")
 
 
-g.PrettyPrint.print()
+print_pretty(output_file, session)
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
-g.set("size", False)
+session.set("size", False)
 fan_nozzle.ind_Area = Independent(
     fan_nozzle,
     indname="Anoz",
@@ -2488,13 +2697,14 @@ fan_nozzle.ind_Area = Independent(
     scale=100,
     perturb_type="Relative",
     active=True,
+    session=session,
 )
 fan.RlineLimit = RealT(fan, v=2.0)
 fan.dep_Rline = Dependent(fan, d1name="Rline", d2name="RlineLimit", active=True)
 
-g.check()
-g.NS.run()
-g.PrettyPrint.print()
+session.check()
+solver.run()
+print_pretty(output_file, session)
 # g.ScottPrint.print()
 
 fan.NcDem = RealT(fan)
@@ -2511,17 +2721,26 @@ burner.ind_FAR = Independent(
     perturb_type="Relative",
     active=True,
     desc="Varies R-line",
+    session=session,
 )
 fan.dep_NmechC = Dependent(
-    fan, d1name="NcMap", d2name="NcDem", active=True, desc="Handles weight flow error"
+    fan,
+    d1name="NcMap",
+    d2name="NcDem",
+    active=True,
+    desc="Handles weight flow error",
 )
 burner.con_1 = Constraint(
-    burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True
+    burner,
+    d1name="burner.Tmax",
+    d2name="FNo.Tt",
+    depname="fan.dep_NmechC",
+    on=True,
 )
 # start.dep_Fnet = Dependent( fan, d1name="start.Fnet",
 # d2name="start.Fdem", active=True, desc="Handles weight flow error" )
 
-g.check()
+session.check()
 
 run_throttle_hook(0.90, 45000.0)
 run_throttle_hook(0.85, 45000.0)
@@ -2571,7 +2790,6 @@ run_throttle_hook(0.30, 15000.0)
 run_throttle_hook(0.60, 10000.0)
 run_throttle_hook(0.50, 10000.0)
 run_throttle_hook(0.40, 10000.0)
-
 
 run_throttle_hook(0.00, 5000.0)
 run_throttle_hook(0.10, 5000.0)

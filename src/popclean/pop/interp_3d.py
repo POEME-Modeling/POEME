@@ -1,4 +1,10 @@
-from . import g
+# TODO: Fix this file to use new error handling system
+# Porentially combine the interp files and/or use an off-the-shelf interpolation
+
+
+def _add_error(msg: str, p) -> None:
+    """Add error message to session errors."""
+    p.session.errors += msg
 
 
 def interp_3d(x1, x2, x3, x1i, x2i, x3i, yi, p):
@@ -51,29 +57,27 @@ def interp_3d(x1, x2, x3, x1i, x2i, x3i, yi, p):
 def index(x, temp, p):
 
     if x < temp[0]:
-        if p.parent != 0:
-            g.errors = g.errors + p.parent.name1 + "."
-        g.errors = (
-            g.errors
-            + p.name1
-            + " interp 3d input to low "
-            + str(x)
-            + " < "
-            + str(temp[0])
-            + "\n"
-        )
+        msg = ""
+        if p and hasattr(p, "parent") and p.parent != 0:
+            msg += p.parent.name1 + "."
+        if p and hasattr(p, "name1"):
+            msg += p.name1
+        msg += " interp 3d input too low " + str(x) + " < " + str(temp[0]) + "\n"
+
+        _add_error(msg, p)
     if x > temp[len(temp) - 1]:
         if p.parent != 0:
-            g.errors = g.errors + p.parent.name1 + "."
-        g.errors = (
-            g.errors
+            p.session.errors = p.session.errors + p.parent.name1 + "."
+        p.session.errors = (
+            p.session.errors
             + p.name1
-            + "interp 3d input to high "
+            + "interp 3d input too high "
             + str(x)
             + " > "
             + str(temp[len(temp) - 1])
             + "\n"
         )
+        _add_error(msg, p)
     # location = 0
     min = 0
     max = len(temp)
