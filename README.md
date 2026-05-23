@@ -1,6 +1,6 @@
-# Project Name
+# POEME: Python Object Engineering Modular Environment
 
-> Short one-line description of what this project does.
+> POEME: A good model is a work of art. (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -27,6 +27,9 @@
 ---
 
 ## About
+
+POEME (prounounced "poem") is a python-based object-oriented modular engineering environment code. It is designed to solve your problems. While it supports all kinds of physics-based modeling, one focus of POEME is to conduct thermodynamics cycle modeling and anaylsis. It can use custom thermodynamics models or off-the-shelf ones from Cantera.
+This codebase is currently in alpha! It should not be relied on and will be subject to breaking API changes. Additionally, this README is woefully inadequate. There is currently no API documentation. There is currently no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
 
 <!-- Provide a more detailed description of your project here. What problem does it solve?
      Who is it for? Why did you build it? -->
@@ -175,6 +178,7 @@ Contributions are welcome! To get started:
 7. Open a Pull Request
 
 Please make sure your code follows the existing style and that all tests pass before submitting.
+Please note: pull requests created solely by AI bots, or pull requests submitted by human accounts but which were clearly written entirely by AI bots will be closed without further action.
 
 <!-- If you have a CONTRIBUTING.md file, link to it here instead -->
 
