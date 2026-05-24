@@ -1,0 +1,784 @@
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:1000.0      Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:1000.0      Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:1000.0      Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:1000.0      Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:1000.0      Tt:1159.577    Pt:285.0       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:950.0       Tt:1238.152    Pt:285.0       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:20.0        Tt:1022.135    Pt:189.5249    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:30.0        Tt:1166.751    Pt:243.675     FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:950.0       Tt:1238.152    Pt:285.0       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:973.75      Tt:2863.150    Pt:285.0       FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1003.75     Tt:2815.509    Pt:285.0       FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1003.75     Tt:2227.384    Pt:95.02757    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:973.75      Tt:2863.150    Pt:285.0       FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:30.0        Tt:1166.751    Pt:243.675     FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:20.0        Tt:1022.135    Pt:189.5249    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1003.75     Tt:2195.632    Pt:95.02757    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1023.75     Tt:2204.509    Pt:95.02757    FAR:0.02375     MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1023.75     Tt:2204.509    Pt:95.02757    FAR:0.02375     MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1023.75     Tt:2204.509    Pt:95.02757    FAR:0.02375     MN:1.0         Ts:1909.784    Ps:51.59898  
+
+Mech Ports
+C1         MP          N:10000.0     hp:-254594.    I:0.0       
+T1         MP          N:10000.0     hp:254589.1    I:0.0       
+S1         MPC         N:10000.0     hp:-254594.    I:0.0       
+S1         MPT         N:10000.0     hp:254589.1    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          1000.0   lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.89     none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943333 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         447.2135 RPM/R**.5 Corrected speed
+  NcMap      0.9      RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         20.0     none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      13.32733 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      2.0      none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1569.170 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1569.170 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.025    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      23.75    lbm/s    Fuel flow
+T1 Turbine
+  eff        0.95     none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.95     none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         186.8864 RPM      Corrected speed
+  NcMap      0.9      RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.999129 none     Pressure ratio
+  PRmap      3.0      none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         182.8204 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      182.8204 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         106803.3 blf      Gross thrust
+S1 Shaft
+  dNdt       -0.50538 RPM/self Speed derivative
+  HPneg      -254589. HP       Total negative power on the shaft
+  HPpos      -254594. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          10000.0  RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         106803.3 lbf      Gross thrust
+  Fn         106803.3 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.800536 ??       Specifc fuel consumption
+  Wfuel      23.75    lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:999.9419    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:999.9419    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:999.9419    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:999.9419    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:999.9419    Tt:1159.546    Pt:284.9712    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:949.9448    Tt:1238.119    Pt:284.9712    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:19.99883    Tt:1022.111    Pt:189.5048    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:29.99825    Tt:1166.721    Pt:243.6491    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:949.9448    Tt:1238.119    Pt:284.9712    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:973.6934    Tt:2863.124    Pt:284.9712    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1003.691    Tt:2815.482    Pt:284.9712    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1003.691    Tt:2227.368    Pt:95.01850    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:973.6934    Tt:2863.124    Pt:284.9712    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:29.99825    Tt:1166.721    Pt:243.6491    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:19.99883    Tt:1022.111    Pt:189.5048    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1003.691    Tt:2195.613    Pt:95.01850    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1023.690    Tt:2204.493    Pt:95.01850    FAR:0.023750    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1023.690    Tt:2204.493    Pt:95.01850    FAR:0.023750    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1023.690    Tt:2204.493    Pt:95.01850    FAR:0.023750    MN:1.0         Ts:1909.769    Ps:51.59405  
+
+Mech Ports
+C1         MP          N:9999.831    hp:-254568.    I:0.0       
+T1         MP          N:9999.831    hp:254569.4    I:0.0       
+S1         MPC         N:9999.831    hp:-254568.    I:0.0       
+S1         MPT         N:9999.831    hp:254569.4    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          999.9419 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.889997 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943330 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         447.2060 RPM/R**.5 Corrected speed
+  NcMap      0.899984 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         19.99798 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      13.32598 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      1.999975 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1569.079 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1569.065 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.025    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      23.74862 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.949995 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.949995 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         186.8841 RPM      Corrected speed
+  NcMap      0.899988 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.999113 none     Pressure ratio
+  PRmap      2.999983 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         182.8274 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      182.8227 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         106795.8 blf      Gross thrust
+S1 Shaft
+  dNdt       0.108609 RPM/self Speed derivative
+  HPneg      -254569. HP       Total negative power on the shaft
+  HPpos      -254568. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          9999.831 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         106795.8 lbf      Gross thrust
+  Fn         106795.8 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.800546 ??       Specifc fuel consumption
+  Wfuel      23.74862 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:999.9122    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:999.9122    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:999.9122    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:999.9122    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:999.9122    Tt:1159.535    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:949.9166    Tt:1238.107    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:19.99824    Tt:1022.103    Pt:189.4977    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:29.99736    Tt:1166.711    Pt:243.6399    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:949.9166    Tt:1238.107    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:973.6645    Tt:2863.115    Pt:284.9611    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1003.661    Tt:2815.473    Pt:284.9611    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1003.661    Tt:2227.367    Pt:95.01621    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:973.6645    Tt:2863.115    Pt:284.9611    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:29.99736    Tt:1166.711    Pt:243.6399    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:19.99824    Tt:1022.103    Pt:189.4977    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1003.661    Tt:2195.611    Pt:95.01621    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:1.0         Ts:1909.769    Ps:51.59281  
+
+Mech Ports
+C1         MP          N:9999.773    hp:-254556.    I:0.0       
+T1         MP          N:9999.773    hp:254558.0    I:0.0       
+S1         MPC         N:9999.773    hp:-254556.    I:0.0       
+S1         MPT         N:9999.773    hp:254558.0    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          999.9122 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.889995 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943328 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         447.2034 RPM/R**.5 Corrected speed
+  NcMap      0.899979 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         19.99727 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      13.32551 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      1.999939 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1569.032 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1569.026 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.025    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      23.74791 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.949992 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.949992 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         186.8834 RPM      Corrected speed
+  NcMap      0.899985 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.999078 none     Pressure ratio
+  PRmap      2.999949 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         182.8282 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      182.8235 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         106792.3 blf      Gross thrust
+S1 Shaft
+  dNdt       0.118877 RPM/self Speed derivative
+  HPneg      -254558. HP       Total negative power on the shaft
+  HPpos      -254556. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          9999.773 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         106792.3 lbf      Gross thrust
+  Fn         106792.3 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.800548 ??       Specifc fuel consumption
+  Wfuel      23.74791 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:999.9122    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:999.9122    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:999.9122    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:999.9122    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:999.9122    Tt:1159.535    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:949.9166    Tt:1238.107    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:19.99824    Tt:1022.103    Pt:189.4977    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:29.99736    Tt:1166.711    Pt:243.6399    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:949.9166    Tt:1238.107    Pt:284.9611    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:973.6645    Tt:2863.115    Pt:284.9611    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1003.661    Tt:2815.473    Pt:284.9611    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1003.661    Tt:2227.367    Pt:95.01621    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:973.6645    Tt:2863.115    Pt:284.9611    FAR:0.025       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:29.99736    Tt:1166.711    Pt:243.6399    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:19.99824    Tt:1022.103    Pt:189.4977    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1003.661    Tt:2195.611    Pt:95.01621    FAR:0.024234    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1023.660    Tt:2204.493    Pt:95.01621    FAR:0.023749    MN:1.0         Ts:1909.769    Ps:51.59281  
+
+Mech Ports
+C1         MP          N:9999.773    hp:-254556.    I:0.0       
+T1         MP          N:9999.773    hp:254558.0    I:0.0       
+S1         MPC         N:9999.773    hp:-254556.    I:0.0       
+S1         MPT         N:9999.773    hp:254558.0    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          999.9122 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.889995 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943328 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         447.2034 RPM/R**.5 Corrected speed
+  NcMap      0.899979 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         19.99727 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      13.32551 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      1.999939 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1569.032 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1569.026 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.026    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      23.74791 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.949992 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.949992 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         186.8834 RPM      Corrected speed
+  NcMap      0.899985 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.999078 none     Pressure ratio
+  PRmap      2.999949 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         182.8282 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      182.8235 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         106792.3 blf      Gross thrust
+S1 Shaft
+  dNdt       0.118877 RPM/self Speed derivative
+  HPneg      -254558. HP       Total negative power on the shaft
+  HPpos      -254556. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          9999.773 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         106792.3 lbf      Gross thrust
+  Fn         106792.3 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.800548 ??       Specifc fuel consumption
+  Wfuel      23.74791 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:1029.193    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:1029.193    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:1029.193    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:1029.193    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:1029.193    Tt:1171.290    Pt:295.7799    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:977.7336    Tt:1250.740    Pt:295.7799    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:20.58386    Tt:1031.173    Pt:197.0709    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:30.87579    Tt:1178.180    Pt:253.3769    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:977.7336    Tt:1250.740    Pt:295.7799    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:1003.154    Tt:2932.740    Pt:295.7799    FAR:0.026       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1034.030    Tt:2883.593    Pt:295.7799    FAR:0.025204    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1034.030    Tt:2289.706    Pt:99.31763    FAR:0.025204    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:1003.154    Tt:2932.740    Pt:295.7799    FAR:0.026       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:30.87579    Tt:1178.180    Pt:253.3769    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:20.58386    Tt:1031.173    Pt:197.0709    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1034.030    Tt:2256.120    Pt:99.31763    FAR:0.025204    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1054.614    Tt:2265.872    Pt:99.31763    FAR:0.0247      MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1054.614    Tt:2265.872    Pt:99.31763    FAR:0.0247      MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1054.614    Tt:2265.872    Pt:99.31763    FAR:0.0247      MN:1.0         Ts:1965.222    Ps:53.97441  
+
+Mech Ports
+C1         MP          N:10074.78    hp:-266670.    I:0.0       
+T1         MP          N:10074.78    hp:266684.9    I:0.0       
+S1         MPC         N:10074.78    hp:-266670.    I:0.0       
+S1         MPT         N:10074.78    hp:266684.9    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          1029.193 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.890549 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.943916 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         450.5581 RPM/R**.5 Corrected speed
+  NcMap      0.906730 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         20.75648 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      13.83143 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      2.010488 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1614.979 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1614.980 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.026    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      25.42107 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.947750 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.947750 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         186.0368 RPM      Corrected speed
+  NcMap      0.895908 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.978121 none     Pressure ratio
+  PRmap      2.978982 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         183.6690 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      183.6687 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         112032.8 blf      Gross thrust
+S1 Shaft
+  dNdt       1.244934 RPM/self Speed derivative
+  HPneg      -266684. HP       Total negative power on the shaft
+  HPpos      -266670. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          10074.78 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         112032.8 lbf      Gross thrust
+  Fn         112032.8 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.816866 ??       Specifc fuel consumption
+  Wfuel      25.42107 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:1061.173    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:1061.173    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:1061.173    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:1061.173    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:1061.173    Tt:1183.909    Pt:307.7415    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:1008.114    Tt:1264.231    Pt:307.7415    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:21.22346    Tt:1040.865    Pt:205.4440    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:31.83519    Tt:1190.432    Pt:264.1424    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:1008.114    Tt:1264.231    Pt:307.7415    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:1035.333    Tt:3002.539    Pt:307.7415    FAR:0.027       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1067.168    Tt:2951.909    Pt:307.7415    FAR:0.026173    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1067.168    Tt:2351.659    Pt:103.9434    FAR:0.026173    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:1035.333    Tt:3002.539    Pt:307.7415    FAR:0.027       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:31.83519    Tt:1190.432    Pt:264.1424    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:21.22346    Tt:1040.865    Pt:205.4440    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1067.168    Tt:2316.479    Pt:103.9434    FAR:0.026173    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1088.392    Tt:2326.886    Pt:103.9434    FAR:0.02565     MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1088.392    Tt:2326.886    Pt:103.9434    FAR:0.02565     MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1088.392    Tt:2326.886    Pt:103.9434    FAR:0.02565     MN:1.0         Ts:2020.425    Ps:56.53482  
+
+Mech Ports
+C1         MP          N:10156.79    hp:-280096.    I:0.0       
+T1         MP          N:10156.79    hp:280112.0    I:0.0       
+S1         MPC         N:10156.79    hp:-280096.    I:0.0       
+S1         MPT         N:10156.79    hp:280112.0    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          1061.173 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.891204 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.944610 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         454.2255 RPM/R**.5 Corrected speed
+  NcMap      0.914111 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         21.59589 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      14.39078 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      2.020149 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1665.161 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1665.163 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.028    none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      27.21908 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.945958 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.945958 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         185.3583 RPM      Corrected speed
+  NcMap      0.892640 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.960664 none     Pressure ratio
+  PRmap      2.961518 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         184.3480 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      184.3461 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         117671.8 blf      Gross thrust
+S1 Shaft
+  dNdt       1.350601 RPM/self Speed derivative
+  HPneg      -280112. HP       Total negative power on the shaft
+  HPpos      -280096. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          10156.79 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         117671.8 lbf      Gross thrust
+  Fn         117671.8 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.832728 ??       Specifc fuel consumption
+  Wfuel      27.21908 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
+time = 0.0
+Ports*************
+
+Electric Ports
+
+Fluid Ports
+FS         FNo         W:1096.018    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNi         W:1096.018    Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNo         W:1096.018    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+D1         FNobld      W:0.0         Tt:500.0       Pt:15.0        FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNi         W:1096.018    Tt:500.0000    Pt:14.25       FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNideal     W:1096.018    Tt:1197.412    Pt:320.9496    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNo         W:1041.217    Tt:1278.589    Pt:320.9496    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld1     W:21.92037    Tt:1051.187    Pt:214.6897    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+C1         FNoBld2     W:32.88055    Tt:1203.473    Pt:276.0296    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNi         W:1041.217    Tt:1278.589    Pt:320.9496    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+B1         FNo         W:1070.371    Tt:3072.507    Pt:320.9496    FAR:0.028       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN41        W:1103.252    Tt:3020.421    Pt:320.9496    FAR:0.027142    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FN42        W:1103.252    Tt:2413.197    Pt:108.9211    FAR:0.027142    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNi         W:1070.371    Tt:3072.507    Pt:320.9496    FAR:0.028       MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld1     W:32.88055    Tt:1203.473    Pt:276.0296    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNiBld2     W:21.92037    Tt:1051.187    Pt:214.6897    FAR:0.0         MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNideal     W:1103.252    Tt:2376.658    Pt:108.9211    FAR:0.027142    MN:0.0         Ts:0.0         Ps:0.0       
+T1         FNo         W:1125.172    Tt:2387.507    Pt:108.9211    FAR:0.026600    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNi         W:1125.172    Tt:2387.507    Pt:108.9211    FAR:0.026600    MN:0.0         Ts:0.0         Ps:0.0       
+N1         FNo         W:1125.172    Tt:2387.507    Pt:108.9211    FAR:0.026600    MN:1.0         Ts:2075.351    Ps:59.28938  
+
+Mech Ports
+C1         MP          N:10246.22    hp:-294953.    I:0.0       
+T1         MP          N:10246.22    hp:294974.0    I:0.0       
+S1         MPC         N:10246.22    hp:-294953.    I:0.0       
+S1         MPT         N:10246.22    hp:294974.0    I:0.0       
+
+Elements**********
+
+FS FlowStart
+  Pt         15.0     lbm/in2  Pressure
+  Tt         500.0    R        Temperature
+  W          1096.018 lbm/sec  Weight
+  Pamb       10.0              
+D1 Duct
+  dP         0.05     none     Pressure loss (fractional)
+  Q          0.0      BTU      Heat added to the duct
+  Wbldfrac   0.0               Bleed flow fraction
+C1 Compressor
+  eff        0.891971 none     Efficiency
+  effDes     0.89     none     Design efficiency
+  effMap     0.945423 none     Efficiency read from table
+  effScale   0.943462 none     Scalar on efficiency map
+  hfract1    0.7      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  hfract2    0.9      BTU/lbm  Enthalpy fraction that determines how down the compressor the bleed is taken
+  Nc         458.2253 RPM/R**.5 Corrected speed
+  NcMap      0.922160 RPM/R**.5 Corrected speed used to read the map
+  NcMapDes   0.9      RPM/R**.5 Design point corrected speed
+  NcScale    0.002012 none     Scalar on corrected speed
+  PR         22.52278 none     Pressure ratio
+  PRdes      20.0     none     Design pressure ratio
+  PRmap      15.00842 none     Pressure ratio read from table
+  PRscale    1.500675 none     Scalar on pressure ratio map
+  Rline      2.028824 none     Current R-line
+  RlineDes   2.0      none     Design point R-line
+  SMN        0.0      none     stall margin based on corrected speed
+  Wc         1719.840 lbm/sec  Corrected flow
+  WcDes      1569.170 lbm/sec  Design corrected flow
+  WcMap      1719.842 lbm/sec  Map corrected flow
+  WcScale    26.14688 none     Scalar on corrected flow
+  Wfrac1     0.02     none     Weight flow fraction for bleed flow 1
+  Wfrac2     0.03     none     Weight flow fraction for bleed flow 2
+B1 Burner
+  dP         0.0      none     Pressure loss (fractional)
+  eff        1.0      none     Burner efficiency
+  FAR        0.03     none     Fuel to air ratio
+  LHV        -500.0   BTU/lbm  Fuel enthalpy
+  Tout       0.0      R        Exit temperature
+  Wfuel      29.15409 lbm/s    Fuel flow
+T1 Turbine
+  eff        0.944602 none     Efficiency
+  effDes     0.95     none     Desired deisgn efficiency
+  effMap     0.944602 none     Efficiency read from map
+  effScale   1.0      none     Scale factor on efficiency
+  Nc         184.8492 RPM      Corrected speed
+  NcMap      0.890188 RPM      Speed used to read map
+  NcMapDes   0.9      RPM      Design speed map location
+  NcScale    0.004815 none     Scale factor on corrected speed
+  PR         2.946622 none     Pressure ratio
+  PRmap      2.947469 none     Pressure ratio read from map
+  PRmapDes   3.0      none     Design pressure ratio on map
+  PRmapSca   1.000435 none     Scale on map pressure ratio
+  Wc         184.8605 lbm/sec  Correctef flow
+  WcDes      182.8204 lbm/sec  Design corrected flow
+  WcMap      184.8544 lbm/sec  Corrected flow read from map
+  WcScale    9.423733 none     scale factor of corrected flow
+N1 Nozzle
+  Cfg        1.0      non      Coefficient of gross thrust
+  Anoz       6.779944 in2      Throat area
+  Fg         123741.6 blf      Gross thrust
+S1 Shaft
+  dNdt       1.788055 RPM/self Speed derivative
+  HPneg      -294974. HP       Total negative power on the shaft
+  HPpos      -294953. HP       Total positive power on the shaft
+  HPX        0.0      HP       Power extraction
+  I          6.0      lbm*ft**2 inertia of the shaft itself 
+  Ispool     6.0      lbm*ft**2 total spool intertia
+  N          10246.22 RPM      Shaft speed
+P1 Shaft
+  alt        0.0      ft       Altitude
+  Fg         123741.6 lbf      Gross thrust
+  Fn         123741.6 lbf      Net thrust
+  MN         0.0               Mach number
+  SFC        0.848176 ??       Specifc fuel consumption
+  Wfuel      29.15409 lbm/s    Fuel flow
+  Fram       0.0      lbf      Ram drag
