@@ -18,10 +18,12 @@ dependencies = [
 [dependency-groups]
 lint = ["ruff"]
 test = ["pytest", "pytest-cov"]
+doc = ["sphinx"]
 
 dev = [
     {include-group = "lint"},
     {include-group = "test"},
+    {include-group = "doc"},
 ]
 
 [tool.setuptools_scm]
