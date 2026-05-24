@@ -2,7 +2,7 @@
 POEME: Python Object Engineering Modular Environment
 ====================================================
 
-    POEME: A good model is a work of art. (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
+    POEME: A good model is a work of art.  A great model is a work of art. A sublime model teaches.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :alt: Python Version
@@ -30,7 +30,9 @@ Table of Contents
 About
 =====
 
-POEME (pronounced "poem") is a python-based object-oriented modular engineering environment code. It is designed to solve your problems. While it supports all kinds of physics-based modeling, one focus of POEME is to conduct thermodynamics cycle modeling and analysis. It can use custom thermodynamics models or off-the-shelf ones from Cantera.
+POEME (pronounced "poem") is a python-based object-oriented modular engineering environment code. It is designed to solve your problems. While it supports all kinds of physics-based modeling.  There is the beginnings of a electric circuit modelling capability, a spring mass dynamic system, and several thermodynamic system models.  These thermodynamic system models include an air conditioner cycle, a transient ground power system with a PIV controller, a commercial turbofan engine running a flight envelope.
+
+Note, if you are thermodynamic engineer, you should really explore learning the NPSS system.  NPSS is the standard professional tool for analyzing and designing thermodynamic systems.  POEME greatly simplifies the engineering and also is not capable running transient analysis anywhere near real time.  That is the standard that determines if a thermodynamic system is of a professional level or not.  The NPSS student license is very cheap and it will give you a huge leg up in your career if you are familiar with it.  You could look at POEME as a stepping to stone to more advanced tools if you wish to start here.
 
 This codebase is currently in alpha! It should not be relied on and will be subject to breaking API changes. Additionally, this README is woefully inadequate. There is currently no API documentation. There is currently no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
 
