@@ -77,18 +77,14 @@ with ModelSession() as session:
         session=session,
     )
 
-    output_file = open("pop.out", "a")
-    pretty_file = open("pretty.out", "a")
+    output_file = open("pop.out", "w")
+    pretty_file = open("pretty.out", "w")
 
     solver = Newton("solver", output_file)
 
 session.check()
 
 solver.solve()
-solver.solve()
-solver.solve()
-solver.solve()
-solver.solve()
-solver.solve()
+
 print_stdout(output_file, session)
 print_pretty(pretty_file, session)
