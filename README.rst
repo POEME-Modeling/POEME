@@ -2,7 +2,7 @@
 POEME: Python Object Engineering Modular Environment
 ====================================================
 
-    POEME: A good model is a work of art.  A great model is a work of art. A sublime model teaches.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
+    POEME: A good model is a work of art.  A great model is a work of art.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :alt: Python Version
