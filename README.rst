@@ -2,7 +2,7 @@
 POEME: Python Object Engineering Modular Environment
 ====================================================
 
-    POEME: A good model is a work of art.  A great model is a work of art. A sublime model teaches.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
+    POEME: A good model works.  A great model is a work of art.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :alt: Python Version
@@ -33,6 +33,16 @@ About
 POEME (pronounced "poem") is a python-based object-oriented modular engineering environment code. It is designed to solve your problems. While it supports all kinds of physics-based modeling.  There is the beginnings of a electric circuit modelling capability, a spring mass dynamic system, and several thermodynamic system models.  These thermodynamic system models include an air conditioner cycle, a transient ground power system with a PIV controller, a commercial turbofan engine running a flight envelope.
 
 Note, if you are thermodynamic engineer, you should really explore learning the NPSS system.  NPSS is the standard professional tool for analyzing and designing thermodynamic systems.  POEME greatly simplifies the engineering.  There are no secondary effects on the turbomachinery and the bleed system modelling is greatly simplified.  It is not capable running transient analysis anywhere near real time.  Real time capable is a major standard that determines if a thermodynamic system is of a professional level or not.  Note that POEME, althought optimized to run as fast as possible, is nowhere near real time and does not pass this test even for simplified thermodynamic systems.  The NPSS student license is very cheap and it will give you a huge leg up in your career if you are familiar with it.  You could look at POEME as a stepping to stone to more advanced tools if you wish to start here.
+
+To run the examples, go to the tests directory and type in python <test file name>.  These tests can serve as a starting point to learn and change from.
+
+The models are:
+
+turbonfan_test.py - This model runs a commercial turbofan engine over a flight envelope.
+brayton_cantera.py - This model runs a transient turbojet power generator with a PIV controller.  It uses the cantera package to determine the gas properies.  The model is completely notional.  It is not based on any real design.
+spring_mass_test.py - This model is a dynamic spring system that oscillates when perturbed from equilibrium.
+lcr.py - This model is an electric circuit with a resistor, capacitor and an inductor.
+ac.py - This model is a notional air conditioner flow circuit.
 
 This codebase is currently in alpha! It should not be relied on and will be subject to breaking API changes. Additionally, this README is woefully inadequate. There is currently no API documentation. There is currently no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
 
