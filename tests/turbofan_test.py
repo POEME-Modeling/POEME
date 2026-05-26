@@ -453,6 +453,7 @@ solver.solve()
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
 
+
 _case_counter = {"count": 0}
 
 

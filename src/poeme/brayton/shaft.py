@@ -37,7 +37,8 @@ class Shaft(Element):
         )
 
         # variables
-        self.dNdt = RealT(self, units="RPM/self", desc="Speed derivative")
+        self.dNdt = RealT(self, units="RPM/sec", desc="Speed derivative")
+        self.eff = RealT(self, v=1.0, units="none", desc="Shaft eff applied to incoming power")
         self.HPneg = RealT(self, units="HP", desc="Total negative power on the shaft")
         self.HPpos = RealT(self, units="HP", desc="Total positive power on the shaft")
         self.HPX = RealT(self, units="HP", desc="Power extraction")
@@ -91,6 +92,7 @@ class Shaft(Element):
             self.HPpos = self.HPpos - self.HPX
 
         # determine the speed derivative
+        self.HPneg = self.HPneg*self.eff
         self.dNdt = (self.HPpos - self.HPneg) / (self.N / 5252.0) / self.Ispool
 
     def dump(self, output_file):
