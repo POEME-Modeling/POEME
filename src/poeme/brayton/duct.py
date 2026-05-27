@@ -11,7 +11,7 @@ class Duct(Element):
         self.desc = "Applies a constant enthalpy pressure drop"
 
         # Variables
-        self.dP = RealT(self, v=0.0, units="none", desc="Pressure loss (fractional)")
+        self.dPqP = RealT(self, v=0.0, units="none", desc="Pressure loss (fractional)")
         self.Q = RealT(self, v=0.0, units="BTU", desc="Heat added to the duct")
         self.Wbldfrac = RealT(self, io="out", desc="Bleed flow fraction")
 
@@ -27,7 +27,7 @@ class Duct(Element):
         self.FNo.copy(self.FNi)
         # keep enthalpy constant and apply a pressure drop
         self.FNo.set_hp(
-            self.FNo.ht + self.Q / self.FNi.W, self.FNo.Pt * (1.0 - self.dP)
+            self.FNo.ht + self.Q / self.FNi.W, self.FNo.Pt * (1.0 - self.dPqP)
         )
         self.FNobld.copy(self.FNi)
         self.FNo.set_w(self.FNi.W * (1.0 - self.Wbldfrac))
@@ -39,6 +39,6 @@ class Duct(Element):
 
     def pretty(self, output_file):
         output_file.write(
-            f"{'Duct':12s}{self.name1[:10]:12s}{('dP:' + str(self.dP))[:10]:12s}"
+            f"{'Duct':12s}{self.name1[:10]:12s}{('dP:' + str(self.dPqP))[:10]:12s}"
             f"{('Q:' + str(self.Q))[:10]:12s}\n"
         )

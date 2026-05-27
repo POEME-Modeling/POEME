@@ -146,12 +146,12 @@ class Compressor(Element):
         # if in desing mode determine the scale factors
         if self.size == True:
             self.effScale = self.effDes / self.effMap
-            self.PRscale = self.PRdes / self.PRmap
+            self.PRscale = (self.PRdes-1. )/( self.PRmap-1. )
             self.WcScale = self.WcDes / self.WcMap
 
         # scale the map values
         self.eff = self.effMap * self.effScale
-        self.PR = self.PRmap * self.PRscale
+        self.PR = ( self.PRmap-1.) * self.PRscale + 1.
         self.WcMap = self.WcScale * self.WcMap
         self.SMN = (self.PRmap - self.PRtable.calc(self.NcMap, self.Rline)) / self.PRmap
 

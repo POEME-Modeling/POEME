@@ -132,7 +132,7 @@ LPC.NcMapDes = 1.00
 LPC.RlineDes = 2.00
 # LPC.FNo.MN = 0.45
 
-duct25.dP = 0.015
+duct25.dPqP = 0.015
 # duct25.FNo.MN = 0.45
 
 HPC.PRdes = 14.1030
@@ -158,7 +158,7 @@ HPT.effDes = 0.9313
 HPT.NcMapDes = 0.9
 # HPT.FNo.MN = 0.30
 
-duct45.dP = 0.005
+duct45.dPqP = 0.005
 # duct45.FNo.MN = 0.45
 
 LPT.PRmapDes = 6.0

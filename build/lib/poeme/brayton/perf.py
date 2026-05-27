@@ -35,8 +35,8 @@ class Perf(Element):
                 self.Fg = self.Fg + e.Fg
             if e.type == "Burner":
                 self.Wfuel = self.Wfuel + e.Wfuel
-            if e.type == "FlightConditionsSMJ":
-                self.Fram = self.Fram + e.Fram
+            if e.type == "FlightConditionsSMJ": 
+                self.Fram = self.Fram + e.Fram                
                 self.alt = e.alt
                 self.MN = e.MN
 
