@@ -2,7 +2,7 @@
 POEME: Python Object Engineering Modular Environment
 ====================================================
 
-    POEME: A good model is a work of art.  A great model is a work of art. A sublime model teaches.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
+    POEME: A good model works.  A great model is a work of art.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :alt: Python Version
@@ -53,6 +53,20 @@ API changes. Additionally, this README is woefully inadequate. There is currentl
 documentation. There is currently no implemented testing. That said, if you would like to contribute, 
 feel free to open a pull request!
 
+<<<<<<< HEAD
+=======
+To run the examples, go to the tests directory and type in python <test file name>.  These tests can serve as a starting point to learn and change from.
+
+The models are:
+
+turbonfan_test.py - This model runs a commercial turbofan engine over a flight envelope.
+brayton_cantera.py - This model runs a transient turbojet power generator with a PIV controller.  It uses the cantera package to determine the gas properies.  The model is completely notional.  It is not based on any real design.
+spring_mass_test.py - This model is a dynamic spring system that oscillates when perturbed from equilibrium.
+lcr.py - This model is an electric circuit with a resistor, capacitor and an inductor.
+ac.py - This model is a notional air conditioner flow circuit.
+
+This codebase is currently in alpha! It should not be relied on and will be subject to breaking API changes. Additionally, this README is woefully inadequate. There is currently no API documentation. There is currently no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
+>>>>>>> origin/main
 
 Features
 ========

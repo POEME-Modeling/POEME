@@ -109,6 +109,10 @@ class Newton(Element):
         matrix = np.zeros(
             (len(self.ind_list), len(self.dep_list) + len(self.state_list))
         )
+        
+        if( len(self.ind_list) != len(self.dep_list) + len(self.state_list)):
+            print( "the number of independents " + str( len(self.ind_list)) + " does not match the number of dependents and states " + str( len(self.dep_list) + len(self.state_list) ) )
+            quit()
         delx = np.zeros(len(self.ind_list))
         delxs = np.zeros(len(self.ind_list))
         dely = np.zeros(len(self.ind_list))

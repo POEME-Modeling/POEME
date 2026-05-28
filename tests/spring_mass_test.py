@@ -28,7 +28,7 @@ with ModelSession() as session:
 
     session.check()
 
-    output_file = open("pop.out", "a")
+    output_file = open("pop.out", "w")
     solver = Newton("solver", output_file)
     session.solver = solver
 

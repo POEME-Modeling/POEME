@@ -10,6 +10,7 @@ class Inlet(Element):
         self.desc = "Inlet with simple recovery"
 
         # Variables
+
         self.rec = RealT(self, v=0.0, units="none", desc="Inlet recovery")
 
         # Fluid locations
