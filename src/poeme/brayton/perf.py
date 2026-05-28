@@ -17,9 +17,12 @@ class Perf(Element):
         self.Fg = RealT(self, units="lbf", desc="Gross thrust")
         self.Fn = RealT(self, units="lbf", desc="Net thrust")
         self.MN = RealT(self, desc="Mach number")
-        self.SFC = RealT(self, units="??", desc="Specifc fuel consumption")
+        self.SFC = RealT(self, units="lbm/(lbf-hr)", desc="Specifc fuel consumption")
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
         self.Fram = RealT(self, units="lbf", desc="Ram drag")
+
+        #self.FnTarget = RealT(self, units="lbf", desc="Net thrust target")
+        #self.FnRatio = RealT(self, units="none", desc="Ratio of current Fn to maximum Fn")
 
         self.initial_list()
 
@@ -43,6 +46,7 @@ class Perf(Element):
         # calculate SFC
         self.Fn = self.Fg - self.Fram
         self.SFC = self.Wfuel / self.Fn * 3600.0
+
 
     def dump(self, output_file):
         output_file.write(f"{self.name} Shaft\n")

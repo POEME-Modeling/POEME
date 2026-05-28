@@ -2467,7 +2467,7 @@ def run_throttle_hook(mnset, altitude):
     start.alt = altitude
     solver.save_independents()
     solver.run()
-    # print_pretty("pretty.out")
+    print_pretty(output_file, session)
     print(start.MN, start.alt, burner.FAR, perf.Fn)
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
@@ -2488,7 +2488,7 @@ def run_throttle_hook(mnset, altitude):
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
-        # print_pretty("pretty.out")
+        print_pretty(output_file, session)
         factor = (perf.Fn) / perf.FnetMax
         print(start.MN, start.alt, burner.FAR, perf.Fn, factor, solver.converged)
         _case_counter["count"] += 1
