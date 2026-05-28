@@ -37,7 +37,7 @@ and Brayton thermodynamic cycles in particular.
 The thermodynamic system models include an air conditioner cycle, a transient ground 
 power system with a PIV controller, and a commercial turbofan engine running a flight envelope.
 
-Note with regard to the latter:<br> 
+Note with regard to the latter:\ 
 If you are thermodynamic engineer you should really explore 
 learning the Numerical Propulsion System Simulation (NPSS) code. 
 NPSS is the standard professional tool for analyzing and designing aircraft engine thermodynamic
