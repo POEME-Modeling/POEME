@@ -32,20 +32,21 @@ About
 
 POEME (pronounced "poem") is a python-based object-oriented modular engineering environment code. 
 It is designed to solve your problems, supporting many kinds of physics-based modeling such as
-electric circuit modeling, a spring mass dynamic system, and in particular thermodynamic system
-modeling.
+electric circuit modeling, a spring mass dynamic system, and thermodynamic cycle system modeling
+and Brayton thermodynamic cycles in particular.
 The thermodynamic system models include an air conditioner cycle, a transient ground 
 power system with a PIV controller, and a commercial turbofan engine running a flight envelope.
 
-Note with regard to the latter if you are thermodynamic engineer you should really explore 
+Note with regard to the latter:<br> 
+If you are thermodynamic engineer you should really explore 
 learning the Numerical Propulsion System Simulation (NPSS) code. 
 NPSS is the standard professional tool for analyzing and designing aircraft engine thermodynamic
-cycles; POEME is an engineering and software simplification of NPSS. 
-There are no secondary effects on turbomachinery performance and the bleed system modeling is 
-simplified. POEME is not capable running transient analysis anywhere near real time, which is major 
+cycles. POEME is an engineering and software simplification of NPSS; there are no 
+secondary effects on turbomachinery performance and the bleed system modeling is 
+simplified. POEME is not capable of running real-time transient analysis, which is major 
 driver for professional aircraft engine dynamic system simulation. POEME, although designed to 
 run quickly, executes a each thermodynamic cycle case on the order of one second.
-A such, POEME should be viewed as a stepping to stone to more advanced tools but is 
+As such, POEME should be viewed as a stepping to stone to more advanced tools but is 
 sufficient for academic use.
 
 This codebase is currently in alpha! It should not be relied on and will be subject to breaking 
