@@ -44,7 +44,7 @@ cycles. POEME is an engineering and software simplification of NPSS; there are n
 secondary effects on turbomachinery performance and the bleed system modeling is 
 simplified. POEME is not capable of running real-time transient analysis, which is major 
 driver for professional aircraft engine dynamic system simulation. POEME, although designed to 
-run quickly, executes a each thermodynamic cycle case on the order of one second.
+run quickly, executes each thermodynamic cycle case on the order of one second.
 As such, POEME should be viewed as a stepping to stone to more advanced tools but is 
 sufficient for academic use.
 
