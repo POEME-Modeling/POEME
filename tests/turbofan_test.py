@@ -449,6 +449,8 @@ with session:
     solver = Newton("solver")
 session.solver = solver
 
+solver.listBalances()
+
 solver.solve()
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
@@ -515,6 +517,7 @@ session.check()
 solver.run()
 print_pretty(output_file, session)
 # g.ScottPrint.print()
+solver.listBalances()
 
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0
