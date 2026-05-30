@@ -670,6 +670,8 @@ class FN(Atom):
         self.size.v = True
         self.MN.v = MN
         self.statics()
+        if self.other != 0:
+            self.other.copy_deep(self)
 
     def dump(self, output_file):
         output_file.write(
