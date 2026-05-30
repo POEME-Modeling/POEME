@@ -582,35 +582,6 @@ class FN(Atom):
             self.gams.v = e.gams.v
             self.size.v = e.size.v
 
-        if self.other != 0:
-            self.other.comp.v = e.comp.v
-            self.other.FAR.v = e.FAR.v
-            self.other.W.v = e.W.v
-            self.other.Tt.v = e.Tt.v
-            self.other.Pt.v = e.Pt.v
-            self.other.ht.v = e.ht.v
-            self.other.rhot.v = e.rhot.v
-            self.other.mut.v = e.mut.v
-            self.other.kt.v = e.kt.v
-            self.other.Cpt.v = e.Cpt.v
-            self.other.gamt.v = e.gamt.v
-            self.other.Rt.v = e.Rt.v
-            self.other.Rs.v = e.Rs.v
-            self.other.s.v = e.s.v
-            if e.MN.v != 0:
-                self.other.MN.v = e.MN.v
-            if e.A.v != 0:
-                self.other.A.v = e.A.v
-            self.other.V.v = e.V.v
-            self.other.Ts.v = e.Ts.v
-            self.other.Ps.v = e.Ps.v
-            self.other.hs.v = e.hs.v
-            self.other.rhos.v = e.rhos.v
-            self.other.mus.v = e.mus.v
-            self.other.ks.v = e.ks.v
-            self.other.Cps.v = e.Cps.v
-            self.other.gams.v = e.gams.v
-            self.other.size.v = e.size.v
 
     def set_w(self, w):
         if isinstance(w, float):
