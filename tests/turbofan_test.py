@@ -449,6 +449,8 @@ with session:
     solver = Newton("solver")
 session.solver = solver
 
+solver.listBalances()
+
 solver.solve()
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
@@ -486,11 +488,7 @@ def run_throttle_hook(mnset, altitude):
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
-<<<<<<< HEAD
         print_pretty(output_file, session)
-=======
-        print_pretty(output_file,session)
->>>>>>> origin/main
         factor = (perf.Fn) / perf.FnetMax
         print(start.MN, start.alt, burner.FAR, perf.Fn, factor, solver.converged)
         _case_counter["count"] += 1
@@ -519,6 +517,7 @@ session.check()
 solver.run()
 print_pretty(output_file, session)
 # g.ScottPrint.print()
+solver.listBalances()
 
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0

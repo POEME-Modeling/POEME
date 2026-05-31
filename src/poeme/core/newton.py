@@ -407,3 +407,34 @@ class Newton(Element):
             # print data for this time step
 
             # print_stdout(self.output_file, self.session)
+
+    def listBalances(self):
+
+        self.numpasses = 0.0
+        # get the list of all the solver objects
+        self.ind_list = list()
+        self.dep_list = list()
+        self.state_list = list()
+        self.con_list = list()
+
+        print( "Independents" )
+        for i in self.session.independents:
+            if i.active == True:
+                print( i.name1, i.ind.parent.name, i.ind.name1 )
+
+        print( "Dependents" )
+        for d in self.session.dependents:
+            if d.active == True:
+                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1 )
+
+        print( "States" )                
+        for st in self.session.states:
+            if st.active == True:
+                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1 )
+        print( "Constraints" )   
+        for c in self.session.constraints:
+            if c.on == True:
+                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1 )
+
+               
+

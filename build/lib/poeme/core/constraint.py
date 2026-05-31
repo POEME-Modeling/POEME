@@ -12,7 +12,7 @@ class Constraint(Atom):
         self.d2name = ""
         self.depname = ""
         self.val_scale = 0.0
-        self.p = p
+        self.parent = p
         self.on = False
 
         self.type = "Constraint"
@@ -75,7 +75,7 @@ class Constraint(Atom):
         # first block happens if the variable is local
 
         for d in self.session.dependents:
-            if (d.p.name1 + "." + d.name1) == self.depname.v:
+            if (d.parent.name1 + "." + d.name1) == self.depname.v:
                 self.dep = d
         if self.on == True:
             self.dep.active = True
@@ -86,7 +86,7 @@ class Constraint(Atom):
         except ValueError:
             tempname = self.d1name.v
             # restofname = self.d1name.v
-            top = self.p
+            top = self.parent
 
             if tempname.find(".") > -1:
                 first = tempname[0 : tempname.find(".")]
@@ -101,21 +101,21 @@ class Constraint(Atom):
                         third = second[second.find(".") + 1 :]
                         second = second[0 : second.find(".")]
 
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if second == v.name1:
                                 for v2 in v.VIDL:
                                     if v2.name1 == third:
                                         self.d1 = v2
                     else:
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if v.name1 == second:
                                 self.d1 = v
                 else:
                     first = tempname[0 : tempname.find(".")]
                     second = tempname[tempname.find(".") + 1 :]
-                    top = self.p
+                    top = self.parent
                     for o in top.VIDL:
                         if o.name1 == first:
                             for v in o.VIDL:
@@ -126,7 +126,7 @@ class Constraint(Atom):
                         third = second[second.find(".") + 1 :]
                         second = second[0 : second.find(".")]
                         sys.exit()
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if second == v.name1:
                                 for v2 in v.VIDL:
@@ -151,7 +151,7 @@ class Constraint(Atom):
         except ValueError:
             tempname = self.d2name.v
             # restofname = self.d2name.v
-            top = self.p
+            top = self.parent
 
             if tempname.find(".") > -1:
                 first = tempname[0 : tempname.find(".")]
@@ -166,21 +166,21 @@ class Constraint(Atom):
                         third = second[second.find(".") + 1 :]
                         second = second[0 : second.find(".")]
 
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if second == v.name1:
                                 for v2 in v.VIDL:
                                     if v2.name1 == third:
                                         self.d2 = v2
                     else:
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if v.name1 == second:
                                 self.d2 = v
                 else:
                     first = tempname[0 : tempname.find(".")]
                     second = tempname[tempname.find(".") + 1 :]
-                    top = self.p
+                    top = self.parent
                     for o in top.VIDL:
                         if o.name1 == first:
                             for v in o.VIDL:
@@ -191,7 +191,7 @@ class Constraint(Atom):
                         third = second[second.find(".") + 1 :]
                         second = second[0 : second.find(".")]
 
-                        top = self.p
+                        top = self.parent
                         for v in top.VIDL:
                             if second == v.name1:
                                 for v2 in v.VIDL:

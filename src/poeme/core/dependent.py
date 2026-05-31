@@ -7,7 +7,7 @@ class Dependent(Atom):
     # def __init__( self, p, d1name, d2name, val_scale, active, desc ):
     def __init__(self, p, **kwargs):
         self.session = p.session
-        self.p = p
+        self.parent = p
         self.name1 = ""
         self.type = "Dependent"
         self.VIDL = list()
@@ -68,7 +68,7 @@ class Dependent(Atom):
         except ValueError:
             tempname = self.d1name.v
             restofname = self.d1name.v
-            top = self.p
+            top = self.parent
 
             while tempname.find(".") > -1:
                 restofname = tempname[tempname.find(".") + 1 :]
@@ -96,7 +96,7 @@ class Dependent(Atom):
         except ValueError:
             tempname = self.d2name.v
             restofname = self.d2name.v
-            top = self.p
+            top = self.parent
 
             while tempname.find(".") > -1:
                 restofname = tempname[tempname.find(".") + 1 :]

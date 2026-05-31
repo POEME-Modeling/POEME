@@ -6,7 +6,7 @@ from .string_t import StringT
 class Independent(Atom):
     def __init__(self, p, **kwargs):
         self.session = p.session
-        self.p = p
+        self.parent = p
         self.type = "Independent"
         self.name1 = ""
         self.VIDL = list()
@@ -44,6 +44,7 @@ class Independent(Atom):
     def perturb_v(self):
 
         # perturb the independent
+
         # either absolute or relative
         perturb_val = 0
         if self.perturb_type == "Relative":
@@ -55,13 +56,12 @@ class Independent(Atom):
     # def get_val(self):
     # sys.exit()
     # return self.ind.v
-
     # def set_val(self, value):
     # self.ind.v = value
 
     # before running, find the memory location of the independent
     def precheck(self):
-        for var in self.p.VIDL:
+        for var in self.parent.VIDL:
             if var.name1 == self.indname.v:
                 self.ind = var
                 return

@@ -37,6 +37,10 @@ class Shaft(Element):
         )
 
         # variables
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
         self.dNdt = RealT(self, units="RPM/sec", desc="Speed derivative")
         self.eff = RealT(self, v=1.0, units="none", desc="Shaft eff applied to incoming power")
         self.effLoss = RealT(self, units="HP", desc="Shaft eff total loss")
