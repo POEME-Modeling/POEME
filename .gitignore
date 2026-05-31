@@ -1,4 +1,5 @@
 .DS_Store
+*.lnk
 .venv/
 .vscode/
 __pycache__/
