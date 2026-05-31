@@ -9,6 +9,49 @@ from poeme import (
 
 
 class Mass(Element):
+    """Mass element for spring-mass systems.
+
+    A nodal mass element that accumulates forces from connected force ports
+    and computes acceleration via Newton's second law. Supports both static
+    and dynamic (stateful) analysis through independent variables and states.
+
+    Parameters
+    ----------
+    name : str
+        Name of the mass element.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    xloc : RealT
+        X location of the mass (ft).
+    Fp : RealT
+        Total force in the positive direction (lbf).
+    Fn : RealT
+        Total force in the negative direction (lbf).
+    mass : RealT
+        Mass of the element (lbm).
+    V : RealT
+        Velocity of the mass (ft/sec).
+    dVdt : RealT
+        Derivative of the velocity (ft/sec^2).
+    dxdt : RealT
+        Derivative of the x-position (ft/sec).
+    vert : BooleanT
+        Whether gravity is acting on the mass.
+    ind_x : Independent
+        Independent variable for x location perturbation.
+    ind_V : Independent
+        Independent variable for velocity perturbation.
+    state_1 : State
+        State for x integration (position -> velocity).
+    state_2 : State
+        State for V integration (velocity -> acceleration).
+    port_list : list
+        List of connected Fp force ports.
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Mass", session=session)
         self.name = name
@@ -73,20 +116,34 @@ class Mass(Element):
 
         self.initial_list()
 
-    # first step in solver pass is to set the voltage in all of the ports
     def preset(self):
+        """Set position and velocity on all connected ports before solver pass.
+
+        Iterates through all connected force ports and sets their position
+        and velocity to match this mass's current state.
+        """
         for p in self.port_list:
             p.set_xv(self.xloc, self.V)
 
-    # before anything is run at all, loop through all substructures to find the
-    # ports
     def precheck(self):
+        """Collect all connected force ports before simulation begins.
+
+        Iterates through all variable IDs and builds the port_list
+        by filtering for Fp-type ports.
+        """
         self.port_list = list()
         for p in self.VIDL:
             if p.isa("Fp"):
                 self.port_list.append(p)
 
     def calc(self):
+        """Calculate net forces and acceleration.
+
+        Sums forces from all connected ports into positive (Fp) and
+        negative (Fn) totals, applies gravity if vertical mode is enabled,
+        then computes acceleration via Newton's second law:
+        dVdt = (Fp - Fn) / mass * 32.2.
+        """
 
         # zero out the running current totals
         self.Fp.set(0.0)
@@ -112,10 +169,24 @@ class Mass(Element):
         self.dVdt = (self.Fp - self.Fn) / (self.mass) * 32.2
 
     def dump(self, output_file):
+        """Write mass state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(f"{self.name} Node\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Write a formatted table row of mass state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(
             f"{'Fp'[:10]:12s}{self.name1[:10]:12s}"
             f"{('xloc:' + str(self.xloc))[:10]:12s}{('V:' + str(self.V))[:10]:12s}"

@@ -4,6 +4,35 @@ from .fp import Fp
 
 
 class Damper(Element):
+    """Simple damper element for spring-mass systems.
+
+    A linear damper that relates force and velocity via viscous damping.
+    The damper has two force ports (Fp1 and Fp2) and computes its
+    net velocity and internal force based on the port velocities.
+
+    Parameters
+    ----------
+    name : str
+        Name of the damper element.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    c : float
+        Damping constant (lbf/(ft*sec)).
+    F : float
+        Damping force (lbf).
+    V : float
+        Net velocity of the damper (ft/sec).
+    length : float
+        Actual length of the damper (ft).
+    Fp1 : Fp
+        Force port 1 (output).
+    Fp2 : Fp
+        Force port 2 (output).
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Damper", session=session)
 
@@ -22,6 +51,11 @@ class Damper(Element):
         self.initial_list()
 
     def calc(self):
+        """Calculate damper velocity and force.
+
+        Computes the net velocity from port velocities, then applies
+        viscous damping: F = -c * V. Sets the force on both ports.
+        """
 
         # calculate the length of the spring from the port
         self.V = self.Fp2.V - self.Fp1.V
@@ -32,10 +66,24 @@ class Damper(Element):
         self.Fp2.set_f(self.F)
 
     def dump(self, output_file):
+        """Write damper state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(f"{self.name1} Spring\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Write a formatted table row of damper state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(
             f"{'Damper'[:10]:12s}{self.name1[:10]:12s}{('c:' + str(self.c))[:10]:12s}"
             f"{('F:' + str(self.F))[:10]:12s}{('V:' + str(self.V))[:10]:12s}"
