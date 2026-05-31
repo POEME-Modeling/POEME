@@ -21,8 +21,8 @@ class Perf(Element):
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
         self.Fram = RealT(self, units="lbf", desc="Ram drag")
 
-        #self.FnTarget = RealT(self, units="lbf", desc="Net thrust target")
-        #self.FnRatio = RealT(self, units="none", desc="Ratio of current Fn to maximum Fn")
+        # self.FnTarget = RealT(self, units="lbf", desc="Net thrust target")
+        # self.FnRatio = RealT(self, units="none", desc="Ratio of current Fn to maximum Fn")
 
         self.initial_list()
 
@@ -40,14 +40,13 @@ class Perf(Element):
                 self.Wfuel = self.Wfuel + e.Wfuel
             if e.type == "Inlet":
                 self.Fram = self.Fram + e.Fram
-            if e.type == "FlightConditionsSMJ": 
+            if e.type == "FlightConditionsSMJ":
                 self.alt = e.alt
                 self.MN = e.MN
 
         # calculate SFC
         self.Fn = self.Fg - self.Fram
         self.SFC = self.Wfuel / self.Fn * 3600.0
-
 
     def dump(self, output_file):
         output_file.write(f"{self.name} Shaft\n")
