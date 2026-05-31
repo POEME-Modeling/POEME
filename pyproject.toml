@@ -18,7 +18,7 @@ dependencies = [
 [dependency-groups]
 lint = ["ruff"]
 test = ["pytest", "pytest-cov"]
-doc = ["sphinx"]
+doc = ["sphinx", "furo"]
 
 dev = [
     {include-group = "lint"},

@@ -22,6 +22,9 @@ extensions = [
     "sphinx.ext.autodoc",
 ]
 
+autodoc_typehints = "signature"
+napoleon_use_ivar = True
+
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
@@ -29,5 +32,22 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "furo"
 html_static_path = ["_static"]
+html_css_files = ["overrides.css"]
+
+
+# Auto-run apidoc before every build
+import subprocess
+import os
+
+subprocess.run(
+    [
+        "sphinx-apidoc",
+        "-f",
+        "-e",
+        "-o",
+        os.path.join(os.path.dirname(__file__), "api"),
+        "../src/poeme",  # path to your package, relative to conf.py
+    ]
+)
