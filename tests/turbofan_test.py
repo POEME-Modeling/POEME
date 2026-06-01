@@ -451,7 +451,10 @@ session.solver = solver
 
 solver.listBalances()
 
+solver.debug = True
+
 solver.solve()
+
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
 
@@ -467,14 +470,14 @@ def run_throttle_hook(mnset, altitude):
     start.alt = altitude
     solver.save_independents()
     solver.run()
-    print_pretty(output_file, session)
-    print(start.MN, start.alt, burner.FAR, perf.Fn)
+    #print_pretty(output_file, session)
+    print(start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged)
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
 
     _case_counter["count"] += 1
     solver.save_independents()
-    factor = 0.9
+    factor = 1.
     start.Fdem = start.Fnet * factor
 
     fan.dep_NmechC.active = False
@@ -484,13 +487,13 @@ def run_throttle_hook(mnset, altitude):
     burner.ind_FAR.active = False
     session.check()
 
-    while factor > 0.2 and solver.converged == True:
+    while factor > 0.2 and solver.converged == True and pri_nozzle.Fg >0.:
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
-        print_pretty(output_file, session)
+        #print_pretty(output_file, session)
         factor = (perf.Fn) / perf.FnetMax
-        print(start.MN, start.alt, burner.FAR, perf.Fn, factor, solver.converged)
+        print(start.MN, start.alt, burner.FAR, perf.Fn, factor, fan.NcMap, solver.converged)
         _case_counter["count"] += 1
 
     fan.dep_NmechC.active = True
@@ -514,7 +517,12 @@ fan.RlineLimit = RealT(fan, v=2.0)
 fan.dep_Rline = Dependent(fan, d1name="Rline", d2name="RlineLimit", active=True)
 
 session.check()
+
+
+
 solver.run()
+
+
 print_pretty(output_file, session)
 # g.ScottPrint.print()
 solver.listBalances()
@@ -529,6 +537,9 @@ start.Fnet = RealT(start)
 burner.ind_FAR = Independent( burner, indname="FAR", perturb=0.05, perturb_type="Relative", active=True, desc="Varies FAR" )
 fan.dep_NmechC = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True,desc="Handles weight flow error" )
 burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True )
+
+
+print( burner.FNo.Tt.desc )
 
 session.check()
 
