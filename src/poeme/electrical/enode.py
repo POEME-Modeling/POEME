@@ -11,6 +11,50 @@ from .ep import EP
 
 
 class Enode(Element):
+    """Electrical node for circuit analysis.
+
+    An electrical node (Enode) that accumulates currents from connected
+    electrical ports and balances real and imaginary current components.
+    Supports both independent variable perturbations and dependent
+    current-balance equations for Newton-based solving.
+
+    Parameters
+    ----------
+    name : str
+        Name of the electrical node.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    V : ComplexT
+        Voltage at the node (volts).
+    Vi : RealT
+        Imaginary component of voltage (volts).
+    Vr : RealT
+        Real component of voltage (volts).
+    IinI : RealT
+        Imaginary component of incoming current (amps).
+    IinR : RealT
+        Real component of incoming current (amps).
+    IoutI : RealT
+        Imaginary component of outgoing current (amps).
+    IoutR : RealT
+        Real component of outgoing current (amps).
+    Inet : ComplexT
+        Net current at the node (amps).
+    ind_1 : Independent
+        Independent variable for real voltage perturbation.
+    ind_2 : Independent
+        Independent variable for imaginary voltage perturbation.
+    dep_1 : Dependent
+        Dependent equation for real current balance.
+    dep_2 : Dependent
+        Dependent equation for imaginary current balance.
+    port_list : list
+        List of connected EP electrical ports.
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Enode", session=session)
         self.name = name
@@ -77,21 +121,35 @@ class Enode(Element):
     # def LinkPort( self, port ):
     # self.port_list.append( port )
 
-    # first step in solver pass is to set the voltage in all of the ports
     def preset(self):
+        """Set voltage on all connected ports before solver pass.
+
+        Iterates through all connected electrical ports and sets their
+        voltage to match this node's current complex voltage state.
+        """
         for port in self.port_list:
             self.V.v = complex(self.Vr.v, self.Vi.v)
             port.set_iv(port.I.v, self.V.v)
 
-    # before anything is run at all, loop through all substructures to find the
-    # ports
     def precheck(self):
+        """Collect all connected electrical ports before simulation begins.
+
+        Iterates through all variable IDs and builds the port_list
+        by filtering for EP-type ports.
+        """
         self.port_list = list()
         for v in self.VIDL:
             if v.isa("EP"):
                 self.port_list.append(v)
 
     def link_e(self, ep):
+        """Link this node to an electrical port.
+
+        Parameters
+        ----------
+        ep : EP
+            The electrical port to link to this node.
+        """
         temp = EP(self, io="in")
         temp.other = ep
         ep.other = temp
@@ -102,6 +160,12 @@ class Enode(Element):
         temp.name1 = ep.parent.name1 + "_" + ep.name1
 
     def calc(self):
+        """Calculate net currents from connected ports.
+
+        Sums currents from all connected ports into positive (Iin) and
+        negative (Iout) totals based on port direction (in/out) and
+        current sign for both real and imaginary components.
+        """
 
         # zero out the running current totals
         self.IinR = 0.0
@@ -123,10 +187,24 @@ class Enode(Element):
                 self.IoutI = self.IoutI - port.I.v.imag
 
     def dump(self, output_file):
+        """Write node state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(f"{self.name} Node\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Write a formatted table row of node state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(
             f"{'Node'[:10]:12s}{self.name1[:10]:12s}"
             f"{('Vr:' + str(self.Vr))[:10]:12s}"
