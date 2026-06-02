@@ -1,12 +1,24 @@
-def _print_ports(output_file, session, method_name="dump", port_types=None):
-    """
-    Write ports of specified types by calling the given method.
+"""Output formatting utilities for POEME simulation framework.
 
-    Args:
-        output_file: File object to write to
-        session: ModelSession instance
-        method_name: Name of method to call on ports ('dump' or 'pretty')
-        port_types: List of port type strings to filter (e.g., ['EP', 'FN', 'MP'])
+Provides functions for generating standard, pretty, and turbofan-formatted
+output from simulation sessions, including port data, element data,
+and solver state.
+"""
+
+
+def _print_ports(output_file, session, method_name="dump", port_types=None):
+    """Write ports of specified types by calling the given method.
+
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    session : ModelSession
+        ModelSession instance.
+    method_name : str
+        Name of method to call on ports ('dump' or 'pretty').
+    port_types : list
+        List of port type strings to filter (e.g., ['EP', 'FN', 'MP']).
     """
     if port_types is None:
         port_types = ["EP", "FN", "MP"]
@@ -23,26 +35,32 @@ def _print_ports(output_file, session, method_name="dump", port_types=None):
 
 
 def _print_elements(output_file, session, method_name="dump"):
-    """
-    Write all elements by calling the given method.
+    """Write all elements by calling the given method.
 
-    Args:
-        output_file: File object to write to
-        session: ModelSession instance
-        method_name: Name of method to call on elements ('dump' or 'pretty')
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    session : ModelSession
+        ModelSession instance.
+    method_name : str
+        Name of method to call on elements ('dump' or 'pretty').
     """
     for e in session.elements:
         getattr(e, method_name)(output_file)
 
 
 def _print_section_header(output_file, title, style="simple"):
-    """
-    Write a formatted section header.
+    """Write a formatted section header.
 
-    Args:
-        output_file: File object to write to
-        title: Title text
-        style: 'simple', 'decorative', or 'turbofan'
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    title : str
+        Title text.
+    style : str
+        'simple', 'decorative', or 'turbofan'.
     """
     if style == "decorative":
         output_file.write("*" * 18 + "\n")
@@ -55,7 +73,17 @@ def _print_section_header(output_file, title, style="simple"):
 
 
 def _print_turbofan_port_data(output_file, element, port_name):
-    """Write formatted turbofan port data for a specific port."""
+    """Write formatted turbofan port data for a specific port.
+
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    element : Element
+        The element containing the port.
+    port_name : str
+        Name of the port attribute on the element.
+    """
     port = getattr(element, port_name)
     output_file.write(
         f"{element.name:12s} "
@@ -74,7 +102,15 @@ def _print_turbofan_port_data(output_file, element, port_name):
 
 
 def print_stdout(output_file, session):
-    """Write standard output format."""
+    """Write standard output format.
+
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    session : ModelSession
+        ModelSession instance.
+    """
     if session.solver:
         output_file.write(f"time = {session.solver.time}\n")
     output_file.write("Ports*************\n")
@@ -86,7 +122,15 @@ def print_stdout(output_file, session):
 
 
 def print_pretty(output_file, session):
-    """Write pretty-formatted output with detailed sections."""
+    """Write pretty-formatted output with detailed sections.
+
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    session : ModelSession
+        ModelSession instance.
+    """
     output_file.write("*" * 96 + "\n")
     output_file.write(f"{session.errors}\n")
     if session.solver:
@@ -108,7 +152,15 @@ def print_pretty(output_file, session):
 
 
 def print_scott(output_file, session):
-    """Write turbofan-formatted output."""
+    """Write turbofan-formatted output.
+
+    Parameters
+    ----------
+    output_file : file-like
+        File object to write to.
+    session : ModelSession
+        ModelSession instance.
+    """
 
     output_file.write("** TURBOFAN OUTPUT **".center(56, "*") + "\n")
     output_file.write(f"{session.errors}\n")

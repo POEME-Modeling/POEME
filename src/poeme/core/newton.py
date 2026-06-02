@@ -12,12 +12,80 @@ from .session import ModelSession, _active_session
 
 
 def magnitude(vector):
+    """Compute the Euclidean magnitude of a vector.
+
+    Parameters
+    ----------
+    vector : iterable
+        The vector to compute the magnitude of.
+
+    Returns
+    -------
+    float
+        The Euclidean norm of the vector.
+    """
     return math.sqrt(sum(pow(element, 2) for element in vector))
 
 
 # No dependents or constraints yet
 # Still need to generate independent list from elements
 class Newton(Element):
+    """Newton-Raphson solver for POEME simulation framework.
+
+    Implements a Newton-Raphson solver with Broyden update for solving
+    nonlinear systems of equations. Supports both steady-state and
+    transient analysis with independent variable perturbations and
+    dependent equation convergence checking.
+
+    Parameters
+    ----------
+    name : str
+        Name of the solver.
+    output_file : file-like | None
+        File to write output to. If None, defaults to "newton.out".
+    session : ModelSession | None
+        Model session to associate with this solver.
+
+    Attributes
+    ----------
+    session : ModelSession
+        Model session this solver belongs to.
+    name1 : str
+        Name of the solver.
+    output_file : file-like
+        Output file handle.
+    VIDL : list
+        List of variable IDs.
+    ind_list : list
+        List of active independent variables.
+    dep_list : list
+        List of active dependent variables.
+    maxJacobians : RealT
+        Maximum number of Jacobian evaluations.
+    numpasses : RealT
+        Number of solver passes completed.
+    tolerance : RealT
+        Convergence tolerance.
+    constraints : bool
+        Whether constraints are active.
+    type : str
+        Type identifier ("NewtonSolver").
+    time : RealT
+        Simulation time.
+    dtime : RealT
+        Simulation time step.
+    timeLast : RealT
+        Simulation stop time.
+    trans : BooleanT
+        True for transient, False for steady-state.
+    converged : BooleanT
+        Convergence flag.
+    x : int
+        GUI x location.
+    y : int
+        GUI y location.
+    """
+
     def __init__(self, name, output_file=None, session: ModelSession | None = None):
         if session is None:
             session = _active_session.get()
@@ -57,6 +125,11 @@ class Newton(Element):
 
     # define one analysis pass
     def onepass(self):
+        """Execute one analysis pass over all elements.
+
+        Runs preset(), before(), calc(), and after() on all elements
+        in the session. Increments the pass counter.
+        """
 
         self.session.errors = ""
         self.numpasses = self.numpasses + 1
@@ -72,6 +145,11 @@ class Newton(Element):
 
     # run
     def run(self):
+        """Run the solver in either steady-state or transient mode.
+
+        If transient mode is enabled, calls transrun(). Otherwise,
+        calls solve() for steady-state analysis.
+        """
         if self.trans == False:
             self.solve()
         else:
@@ -79,6 +157,12 @@ class Newton(Element):
 
     # solve the system
     def solve(self):
+        """Solve the system of equations using Newton-Raphson with Broyden update.
+
+        Collects active dependents, independents, states, and constraints.
+        Builds and inverts the Jacobian matrix, then iteratively updates
+        independent variables until convergence or max iterations.
+        """
 
         self.numpasses = 0.0
         # get the list of all the solver objects
@@ -109,9 +193,14 @@ class Newton(Element):
         matrix = np.zeros(
             (len(self.ind_list), len(self.dep_list) + len(self.state_list))
         )
-        
-        if( len(self.ind_list) != len(self.dep_list) + len(self.state_list)):
-            print( "the number of independents " + str( len(self.ind_list)) + " does not match the number of dependents and states " + str( len(self.dep_list) + len(self.state_list) ) )
+
+        if len(self.ind_list) != len(self.dep_list) + len(self.state_list):
+            print(
+                "the number of independents "
+                + str(len(self.ind_list))
+                + " does not match the number of dependents and states "
+                + str(len(self.dep_list) + len(self.state_list))
+            )
             quit()
         delx = np.zeros(len(self.ind_list))
         delxs = np.zeros(len(self.ind_list))
@@ -374,23 +463,42 @@ class Newton(Element):
             self.converged.set(True)
 
     def trim(self):
+        """Trim all states for transient initialization.
+
+        Sets the last state and derivative values to current values
+        to prepare for transient simulation start.
+        """
         # trim up model
         for st in self.session.states:
             st.trim()
 
     def save_independents(self):
+        """Save current independent variable values for later restoration."""
         for i in self.session.independents:
             i.ind.save = i.ind.v
 
     def restore_independents(self):
+        """Restore independent variable values to their saved state."""
         for i in self.session.independents:
             i.ind.v = i.ind.save
 
     def pretty(self, output_file):
+        """Write solver convergence state to a file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write("Converged:" + str(self.converged.v) + "\n")
 
     # user wants transient data
     def transrun(self):
+        """Run transient simulation by stepping through time.
+
+        Advances simulation time in increments of dtime, solving
+        at each step and writing output until timeLast is reached.
+        """
 
         while self.time.v < self.timeLast.v:
             self.time.v = self.time.v + self.dtime.v
@@ -417,24 +525,39 @@ class Newton(Element):
         self.state_list = list()
         self.con_list = list()
 
-        print( "Independents" )
+        print("Independents")
         for i in self.session.independents:
             if i.active == True:
-                print( i.name1, i.ind.parent.name, i.ind.name1 )
+                print(i.name1, i.ind.parent.name, i.ind.name1)
 
-        print( "Dependents" )
+        print("Dependents")
         for d in self.session.dependents:
             if d.active == True:
-                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1 )
+                print(
+                    d.name1,
+                    d.d1.parent.name1,
+                    d.d1.name1,
+                    d.d2.parent.name1,
+                    d.d2.name1,
+                )
 
-        print( "States" )                
+        print("States")
         for st in self.session.states:
             if st.active == True:
-                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1 )
-        print( "Constraints" )   
+                print(
+                    st.name1,
+                    st.d1.parent.name1,
+                    st.d1.name1,
+                    st.d2.parent.name1,
+                    d.d2.name1,
+                )
+        print("Constraints")
         for c in self.session.constraints:
             if c.on == True:
-                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1 )
-
-               
-
+                print(
+                    c.name1,
+                    c.d1.parent.name1,
+                    c.d1.name1,
+                    c.d2.parent.name1,
+                    c.d2.name1,
+                )

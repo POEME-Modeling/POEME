@@ -4,7 +4,53 @@ from .string_t import StringT
 
 
 class Dependent(Atom):
-    # def __init__( self, p, d1name, d2name, val_scale, active, desc ):
+    """Dependent equation element for POEME solver.
+
+    A dependent equation that compares two values (d1 and d2) and computes
+    a normalized error. Dependents are registered with the model session and
+    participate in the Newton solver's convergence checking. Supports
+    string-based resolution of dependent variable references across elements.
+
+    Parameters
+    ----------
+    p : Element
+        Parent element that owns this dependent.
+    **kwargs : dict
+        Additional keyword arguments for d1name, d2name, val_scale,
+        active, and other attributes.
+
+    Attributes
+    ----------
+    session : ModelSession
+        Model session this dependent belongs to.
+    d1name : StringT
+        Name of the first dependent variable.
+    d2name : StringT
+        Name of the second dependent variable.
+    err : RealT
+        Current error term.
+    errLast : RealT
+        Last error term.
+    val_scale : RealT
+        Error scalar for normalization.
+    parent : Element
+        Parent element containing this dependent.
+    type : str
+        Type identifier ("Dependent").
+    name1 : str
+        Name of this dependent.
+    VIDL : list
+        List of variable IDs associated with this dependent.
+    x : int
+        GUI x location.
+    y : int
+        GUI y location.
+    d1 : RealT
+        Resolved first dependent variable.
+    d2 : RealT
+        Resolved second dependent variable.
+    """
+
     def __init__(self, p, **kwargs):
         self.session = p.session
         self.parent = p
@@ -38,12 +84,42 @@ class Dependent(Atom):
         self.session.dependents.append(self)
 
     def isa(self, type):
+        """Check if this atom is a Dependent.
+
+        Parameters
+        ----------
+        type : str
+            The type string to check against.
+
+        Returns
+        -------
+        bool
+            True if the type matches "Dependent".
+        """
         return type == "Dependent"
 
     def add_vid(self, v):
+        """Add a variable ID to this dependent's variable list.
+
+        Parameters
+        ----------
+        v : object
+            The variable ID to add.
+        """
         self.VIDL.append(v)
 
     def dep_error(self):
+        """Calculate the normalized error between d1 and d2.
+
+        Computes the normalized error as (d1 - d2) / denom, where denom
+        is the maximum of the absolute values of d1 and d2, or val_scale
+        if it is non-zero.
+
+        Returns
+        -------
+        float
+            The normalized error value.
+        """
 
         # determine the dependent error
         # first see if the user has input a scalar
@@ -57,6 +133,12 @@ class Dependent(Atom):
         return self.err.v
 
     def precheck(self):
+        """Resolve string-based variable references to actual variables.
+
+        Looks through the parent's variable IDs to find and resolve the
+        d1 and d2 dependent variable references by name. Handles both
+        local variables and cross-element references using dot notation.
+        """
 
         # the dependent d1 value might not be in this element
         # if that is the case, look through all of the elements

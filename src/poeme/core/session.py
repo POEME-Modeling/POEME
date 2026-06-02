@@ -1,5 +1,3 @@
-"""Model session — owns all state for one simulation/model instance."""
-
 from __future__ import annotations
 
 from contextvars import ContextVar
@@ -23,9 +21,27 @@ class ModelSession:
 
     Each independent model should create its own session.
     Sessions are fully isolated — no cross-contamination between models.
+
+    Attributes
+    ----------
+    elements : list[Element]
+        All elements registered in this session.
+    independents : list[Independent]
+        Independent variables for the solver.
+    dependents : list[Dependent]
+        Dependent variables for the solver.
+    states : list[State]
+        State variables for transient simulation.
+    constraints : list[Constraint]
+        Active constraints for the solver.
+    solver : Newton | None
+        The Newton-Raphson solver instance.
+    errors : str
+        Accumulated error messages.
     """
 
     def __init__(self) -> None:
+        """Initialize an empty model session."""
         self.elements: list[Element] = []
         self.independents: list[Independent] = []
         self.dependents: list[Dependent] = []
@@ -45,10 +61,18 @@ class ModelSession:
         self.solver = None
 
     def __enter__(self) -> ModelSession:
+        """Enter the session context and set as active.
+
+        Returns
+        -------
+        ModelSession
+            This session instance.
+        """
         self._token = _active_session.set(self)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:  # type: ignore[return]
+        """Exit the session context and reset the active session."""
         _active_session.reset(self._token)
 
     def check(self) -> None:
@@ -69,7 +93,15 @@ class ModelSession:
             c.precheck()
 
     def set(self, var: str, value: float) -> None:
-        """Set a variable by name across all registered objects."""
+        """Set a variable by name across all registered objects.
+
+        Parameters
+        ----------
+        var : str
+            The name of the variable to set.
+        value : float
+            The value to assign.
+        """
         stuff = self.elements.copy()
         if self.solver:
             stuff.append(self.solver)
