@@ -451,7 +451,7 @@ session.solver = solver
 
 solver.listBalances()
 
-solver.debug = True
+#solver.debug = True
 
 solver.solve()
 
@@ -542,6 +542,9 @@ burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depnam
 print( burner.FNo.Tt.desc )
 
 session.check()
+
+
+
 
 run_throttle_hook(0.90, 45000.0)
 run_throttle_hook(0.85, 45000.0)
