@@ -54,18 +54,12 @@ class Element(Atom):
             raise ValueError(error_msg)
         self.session = session
         # Bypass custom __setattr__ for internal attributes during init
-        super().__setattr__("VIDL", [])
-        super().__setattr__("type", type)
-        super().__setattr__("name", name)
-        super().__setattr__("name1", name)
-        super().__setattr__("x", -1.0)
-        super().__setattr__("y", 0.0)
-        # object.__setattr__(self, "VIDL", [])
-        # object.__setattr__(self, "type", type)
-        # object.__setattr__(self, "name", name)
-        # object.__setattr__(self, "name1", name)
-        # object.__setattr__(self, "x", -1.0)
-        # object.__setattr__(self, "y", 0.0)
+        object.__setattr__(self, "VIDL", [])
+        object.__setattr__(self, "type", type)
+        object.__setattr__(self, "name", name)
+        object.__setattr__(self, "name1", name)
+        object.__setattr__(self, "x", -1.0)
+        object.__setattr__(self, "y", 0.0)
         self.session.elements.append(self)
 
     def __setattr__(self, name, value):
