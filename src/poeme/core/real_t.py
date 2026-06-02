@@ -101,6 +101,12 @@ class RealT(ValueT):
             self.v = v
         else:
             self.v = v.v
+            
+    def turbo(self):
+        print( "turbo" )
+        self = self.v
+
+
 
     def str(self):
         return str(self.v)

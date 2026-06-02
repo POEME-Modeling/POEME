@@ -47,7 +47,7 @@ class FN(Atom):
         self.FAR = RealT(self, v=0.0, units="", desc="")
         self.WAR = RealT(self, v=0.0, units="", desc="")
         self.W = RealT(self, v=0.0, units="", desc="")
-        self.Tt = RealT(self, v=0.0, units="", desc="")
+        self.Tt = RealT(self, v=0.0, units="", desc="Temperature")
         self.Pt = RealT(self, v=0.0, units="", desc="")
         self.ht = RealT(self, v=0.0, units="", desc="")
         self.rhot = RealT(self, v=0.0, units="", desc="")
@@ -58,8 +58,8 @@ class FN(Atom):
         self.Rt = RealT(self, v=0.0, units="", desc="")
         self.Rs = RealT(self, v=0.0, units="", desc="")
         self.s = RealT(self, v=0.0, units="", desc="")
-        self.MN = RealT(self, v=0.0, units="", desc="")
-        self.A = RealT(self, v=0.0, units="", desc="")
+        self.MN = RealT(self, v=-9999., units="", desc="")
+        self.A = RealT(self, v=-9999., units="", desc="")
         self.V = RealT(self, v=0.0, units="", desc="")
         self.Ts = RealT(self, v=0.0, units="", desc="")
         self.Ps = RealT(self, v=0.0, units="", desc="")
@@ -336,10 +336,22 @@ class FN(Atom):
 
         self.gams.v = self.gamt.v
         self.rhos.v = self.rhot.v
-
         if self.size.v == True:
-            if self.MN.v == 0.0:
+            if self.MN.v < 0.0:
                 return
+            if self.MN.v < .00001:
+                self.A = -9999.
+                self.V.v = 0.
+                self.Ts.v = self.Tt
+                self.Ps.v = self.Pt
+                self.hs.v = self.ht
+                self.rhos.v = self.rhos
+                self.mus.v = self.mut
+                self.ks.v = self.kt
+                self.Cps.v = self.Cpt
+                self.gams.v = self.gamt
+                return
+                   
             mnor = self.MN.v
             self.Ps.v = self.Pt.v * 0.9
             self.ps_calc()
@@ -373,8 +385,19 @@ class FN(Atom):
             self.MN.v = mnor
 
         else:
-            if self.A.v == 0:
+            if self.A.v < 0.:
+                self.MN.v = 0.
+                self.V.v = 0.
+                self.Ts.v = self.Tt.v
+                self.Ps.v = self.Pt.v
+                self.hs.v = self.ht.v
+                self.rhos.v = self.rhos.v
+                self.mus.v = self.mut.v
+                self.ks.v = self.kt.v
+                self.Cps.v = self.Cpt.v
+                self.gams.v = self.gamt.v
                 return
+                
             aor = self.A.v
             self.Ps.v = self.Pt.v * 0.99
             self.ps_calc()
@@ -538,10 +561,8 @@ class FN(Atom):
         self.Rt.v = e.Rt.v
         self.Rs.v = e.Rs.v
         self.s.v = e.s.v
-        if e.MN.v != 0:
-            self.MN.v = e.MN.v
-        if e.A.v != 0:
-            self.A.v = e.A.v
+        self.MN.v = e.MN.v
+        self.A.v = e.A.v
         self.V.v = e.V.v
         self.Ts.v = e.Ts.v
         self.Ps.v = e.Ps.v
@@ -567,10 +588,8 @@ class FN(Atom):
             self.Rt.v = e.Rt.v
             self.Rs.v = e.Rs.v
             self.s.v = e.s.v
-            if e.MN.v != 0:
-                self.MN.v = e.MN.v
-            if e.A.v != 0:
-                self.A.v = e.A.v
+            self.MN.v = e.MN.v
+            self.A.v = e.A.v
             self.V.v = e.V.v
             self.Ts.v = e.Ts.v
             self.Ps.v = e.Ps.v
@@ -641,8 +660,6 @@ class FN(Atom):
         self.size.v = True
         self.MN.v = MN
         self.statics()
-        if self.other != 0:
-            self.other.copy_deep(self)
 
     def dump(self, output_file):
         output_file.write(

@@ -34,9 +34,15 @@ class Newton(Element):
         )
         self.VIDL = list()
         self.ind_list = self.session.independents
+        self.iterCount = RealT(
+            self, v=0., units="Integer", desc="Maxium number of Jacobians"
+        )        
         self.dep_list = self.session.dependents
         self.maxJacobians = RealT(
-            self, v=50.0, units="Integer", desc="Maxium number of Jacobians"
+            self, v=50., units="Integer", desc="Maxium number of Jacobians"
+        )
+        self.maxIterations = RealT(
+            self, v=100., units="Integer", desc="Maxium number of iterataions"
         )
         self.numpasses = RealT(self, v=0.0, units="Integer", desc="Number of passes")
         self.tolerance = RealT(self, v=0.0001, units="real", desc="tolernace")
@@ -48,9 +54,12 @@ class Newton(Element):
         self.timeLast = RealT(
             self, v=0.05, units="seconds", desc="Simulation stop time"
         )
-        self.trans = BooleanT(self, v=False, desc="True for transient, false for SS")
+        self.trans = BooleanT(self, v=False, desc="Truer for transient, false for SS")
         self.converged = BooleanT(self, v=False, desc="converged flag")
 
+        self.debugfile = open("solver.debug", "w")
+        self.debug = BooleanT(self, v=False, desc="Determine is solver debug information is printed")
+        
         # gui location
         self.x = 0
         self.y = 0
@@ -79,28 +88,44 @@ class Newton(Element):
 
     # solve the system
     def solve(self):
-
+        
+        self.iterCount= 0
+        if self.debug == True:
+            print( "\n\n", file=self.debugfile )            
+            print( "SOLVER DEBUG", file=self.debugfile )
         self.numpasses = 0.0
         # get the list of all the solver objects
         self.ind_list = list()
         self.dep_list = list()
         self.state_list = list()
         self.con_list = list()
-
-        for d in self.session.dependents:
-            if d.active == True:
-                self.dep_list.append(d)
-
+ 
+        if self.debug == True:          
+            print( "INDEPENDENTS", file=self.debugfile )    
         for i in self.session.independents:
             if i.active == True:
                 self.ind_list.append(i)
-
+                print( i.name1, i.ind.parent.name, i.ind.name1, file=self.debugfile )
+                
+        if self.debug == True:          
+            print( "DEPENDENTS", file=self.debugfile )        
+        for d in self.session.dependents:
+            if d.active == True:
+                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, file=self.debugfile )
+                self.dep_list.append(d)
+                
+        if self.debug == True:          
+            print( "STATES", file=self.debugfile )  
         for st in self.session.states:
             if st.active == True:
                 self.state_list.append(st)
-
-        for c in self.session.constraints:
+                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1,file=self.debugfile )
+                
+        if self.debug == True:          
+            print( "CONSTRAINTS", file=self.debugfile )                   
+        for c in self.session.constraints:          
             if c.on == True:
+                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1,file=self.debugfile )                  
                 self.con_list.append(c)
                 c.active = False
                 c.dep.active = True
@@ -127,6 +152,8 @@ class Newton(Element):
             err_sum = 8e9
             while iter < self.maxJacobians.v and self.converged == False:
                 iter = iter + 1
+                if self.debug == True:
+                    print( "Error summation update", err_sum, err_sum_last, file=self.debugfile )
                 if iter > 1 and len(self.ind_list) > 1 and err_sum < err_sum_last:
                     id = 0
                     for d in self.dep_list:
@@ -156,6 +183,10 @@ class Newton(Element):
 
                     a7 = outer(dely - dot(matrix, delxs), delxs) / dot(delxs, delxs)
                     matrix = matrix + a7
+
+                    if self.debug == True:          
+                        print( "BROYDEN MATRIX UPDATE", file=self.debugfile )
+                        print( matrix,file=self.debugfile )
 
                     # matrix = matrix + outer( dely - dot( matrix, delxs ), delxs )
                     # / dot( delxs, delxs )
@@ -225,9 +256,12 @@ class Newton(Element):
                         # move independent back
                         i.ind.v = i.ind.v - dx
                         icount = icount + 1
-
+                    if self.debug == True:              
+                        print( "JACOBIAN MATRIX", file=self.debugfile )
+                        print( matrix, file=self.debugfile )     
+                        
                 # invert the matrix
-                try:
+                try:                              
                     imatrix = linalg.inv(matrix)
                 except:  # noqa: E722
                     iter = self.maxJacobians.v
@@ -298,30 +332,49 @@ class Newton(Element):
                     # update the inds
                     # and rerun
                     ic = 0
+                    if self.debug == True:
+                        print( "Independents",file=self.debugfile )
+                     
                     for i in self.ind_list:
                         delxs[ic] = delx[ic] * iscale
                         i.ind.v = i.ind.v + delxs[ic]
                         ic = ic + 1
+                        if self.debug == True:
+                            print( i.name1, i.ind.parent.name, i.ind.name1, i.ind.v, file=self.debugfile )
+                        
 
                     # try:
                     self.onepass()
+                    self.iterCount = self.iterCount + 1
                     # except:
                     # iter = self.maxJacobians.v
 
                     err_sum_last = err_sum
                     err_sum = 0.0
 
+                    if self.debug == True:
+                        print( "Dependents",file=self.debugfile )
                     for d in self.dep_list:
                         if d.active == True:
                             err_sum = err_sum + d.dep_error() ** 2.0
+                            if self.debug == True:
+                                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d1.v, d.d2.parent.name1, d.d2.name1, d.d2.v, d.dep_error(), file=self.debugfile )
 
+                    if self.debug == True:
+                        print( "States",file=self.debugfile )
                     for st in self.state_list:
                         if st.active == True:
                             err_sum = err_sum + st.dep_error() ** 2.0
+                            if self.debug == True:
+                                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d1.v, st.d2.parent.name1, st.d2.name1, st.d2.v, st.dep_error(), file=self.debugfile )
 
+                    if self.debug == True:
+                        print( "Constraints",file=self.debugfile )                          
                     for c in self.con_list:
                         if c.active == True:
                             err_sum = err_sum + c.dep_error() ** 2
+                            if self.debug == True:
+                                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d1.v, c.d2.parent.name1, c.d2.name1, c.d2.v, c.dep_error(), file=self.debugfile )
 
                     # if error is worse, we stepped to far
                     # step back
@@ -367,7 +420,7 @@ class Newton(Element):
                 c.active = False
                 c.dep.active = True
 
-        if iter > self.maxJacobians.v - 1:
+        if self.iterCount > self.maxIterations.v - 1:
             self.converged.set(False)
             self.session.errors += " solver exceeded maximu number of iterations\n"
         else:
@@ -425,16 +478,15 @@ class Newton(Element):
         print( "Dependents" )
         for d in self.session.dependents:
             if d.active == True:
-                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1 )
+                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, d.dep_error() )
 
         print( "States" )                
         for st in self.session.states:
             if st.active == True:
-                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1 )
+                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, st.d2.name1, st.dep_error()  )
         print( "Constraints" )   
         for c in self.session.constraints:
             if c.on == True:
-                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1 )
-
-               
+                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1, c.dep_error() )
+                   
 

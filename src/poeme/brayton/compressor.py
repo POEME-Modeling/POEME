@@ -212,3 +212,10 @@ class Compressor(Element):
             f"{('Rline:' + str(self.Rline))[:10]:12s}"
             f"{('NcMap:' + str(self.NcMap))[:10]:12s}\n"
         )
+
+    def turbo_mode(self):
+        """Change all RealT variables to be native floats"""
+        for var in self.VIDL:
+            if isinstance(var, RealT):
+                print( var.desc )
+                var = var.v
