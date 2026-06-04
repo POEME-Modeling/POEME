@@ -48,6 +48,13 @@ class RealT(ValueT):
         else:
             return self.v > other.v
 
+    def __ge__(self, other):
+        if isinstance(other, (int, float)):
+            temp = self.v
+            return temp >= other
+        else:
+            return self.v >= other.v
+            
     def __rgt__(self, other):
         return other > self.v
 
@@ -57,6 +64,13 @@ class RealT(ValueT):
             return temp < other
         else:
             return self.v < other.v
+
+    def __le__(self, other):
+        if isinstance(other, (int, float)):
+            temp = self.v
+            return temp <= other
+        else:
+            return self.v <= other.v
 
     def __rlt__(self, other):
         return other < self.v
