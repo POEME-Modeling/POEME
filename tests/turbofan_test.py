@@ -139,7 +139,7 @@ LPC.RlineDes = 2.00
 duct25.dPqP = 0.015
 # duct25.FNo.MN = 0.45
 
-
+HPC.PRdes = 14.1030
 HPC.effDes = 0.8469
 HPC.NcMapDes = 1.00
 HPC.RlineDes = 2.00

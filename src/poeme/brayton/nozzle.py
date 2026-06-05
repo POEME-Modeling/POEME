@@ -47,7 +47,7 @@ class Nozzle(Element):
             self.dep_NA.active = True
 
     def calc(self):
-
+        
         if self.FNo.Pt < self.PsExh.get():
             self.session.errors += self.name1 + " nozzle pressure ratio < 1 "
         # copy the inlet flow to the exit
