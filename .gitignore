@@ -8,3 +8,5 @@ _version.py
 _build/
 docs/api/
 build/
+*.out
+solver.debug
