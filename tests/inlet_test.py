@@ -1,5 +1,5 @@
 # ------------------------------------------------------
-#        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
+#                    INLET COMPONENT TEST
 # ------------------------------------------------------
 import time
 start_time = time.time()
@@ -21,7 +21,7 @@ from poeme.brayton import (
     Burner,
     Compressor,
     Duct,
-    FlightConditionsSMJ,
+    FlightConditions,
     Inlet,
     Nozzle,
     Perf,
@@ -39,7 +39,7 @@ with session:
     # ---------------------------------------------------------------------------
     # create instances all of the component objects in this model
     # --------------------------------------------------------------------------
-    start = FlightConditionsSMJ("start")
+    start = FlightConditions("start")
     inlet = Inlet("inlet")
 
     # add the solver
@@ -118,7 +118,7 @@ inlet.recoverySwitch = "Input"
 print( 'RUNNING TEST 1' )
 case_counter = {"count": 1}
 
-for MNset in numpy.arange( 0., 1.70, 0.2 ):
+for MNset in numpy.arange( 0.0, 1.70, 0.2 ):
     start.MN = MNset
     inlet.rec = 1.0 - MNset/10.
 
@@ -181,7 +181,7 @@ for MNset in numpy.arange( 1.80, 3.01, 0.2 ):
 # reset
 start.ind_ALT.active = False
 start.dep_Q.active = False
-start.alt = 35000.
+start.alt = 55000.
 print( ' ' )
 
 
@@ -202,8 +202,8 @@ for MNset in numpy.arange( 0., 1.70, 0.2 ):
     print_testResults()
     case_counter["count"] += 1
 
-start.ind_ALT.active = True
-start.dep_Q.active = True
+#start.ind_ALT.active = True
+#start.dep_Q.active = True
 
 for MNset in numpy.arange( 1.80, 3.01, 0.2 ):
     start.MN = MNset

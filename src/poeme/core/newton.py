@@ -119,7 +119,7 @@ class Newton(Element):
         for st in self.session.states:
             if st.active == True:
                 self.state_list.append(st)
-                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1,file=self.debugfile )
+                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, st.d2.name1,file=self.debugfile )
                 
         if self.debug == True:          
             print( "CONSTRAINTS", file=self.debugfile )                   

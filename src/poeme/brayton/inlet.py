@@ -15,11 +15,12 @@ class Inlet(Element):
         self.recoverySwitch = "Input"
         self.s_rec = RealT(self, v=1.0, units="none", desc="Scale factor on inlet recovery")
 
+        self.RECtable = Table1d( self, desc="Table of total pressure recovery versus flight Mach number" )
+
         # Fluid locations
         self.FNi = FN(self, io="in", desc="Incoming flow")
         self.FNo = FN(self, io="out", desc="Outgoing flow")
 
-        self.RECtable = Table1d( self, desc="Table of total pressure recovery versus flight Mach number" )
 
         self.initial_list()
 
@@ -54,7 +55,9 @@ class Inlet(Element):
 
 
         # exit state: keep enthalpy constant and apply the pressure drop
-        self.FNo.set_hp(self.FNo.ht, self.FNo.Pt * (self.rec))
+        htOut = self.FNi.ht
+        PtOut = self.FNi.Pt * self.rec
+        self.FNo.set_hp( htOut, PtOut )
 
     def dump(self, output_file):
         output_file.write(f"{self.name1} Duct\n")
