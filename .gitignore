@@ -1,7 +1,10 @@
 .DS_Store
+*.lnk
 .venv/
 .vscode/
 __pycache__/
 _version.py
 *.egg-info/
 _build/
+docs/api/
+build/
