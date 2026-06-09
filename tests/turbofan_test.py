@@ -473,6 +473,7 @@ def run_throttle_hook(mnset, altitude):
     start.MN = mnset
     start.alt = altitude
     solver.save_independents()
+    #burner.WFset = True    
     solver.run()
     #print_pretty(output_file, session)
     print(start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged)
@@ -492,6 +493,7 @@ def run_throttle_hook(mnset, altitude):
     session.check()
 
     while factor > 0.2 and solver.converged == True and pri_nozzle.Fg >0.:
+
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
@@ -518,7 +520,8 @@ session.set("size", False)
 fan_nozzle.ind_Area = Independent(fan_nozzle, indname="Anoz", perturb=0.05, scale=100,perturb_type="Relative",active=True
 )
 fan.RlineLimit = RealT(fan, v=2.0)
-fan.dep_Rline = Dependent(fan, d1name="Rline", d2name="RlineLimit", active=True)
+fan.RlineDummy = RealT(fan, v=3.0)
+fan.dep_Rline = Dependent(fan, d1name="RlineLimit", d2name="Rline", active=True)
 
 session.check()
 
@@ -538,6 +541,7 @@ burner.Tmax = 3360.0
 start.Fdem = RealT(start)
 
 start.Fnet = RealT(start)
+
 burner.ind_FAR = Independent( burner, indname="FAR", perturb=0.05, perturb_type="Relative", active=True, desc="Varies FAR" )
 fan.dep_NmechC = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True,desc="Handles weight flow error" )
 burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True )
