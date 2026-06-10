@@ -92,6 +92,17 @@ class Enode(Element):
                 self.port_list.append(v)
 
     def link_e(self, ep):
+        if self.other != 0:
+            print( self.parent.name1 + "." + self.name1 + " is already linked " )
+            quit()
+        if fn.other != 0:
+            print( ep.parent.name1 + "." + ep.name1 + " is already linked " )
+            quit() 
+        if ( ep.isa( "EP")==False):
+            print( ep.parent.name1 + "." + ep.name1 + " is not a fluid node " )
+            quit()        
+                
+        
         temp = EP(self, io="in")
         temp.other = ep
         ep.other = temp

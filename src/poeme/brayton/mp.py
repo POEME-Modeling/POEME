@@ -26,6 +26,15 @@ class MP(Atom):
         self.VIDL.append(v)
 
     def link_mp(self, mp):
+        if self.other != 0:
+            print( self.parent.name1 + "." + self.name1 + " is already linked " )
+            quit()
+        if mp.other != 0:
+            print( mp.parent.name1 + "." + mp.name1 + " is already linked " )
+            quit() 
+        if ( mp.isa( "MP")==False):
+            print( mp.parent.name1 + "." + mp.name1 + " is not a mechanical node " )
+            quit()                
         self.other = mp
         mp.other = self
 

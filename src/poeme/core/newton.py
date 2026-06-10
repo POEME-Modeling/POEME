@@ -105,30 +105,35 @@ class Newton(Element):
         for i in self.session.independents:
             if i.active == True:
                 self.ind_list.append(i)
-                print( i.name1, i.ind.parent.name, i.ind.name1, file=self.debugfile )
+                if self.debug == True:                
+                    print( i.name1, i.ind.parent.name, i.ind.name1, file=self.debugfile )
                 
         if self.debug == True:          
             print( "DEPENDENTS", file=self.debugfile )        
         for d in self.session.dependents:
             if d.active == True:
-                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, file=self.debugfile )
                 self.dep_list.append(d)
+                if self.debug == True:
+                    print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, file=self.debugfile )
+
                 
         if self.debug == True:          
             print( "STATES", file=self.debugfile )  
         for st in self.session.states:
             if st.active == True:
                 self.state_list.append(st)
-                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, st.d2.name1,file=self.debugfile )
+                if self.debug == True:
+                    print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1,file=self.debugfile )
                 
         if self.debug == True:          
             print( "CONSTRAINTS", file=self.debugfile )                   
         for c in self.session.constraints:          
             if c.on == True:
-                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1,file=self.debugfile )                  
                 self.con_list.append(c)
                 c.active = False
                 c.dep.active = True
+                if self.debug == True:
+                    print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1,file=self.debugfile )                  
 
         # create an empty matrix
         matrix = np.zeros(
@@ -261,11 +266,88 @@ class Newton(Element):
                         print( matrix, file=self.debugfile )     
                         
                 # invert the matrix
-                try:                              
+                try:                   
                     imatrix = linalg.inv(matrix)
                 except:  # noqa: E722
                     iter = self.maxJacobians.v
                     self.session.errors += "Could not invert solver matrix\n"
+
+                    zero_row_indices = []  
+                    for i, row in enumerate(matrix):
+                        # all() checks if the condition (x == 0) is true for every element in the row
+                        if all(x == 0 for x in row):
+                            zero_row_indices.append(i)
+
+                    if len( zero_row_indices ) > 0:
+                        depnumber=zero_row_indices[0]
+                        dcount = 0
+                        for d in self.dep_list:
+                            if d.active == True:
+                                if dcount == depnumber:
+                                    dep=d
+                                dcount = dcount + 1
+                                
+
+                        for st in self.state_list:
+                            if st.active == True:
+                                if dcount == depnumber:
+                                    dep=st
+                                dcount = dcount + 1
+
+                        for c in self.con_list:
+                            if c.active == True:
+                                if dcount == depnumber:
+                                    dep=c                                
+                                dcount = dcount + 1
+
+                        print( "Dependent " + dep.parent.name1+"."+dep.name1 + " is not effected by any of the independents" )
+                        quit()
+             
+                    matrix_T = [list(row) for row in zip(*matrix)]
+                    matrix = matrix_T
+                    zero_row_indices = []  
+                    for i, row in enumerate(matrix):
+                        # all() checks if the condition (x == 0) is true for every element in the row
+                        if all(x == 0 for x in row):
+                            zero_row_indices.append(i)
+
+                    if len( zero_row_indices ) > 0:
+                        ind = self.ind_list[zero_row_indices[0]]
+                        print( "Varying independent " + ind.parent.name1+"."+ind.name1 + " has no effect on the model" )
+                        quit()
+
+                          
+                    n_rows = len(matrix)
+                    print ( n_rows)
+                    for i in range(n_rows):
+                       
+                        for j in range(i + 1, n_rows):
+                            row_i, row_j = matrix[i], matrix[j]
+                         
+                            same = True
+                            ratioBase = 0.
+                            ratio = 0.
+                            for column in range( len( row_i )):
+                                if abs( row_j[column]) <0.00000000001:
+                                    if abs( row_i[column] ) >0.00000000001:
+                                        same=False
+                                else:
+                                    ratio = row_i[column] / row_j[column]
+                                if abs( ratioBase )<= 0.00000000001:
+                                    ratioBase = ratio
+                                if abs ( ratio-ratioBase )>0.00000000001:
+                                    same = False
+
+                            # Check if all ratios are equal (within tolerance)
+                            if same:
+                                #pairs.append((i, j, ratios[0]))
+                                ind = self.ind_list[i]
+                                print( "Varying independent " + ind.parent.name1+"."+ind.name1  )
+                                ind = self.ind_list[j]
+                                print( "Is multiplicative of varying independent " + ind.parent.name1+"."+ind.name1  )
+                                quit()
+
+                     
                 bc = 0
 
                 # if the error keeps improving, keep using jacobian
@@ -489,4 +571,27 @@ class Newton(Element):
             if c.on == True:
                 print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1, c.dep_error() )
                    
+
+    def empty(self):
+
+        # get the list of all the solver objects
+        self.ind_list = list()
+        self.dep_list = list()
+        self.state_list = list()
+        self.con_list = list()
+        
+        for i in self.session.independents:
+            i.active = False
+
+        for d in self.session.dependents:
+            d.active = False
+               
+        for st in self.session.states:
+            st.active = False
+  
+        for c in self.session.constraints:
+            c.on = False
+            c.active = False
+                   
+
 

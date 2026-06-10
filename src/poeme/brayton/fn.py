@@ -512,6 +512,16 @@ class FN(Atom):
             self.A.v = self.W.v / (self.rhos.v * abs(self.V.v))
 
     def link_fn(self, fn):
+        if self.other != 0:
+            print( self.parent.name1 + "." + self.name1 + " is already linked " )
+            quit()
+        if fn.other != 0:
+            print( fn.parent.name1 + "." + fn.name1 + " is already linked " )
+            quit() 
+        if ( fn.isa( "FN")==False):
+            print( fn.parent.name1 + "." + fn.name1 + " is not a fluid node " )
+            quit()        
+        
         self.__dict__.update({"other": fn})
         fn.__dict__.update({"other": self})
 
