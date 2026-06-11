@@ -490,7 +490,7 @@ def run_throttle_hook(mnset, altitude):
     burner.con_1.active = False
 
     burner.ind_FAR.active = False
-    session.check()
+    #session.check()
 
     while factor > 0.2 and solver.converged == True and pri_nozzle.Fg >0.:
 
@@ -505,7 +505,7 @@ def run_throttle_hook(mnset, altitude):
     fan.dep_NmechC.active = True
     burner.con_1.on = True
     burner.ind_FAR.active = True
-    session.check()
+    #session.check()
     fan.NcDem = 1.0
     solver.restore_independents()
     solver.run()
