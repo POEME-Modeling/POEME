@@ -25,7 +25,7 @@ class Nozzle(Element):
 
         # flow connections
         self.FNi = FN(self, io="in", desc="Incoming flow")
-        self.FNo = FN(self, io="out", desc="Outgoing flow")
+        self.FNo = FN(self, io="out", desc="Outgoing flow",isPort=False)
 
         # dependents
         self.dep_NA = Dependent(

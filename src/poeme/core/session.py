@@ -55,7 +55,11 @@ class ModelSession:
         """Call precheck() on all registered objects."""
         for e in self.elements:
             e.precheck()
-
+            for v in e.VIDL:
+                if v.isa( "FN" ) or v.isa( "MP" ):
+                    if (v.isPort==True) and (v.other == 0):
+                        print( "port "+ e.name1+ "." +v.name1+ " is not linked" )
+        
         for i in self.independents:
             i.precheck()
 

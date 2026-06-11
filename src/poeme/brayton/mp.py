@@ -1,4 +1,4 @@
-from poeme import Atom, RealT
+from poeme import Atom, RealT, BooleanT
 
 
 class MP(Atom):
@@ -17,6 +17,10 @@ class MP(Atom):
         self.other = 0
         self.io = io
         p.add_vid(self)
+        self.isPort=True
+        self.isPort = BooleanT(
+            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+        )        
         self.type = "MP"
 
     def isa(self, type):

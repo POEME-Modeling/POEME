@@ -35,12 +35,12 @@ class Turbine(Element):
         )
 
         # fluid locations
-        self.FN41 = FN(self, desc="Station 41 after bleed 1")
-        self.FN42 = FN(self, desc="Station 42 before bleed 2")
+        self.FN41 = FN(self, desc="Station 41 after bleed 1", isPort=False)
+        self.FN42 = FN(self, desc="Station 42 before bleed 2", isPort=False)
         self.FNi = FN(self, io="in", desc="Primary input flow")
-        self.FNiBld1 = FN(self, io="in", desc="First bleed flow (before turbine)")
-        self.FNiBld2 = FN(self, io="in", desc="Second bleed flow (after turbine)")
-        self.FNideal = FN(self, desc="Ideal flow conditions")
+        self.FNiBld1 = FN(self, io="in", desc="First bleed flow (before turbine)", isPort=False)
+        self.FNiBld2 = FN(self, io="in", desc="Second bleed flow (after turbine)", isPort=False)
+        self.FNideal = FN(self, desc="Ideal flow conditions", isPort=False)
         self.FNo = FN(self, io="out", desc="Primary outlet floe")
 
         # mechanical connections

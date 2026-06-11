@@ -37,8 +37,8 @@ class Compressor(Element):
         )
 
         # fluid locations/ports
-        self.FNi = FN(self, io="in", desc="Incoming fluid flow")
-        self.FNideal = FN(self, desc="Ideal exit conditions")
+        self.FNi = FN(self, io="in", desc="Incoming fluid flow" )
+        self.FNideal = FN(self, desc="Ideal exit conditions",isPort=False)
         self.FNo = FN(self, io="out", desc="Outgoing fluid flow")
         self.FNoBld1 = FN(self, io="out", desc="Bleed flow 1")
         self.FNoBld2 = FN(self, io="out", desc="Bleed flow 2")
@@ -178,8 +178,15 @@ class Compressor(Element):
             )
         )
 
+
     def precheck(self):
 
+        if self.Wfrac1 < 0.0000001:
+            self.FNoBld1.isPort = False
+            
+        if self.Wfrac2 < 0.0000001:
+            self.FNoBld2.isPort = False 
+ 
         # design: solver stuff inactive
         if self.size == True:
             self.ind_CR.active = False

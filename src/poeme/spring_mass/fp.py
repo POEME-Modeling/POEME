@@ -2,20 +2,24 @@ from poeme import Atom, RealT
 
 
 class Fp(Atom):
-    def __init__(self, p, io, desc):
+    def __init__(self, p, io, desc,, **kwargs):
 
         # variables
         self.VIDL = list()
         self.name1 = ""
         self.desc = desc
         self.parent = p
+        selg.isPort = True
         self.io = io
+        self.__dict__.update(kwargs)        
 
         # engineering variables
         self.F = RealT(self, units="lbf", desc="Force")
         self.x = RealT(self, units="ft", desc="x location")
-        self.V = RealT(self, units="ft/sec", desc="velocity")
-
+        self.V = RealT(self, units="ft/sec", desc="velocity" )                
+        self.isPort = BooleanT(
+            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+        )     
         p.add_vid(self)
         self.type = "Fp"
         self.other = 0

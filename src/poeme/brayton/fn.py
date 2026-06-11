@@ -36,6 +36,8 @@ class FN(Atom):
                 "VIDL": [],
                 "type": "FN",
                 "other": 0,
+                "isPort":True
+                
             }
         )
         self.__dict__.update(kwargs)
@@ -72,6 +74,12 @@ class FN(Atom):
         self.size = BooleanT(
             self, v=True, desc="Determines if we are running to fixed Mach or Area"
         )
+        self.isPort = BooleanT(
+            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+        )
+        self.size = BooleanT(
+            self, v=True, desc="Determines if we are running to fixed Mach or Area"
+        )        
         self.twoPhase = BooleanT(
             self,
             v=False,

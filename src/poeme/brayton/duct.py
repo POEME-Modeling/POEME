@@ -58,6 +58,11 @@ class Duct(Element):
         self.FNobld.set_hp( htExit, PtExit )
 
 
+    def precheck(self):
+
+        if self.Wbldfrac < 0.0000001:
+            self.FNobld.isPort = False
+            
 
     def dump(self, output_file):
         output_file.write(f"{self.name1} Duct\n")
