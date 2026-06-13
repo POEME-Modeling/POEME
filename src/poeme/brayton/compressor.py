@@ -81,6 +81,7 @@ class Compressor(Element):
         self.PRscale = RealT(self, units="none", desc="Scalar on the pressure ratio map")
         self.Rline = RealT(self, units="none", desc="R-line index value")
         self.RlineDes = RealT(self, units="none", desc="Design point R-line value")
+        self.RlineStall= RealT(self, v=1., units="none", desc="The Rline value that representns the stall line")
         self.SMN = RealT( self, units="none", desc="Stall margin based on corrected speed")
         self.Wc = RealT(self, units="lbm/sec", desc="Corrected flow")
         self.WcDes = RealT(self, units="lbm/sec", desc="Design corrected flow")
@@ -134,8 +135,11 @@ class Compressor(Element):
         self.WcMap = self.WcScale * self.WcMap
         
         # this is not right
-        self.SMN = 20.  #(self.PRmap - self.PRtable.calc(self.NcMap, self.Rline)) / self.PRmap
-
+        self.SMN = ( self.PRtable.calc(self.NcMap, self.RlineStall) - self.PRmap ) / self.PRmap*100.
+        if( self.SMN < 0 ):
+        #    print( self.name1, self.RlineStall, self.Rline )
+        #if self.Rline < self.RlineStall:
+            self.session.errors += self.name1 + " stall margin <0."
 
         # determine the ideal and actual exit conditions
         PtOut = self.FNi.Pt * self.PR

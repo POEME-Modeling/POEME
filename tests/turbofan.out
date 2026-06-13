@@ -240,101 +240,101 @@ Ports*************
 Electric Ports
 
 Fluid Ports
-start      FNo         W:813.5032    Tt:444.8891    Pt:5.284426    ht:-21.9105    FAR:0.0         MN:0.8         Ts:393.8540    Ps:3.458032  
-inlet      FNi         W:813.5032    Tt:444.8891    Pt:5.284426    ht:-21.9105    FAR:0.0         MN:0.8         Ts:393.8540    Ps:3.458032  
-inlet      FNo         W:813.5032    Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:0.0         Ts:444.8891    Ps:5.273858  
-fan        FNi         W:813.5032    Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:0.0         Ts:444.8891    Ps:5.273858  
-fan        FNideal     W:813.5032    Tt:480.0559    Pt:6.855964    ht:-13.5188    FAR:0.0         MN:0.0         Ts:480.0559    Ps:6.855964  
-fan        FNo         W:813.5032    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
+start      FNo         W:813.5016    Tt:444.8891    Pt:5.284426    ht:-21.9105    FAR:0.0         MN:0.8         Ts:393.8540    Ps:3.458032  
+inlet      FNi         W:813.5016    Tt:444.8891    Pt:5.284426    ht:-21.9105    FAR:0.0         MN:0.8         Ts:393.8540    Ps:3.458032  
+inlet      FNo         W:813.5016    Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:0.0         Ts:444.8891    Ps:5.273858  
+fan        FNi         W:813.5016    Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:0.0         Ts:444.8891    Ps:5.273858  
+fan        FNideal     W:813.5016    Tt:480.0561    Pt:6.855974    ht:-13.5187    FAR:0.0         MN:0.0         Ts:480.0561    Ps:6.855974  
+fan        FNo         W:813.5016    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
 fan        FNoBld1     W:0.0         Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
 fan        FNoBld2     W:0.0         Tt:444.8891    Pt:5.273858    ht:-21.9105    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-splitter   FNi         W:813.5032    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-splitter   FNo1        W:32.55555    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-splitter   FNo2        W:780.9476    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-duct2      FNi         W:32.55555    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-duct2      FNo         W:32.55555    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-duct2      FNobld      W:0.0         Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-LPC        FNi         W:32.55555    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-LPC        FNideal     W:32.55555    Tt:657.2130    Pt:20.56685    ht:28.99813    FAR:0.0         MN:0.0         Ts:657.2130    Ps:20.56685  
-LPC        FNo         W:32.55555    Tt:678.9355    Pt:20.56685    ht:34.24696    FAR:0.0         MN:0.0         Ts:678.9355    Ps:20.56685  
-LPC        FNoBld1     W:0.0         Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-LPC        FNoBld2     W:0.0         Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-duct25     FNi         W:32.55555    Tt:678.9355    Pt:20.56685    ht:34.24696    FAR:0.0         MN:0.0         Ts:678.9355    Ps:20.56685  
-duct25     FNo         W:32.55555    Tt:678.9355    Pt:20.56685    ht:34.24696    FAR:0.0         MN:0.0         Ts:678.9355    Ps:20.56685  
-duct25     FNobld      W:0.0         Tt:678.9355    Pt:20.56685    ht:34.24696    FAR:0.0         MN:0.0         Ts:678.9355    Ps:20.56685  
-HPC        FNi         W:32.55555    Tt:678.9355    Pt:20.56685    ht:34.24696    FAR:0.0         MN:0.0         Ts:678.9355    Ps:20.56685  
-HPC        FNideal     W:32.55555    Tt:1406.163    Pt:290.0611    ht:216.2438    FAR:0.0         MN:0.0         Ts:1406.163    Ps:290.0611  
-HPC        FNo         W:29.64834    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-HPC        FNoBld1     W:2.256099    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-HPC        FNoBld2     W:0.651111    Tt:1115.230    Pt:155.3140    ht:141.6974    FAR:0.0         MN:0.0         Ts:1115.230    Ps:155.3140  
-duct3      FNi         W:29.64834    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-duct3      FNo         W:27.61328    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-duct3      FNobld      W:2.035052    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-burner     FNi         W:27.61328    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-burner     FNo         W:28.39474    Tt:3152.405    Pt:278.4587    ht:184.4967    FAR:0.0283      MN:0.0         Ts:3152.405    Ps:278.4587  
-HPT        FN41        W:30.42979    Tt:3048.708    Pt:278.4587    ht:188.8204    FAR:0.026357    MN:0.0         Ts:3048.708    Ps:278.4587  
-HPT        FN42        W:30.42979    Tt:2287.402    Pt:68.50643    ht:-46.9270    FAR:0.026357    MN:0.0         Ts:2287.402    Ps:68.50643  
-HPT        FNi         W:28.39474    Tt:3152.405    Pt:278.4587    ht:184.4967    FAR:0.0283      MN:0.0         Ts:3152.405    Ps:278.4587  
-HPT        FNiBld1     W:2.035052    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-HPT        FNiBld2     W:2.256099    Tt:1531.247    Pt:290.0611    ht:249.1479    FAR:0.0         MN:0.0         Ts:1531.247    Ps:290.0611  
-HPT        FNideal     W:30.42979    Tt:2230.418    Pt:68.50643    ht:-63.9987    FAR:0.026357    MN:0.0         Ts:2230.418    Ps:68.50643  
-HPT        FNo         W:32.68589    Tt:2232.563    Pt:68.50643    ht:-26.4908    FAR:0.024493    MN:0.0         Ts:2232.563    Ps:68.50643  
-duct45     FNi         W:32.68589    Tt:2232.563    Pt:68.50643    ht:-26.4908    FAR:0.024493    MN:0.0         Ts:2232.563    Ps:68.50643  
-duct45     FNo         W:32.68589    Tt:2232.563    Pt:68.50643    ht:-26.4908    FAR:0.024493    MN:0.0         Ts:2232.563    Ps:68.50643  
-duct45     FNobld      W:0.0         Tt:2232.563    Pt:68.50643    ht:-26.4908    FAR:0.024493    MN:0.0         Ts:2232.563    Ps:68.50643  
-LPT        FN41        W:33.33700    Tt:2211.157    Pt:68.50643    ht:-23.2059    FAR:0.024003    MN:0.0         Ts:2211.157    Ps:68.50643  
-LPT        FN42        W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-LPT        FNi         W:32.68589    Tt:2232.563    Pt:68.50643    ht:-26.4908    FAR:0.024493    MN:0.0         Ts:2232.563    Ps:68.50643  
-LPT        FNiBld1     W:0.651111    Tt:1115.230    Pt:155.3140    ht:141.6974    FAR:0.0         MN:0.0         Ts:1115.230    Ps:155.3140  
+splitter   FNi         W:813.5016    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+splitter   FNo1        W:32.55545    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+splitter   FNo2        W:780.9461    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+duct2      FNi         W:32.55545    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+duct2      FNo         W:32.55545    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+duct2      FNobld      W:0.0         Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+LPC        FNi         W:32.55545    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+LPC        FNideal     W:32.55545    Tt:657.2117    Pt:20.56673    ht:28.99782    FAR:0.0         MN:0.0         Ts:657.2117    Ps:20.56673  
+LPC        FNo         W:32.55545    Tt:678.9342    Pt:20.56673    ht:34.24665    FAR:0.0         MN:0.0         Ts:678.9342    Ps:20.56673  
+LPC        FNoBld1     W:0.0         Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+LPC        FNoBld2     W:0.0         Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+duct25     FNi         W:32.55545    Tt:678.9342    Pt:20.56673    ht:34.24665    FAR:0.0         MN:0.0         Ts:678.9342    Ps:20.56673  
+duct25     FNo         W:32.55545    Tt:678.9342    Pt:20.56673    ht:34.24665    FAR:0.0         MN:0.0         Ts:678.9342    Ps:20.56673  
+duct25     FNobld      W:0.0         Tt:678.9342    Pt:20.56673    ht:34.24665    FAR:0.0         MN:0.0         Ts:678.9342    Ps:20.56673  
+HPC        FNi         W:32.55545    Tt:678.9342    Pt:20.56673    ht:34.24665    FAR:0.0         MN:0.0         Ts:678.9342    Ps:20.56673  
+HPC        FNideal     W:32.55545    Tt:1406.160    Pt:290.0594    ht:216.2429    FAR:0.0         MN:0.0         Ts:1406.160    Ps:290.0594  
+HPC        FNo         W:29.64825    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+HPC        FNoBld1     W:2.256093    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+HPC        FNoBld2     W:0.651109    Tt:1115.228    Pt:155.3130    ht:141.6969    FAR:0.0         MN:0.0         Ts:1115.228    Ps:155.3130  
+duct3      FNi         W:29.64825    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+duct3      FNo         W:27.61320    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+duct3      FNobld      W:2.035046    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+burner     FNi         W:27.61320    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+burner     FNo         W:28.39466    Tt:3152.403    Pt:278.4570    ht:184.4959    FAR:0.0283      MN:0.0         Ts:3152.403    Ps:278.4570  
+HPT        FN41        W:30.42970    Tt:3048.705    Pt:278.4570    ht:188.8196    FAR:0.026357    MN:0.0         Ts:3048.705    Ps:278.4570  
+HPT        FN42        W:30.42970    Tt:2287.399    Pt:68.50598    ht:-46.9277    FAR:0.026357    MN:0.0         Ts:2287.399    Ps:68.50598  
+HPT        FNi         W:28.39466    Tt:3152.403    Pt:278.4570    ht:184.4959    FAR:0.0283      MN:0.0         Ts:3152.403    Ps:278.4570  
+HPT        FNiBld1     W:2.035046    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+HPT        FNiBld2     W:2.256093    Tt:1531.243    Pt:290.0594    ht:249.1471    FAR:0.0         MN:0.0         Ts:1531.243    Ps:290.0594  
+HPT        FNideal     W:30.42970    Tt:2230.416    Pt:68.50598    ht:-63.9994    FAR:0.026357    MN:0.0         Ts:2230.416    Ps:68.50598  
+HPT        FNo         W:32.68579    Tt:2232.561    Pt:68.50598    ht:-26.4916    FAR:0.024493    MN:0.0         Ts:2232.561    Ps:68.50598  
+duct45     FNi         W:32.68579    Tt:2232.561    Pt:68.50598    ht:-26.4916    FAR:0.024493    MN:0.0         Ts:2232.561    Ps:68.50598  
+duct45     FNo         W:32.68579    Tt:2232.561    Pt:68.50598    ht:-26.4916    FAR:0.024493    MN:0.0         Ts:2232.561    Ps:68.50598  
+duct45     FNobld      W:0.0         Tt:2232.561    Pt:68.50598    ht:-26.4916    FAR:0.024493    MN:0.0         Ts:2232.561    Ps:68.50598  
+LPT        FN41        W:33.33690    Tt:2211.155    Pt:68.50598    ht:-23.2066    FAR:0.024003    MN:0.0         Ts:2211.155    Ps:68.50598  
+LPT        FN42        W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+LPT        FNi         W:32.68579    Tt:2232.561    Pt:68.50598    ht:-26.4916    FAR:0.024493    MN:0.0         Ts:2232.561    Ps:68.50598  
+LPT        FNiBld1     W:0.651109    Tt:1115.228    Pt:155.3130    ht:141.6969    FAR:0.0         MN:0.0         Ts:1115.228    Ps:155.3130  
 LPT        FNiBld2     W:0.0         Tt:0.0         Pt:0.0         ht:0.0         FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-LPT        FNideal     W:33.33700    Tt:1245.169    Pt:6.522182    ht:-296.889    FAR:0.024003    MN:0.0         Ts:1245.169    Ps:6.522182  
-LPT        FNo         W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-duct5      FNi         W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-duct5      FNo         W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-duct5      FNobld      W:0.0         Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-pri_nozz   FNi         W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522182  
-pri_nozz   FNo         W:33.33700    Tt:1304.715    Pt:6.522182    ht:-280.934    FAR:0.024003    MN:1.0         Ts:1109.450    Ps:3.490550  
-duct17     FNi         W:780.9476    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
-duct17     FNo         W:780.9476    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-duct17     FNobld      W:0.0         Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-fan_nozz   FNi         W:780.9476    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1838    Ps:6.855964  
-fan_nozz   FNo         W:780.9476    Tt:481.1838    Pt:6.855964    ht:-13.2495    FAR:0.0         MN:1.0         Ts:400.2605    Ps:3.630556  
+LPT        FNideal     W:33.33690    Tt:1245.168    Pt:6.522145    ht:-296.890    FAR:0.024003    MN:0.0         Ts:1245.168    Ps:6.522145  
+LPT        FNo         W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+duct5      FNi         W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+duct5      FNo         W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+duct5      FNobld      W:0.0         Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+pri_nozz   FNi         W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:0.0         Ts:1304.715    Ps:6.522145  
+pri_nozz   FNo         W:33.33690    Tt:1304.715    Pt:6.522145    ht:-280.934    FAR:0.024003    MN:1.0         Ts:1109.450    Ps:3.490530  
+duct17     FNi         W:780.9461    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:-9999.0     Ts:0.0         Ps:0.0       
+duct17     FNo         W:780.9461    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+duct17     FNobld      W:0.0         Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+fan_nozz   FNi         W:780.9461    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:0.0         Ts:481.1837    Ps:6.855974  
+fan_nozz   FNo         W:780.9461    Tt:481.1837    Pt:6.855974    ht:-13.2495    FAR:0.0         MN:1.0         Ts:400.2605    Ps:3.630561  
 
 Mech Ports
-fan        MP          N:6771.869    hp:-9966.43    I:0.0       
-LPC        MP          N:6771.869    hp:-2187.26    I:0.0       
-HPC        MP          N:20871.22    hp:-9797.45    I:0.0       
-HPT        MP          N:20871.22    hp:10147.54    I:0.0       
-LPT        MP          N:6771.869    hp:12153.58    I:0.0       
-HPshaft    MPC         N:20871.22    hp:-9797.45    I:0.0       
-HPshaft    MPT         N:20871.22    hp:10147.54    I:0.0       
-LPshaft    MPfan       N:6771.869    hp:-9966.43    I:0.0       
-LPshaft    MPlpc       N:6771.869    hp:-2187.26    I:0.0       
-LPshaft    MPlpt       N:6771.869    hp:12153.58    I:0.0       
+fan        MP          N:6771.841    hp:-9966.39    I:0.0       
+LPC        MP          N:6771.841    hp:-2187.24    I:0.0       
+HPC        MP          N:20871.20    hp:-9797.40    I:0.0       
+HPT        MP          N:20871.20    hp:10147.50    I:0.0       
+LPT        MP          N:6771.841    hp:12153.51    I:0.0       
+HPshaft    MPC         N:20871.20    hp:-9797.40    I:0.0       
+HPshaft    MPT         N:20871.20    hp:10147.50    I:0.0       
+LPshaft    MPfan       N:6771.841    hp:-9966.39    I:0.0       
+LPshaft    MPlpc       N:6771.841    hp:-2187.24    I:0.0       
+LPshaft    MPlpt       N:6771.841    hp:12153.51    I:0.0       
 
 ******************
 Elements**********
 ******************
 
-FlightCond  start       W:813.5032  Tt:444.889  Pt:5.28442  Tamb:393.8  Pamb:3.458  
+FlightCond  start       W:813.5016  Tt:444.889  Pt:5.28442  Tamb:393.8  Pamb:3.458  
 Inlet       inlet       rec:0.998   
-Compressor  fan         PR:1.29999  eff:0.9689  Rline:2.0   NcMap:0.99  
+Compressor  fan         PR:1.29999  eff:0.9689  Rline:1.99  NcMap:0.99  
 Splitter    splitter    BPR:23.988  
 Duct        duct2       dP:0.0      Q:0.0       
-Compressor  LPC         PR:2.99984  eff:0.8894  Rline:2.00  NcMap:0.99  
+Compressor  LPC         PR:2.99982  eff:0.8894  Rline:2.00  NcMap:0.99  
 Duct        duct25      dP:0.0      Q:0.0       
 Compressor  HPC         PR:14.1033  eff:0.8468  Rline:2.00  NcMap:1.00  
 Duct        duct3       dP:0.0      Q:0.0       
 Burner      burner      FAR:0.0283  Tout:0.0    Wfuel:0.78  dP:0.04     
-Turbine     HPT         PR:4.06470  eff:0.9312  PRmap:3.00  NcMap:0.90  
+Turbine     HPT         PR:4.06471  eff:0.9312  PRmap:3.00  NcMap:0.90  
 Duct        duct45      dP:0.0      Q:0.0       
-Turbine     LPT         PR:10.5036  eff:0.9409  PRmap:5.99  NcMap:0.89  
+Turbine     LPT         PR:10.5035  eff:0.9409  PRmap:5.99  NcMap:0.89  
 Duct        duct5       dP:0.0      Q:0.0       
-Nozzle      pri_nozzle  Fg:1679.51  
+Nozzle      pri_nozzle  Fg:1679.50  
 Duct        duct17      dP:0.0      Q:0.0       
 Nozzle      fan_nozzle  Fg:24601.1  
-Shaft       HPshaft     N:20871.22  HPX:350.0   
-Shaft       LPshaft     N:6771.869  HPX:0.0     
+Shaft       HPshaft     N:20871.20  HPX:350.0   
+Shaft       LPshaft     N:6771.841  HPX:0.0     
 Performanc  Perf        alt:35000.  MN:0.8      Fn:6560.67  SFC:0.4288  Fg:26280.6  Fram:19719  Wfuel:0.78   
 
 ******************

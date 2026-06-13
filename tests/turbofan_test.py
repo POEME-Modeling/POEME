@@ -517,22 +517,20 @@ print_pretty(output_file, session)
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 session.set("size", False)
-fan_nozzle.ind_Area = Independent(fan_nozzle, indname="Anoz", perturb=0.05, scale=100,perturb_type="Relative",active=True
-)
-fan.RlineLimit = RealT(fan, v=2.0)
-fan.RlineDummy = RealT(fan, v=3.0)
-fan.dep_Rline = Dependent(fan, d1name="RlineLimit", d2name="Rline", active=True)
+
+
+
+#fan_nozzle.ind_Area = Independent(fan_nozzle, indname="Anoz", perturb=0.05, scale=100,perturb_type="Relative",active=True)
+fan.RlineSet = RealT(fan, v=2.0)
+#fan.dep_Rline = Dependent(fan, d2name="RlineSet", d1name="Rline", active=True)
 
 session.check()
-
-
-
+solver.listBalances()
 solver.run()
 
 
 print_pretty(output_file, session)
 # g.ScottPrint.print()
-solver.listBalances()
 
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0

@@ -492,6 +492,7 @@ class Newton(Element):
         # try:
         self.session.errors = ""
         self.onepass()
+
         # except:
         # g.errors = g.errors + " error during final model pass\n"
         # pass
@@ -507,6 +508,8 @@ class Newton(Element):
             self.session.errors += " solver exceeded maximu number of iterations\n"
         else:
             self.converged.set(True)
+        if( self.session.errors != "" ):
+            print( self.session.errors )
 
     def trim(self):
         # trim up model
