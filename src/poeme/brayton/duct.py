@@ -21,15 +21,18 @@ class Duct(Element):
         # Fluid locations
         self.FNi = FN(self, io="in", desc="Incoming flow")
         self.FNo = FN(self, io="out", desc="Outgoing flow")
-        self.FNobld = FN(self, io="out", desc="Bleed flow")
-
+        self.FNibld = FN(self, io="out", desc="Bleed in flow",isPort=False)
+        self.FNobld = FN(self, io="out", desc="Bleed out flow")
+        
         self.size = BooleanT( self, v=True, desc="Determine if the element is in design mode or not" )
         self.initial_list()
 
     def calc(self):
         # pass incoming flow information
+        
         self.FNo.copy(self.FNi)
-        self.FNobld.copy(self.FNi)
+        self.FNi.add(self.FNibld)
+        self.FNobld.copy(self.FNo)
 
         # corrected flow
         Wc = self.FNi.W * (self.FNi.Tt/518.67)**0.5 / (self.FNi.Pt/14.696)

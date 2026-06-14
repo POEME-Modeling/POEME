@@ -139,7 +139,7 @@ class Compressor(Element):
         if( self.SMN < 0 ):
         #    print( self.name1, self.RlineStall, self.Rline )
         #if self.Rline < self.RlineStall:
-            self.session.errors += self.name1 + " stall margin <0."
+            self.session.errors += "\n" + self.name1 + " stall margin <0."
 
         # determine the ideal and actual exit conditions
         PtOut = self.FNi.Pt * self.PR
