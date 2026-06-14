@@ -22,6 +22,7 @@ class Element(Atom):
         super().__setattr__("x", -1.0)
         super().__setattr__("y", 0.0)
         self.session.elements.append(self)
+        self.des = ""
 
     def __setattr__(self, name, value):
         existing = self.__dict__.get(name)  # direct dict lookup, no descriptor overhead

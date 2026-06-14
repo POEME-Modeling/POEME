@@ -509,6 +509,7 @@ class Newton(Element):
         else:
             self.converged.set(True)
         if( self.session.errors != "" ):
+            print( "\n\ntime = " + str( self.time.v ) )
             print( self.session.errors )
 
     def trim(self):

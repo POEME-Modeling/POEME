@@ -137,7 +137,6 @@ class Compressor(Element):
         # this is not right
         self.SMN = ( self.PRtable.calc(self.NcMap, self.RlineStall) - self.PRmap ) / self.PRmap*100.
         if( self.SMN < 0 ):
-        #    print( self.name1, self.RlineStall, self.Rline )
         #if self.Rline < self.RlineStall:
             self.session.errors += "\n" + self.name1 + " stall margin <0."
 

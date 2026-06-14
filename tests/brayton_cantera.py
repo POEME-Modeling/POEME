@@ -23,7 +23,7 @@ with ModelSession() as session:
     FS.comp = "CanteraFN"
 
     D1 = Duct("D1")
-    D1.dP.set(0.05)
+    D1.dPqP.set(0.05)
     D1.FNi.link_fn(FS.FNo)
 
     C1 = Compressor("C1")
@@ -34,20 +34,24 @@ with ModelSession() as session:
     C1.Wfrac1 = 0.02
     C1.hfract2 = 0.9
     C1.Wfrac2 = 0.03
-    C1.NcMapDes = 0.9
+    C1.NcMapDes = 1.
     C1.RlineDes = 2.0
-    C1.effTable.x = [0.8, 0.95, 1.1]
+    C1.effTable.x = [0.8, 1., 1.2]
     C1.effTable.y = [1.0, 2.0, 3.0]
-    C1.effTable.data = [[0.90, 0.93, 0.90], [0.92, 0.95, 0.92], [0.89, 0.92, 0.88]]
-    C1.PRtable.x = [0.8, 0.95, 1.1]
+    C1.effTable.data = [
+        [0.90, 0.93, 0.90], 
+        [0.92, 0.95, 0.92], 
+        [0.89, 0.92, 0.88]
+    ]
+    C1.PRtable.x = [0.8, 1., 1.2]
     C1.PRtable.y = [1.0, 2.0, 3.0]
     C1.PRtable.data = [
         [6.183, 4.572, 2.455],
-        [16.044, 17.705, 7.148],
+        [26.044, 17.705, 7.148],
         [37.995, 27.657, 14.535],
     ]
 
-    C1.WcTable.x = [0.8, 0.95, 1.1]
+    C1.WcTable.x = [0.8, 1.0, 1.2]
     C1.WcTable.y = [1.0, 2.0, 3.0]
     C1.WcTable.data = [
         [32.496, 34.173, 35.169],

@@ -29,8 +29,8 @@ class Output(Element):
         temp = ""
         self.out = open(self.filename.v, "a")
         if self.row == 0:
-            os.remove(self.filename.v)
-            self.out = open(self.filename.v, "a")
+            os.system("del /f /q " + self.filename.v)
+            self.out = open(self.filename.v, "w")
             for e in self.vars:
                 if hasattr(e, "parent"):
                     temp = temp + f"{e.name1[:10]:12s}"
