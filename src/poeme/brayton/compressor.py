@@ -93,7 +93,31 @@ class Compressor(Element):
         self.size = BooleanT(
             self, v=True, desc="Determine if the element is in design mode or not"
         )
+        
+        self.desc  = "Compressor - This element is a conventional map based adiabatic compressor.\n"
+        self.desc += "The user inputs a design point efficiency and pressure raio.  The user also\n"
+        self.desc += "Also supplies a compressor map.  This map is three 2-D tables that describe\n"
+        self.desc += "the machines weight flow, efficiency, and pressure ratio as a function of\n"
+        self.desc += "corrected speed and Rline.  The Riline is a mathmatical construct that moves\n"
+        self.desc += "the compressore operating point away from the stall line.\n\n"
+        self.desc += "The compressor has two possible bleed power.  The ports are described the\n"
+        self.desc += "weight fraction and power fraction of the bleed.  The power fraction describes\n"
+        self.desc += "how much of the compressor's overall compressor is applied to the bleed.  A\n"
+        self.desc += "value of 0 indicates the bleed comes off at the from of the compressor.  A\n"
+        self.desc += "value of 1.0 indicates the bleed is take off at the compressor exit.\n\n"
+        self.desc += "The compressor has two modes of operation, sizing and fixed.  In sizing mode\n"
+        self.desc += "The user inputs a design efficiency and pressure ratio with a design corrected\n"
+        self.desc += "and a design Rline.  This values anchor the map at the sizing point and scalars\n"
+        self.desc += "are calculated on all the map parameters to tie the map to cycle sizing point.\n"
+        self.desc += "Away from the sizing point, the scalars are used to determine the machine\n\n"
+        self.desc += "When not in sizing mode, the compressor has a default independent and dependent\n"
+        self.desc += "that get added to the solver.  The independent controls the Rline and the dependent\n"
+        self.desc += "is the flow error between what the system is providing in terms of weight flow\n"
+        self.desc += "and what the machine can take in terms of weight flow calculated from the scaled\n"
+        self.desc += "map.\n\n"
+        
         self.initial_list()
+        
 
     def calc(self):
 
@@ -105,9 +129,8 @@ class Compressor(Element):
 
 
         # calculate corrected speed amd corrected flow
-        self.Nc = self.MP.N / (self.FNi.Tt) ** 0.5
-        self.Wc = self.FNi.W * (self.FNi.Tt) ** 0.5 / self.FNi.Pt
-        self.Wc = self.FNi.W * (self.FNi.Tt) ** 0.5 / self.FNi.Pt
+        self.Nc = self.MP.N / (self.FNi.Tt/518.67)**0.5
+        self.Wc = self.FNi.W * (self.FNi.Tt/518.67)**0.5 / (self.FNi.Pt/14.696 )
 
         # if we are in design mode set Nc scale factor, WcDes, and Rline
         if self.size == True:

@@ -15,8 +15,14 @@ class FlowStartEnd2D(Element):
         super().__init__(name, "FlowStart", session=session)
         self.type = "FlowStart"
 
-        self.desc = "Start a Flow stream."
-
+        self.desc  = "FlowStartEnd2d - this element starts a fluid stream given\n"
+        self.desc += "user input values of Pt, Tt, and W. If the static conditions\n"
+        self.desc += "are desired, the user can provide a Mach number of flow area.\n\n"
+        self.desc += "Since there is closed loop element, there is an input node\n"
+        self.desc += "in addition to the exit node.  The element has three dependents\n"
+        self.desc += "that are automatically created to ensure the the incoming Pt, Tt,\n"
+        self.desc += "and weight flow match the exit values.\n\n"
+        
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")
         self.Pt = RealT(self, units="lbm/in2", desc="Pressure")

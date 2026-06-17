@@ -508,9 +508,6 @@ class Newton(Element):
             self.session.errors += " solver exceeded maximu number of iterations\n"
         else:
             self.converged.set(True)
-        if( self.session.errors != "" ):
-            print( "\n\ntime = " + str( self.time.v ) )
-            print( self.session.errors )
 
     def trim(self):
         # trim up model

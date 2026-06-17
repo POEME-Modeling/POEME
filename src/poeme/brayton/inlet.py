@@ -7,7 +7,9 @@ class Inlet(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Inlet", session=session)
         self.type = "Inlet"
-        self.desc = "Inlet with simple recovery"
+        self.desc  = "Inlet - this element applies an inlet recovery to the flow.\n"
+        self.desc += "The recovery value is the ammount of total pressure left after\n"
+        self.desc += "exiting the inlet.  A value of 1.0 indicates no loss at all.\n"
 
         # Variables
         self.Fram = RealT(self, units="lbf", desc="Ram drag")

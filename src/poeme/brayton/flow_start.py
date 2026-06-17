@@ -15,7 +15,9 @@ class FlowStart(Element):
         super().__init__(name, "FlowStart", session=session)
         self.type = "FlowStart"
 
-        self.desc = "Start a Flow stream."
+        self.desc  = "FlowStart - this element starts a fluid stream given\n"
+        self.desc += "user input values of Pt, Tt, and W. If the static conditions\n"
+        self.desc += "are desired, the user can provide a Mach number of flow area\n"
 
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")

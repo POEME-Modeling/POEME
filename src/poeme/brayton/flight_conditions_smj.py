@@ -16,8 +16,13 @@ class FlightConditionsSMJ(Element):
         super().__init__(name, "FlowStart", session=session)
         self.type = "FlightConditionsSMJ"
 
-        self.desc = "Start a Flow stream."
-
+        self.desc  = "FlightConditionsSMJ - Start a Flow stream using input values\n"
+        self.desc += "by taking in the user input values of altitude and Mach number\n"
+        self.desc += "and transforming it into a total and static flow condition in\n"
+        self.desc += "the fluid exit node\n\n"
+        self.desc += "The values of static temperature and pressure are determined\n";
+        self.desc += "from atmospheric tables.\n\n"
+        
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")
         self.alt = RealT(self, units="ft", desc="Altitude")
