@@ -53,7 +53,7 @@ API changes. Additionally, this README is woefully inadequate. There is currentl
 documentation. There is currently no implemented testing. That said, if you would like to contribute, 
 feel free to open a pull request!
 
-<<<<<<< HEAD
+
 =======
 To run the examples, go to the tests directory and type in python <test file name>.  These tests can serve as a starting point to learn and change from.
 
@@ -66,7 +66,6 @@ lcr.py - This model is an electric circuit with a resistor, capacitor and an ind
 ac.py - This model is a notional air conditioner flow circuit.
 
 This codebase is currently in alpha! It should not be relied on and will be subject to breaking API changes. Additionally, this README is woefully inadequate. There is currently no API documentation. There is currently no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
->>>>>>> origin/main
 
 Features
 ========

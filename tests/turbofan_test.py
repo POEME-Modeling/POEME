@@ -69,7 +69,6 @@ with session:
 
     perf = Perf("Perf")
 
-
 # --------------------------------------
 # link the objects together
 # -------------------------------------
@@ -114,15 +113,15 @@ start.comp = "CanteraFN"
 # use tables for fluid properties
 start.comp = "Newtherm"
 
-inlet.rec = 0.998  # inlet recovery 0.998
+inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance
 # inlet.FNo.MN = 0.625
 
 fan.PRdes = 1.300
 fan.effDes = 0.9689
 fan.NcMapDes = 1.000
 fan.RlineDes = 2.000
-fan.NcMapDes = 1.00
-fan.RlineDes = 2.00
+#fan.NcMapDes = 1.00
+#fan.RlineDes = 2.00
 # fan.FNo.MN = 0.45
 
 splitter.BPR = 23.9878
@@ -130,14 +129,17 @@ splitter.BPR = 23.9878
 # splitter.FNo2.MN = 0.45
 
 # duct2.FNo.MN = 0.45
+duct2.dPswitch = "varies"
+duct2.dPqPdes = 0.0100
 
 LPC.PRdes = 3.000
-LPC.effDes = 0.8895
-LPC.NcMapDes = 1.00
+LPC.effDes = 0.8894
+LPC.NcMapDes = 1.10
 LPC.RlineDes = 2.00
 # LPC.FNo.MN = 0.45
 
-duct25.dPqP = 0.015
+duct25.dPswitch = "varies"
+duct25.dPqPdes = 0.015
 # duct25.FNo.MN = 0.45
 
 HPC.PRdes = 14.1030
@@ -153,34 +155,37 @@ HPC.hfract2 = 0.5
 
 duct3.Wbldfrac = 2.0354 / (31.91 - 2.2566)
 
-burner.FAR = 0.0283
-burner.LHV = -2100.0
+burner.FAR = 0.02833
+burner.LHV = -2140.0
 burner.dP = 0.0400
 # burner.FNo.MN = 0.10
+#print( burner.desc )
 
 HPT.PRmapDes = 3.0
-HPT.PR = 3.5
+HPT.PR = 4.0
 HPT.effDes = 0.9313
-HPT.NcMapDes = 0.9
+HPT.NcMapDes = 1.00
 # HPT.FNo.MN = 0.30
 
-duct45.dPqP = 0.005
+duct45.dPswitch = "varies"
+duct45.dPqPdes = 0.005
 # duct45.FNo.MN = 0.45
 
 LPT.PRmapDes = 6.0
-LPT.PR = 2.0
+LPT.PR = 10.0
 LPT.effDes = 0.9410
 LPT.NcMapDes = 0.9
 # LPT.FNo.MN = 0.35
 
-duct5.dP = 0.010
+duct5.dPswitch = "varies"
+duct5.dPqPdes = 0.010
 # duct5.FNo.MN = 0.25
 
 pri_nozzle.PsExh = "start.Pamb"
 pri_nozzle.Cfg = 0.999
 
-\
-duct17.dP = 0.015
+duct17.dPswitch = "varies"
+duct17.dPqPdes = 0.015
 # duct17.FNo.MN = 0.45
 
 fan_nozzle.PsExh = "start.Pamb"
@@ -465,6 +470,7 @@ solver.solve()
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
 
+quit()
 
 _case_counter = {"count": 0}
 
@@ -478,7 +484,7 @@ def run_throttle_hook(mnset, altitude):
     solver.save_independents()
     #burner.WFset = True    
     solver.run()
-    #print_pretty(output_file, session)
+    print_pretty(output_file, session)
     print(start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged)
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
@@ -500,7 +506,7 @@ def run_throttle_hook(mnset, altitude):
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
-        #print_pretty(output_file, session)
+        print_pretty(output_file, session)
         factor = (perf.Fn) / perf.FnetMax
         print(start.MN, start.alt, burner.FAR, perf.Fn, factor, fan.NcMap, solver.converged)
         _case_counter["count"] += 1
