@@ -12,7 +12,18 @@ class Shaft(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Shaft", session=session)
         self.type = "Shaft"
-        self.desc = "Shaft determines to total power and inertiat on the shaft"
+        
+        #desciption
+        self.desc  = "Shaft - this element determines the net power balance on a spool.\n"
+        self.desc += "It is has mechanical ports on it that are designed to connect to\n"
+        self.desc += "compressors in turbines.  In sizing mode, this element has a solver\n"
+        self.desc += "state that will provide an error to the solver that is net power on\n"
+        self.desc += "the shaft. If non sizing mode, in a solver independent is added that\n"
+        self.desc += "varies the speed of the shaft.  In transient mode the shaft will use\n"
+        self.desc += "the power inbalance on the shaft to determine the derivative of the\n"
+        self.desc += "the shaft that will be integrated by the solver.  The inertia is\n"
+        self.desc += "determined from all of the elements attached to the shaft\n\n"
+        
 
         # dynamic mechanical port list
         self.port_list = list()

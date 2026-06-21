@@ -69,6 +69,7 @@ with session:
 
     perf = Perf("Perf")
 
+
 # --------------------------------------
 # link the objects together
 # -------------------------------------
@@ -156,7 +157,6 @@ burner.FAR = 0.0283
 burner.LHV = -2100.0
 burner.dP = 0.0400
 # burner.FNo.MN = 0.10
-print( burner.desc )
 
 HPT.PRmapDes = 3.0
 HPT.PR = 3.5
@@ -179,6 +179,7 @@ duct5.dP = 0.010
 pri_nozzle.PsExh = "start.Pamb"
 pri_nozzle.Cfg = 0.999
 
+\
 duct17.dP = 0.015
 # duct17.FNo.MN = 0.45
 
@@ -477,7 +478,7 @@ def run_throttle_hook(mnset, altitude):
     solver.save_independents()
     #burner.WFset = True    
     solver.run()
-    print_pretty(output_file, session)
+    #print_pretty(output_file, session)
     print(start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged)
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
@@ -499,7 +500,7 @@ def run_throttle_hook(mnset, altitude):
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
-        print_pretty(output_file, session)
+        #print_pretty(output_file, session)
         factor = (perf.Fn) / perf.FnetMax
         print(start.MN, start.alt, burner.FAR, perf.Fn, factor, fan.NcMap, solver.converged)
         _case_counter["count"] += 1

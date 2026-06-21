@@ -16,12 +16,21 @@ class Turbine(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Turbine", session=session)
         self.type = "Turbine"
-
-        self.desc = (
-            "Basic turbine.  This turbine read in maps of efficiency "
-            + "and corrected weight flow as a function of corrected speed and "
-            + "pressure ratio.  The element also has two bleed input ports."
-        )
+        
+        self.desc  = "Turbine - This element is a conventional map based adiabatic turbine.\n"
+        self.desc += "The user inputs a design point efficiency.  At the sizing point, there\n"
+        self.desc += "is a solver independent created that varies the turbine pressure ratio\n"
+        self.desc += "to match the shaft power.  The users also supplies a turbine map.  The\n"
+        self.desc += "map provides weight flow and efficiency as a function of pressure ratio\n"
+        self.desc += "and corrected speed.  In sizind mode, the map is anchored to the user\n"
+        self.desc += "supplied conditions.  In non-sizing mode, the turbine pressure map pressure\n"
+        self.desc += "is varied to match the power and weight flow that the turbine can take in\n"
+        self.desc += "according the the map.  There is a solver dependent that determins the error\n"
+        self.desc += "the flow that the turbine is seeing and what the maps says it will allow\n\n"
+        self.desc += "The turbine has two bleed port that will take cooling flow in, FNiBld1 (which\n"
+        self.desc += "is added before the flow is expanded through the turbine) and FNiBld2 (which\n"
+        self.desc += "is added after the turbine expansion.\n"
+       
 
         # tables
         self.effTable = Table2d(
