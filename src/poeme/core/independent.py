@@ -15,6 +15,11 @@ class Independent(Atom):
 
         self.__dict__.update(kwargs)
 
+        self.desc  = "The independent object is the link between the solver object\n"
+        self.desc += "and the model.  The independent object knows the name of the\n"
+        self.desc += "variable it controls and the information about how it is to be\n"
+        self.desc += "varied."  
+
         # Variables
         self.active  = BooleanT( self, v=self.active )
         self.indname = StringT(self, v=self.indname, desc="")

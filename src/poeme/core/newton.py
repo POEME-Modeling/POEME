@@ -26,6 +26,21 @@ class Newton(Element):
             "ModelSession context"
             raise ValueError(error_msg)
         self.session = session
+        
+        self.desc  = "Newton is a Newton Rhapson solver.  It is used to balance the models\n"
+        self.desc += "by varying the independents in the models such that the dependents and\n"
+        self.desc += "are satisfied.  The number of independents and dependents/states need to\n"
+        self.desc += "to be equal to ensure a square Jacobian matrix.  The solver allows for\n"
+        self.desc += "constraints to be specified.  The contraints need to be tied to dependent\n"
+        self.desc += "and they replace the dependent when they are not satisfied.\n\n"
+        self.desc += "In steady-state mode the states act just line dependents.  The requiremnt\n"
+        self.desc += "is that their steady-state condition is met.  In transient mode, the state\n"
+        self.desc += "requirement is that the value of the state matches the value predictied by\n"
+        self.desc += "integrating the derivative.\n\n"
+        self.desc += "For transient runs, the solver will step through time based on the user input\n"
+        self.desc += "time step.  It will solve each time step as a case and advance in time until\n"
+        self.desc += "the stop time is reached.\n";
+        
         # variables
         self.name1 = name
         # TODO: fix this to use a better default
@@ -38,7 +53,7 @@ class Newton(Element):
             self, v=0., units="Integer", desc="Maxium number of Jacobians"
         )        
         self.dep_list = self.session.dependents
-        self.maxJacobians = RealT(
+        self.maxJacobians = RealT( 
             self, v=50., units="Integer", desc="Maxium number of Jacobians"
         )
         self.maxIterations = RealT(
