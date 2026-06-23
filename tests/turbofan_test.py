@@ -2,6 +2,14 @@
 #        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
 # ------------------------------------------------------
 import time
+  
+import sys
+import os
+
+# Get the absolute path to the directory containing your module
+module_path = os.path.abspath("tomstuff")
+if module_path not in sys.path:
+    sys.path.append(module_path)
 
 from poeme import (
     Constraint,
@@ -10,7 +18,7 @@ from poeme import (
     ModelSession,
     Newton,
     Output,
-    RealT,
+    RealT, 
 )
 
 
@@ -32,12 +40,14 @@ from poeme.brayton import (
 )
 
 from ducttom import DuctTom
+from compressortom import CompressorTom
 
 from poeme.core.print import print_pretty
 
 start_time = time.time()
 
 session = ModelSession()
+
 
 
 with session:
@@ -51,7 +61,7 @@ with session:
     duct2 = DuctTom("duct2")
     LPC = Compressor("LPC")
     duct25 = Duct("duct25")
-    HPC = Compressor("HPC")
+    HPC = CompressorTom("HPC")
     duct3 = Duct("duct3")
     burner = Burner("burner")
     HPT = Turbine("HPT")
@@ -65,12 +75,12 @@ with session:
     hp_shaft = Shaft("HPshaft")
     lp_shaft = Shaft("LPshaft")
 
-    lp_shaft.MPfan = MP(lp_shaft, "in")
-    lp_shaft.MPlpc = MP(lp_shaft, "in")
-    lp_shaft.MPlpt = MP(lp_shaft, "in")
+    lp_shaft.MPfan = MP(lp_shaft, io="in")
+    lp_shaft.MPlpc = MP(lp_shaft, io="in")
+    lp_shaft.MPlpt = MP(lp_shaft, io="in")
 
-    hp_shaft.MPC = MP(hp_shaft, "in")
-    hp_shaft.MPT = MP(hp_shaft, "in")
+    hp_shaft.MPC = MP(hp_shaft, io="in")
+    hp_shaft.MPT = MP(hp_shaft, io="in")
 
     perf = Perf("Perf")
 
