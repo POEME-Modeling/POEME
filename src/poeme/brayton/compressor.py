@@ -8,8 +8,7 @@ from poeme import (
     Table2d,
 )
 
-from .fn import FN
-from .mp import MP
+from poeme.brayton import FN, MP
 
 
 class Compressor(Element):

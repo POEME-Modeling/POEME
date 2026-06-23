@@ -8,7 +8,8 @@ from poeme import (
     Table1d,
 )
 
-from .fn import FN
+from poeme.brayton import FN
+
 
 
 class FlightConditionsSMJ(Element):

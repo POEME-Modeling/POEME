@@ -1,6 +1,6 @@
 from poeme import Element, ModelSession, RealT, BooleanT, Table1d
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Inlet(Element):

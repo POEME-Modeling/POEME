@@ -19,6 +19,7 @@ from poeme import (
 from poeme.brayton import (
     MP,
     Burner,
+    FN,
     Compressor,
     Duct,
     FlightConditionsSMJ,
@@ -29,11 +30,15 @@ from poeme.brayton import (
     Splitter,
     Turbine,
 )
+
+from ducttom import DuctTom
+
 from poeme.core.print import print_pretty
 
 start_time = time.time()
 
 session = ModelSession()
+
 
 with session:
     # ---------------------------------------------------------------------------
@@ -43,7 +48,7 @@ with session:
     inlet = Inlet("inlet")
     fan = Compressor("fan")
     splitter = Splitter("splitter")
-    duct2 = Duct("duct2")
+    duct2 = DuctTom("duct2")
     LPC = Compressor("LPC")
     duct25 = Duct("duct25")
     HPC = Compressor("HPC")

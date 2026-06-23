@@ -7,7 +7,7 @@ from poeme import (
     StringT,
 )
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class FlowStart(Element):

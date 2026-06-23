@@ -8,8 +8,8 @@ from poeme import (
     Table2d,
 )
 
-from .fn import FN
-from .mp import MP
+from poeme.brayton import FN
+from poeme.brayton import MP
 
 
 class Turbine(Element):

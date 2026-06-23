@@ -1,9 +1,9 @@
 from poeme import Element, ModelSession, RealT, BooleanT
-
 from poeme.brayton import FN
 
 
-class Duct(Element):
+
+class DuctTom(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Duct", session=session)
         self.type = "Duct"

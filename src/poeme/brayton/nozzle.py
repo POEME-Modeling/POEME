@@ -8,7 +8,7 @@ from poeme import (
     StringVarT,
 )
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Nozzle(Element):

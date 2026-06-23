@@ -1,6 +1,6 @@
 from poeme import BooleanT, Element, ModelSession, RealT
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Burner(Element):
