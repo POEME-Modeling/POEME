@@ -105,7 +105,7 @@ class Turbine(Element):
         # if we are in sizing mode calculate scalars
         if self.size == True:
             self.NcScale = self.NcMapDes / self.Nc
-            self.PRmapScale = (self.PRmapDes.v - 1.0) / (self.PR.v - 1.0)
+            self.PRmapScale = (self.PRmapDes - 1.0) / (self.PR - 1.0)
             self.WcDes = self.Wc
 
         # set the map independents

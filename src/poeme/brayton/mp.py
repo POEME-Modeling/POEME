@@ -2,7 +2,7 @@ from poeme import Atom, RealT, BooleanT
 
 
 class MP(Atom):
-    def __init__(self, p, io, **kwargs):
+    def __init__(self, p, **kwargs):
 
         self.VIDL = list()
         self.name1 = ""
@@ -15,7 +15,6 @@ class MP(Atom):
         self.I = RealT(self, units="lbm*ft**2", desc="Rotational Inertia")
         self.I.name1 = "I"
         self.other = 0
-        self.io = io
         p.add_vid(self)
         self.isPort=True
         self.isPort = BooleanT(

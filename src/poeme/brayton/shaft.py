@@ -65,7 +65,7 @@ class Shaft(Element):
 
         # before each solver pass set the speed in all connected elements
         for p in self.port_list:
-            p.set_n(self.N.v)
+            p.set_n(self.N)
 
     def precheck(self):
         # determine the current port list
