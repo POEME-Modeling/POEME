@@ -46,7 +46,8 @@ class Output(Element):
         print(temp, file=self.out)
         super().real_print(self.out)
         self.row = 1
-        print( self.session.errors, file=self.out )
+        if len( self.session.errors ) > 0:
+            print( self.session.errors, file=self.out )
         self.out.close()
         
 

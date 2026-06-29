@@ -557,7 +557,7 @@ print_pretty(output_file, session)
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0
 burner.Tmax = RealT(burner)
-burner.Tmax = 3360.0
+burner.Tmax = 3600.0
 start.Fdem = RealT(start)
 
 start.Fnet = RealT(start)

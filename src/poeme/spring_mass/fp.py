@@ -1,15 +1,15 @@
-from poeme import Atom, RealT
+from poeme import Atom, RealT, BooleanT
 
 
 class Fp(Atom):
-    def __init__(self, p, io, desc,, **kwargs):
+    def __init__(self, p, io, desc, **kwargs):
 
         # variables
         self.VIDL = list()
         self.name1 = ""
         self.desc = desc
         self.parent = p
-        selg.isPort = True
+        self.isPort = True
         self.io = io
         self.__dict__.update(kwargs)        
 

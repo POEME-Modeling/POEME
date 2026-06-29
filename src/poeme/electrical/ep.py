@@ -30,6 +30,7 @@ class EP(Atom):
             self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
         )        
         parent.add_vid(self)
+        self.other = 0
         self.type = "EP"
 
     def isa(self, type):
