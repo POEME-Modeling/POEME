@@ -120,7 +120,8 @@ class Shaft(Element):
             p.set_n(self.N)
 
     def precheck(self):
-        """Update port list and activate/deactivate solver variables based on sizing mode.
+        """Update port list and activate/deactivate solver variables based on sizing
+        mode.
 
         Builds the port list from variable IDs, then in sizing mode
         deactivates the speed independent and activates the power state.

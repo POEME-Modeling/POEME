@@ -232,7 +232,8 @@ class FN(Atom):
         return type == "FN"
 
     def add(self, o):
-        """Add another FN's properties to this one, mixing fuel-air and water-air ratios.
+        """Add another FN's properties to this one, mixing fuel-air and water-air
+        ratios.
 
         Combines enthalpy, fuel-air ratio (FAR), water-air ratio (WAR), and
         weight flow from the input node ``o`` into this node. The composition
@@ -907,7 +908,8 @@ class FN(Atom):
                 self.other.W.v = w.v
 
     def set_ts_ps_mn(self, Ts_i, Ps_i, MN_i):
-        """Set static temperature, pressure, and Mach number, then iterate to close enthalpy loop.
+        """Set static temperature, pressure, and Mach number, then iterate to close
+        enthalpy loop.
 
         Sets size to True, clears MN and A, calls set_tp with static values,
         computes total pressure from isentropic relations, velocity from Mach

@@ -164,7 +164,8 @@ class MP(Atom):
         Returns
         -------
         str
-            Formatted string with parent name, port name, speed, horsepower, and inertia.
+            Formatted string with parent name, port name, speed, horsepower, and
+            inertia.
         """
         return (
             self.parent.name1
