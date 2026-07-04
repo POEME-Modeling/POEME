@@ -20,7 +20,12 @@ release = version
 extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
 ]
+
+autosummary_generate = True
+
+# suppress_warnings = ["ref.python"]
 
 autodoc_typehints = "signature"
 napoleon_use_ivar = True
