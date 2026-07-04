@@ -4,14 +4,13 @@ POEME: Python Object Engineering Modular Environment
 
     POEME: A good model works.  A great model is a work of art.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
 
-.. image:: https://img.shields.io/badge/python-3.9%2B-blue
-   :alt: Python Version
+.. raw:: html
 
-.. image:: https://img.shields.io/badge/license-MIT-green
-   :alt: License
-
-.. image:: https://img.shields.io/badge/status-active-brightgreen
-   :alt: Status
+    <p>
+    <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python Version"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+    <a href="#"><img src="https://img.shields.io/badge/status-active-brightgreen" alt="Status"></a>
+    </p>
 
 Table of Contents
 =================
@@ -22,7 +21,6 @@ Table of Contents
 - `Installation`_
 - `Usage`_
 - `Project Structure`_
-- `Configuration`_
 - `Contributing`_
 - `License`_
 - `Contact`_
