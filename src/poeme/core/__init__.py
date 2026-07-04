@@ -2,6 +2,7 @@ from .atom import Atom
 from .boolean_t import BooleanT
 from .complex_t import ComplexT
 from .constraint import Constraint
+from . import conversion_constants
 from .dependent import Dependent
 from .element import Element
 from .h2o import H2O
@@ -45,3 +46,4 @@ __all__ = [
     "ValueT",
     "VID",
 ]
+__all__ += [name for name in  conversion_constants.__all__]
