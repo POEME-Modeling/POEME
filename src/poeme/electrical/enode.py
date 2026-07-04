@@ -1,3 +1,5 @@
+import sys
+
 from poeme import (
     ComplexT,
     Dependent,
@@ -6,7 +8,6 @@ from poeme import (
     ModelSession,
     RealT,
 )
-
 
 from .ep import EP
 
@@ -152,13 +153,12 @@ class Enode(Element):
             The electrical port to link to this node.
         """
         if ep.other != 0:
-            print( ep.parent.name1 + "." + ep.name1 + " is already linked " )
-            quit() 
-        if ( ep.isa( "EP")==False):
-            print( ep.parent.name1 + "." + ep.name1 + " is not a fluid node " )
-            quit()        
-                
-        
+            print(ep.parent.name1 + "." + ep.name1 + " is already linked ")
+            sys.exit()
+        if ep.isa("EP") == False:
+            print(ep.parent.name1 + "." + ep.name1 + " is not a fluid node ")
+            sys.exit()
+
         temp = EP(self, io="in")
         temp.other = ep
         ep.other = temp
