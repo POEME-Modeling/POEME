@@ -158,7 +158,7 @@ class RealT(ValueT):
             return temp >= other
         else:
             return self.v >= other.v
-            
+
     def __rgt__(self, other):
         """Check if another value is greater than this value.
 
@@ -322,12 +322,6 @@ class RealT(ValueT):
             self.v = v
         else:
             self.v = v.v
-            
-    def turbo(self):
-        print( "turbo" )
-        self = self.v
-
-
 
     def str(self):
         """Convert the value to a string.

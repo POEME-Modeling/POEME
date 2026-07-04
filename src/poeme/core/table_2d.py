@@ -111,7 +111,7 @@ class Table2d:
                 msg += self.parent.name1 + "."
             msg += self.name1
             msg += " Table 2d input to low " + str(x) + " < " + str(self.x[0]) + "\n"
-            if ( self.extrapError ):
+            if self.extrapError:
                 self._add_error(msg)
 
         if x > self.x[len(self.x) - 1]:
@@ -129,7 +129,7 @@ class Table2d:
                 + str(self.x[len(self.x) - 1])
                 + "\n"
             )
-            if ( self.extrapError ):
+            if self.extrapError:
                 self._add_error(msg)
 
         if y < self.y[0]:
@@ -141,7 +141,7 @@ class Table2d:
                 msg += self.parent.name1 + "."
             msg += self.name1
             msg += " Table 2d input to low " + str(y) + " < " + str(self.y[0]) + "\n"
-            if ( self.extrapError ):
+            if self.extrapError:
                 self._add_error(msg)
 
         if y > self.y[len(self.y) - 1]:
@@ -159,7 +159,7 @@ class Table2d:
                 + str(self.y[len(self.y) - 1])
                 + "\n"
             )
-            if ( self.extrapError ):
+            if self.extrapError:
                 self._add_error(msg)
 
         # if xi is None or yi is None:
