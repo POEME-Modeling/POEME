@@ -59,7 +59,7 @@ To run the examples, go to the tests directory and type in python <test file nam
 
 The models are:
 
-turbonfan_test.py - This model runs a commercial turbofan engine over a flight envelope.
+turbofan_test.py - This model runs a commercial turbofan engine over a flight envelope.
 brayton_cantera.py - This model runs a transient turbojet power generator with a PIV controller.  It uses the cantera package to determine the gas properies.  The model is completely notional.  It is not based on any real design.
 spring_mass_test.py - This model is a dynamic spring system that oscillates when perturbed from equilibrium.
 lcr.py - This model is an electric circuit with a resistor, capacitor and an inductor.
