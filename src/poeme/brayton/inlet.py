@@ -1,13 +1,15 @@
 from poeme import Element, ModelSession, RealT, BooleanT, Table1d
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Inlet(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Inlet", session=session)
         self.type = "Inlet"
-        self.desc = "Inlet with simple recovery"
+        self.desc  = "Inlet - this element applies an inlet recovery to the flow.\n"
+        self.desc += "The recovery value is the ammount of total pressure left after\n"
+        self.desc += "exiting the inlet.  A value of 1.0 indicates no loss at all.\n"
 
         # Variables
         self.Fram = RealT(self, units="lbf", desc="Ram drag")
@@ -15,11 +17,12 @@ class Inlet(Element):
         self.recoverySwitch = "Input"
         self.s_rec = RealT(self, v=1.0, units="none", desc="Scale factor on inlet recovery")
 
+        self.RECtable = Table1d( self, desc="Table of total pressure recovery versus flight Mach number" )
+
         # Fluid locations
         self.FNi = FN(self, io="in", desc="Incoming flow")
         self.FNo = FN(self, io="out", desc="Outgoing flow")
 
-        self.RECtable = Table1d( self, desc="Table of total pressure recovery versus flight Mach number" )
 
         self.initial_list()
 
@@ -54,7 +57,9 @@ class Inlet(Element):
 
 
         # exit state: keep enthalpy constant and apply the pressure drop
-        self.FNo.set_hp(self.FNo.ht, self.FNo.Pt * (self.rec))
+        htOut = self.FNi.ht
+        PtOut = self.FNi.Pt * self.rec
+        self.FNo.set_hp( htOut, PtOut )
 
     def dump(self, output_file):
         output_file.write(f"{self.name1} Duct\n")

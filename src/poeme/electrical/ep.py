@@ -1,4 +1,4 @@
-from poeme import Atom, ComplexT, RealT
+from poeme import Atom, ComplexT, RealT, BooleanT
 
 
 class EP(Atom):
@@ -50,6 +50,7 @@ class EP(Atom):
         self.name1 = ""
         # variables
         self.VIDL = list()
+        self.isPort=True        
         self.__dict__.update(kwargs)
 
         # engineering variables
@@ -67,8 +68,11 @@ class EP(Atom):
         self.Vr.name1 = "Vr"
         self.Vi = RealT(self, units="volts", desc="Imaginary voltage")
         self.Vi.name1 = "Vi"
-
+        self.isPort = BooleanT(
+            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+        )        
         parent.add_vid(self)
+        self.other = 0
         self.type = "EP"
 
     def isa(self, type):

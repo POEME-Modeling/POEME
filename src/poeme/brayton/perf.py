@@ -10,7 +10,11 @@ class Perf(Element):
         super().__init__(name, "Shaft", session=session)
         self.type = "Perf"
 
-        self.desc = "Simple overall performance calculation"
+        self.desc  = "Perf - This element determines the overall engine performance.\n"
+        self.desc += "It does this by checking the model to find all the inlets, nozzles\n"
+        self.desc += "and burners in the model.  From these elements it will calculcale\n"
+        self.desc += "the overall values of total gross thrust, ram drag, net thrust, SFC\n"
+        self.desc += "and fuel flow.\n\n"
 
         # variables
         self.alt = RealT(self, units="ft", desc="Altitude")

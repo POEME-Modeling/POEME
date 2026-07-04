@@ -1,8 +1,8 @@
-from poeme import Atom, RealT
+from poeme import Atom, RealT, BooleanT
 
 
 class MP(Atom):
-    def __init__(self, p, io, **kwargs):
+    def __init__(self, p, **kwargs):
 
         self.VIDL = list()
         self.name1 = ""
@@ -15,8 +15,11 @@ class MP(Atom):
         self.I = RealT(self, units="lbm*ft**2", desc="Rotational Inertia")
         self.I.name1 = "I"
         self.other = 0
-        self.io = io
         p.add_vid(self)
+        self.isPort=True
+        self.isPort = BooleanT(
+            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+        )        
         self.type = "MP"
 
     def isa(self, type):
@@ -26,6 +29,15 @@ class MP(Atom):
         self.VIDL.append(v)
 
     def link_mp(self, mp):
+        if self.other != 0:
+            print( self.parent.name1 + "." + self.name1 + " is already linked " )
+            quit()
+        if mp.other != 0:
+            print( mp.parent.name1 + "." + mp.name1 + " is already linked " )
+            quit() 
+        if ( mp.isa( "MP")==False):
+            print( mp.parent.name1 + "." + mp.name1 + " is not a mechanical node " )
+            quit()                
         self.other = mp
         mp.other = self
 

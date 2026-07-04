@@ -60,7 +60,7 @@ solver.run()
 
 print("converged", solver.converged)
 
-output_file = open("pop.out", "a")
+output_file = open("pop.out", "w")
 print_stdout(output_file, session)
-pretty_file = open("pretty.out", "a")
+pretty_file = open("pretty.out", "w")
 print_pretty(pretty_file, session)

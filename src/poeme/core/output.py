@@ -85,8 +85,8 @@ class Output(Element):
         temp = ""
         self.out = open(self.filename.v, "a")
         if self.row == 0:
-            os.remove(self.filename.v)
-            self.out = open(self.filename.v, "a")
+            os.system("del /f /q " + self.filename.v)
+            self.out = open(self.filename.v, "w")
             for e in self.vars:
                 if hasattr(e, "parent"):
                     temp = temp + f"{e.name1[:10]:12s}"
@@ -102,7 +102,10 @@ class Output(Element):
         print(temp, file=self.out)
         super().real_print(self.out)
         self.row = 1
+        if len( self.session.errors ) > 0:
+            print( self.session.errors, file=self.out )
         self.out.close()
+        
 
         # self.out.write(
         #     f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}",

@@ -7,7 +7,7 @@ from poeme import (
     RealT,
 )
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Splitter(Element):
@@ -15,7 +15,11 @@ class Splitter(Element):
         super().__init__(name, "Splitter", session=session)
         self.type = "Splitter"
 
-        self.desc = "Divides an incoming flow into 2 streams"
+        # desciption
+        self.desc  = "Splitter - this element splits a stream into two exit streams.\n"
+        self.desc += "In non-sizing mode, the bypass ratio becomes a value controlled\n"
+        self.desc += "controlled by the solver.\n"
+ 
 
         # Variables
         self.BPR = RealT(self, v=1.0, units="none", desc="Bypass ratio, W2/W1")

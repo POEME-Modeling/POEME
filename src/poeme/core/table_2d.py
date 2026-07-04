@@ -46,6 +46,7 @@ class Table2d:
         self.data = [0.0]
         self.units = ""
         self.desc = ""
+        self.extrapError = False
         self.__dict__.update(kwargs)
 
         self.parent = p
@@ -110,7 +111,8 @@ class Table2d:
                 msg += self.parent.name1 + "."
             msg += self.name1
             msg += " Table 2d input to low " + str(x) + " < " + str(self.x[0]) + "\n"
-            self._add_error(msg)
+            if ( self.extrapError ):
+                self._add_error(msg)
 
         if x > self.x[len(self.x) - 1]:
             x1 = self.x[len(self.x) - 2]
@@ -127,7 +129,8 @@ class Table2d:
                 + str(self.x[len(self.x) - 1])
                 + "\n"
             )
-            self._add_error(msg)
+            if ( self.extrapError ):
+                self._add_error(msg)
 
         if y < self.y[0]:
             y1 = self.y[0]
@@ -138,7 +141,8 @@ class Table2d:
                 msg += self.parent.name1 + "."
             msg += self.name1
             msg += " Table 2d input to low " + str(y) + " < " + str(self.y[0]) + "\n"
-            self._add_error(msg)
+            if ( self.extrapError ):
+                self._add_error(msg)
 
         if y > self.y[len(self.y) - 1]:
             y1 = self.y[len(self.y) - 2]
@@ -155,7 +159,8 @@ class Table2d:
                 + str(self.y[len(self.y) - 1])
                 + "\n"
             )
-            self._add_error(msg)
+            if ( self.extrapError ):
+                self._add_error(msg)
 
         # if xi is None or yi is None:
         # return False

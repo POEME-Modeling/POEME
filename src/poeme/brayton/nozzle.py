@@ -8,7 +8,7 @@ from poeme import (
     StringVarT,
 )
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Nozzle(Element):
@@ -16,16 +16,26 @@ class Nozzle(Element):
         super().__init__(name, "Duct", session=session)
         self.type = "Nozzle"
 
+        #element description
+        self.desc  = "Nozzle - This is a convential nozzle calculation.  The flow is expanded\n"
+        self.desc += "to input static pressure represented by the string reference PsExh.  In\n"
+        self.desc += "sizing mode the element will determine the throat area to pass the flow\n"
+        self.desc += "given by the cycle.  In fixed mode the nozzle will create a solver\n"
+        self.desc += "dependent that will the error between the actual nozzle area and the\n"
+        self.desc += "the area that would be required to pass the flow that nozzle is seeing\n"
+        self.desc += "during this current solver pass.  The user can apply a Cfg value that will\n"
+        self.desc += "be applied to the ideal thrust calculated.\n\n"
+
+
         # variables
         self.Cfg = RealT(self, v=1.0, units="non", desc="Coefficient of gross thrust")
-        self.desc = "Very basic nozzle.  Just expands flow to giving PsExh"
         self.PsExh = StringVarT(self, desc="Exhaust pressure")
         self.Anoz = RealT(self, units="in2", desc="Throat area")
         self.Fg = RealT(self, units="blf", desc="Gross thrust")
 
         # flow connections
         self.FNi = FN(self, io="in", desc="Incoming flow")
-        self.FNo = FN(self, io="out", desc="Outgoing flow")
+        self.FNo = FN(self, io="out", desc="Outgoing flow",isPort=False)
 
         # dependents
         self.dep_NA = Dependent(
@@ -47,9 +57,9 @@ class Nozzle(Element):
             self.dep_NA.active = True
 
     def calc(self):
-
+        
         if self.FNo.Pt < self.PsExh.get():
-            self.session.errors += self.name1 + " nozzle pressure ratio < 1 "
+            self.session.errors += "\n" + self.name1 + "nozzle pressure ratio < 1"
         # copy the inlet flow to the exit
         self.FNo.copy(self.FNi)
 

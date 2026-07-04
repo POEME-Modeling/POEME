@@ -75,6 +75,16 @@ class State:
         self.val_scale = 0.0
         self.__dict__.update(kwargs)
 
+        self.desc  = "The state object is and extension of the dependent object.  In"
+        self.desc += "steady state mode it defines the conditions that need to be\n"
+        self.desc += "met for the model to be considered valid.  It described by two\n"
+        self.desc += "references to variables that have to be equal for the solution to\n"
+        self.desc += "be valid.  And example would be the flow leaving a nozzle element\n"
+        self.desc += "where the flow going out of the nozzle must equal the flow coming in.\n\n"
+        self.desc += "In transient mode it will define a variable that is to be integrated\n"
+        self.desc += "as well as the calculated value of the deriavative.  And example would\n"
+        self.desc += "be integrating the shaft speed per the shaft speed derivative calculated.\n\n"
+
         # Variables
         self.d1name = StringT(self, v=self.d1name, desc="")
         self.d1name.name1 = "d1name"

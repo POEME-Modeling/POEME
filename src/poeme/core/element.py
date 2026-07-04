@@ -61,6 +61,7 @@ class Element(Atom):
         object.__setattr__(self, "x", -1.0)
         object.__setattr__(self, "y", 0.0)
         self.session.elements.append(self)
+        self.des = ""
 
     def __setattr__(self, name, value):
         """Set an attribute, updating ValueT objects in-place.

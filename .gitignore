@@ -7,3 +7,6 @@ _version.py
 *.egg-info/
 _build/
 docs/api/
+build/
+*.out
+solver.debug

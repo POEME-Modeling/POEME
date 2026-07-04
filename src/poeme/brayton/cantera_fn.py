@@ -1,7 +1,7 @@
 import cantera as ct
 
 fuel_comp = {"C": 1.0, "H": 0.16667}
-#oxidizer_comp = {"O2": 0.233, "N2": 0.767}  # Mass fractions for dry air
+oxidizer_comp = {"O2": 0.233, "N2": 0.767}  # Mass fractions for dry air
 
 gas = ct.Solution("gri30.yaml")
 gasair = ct.Solution("air.yaml")

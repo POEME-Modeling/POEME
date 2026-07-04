@@ -94,6 +94,21 @@ class Newton(Element):
             "ModelSession context"
             raise ValueError(error_msg)
         self.session = session
+        
+        self.desc  = "Newton is a Newton Rhapson solver.  It is used to balance the models\n"
+        self.desc += "by varying the independents in the models such that the dependents and\n"
+        self.desc += "are satisfied.  The number of independents and dependents/states need to\n"
+        self.desc += "to be equal to ensure a square Jacobian matrix.  The solver allows for\n"
+        self.desc += "constraints to be specified.  The contraints need to be tied to dependent\n"
+        self.desc += "and they replace the dependent when they are not satisfied.\n\n"
+        self.desc += "In steady-state mode the states act just line dependents.  The requiremnt\n"
+        self.desc += "is that their steady-state condition is met.  In transient mode, the state\n"
+        self.desc += "requirement is that the value of the state matches the value predictied by\n"
+        self.desc += "integrating the derivative.\n\n"
+        self.desc += "For transient runs, the solver will step through time based on the user input\n"
+        self.desc += "time step.  It will solve each time step as a case and advance in time until\n"
+        self.desc += "the stop time is reached.\n";
+        
         # variables
         self.name1 = name
         # TODO: fix this to use a better default
@@ -102,9 +117,15 @@ class Newton(Element):
         )
         self.VIDL = list()
         self.ind_list = self.session.independents
+        self.iterCount = RealT(
+            self, v=0., units="Integer", desc="Maxium number of Jacobians"
+        )        
         self.dep_list = self.session.dependents
-        self.maxJacobians = RealT(
-            self, v=50.0, units="Integer", desc="Maxium number of Jacobians"
+        self.maxJacobians = RealT( 
+            self, v=50., units="Integer", desc="Maxium number of Jacobians"
+        )
+        self.maxIterations = RealT(
+            self, v=100., units="Integer", desc="Maxium number of iterataions"
         )
         self.numpasses = RealT(self, v=0.0, units="Integer", desc="Number of passes")
         self.tolerance = RealT(self, v=0.0001, units="real", desc="tolernace")
@@ -116,9 +137,12 @@ class Newton(Element):
         self.timeLast = RealT(
             self, v=0.05, units="seconds", desc="Simulation stop time"
         )
-        self.trans = BooleanT(self, v=False, desc="True for transient, false for SS")
+        self.trans = BooleanT(self, v=False, desc="Truer for transient, false for SS")
         self.converged = BooleanT(self, v=False, desc="converged flag")
 
+        self.debugfile = open("solver.debug", "w")
+        self.debug = BooleanT(self, v=False, desc="Determine is solver debug information is printed")
+        
         # gui location
         self.x = 0
         self.y = 0
@@ -163,31 +187,52 @@ class Newton(Element):
         Builds and inverts the Jacobian matrix, then iteratively updates
         independent variables until convergence or max iterations.
         """
-
+        
+        self.iterCount= 0
+        if self.debug == True:
+            print( "\n\n", file=self.debugfile )            
+            print( "SOLVER DEBUG", file=self.debugfile )
         self.numpasses = 0.0
         # get the list of all the solver objects
         self.ind_list = list()
         self.dep_list = list()
         self.state_list = list()
         self.con_list = list()
-
-        for d in self.session.dependents:
-            if d.active == True:
-                self.dep_list.append(d)
-
+ 
+        if self.debug == True:          
+            print( "INDEPENDENTS", file=self.debugfile )    
         for i in self.session.independents:
             if i.active == True:
                 self.ind_list.append(i)
+                if self.debug == True:                
+                    print( i.name1, i.ind.parent.name, i.ind.name1, file=self.debugfile )
+                
+        if self.debug == True:          
+            print( "DEPENDENTS", file=self.debugfile )        
+        for d in self.session.dependents:
+            if d.active == True:
+                self.dep_list.append(d)
+                if self.debug == True:
+                    print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, file=self.debugfile )
 
+                
+        if self.debug == True:          
+            print( "STATES", file=self.debugfile )  
         for st in self.session.states:
             if st.active == True:
                 self.state_list.append(st)
-
-        for c in self.session.constraints:
+                if self.debug == True:
+                    print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, d.d2.name1,file=self.debugfile )
+                
+        if self.debug == True:          
+            print( "CONSTRAINTS", file=self.debugfile )                   
+        for c in self.session.constraints:          
             if c.on == True:
                 self.con_list.append(c)
                 c.active = False
                 c.dep.active = True
+                if self.debug == True:
+                    print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1,file=self.debugfile )                  
 
         # create an empty matrix
         matrix = np.zeros(
@@ -216,6 +261,8 @@ class Newton(Element):
             err_sum = 8e9
             while iter < self.maxJacobians.v and self.converged == False:
                 iter = iter + 1
+                if self.debug == True:
+                    print( "Error summation update", err_sum, err_sum_last, file=self.debugfile )
                 if iter > 1 and len(self.ind_list) > 1 and err_sum < err_sum_last:
                     id = 0
                     for d in self.dep_list:
@@ -245,6 +292,10 @@ class Newton(Element):
 
                     a7 = outer(dely - dot(matrix, delxs), delxs) / dot(delxs, delxs)
                     matrix = matrix + a7
+
+                    if self.debug == True:          
+                        print( "BROYDEN MATRIX UPDATE", file=self.debugfile )
+                        print( matrix,file=self.debugfile )
 
                     # matrix = matrix + outer( dely - dot( matrix, delxs ), delxs )
                     # / dot( delxs, delxs )
@@ -314,13 +365,93 @@ class Newton(Element):
                         # move independent back
                         i.ind.v = i.ind.v - dx
                         icount = icount + 1
-
+                    if self.debug == True:              
+                        print( "JACOBIAN MATRIX", file=self.debugfile )
+                        print( matrix, file=self.debugfile )     
+                        
                 # invert the matrix
-                try:
+                try:                   
                     imatrix = linalg.inv(matrix)
                 except:  # noqa: E722
                     iter = self.maxJacobians.v
                     self.session.errors += "Could not invert solver matrix\n"
+
+                    zero_row_indices = []  
+                    for i, row in enumerate(matrix):
+                        # all() checks if the condition (x == 0) is true for every element in the row
+                        if all(x == 0 for x in row):
+                            zero_row_indices.append(i)
+
+                    if len( zero_row_indices ) > 0:
+                        depnumber=zero_row_indices[0]
+                        dcount = 0
+                        for d in self.dep_list:
+                            if d.active == True:
+                                if dcount == depnumber:
+                                    dep=d
+                                dcount = dcount + 1
+                                
+
+                        for st in self.state_list:
+                            if st.active == True:
+                                if dcount == depnumber:
+                                    dep=st
+                                dcount = dcount + 1
+
+                        for c in self.con_list:
+                            if c.active == True:
+                                if dcount == depnumber:
+                                    dep=c                                
+                                dcount = dcount + 1
+
+                        print( "Dependent " + dep.parent.name1+"."+dep.name1 + " is not effected by any of the independents" )
+                        quit()
+             
+                    matrix_T = [list(row) for row in zip(*matrix)]
+                    matrix = matrix_T
+                    zero_row_indices = []  
+                    for i, row in enumerate(matrix):
+                        # all() checks if the condition (x == 0) is true for every element in the row
+                        if all(x == 0 for x in row):
+                            zero_row_indices.append(i)
+
+                    if len( zero_row_indices ) > 0:
+                        ind = self.ind_list[zero_row_indices[0]]
+                        print( "Varying independent " + ind.parent.name1+"."+ind.name1 + " has no effect on the model" )
+                        quit()
+
+                          
+                    n_rows = len(matrix)
+                    print ( n_rows)
+                    for i in range(n_rows):
+                       
+                        for j in range(i + 1, n_rows):
+                            row_i, row_j = matrix[i], matrix[j]
+                         
+                            same = True
+                            ratioBase = 0.
+                            ratio = 0.
+                            for column in range( len( row_i )):
+                                if abs( row_j[column]) <0.00000000001:
+                                    if abs( row_i[column] ) >0.00000000001:
+                                        same=False
+                                else:
+                                    ratio = row_i[column] / row_j[column]
+                                if abs( ratioBase )<= 0.00000000001:
+                                    ratioBase = ratio
+                                if abs ( ratio-ratioBase )>0.00000000001:
+                                    same = False
+
+                            # Check if all ratios are equal (within tolerance)
+                            if same:
+                                #pairs.append((i, j, ratios[0]))
+                                ind = self.ind_list[i]
+                                print( "Varying independent " + ind.parent.name1+"."+ind.name1  )
+                                ind = self.ind_list[j]
+                                print( "Is multiplicative of varying independent " + ind.parent.name1+"."+ind.name1  )
+                                quit()
+
+                     
                 bc = 0
 
                 # if the error keeps improving, keep using jacobian
@@ -387,30 +518,49 @@ class Newton(Element):
                     # update the inds
                     # and rerun
                     ic = 0
+                    if self.debug == True:
+                        print( "Independents",file=self.debugfile )
+                     
                     for i in self.ind_list:
                         delxs[ic] = delx[ic] * iscale
                         i.ind.v = i.ind.v + delxs[ic]
                         ic = ic + 1
+                        if self.debug == True:
+                            print( i.name1, i.ind.parent.name, i.ind.name1, i.ind.v, file=self.debugfile )
+                        
 
                     # try:
                     self.onepass()
+                    self.iterCount = self.iterCount + 1
                     # except:
                     # iter = self.maxJacobians.v
 
                     err_sum_last = err_sum
                     err_sum = 0.0
 
+                    if self.debug == True:
+                        print( "Dependents",file=self.debugfile )
                     for d in self.dep_list:
                         if d.active == True:
                             err_sum = err_sum + d.dep_error() ** 2.0
+                            if self.debug == True:
+                                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d1.v, d.d2.parent.name1, d.d2.name1, d.d2.v, d.dep_error(), file=self.debugfile )
 
+                    if self.debug == True:
+                        print( "States",file=self.debugfile )
                     for st in self.state_list:
                         if st.active == True:
                             err_sum = err_sum + st.dep_error() ** 2.0
+                            if self.debug == True:
+                                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d1.v, st.d2.parent.name1, st.d2.name1, st.d2.v, st.dep_error(), file=self.debugfile )
 
+                    if self.debug == True:
+                        print( "Constraints",file=self.debugfile )                          
                     for c in self.con_list:
                         if c.active == True:
                             err_sum = err_sum + c.dep_error() ** 2
+                            if self.debug == True:
+                                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d1.v, c.d2.parent.name1, c.d2.name1, c.d2.v, c.dep_error(), file=self.debugfile )
 
                     # if error is worse, we stepped to far
                     # step back
@@ -446,6 +596,7 @@ class Newton(Element):
         # try:
         self.session.errors = ""
         self.onepass()
+
         # except:
         # g.errors = g.errors + " error during final model pass\n"
         # pass
@@ -456,7 +607,7 @@ class Newton(Element):
                 c.active = False
                 c.dep.active = True
 
-        if iter > self.maxJacobians.v - 1:
+        if self.iterCount > self.maxIterations.v - 1:
             self.converged.set(False)
             self.session.errors += " solver exceeded maximu number of iterations\n"
         else:
@@ -533,31 +684,38 @@ class Newton(Element):
         print("Dependents")
         for d in self.session.dependents:
             if d.active == True:
-                print(
-                    d.name1,
-                    d.d1.parent.name1,
-                    d.d1.name1,
-                    d.d2.parent.name1,
-                    d.d2.name1,
-                )
+                print( d.name1, d.d1.parent.name1, d.d1.name1, d.d2.parent.name1, d.d2.name1, d.dep_error() )
 
         print("States")
         for st in self.session.states:
             if st.active == True:
-                print(
-                    st.name1,
-                    st.d1.parent.name1,
-                    st.d1.name1,
-                    st.d2.parent.name1,
-                    d.d2.name1,
-                )
-        print("Constraints")
+                print( st.name1, st.d1.parent.name1, st.d1.name1, st.d2.parent.name1, st.d2.name1, st.dep_error()  )
+        print( "Constraints" )   
         for c in self.session.constraints:
             if c.on == True:
-                print(
-                    c.name1,
-                    c.d1.parent.name1,
-                    c.d1.name1,
-                    c.d2.parent.name1,
-                    c.d2.name1,
-                )
+                print( c.name1, c.d1.parent.name1, c.d1.name1, c.d2.parent.name1, c.d2.name1, c.dep_error() )
+                   
+
+    def empty(self):
+
+        # get the list of all the solver objects
+        self.ind_list = list()
+        self.dep_list = list()
+        self.state_list = list()
+        self.con_list = list()
+        
+        for i in self.session.independents:
+            i.active = False
+
+        for d in self.session.dependents:
+            d.active = False
+               
+        for st in self.session.states:
+            st.active = False
+  
+        for c in self.session.constraints:
+            c.on = False
+            c.active = False
+                   
+
+

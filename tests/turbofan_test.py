@@ -2,6 +2,14 @@
 #        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
 # ------------------------------------------------------
 import time
+  
+import sys
+import os
+
+# Get the absolute path to the directory containing your module
+module_path = os.path.abspath("tomstuff")
+if module_path not in sys.path:
+    sys.path.append(module_path)
 
 from poeme import (
     Constraint,
@@ -10,11 +18,16 @@ from poeme import (
     ModelSession,
     Newton,
     Output,
-    RealT,
+    RealT, 
 )
+
+
+
+
 from poeme.brayton import (
     MP,
     Burner,
+    FN,
     Compressor,
     Duct,
     FlightConditionsSMJ,
@@ -25,11 +38,17 @@ from poeme.brayton import (
     Splitter,
     Turbine,
 )
+
+from ducttom import DuctTom
+from compressortom import CompressorTom
+
 from poeme.core.print import print_pretty
 
 start_time = time.time()
 
 session = ModelSession()
+
+
 
 with session:
     # ---------------------------------------------------------------------------
@@ -39,10 +58,10 @@ with session:
     inlet = Inlet("inlet")
     fan = Compressor("fan")
     splitter = Splitter("splitter")
-    duct2 = Duct("duct2")
+    duct2 = DuctTom("duct2")
     LPC = Compressor("LPC")
     duct25 = Duct("duct25")
-    HPC = Compressor("HPC")
+    HPC = CompressorTom("HPC")
     duct3 = Duct("duct3")
     burner = Burner("burner")
     HPT = Turbine("HPT")
@@ -56,12 +75,12 @@ with session:
     hp_shaft = Shaft("HPshaft")
     lp_shaft = Shaft("LPshaft")
 
-    lp_shaft.MPfan = MP(lp_shaft, "in")
-    lp_shaft.MPlpc = MP(lp_shaft, "in")
-    lp_shaft.MPlpt = MP(lp_shaft, "in")
+    lp_shaft.MPfan = MP(lp_shaft, io="in")
+    lp_shaft.MPlpc = MP(lp_shaft, io="in")
+    lp_shaft.MPlpt = MP(lp_shaft, io="in")
 
-    hp_shaft.MPC = MP(hp_shaft, "in")
-    hp_shaft.MPT = MP(hp_shaft, "in")
+    hp_shaft.MPC = MP(hp_shaft, io="in")
+    hp_shaft.MPT = MP(hp_shaft, io="in")
 
     perf = Perf("Perf")
 
@@ -109,15 +128,15 @@ start.comp = "CanteraFN"
 # use tables for fluid properties
 start.comp = "Newtherm"
 
-inlet.rec = 0.998  # inlet recovery 0.998
+inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance
 # inlet.FNo.MN = 0.625
 
 fan.PRdes = 1.300
 fan.effDes = 0.9689
 fan.NcMapDes = 1.000
 fan.RlineDes = 2.000
-fan.NcMapDes = 1.00
-fan.RlineDes = 2.00
+#fan.NcMapDes = 1.00
+#fan.RlineDes = 2.00
 # fan.FNo.MN = 0.45
 
 splitter.BPR = 23.9878
@@ -125,14 +144,17 @@ splitter.BPR = 23.9878
 # splitter.FNo2.MN = 0.45
 
 # duct2.FNo.MN = 0.45
+duct2.dPswitch = "varies"
+duct2.dPqPdes = 0.0100
 
 LPC.PRdes = 3.000
-LPC.effDes = 0.8895
-LPC.NcMapDes = 1.00
+LPC.effDes = 0.8894
+LPC.NcMapDes = 1.10
 LPC.RlineDes = 2.00
 # LPC.FNo.MN = 0.45
 
-duct25.dPqP = 0.015
+duct25.dPswitch = "varies"
+duct25.dPqPdes = 0.015
 # duct25.FNo.MN = 0.45
 
 HPC.PRdes = 14.1030
@@ -145,35 +167,40 @@ HPC.Wfrac2 = 0.02
 HPC.hfract2 = 0.5
 # HPC.FNo.MN = 0.30
 
+
 duct3.Wbldfrac = 2.0354 / (31.91 - 2.2566)
 
-burner.FAR = 0.0283
-burner.LHV = -2100.0
+burner.FAR = 0.02833
+burner.LHV = -2140.0
 burner.dP = 0.0400
 # burner.FNo.MN = 0.10
+#print( burner.desc )
 
 HPT.PRmapDes = 3.0
-HPT.PR = 3.5
+HPT.PR = 4.0
 HPT.effDes = 0.9313
-HPT.NcMapDes = 0.9
+HPT.NcMapDes = 1.00
 # HPT.FNo.MN = 0.30
 
-duct45.dPqP = 0.005
+duct45.dPswitch = "varies"
+duct45.dPqPdes = 0.005
 # duct45.FNo.MN = 0.45
 
 LPT.PRmapDes = 6.0
-LPT.PR = 2.0
+LPT.PR = 10.0
 LPT.effDes = 0.9410
 LPT.NcMapDes = 0.9
 # LPT.FNo.MN = 0.35
 
-duct5.dP = 0.010
+duct5.dPswitch = "varies"
+duct5.dPqPdes = 0.010
 # duct5.FNo.MN = 0.25
 
 pri_nozzle.PsExh = "start.Pamb"
 pri_nozzle.Cfg = 0.999
 
-duct17.dP = 0.015
+duct17.dPswitch = "varies"
+duct17.dPqPdes = 0.015
 # duct17.FNo.MN = 0.45
 
 fan_nozzle.PsExh = "start.Pamb"
@@ -451,10 +478,12 @@ session.solver = solver
 
 solver.listBalances()
 
+#solver.debug = True
+
 solver.solve()
+
 output_file = open("turbofan.out", "w")
 print_pretty(output_file, session)
-
 
 _case_counter = {"count": 0}
 
@@ -466,15 +495,16 @@ def run_throttle_hook(mnset, altitude):
     start.MN = mnset
     start.alt = altitude
     solver.save_independents()
+    #burner.WFset = True    
     solver.run()
     print_pretty(output_file, session)
-    print(start.MN, start.alt, burner.FAR, perf.Fn)
+    print(start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged)
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
 
     _case_counter["count"] += 1
     solver.save_independents()
-    factor = 0.9
+    factor = 1.
     start.Fdem = start.Fnet * factor
 
     fan.dep_NmechC.active = False
@@ -482,21 +512,22 @@ def run_throttle_hook(mnset, altitude):
     burner.con_1.active = False
 
     burner.ind_FAR.active = False
-    session.check()
+    #session.check()
 
-    while factor > 0.2 and solver.converged == True:
+    while factor > 0.2 and solver.converged == True and pri_nozzle.Fg >0.:
+
         start.Fdem = perf.FnetMax * factor
         burner.FAR = burner.FAR - 0.0025
         solver.run()
         print_pretty(output_file, session)
         factor = (perf.Fn) / perf.FnetMax
-        print(start.MN, start.alt, burner.FAR, perf.Fn, factor, solver.converged)
+        print(start.MN, start.alt, burner.FAR, perf.Fn, factor, fan.NcMap, solver.converged)
         _case_counter["count"] += 1
 
     fan.dep_NmechC.active = True
     burner.con_1.on = True
     burner.ind_FAR.active = True
-    session.check()
+    #session.check()
     fan.NcDem = 1.0
     solver.restore_independents()
     solver.run()
@@ -508,29 +539,40 @@ print_pretty(output_file, session)
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 session.set("size", False)
-fan_nozzle.ind_Area = Independent(fan_nozzle, indname="Anoz", perturb=0.05, scale=100,perturb_type="Relative",active=True
-)
-fan.RlineLimit = RealT(fan, v=2.0)
-fan.dep_Rline = Dependent(fan, d1name="Rline", d2name="RlineLimit", active=True)
+
+
+
+fan_nozzle.ind_Area = Independent(fan_nozzle, indname="Anoz", perturb=0.05, scale=100,perturb_type="Relative",active=True)
+fan.RlineSet = RealT(fan, v=2.0)
+fan.dep_Rline = Dependent(fan, d2name="RlineSet", d1name="Rline", active=True)
 
 session.check()
+solver.listBalances()
 solver.run()
+
+
 print_pretty(output_file, session)
 # g.ScottPrint.print()
-solver.listBalances()
 
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0
 burner.Tmax = RealT(burner)
-burner.Tmax = 3360.0
+burner.Tmax = 3600.0
 start.Fdem = RealT(start)
 
 start.Fnet = RealT(start)
+
 burner.ind_FAR = Independent( burner, indname="FAR", perturb=0.05, perturb_type="Relative", active=True, desc="Varies FAR" )
 fan.dep_NmechC = Dependent( fan, d1name="NcMap", d2name="NcDem", active=True,desc="Handles weight flow error" )
 burner.con_1 = Constraint( burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True )
 
+
+print( burner.FNo.Tt.desc )
+
 session.check()
+
+
+
 
 run_throttle_hook(0.90, 45000.0)
 run_throttle_hook(0.85, 45000.0)

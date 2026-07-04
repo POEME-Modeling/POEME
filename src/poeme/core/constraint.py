@@ -79,6 +79,11 @@ class Constraint(Atom):
         self.on = False
 
         self.__dict__.update(kwargs)
+        
+        self.desc  = "The constraint obejct applies limits to values in a model.\n"
+        self.desc += "It works by being tied to a particular dependent.  If the\n"
+        self.desc += "constraint is going to be violated, the constraint will replace\n"
+        self.desc += "the dependent in the solver matrix.\n\n"
 
         # variables
         self.baseError = 0.0

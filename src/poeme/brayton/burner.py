@@ -1,6 +1,6 @@
 from poeme import BooleanT, Element, ModelSession, RealT
 
-from .fn import FN
+from poeme.brayton import FN
 
 
 class Burner(Element):
@@ -24,6 +24,19 @@ class Burner(Element):
         )
         self.Tout = RealT(self, units="R", desc="Exit temperature")
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
+        
+        #element description
+        self.desc = "Burner - This is a conventional buner.  It takes a flow and performs a\n"
+        self.desc +="a combustion calculation.  The user can either input desired fuel to air\n"
+        self.desc +="ratio or the desired fuel flow.  WFset is a true or false switch.  It is\n"
+        self.desc +="set the true then the element runs to the input fuel flow.  It is set to\n"
+        self.desc +="then it runs to the user input FAR.\n\n"
+        self.desc +="If the user is running an equilbrium thermo package like cantera then the\n"
+        self.desc +="input LHV actual represents the energy of the fuel including the heat of\n"
+        self.desc +="formation.  In this case hydrocaron fuel would have a negative LHV value\n"
+        self.desc +="simliar to what is seen with CEA.  In this case the input efficiecny must\n"
+        self.desc +="be 1.0.\n\n"
+        
 
         self.initial_list()
 
