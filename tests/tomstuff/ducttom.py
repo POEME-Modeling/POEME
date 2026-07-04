@@ -8,10 +8,10 @@ class DuctTom(Element):
         super().__init__(name, "Duct", session=session)
         self.type = "Duct"
 
-        self.desc  = "Duct - this element applies a pressure loss to the flow.\n"
-        self.desc += "The pressure loss is input in terms of the fractional pressue\n"
-        self.desc += "loss versus the incoming pressure.  The duct is designed to take\n"
-        self.desc += "in bleed node and provide a secondary exit bleed node.\n"
+        self.desc  = "Duct - this element applies a pressure loss to the flow. The "
+        "pressure loss is input in terms of the fractional pressure loss versus the "
+        "incoming pressure. The duct is designed to take in bleed node and provide a "
+        "secondary exit bleed node."
         
         # Variables
         self.dPqP = RealT(self, v=0.0, units="none", desc="Non-dimensional (fractional) total pressure loss")
