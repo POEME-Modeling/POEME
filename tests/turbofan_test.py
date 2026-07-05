@@ -1,17 +1,11 @@
 # ------------------------------------------------------
 #        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
 # ------------------------------------------------------
-import os
-import sys
 import time
 
-# Get the absolute path to the directory containing your module
-module_path = os.path.abspath("tomstuff")
-if module_path not in sys.path:
-    sys.path.append(module_path)
-
-from compressortom import CompressorTom
-from ducttom import DuctTom
+# Get the custom modules
+from tomstuff.compressortom import CompressorTom
+from tomstuff.ducttom import DuctTom
 
 from poeme import (
     Constraint,

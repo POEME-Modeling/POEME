@@ -7,7 +7,8 @@ from poeme import (
     StringT,
     Table1d,
 )
-from poeme.brayton import FN
+
+from .fn import FN
 
 
 class FlightConditionsSMJ(Element):
