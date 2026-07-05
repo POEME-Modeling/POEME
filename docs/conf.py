@@ -5,6 +5,10 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+import os
+import sys
+
+from sphinx.ext import apidoc as sphinx_apidoc
 
 import poeme
 
@@ -43,16 +47,7 @@ html_css_files = ["overrides.css"]
 
 
 # Auto-run apidoc before every build
-import subprocess
-import os
-
-subprocess.run(
-    [
-        "sphinx-apidoc",
-        "-f",
-        "-e",
-        "-o",
-        os.path.join(os.path.dirname(__file__), "api"),
-        "../src/poeme",  # path to your package, relative to conf.py
-    ]
-)
+api_dir = os.path.join(os.path.dirname(__file__), "api")
+src_dir = os.path.join(os.path.dirname(__file__), "../src/poeme")
+sys.argv = ["sphinx-apidoc", "-f", "-e", "-o", api_dir, src_dir]
+sphinx_apidoc.main()
