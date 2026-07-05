@@ -3,6 +3,10 @@
 # ------------------------------------------------------
 import time
 
+# Get the custom modules
+from tomstuff.compressortom import CompressorTom
+from tomstuff.ducttom import DuctTom
+
 from poeme import (
     Constraint,
     Dependent,
