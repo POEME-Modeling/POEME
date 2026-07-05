@@ -3,6 +3,7 @@ from .atom import Atom
 from .boolean_t import BooleanT
 from .complex_t import ComplexT
 from .constraint import Constraint
+from .conversion_constants import * # noqa: F403
 from .dependent import Dependent
 from .element import Element
 from .h2o import H2O
