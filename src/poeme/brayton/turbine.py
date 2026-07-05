@@ -7,7 +7,8 @@ from poeme import (
     RealT,
     Table2d,
 )
-from poeme.brayton import FN, MP
+from .fn import FN
+from .mp import MP
 
 
 class Turbine(Element):

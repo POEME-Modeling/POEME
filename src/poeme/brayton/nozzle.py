@@ -6,7 +6,7 @@ from poeme import (
     RealT,
     StringVarT,
 )
-from poeme.brayton import FN
+from .fn import FN
 
 
 class Nozzle(Element):
