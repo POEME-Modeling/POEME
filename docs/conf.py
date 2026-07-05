@@ -43,8 +43,8 @@ html_css_files = ["overrides.css"]
 
 
 # Auto-run apidoc before every build
-import subprocess
 import os
+import subprocess
 
 subprocess.run(
     [
