@@ -11,6 +11,7 @@ POEME: Python Object Engineering Modular Environment
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
     <a href="#"><img src="https://img.shields.io/badge/status-active-brightgreen" alt="Status"></a>
     <a href="#"><img src="https://github.com/POEME-Modeling/POEME/actions/workflows/docs.yml/badge.svg" alt="Docs Status"></a>
+    <a href="#"><img src="https://results.pre-commit.ci/badge/github/POEME-Modeling/POEME/main.svg" alt="Linting"></a>
     <a href="#"><img src="https://github.com/POEME-Modeling/POEME/actions/workflows/test.yml/badge.svg" alt="Test"></a>
     </p>
 

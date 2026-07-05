@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - uses: pre-commit/action@v3.0.1
-      with:
-        extra_args: --all-files
+    # - uses: pre-commit/action@v3.0.1
+    #   with:
+    #     extra_args: --all-files
