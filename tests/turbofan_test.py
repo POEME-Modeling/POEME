@@ -31,10 +31,6 @@ from poeme.brayton import (
 )
 from poeme.core.print import print_pretty
 
-# Get the absolute path to the directory containing your module
-from .tomstuff.compressortom import CompressorTom
-from .tomstuff.ducttom import DuctTom
-
 start_time = time.time()
 
 session = ModelSession()
