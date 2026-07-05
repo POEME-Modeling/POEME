@@ -7,6 +7,7 @@ from poeme import (
     RealT,
     Table2d,
 )
+
 from .fn import FN
 from .mp import MP
 

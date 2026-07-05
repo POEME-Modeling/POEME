@@ -3,10 +3,6 @@
 # ------------------------------------------------------
 import time
 
-# Get the absolute path to the directory containing your module
-from .tomstuff.compressortom import CompressorTom
-from .tomstuff.ducttom import DuctTom
-
 from poeme import (
     Constraint,
     Dependent,
@@ -30,6 +26,10 @@ from poeme.brayton import (
     Turbine,
 )
 from poeme.core.print import print_pretty
+
+# Get the absolute path to the directory containing your module
+from .tomstuff.compressortom import CompressorTom
+from .tomstuff.ducttom import DuctTom
 
 start_time = time.time()
 

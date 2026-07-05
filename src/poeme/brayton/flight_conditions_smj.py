@@ -7,6 +7,7 @@ from poeme import (
     StringT,
     Table1d,
 )
+
 from .fn import FN
 
 
