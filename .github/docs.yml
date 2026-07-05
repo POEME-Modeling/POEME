@@ -2,7 +2,7 @@ name: Docs build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main workflows ]
   pull_request:
 
 jobs:
