@@ -3,8 +3,6 @@
 # ------------------------------------------------------
 import time
 
-start_time = time.time()
-
 import numpy
 
 from poeme import (
@@ -21,6 +19,7 @@ from poeme.brayton import (
 )
 from poeme.core.print import print_pretty
 
+start_time = time.time()
 session = ModelSession()
 
 with session:

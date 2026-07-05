@@ -1,5 +1,5 @@
 from poeme import BooleanT, Element, ModelSession, RealT
-from poeme.brayton import FN
+from .fn import FN
 
 
 class Duct(Element):

@@ -5,7 +5,7 @@ from poeme import (
     ModelSession,
     RealT,
 )
-from poeme.brayton import FN
+from .fn import FN
 
 
 class Splitter(Element):

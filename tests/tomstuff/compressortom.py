@@ -152,7 +152,7 @@ class CompressorTom(Element):
         self.FNo.set_w(self.FNo.W - self.FNoBld1.W - self.FNoBld2.W)
 
         # calculate and set the mechanical work, negative by convention
-        C_BTUperSECtoHP = 1.414284
+        # C_BTUperSECtoHP = 1.414284
         self.MP.set_hp(
             -1.0
             * (

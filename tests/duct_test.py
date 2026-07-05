@@ -3,8 +3,6 @@
 # ------------------------------------------------------
 import time
 
-start_time = time.time()
-
 import numpy
 
 from poeme import (
@@ -18,6 +16,7 @@ from poeme.brayton import (
 )
 from poeme.core.print import print_pretty
 
+start_time = time.time()
 session = ModelSession()
 
 with session:
@@ -68,11 +67,11 @@ duct.dPswitch = "varies"
 # --------------------------------------
 def print_testResults():
     # print(
-    #    "----- CASE", case_counter["count"],
-    #    "     MN", f"{start.MN.v:4.2f}",  "-----",
-    #    "     Q =", f"{start.Qdyn.v:5.1f}", "psf      velocity =", f"{start.VTAS.v:7.2f}",
-    #    "     area =", f"{duct.FNo.A.v:5.3f}", "     MN =", f"{duct.FNo.MN.v:6.4f}",
-    #    "     Pt loss =", f"{duct.dPqP.v:6.4f}",
+    # "----- CASE", case_counter["count"],
+    # "     MN", f"{start.MN.v:4.2f}",  "-----",
+    # "     Q =", f"{start.Qdyn.v:5.1f}", "psf      velocity =", f"{start.VTAS.v:7.2f}",
+    # "     area =", f"{duct.FNo.A.v:5.3f}", "     MN =", f"{duct.FNo.MN.v:6.4f}",
+    # "     Pt loss =", f"{duct.dPqP.v:6.4f}",
     # )
     print(
         "----- CASE",
