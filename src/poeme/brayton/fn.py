@@ -36,8 +36,7 @@ class FN(Atom):
                 "VIDL": [],
                 "type": "FN",
                 "other": 0,
-                "isPort":True
-                
+                "isPort": True,
             }
         )
         self.__dict__.update(kwargs)
@@ -53,33 +52,55 @@ class FN(Atom):
         self.Pt = RealT(self, v=0.0, units="lbf/in2", desc="Total pressure")
         self.ht = RealT(self, v=0.0, units="BTU/lbm", desc="Specific total enthalpy")
         self.rhot = RealT(self, v=0.0, units="lbm/ft3", desc="Total density")
-        self.mut = RealT(self, v=0.0, units="lbm/(ft*sec)", desc="Total dynmanic viscosity")
-        self.kt = RealT(self, v=0.0, units="BTU/(ft*sec*R)", desc="Total thermal conductivity")
-        self.Cpt = RealT(self, v=0.0, units="BTU/(lbm*R)", desc="Total specific heat at constant pressure")
-        self.gamt = RealT(self, v=0.0, units="none", desc="Total ratio of specific heats")
+        self.mut = RealT(
+            self, v=0.0, units="lbm/(ft*sec)", desc="Total dynmanic viscosity"
+        )
+        self.kt = RealT(
+            self, v=0.0, units="BTU/(ft*sec*R)", desc="Total thermal conductivity"
+        )
+        self.Cpt = RealT(
+            self,
+            v=0.0,
+            units="BTU/(lbm*R)",
+            desc="Total specific heat at constant pressure",
+        )
+        self.gamt = RealT(
+            self, v=0.0, units="none", desc="Total ratio of specific heats"
+        )
         self.Rt = RealT(self, v=0.0, units="BTU/(lbm*R)", desc="Total gas constant")
         self.Rs = RealT(self, v=0.0, units="BTU/(lbm*R)", desc="Static constant")
         self.s = RealT(self, v=0.0, units="BTU/(lbm*R)", desc="Entropy")
-        self.MN = RealT(self, v=-9999., units="Mach number", desc="Mach number")
-        self.A = RealT(self, v=-9999., units="in2", desc="Flow area")
+        self.MN = RealT(self, v=-9999.0, units="Mach number", desc="Mach number")
+        self.A = RealT(self, v=-9999.0, units="in2", desc="Flow area")
         self.V = RealT(self, v=0.0, units="ft/sec", desc="Velocity")
         self.Ts = RealT(self, v=0.0, units="Rankine", desc="Static temperature")
         self.Ps = RealT(self, v=0.0, units="lbf/in2", desc="Static pressure")
         self.hs = RealT(self, v=0.0, units="BTU/lbm", desc="Static specific enthalkpy")
         self.rhos = RealT(self, v=0.0, units="lbm/ft3", desc="Static density")
         self.mus = RealT(self, v=0.0, units="lbm/(ft*sec)", desc="Static viscosity")
-        self.ks = RealT(self, v=0.0, units="BTU/(ft*sec*R)", desc="Static thermal conductivity")
-        self.Cps = RealT(self, v=0.0, units="BTU/(lbm*R)", desc="Static specific heat at constant pressure")
-        self.gams = RealT(self, v=0.0, units="none", desc="Static specific heat at constant pressure")
+        self.ks = RealT(
+            self, v=0.0, units="BTU/(ft*sec*R)", desc="Static thermal conductivity"
+        )
+        self.Cps = RealT(
+            self,
+            v=0.0,
+            units="BTU/(lbm*R)",
+            desc="Static specific heat at constant pressure",
+        )
+        self.gams = RealT(
+            self, v=0.0, units="none", desc="Static specific heat at constant pressure"
+        )
         self.size = BooleanT(
             self, v=True, desc="Determines if we are running to fixed Mach or Area"
         )
         self.isPort = BooleanT(
-            self, v=self.isPort, desc="Determines if we are running to fixed Mach or Area"
+            self,
+            v=self.isPort,
+            desc="Determines if we are running to fixed Mach or Area",
         )
         self.size = BooleanT(
             self, v=True, desc="Determines if we are running to fixed Mach or Area"
-        )        
+        )
         self.twoPhase = BooleanT(
             self,
             v=False,
@@ -347,9 +368,9 @@ class FN(Atom):
         if self.size.v == True:
             if self.MN.v < 0.0:
                 return
-            if self.MN.v < .00001:
-                self.A = -9999.
-                self.V.v = 0.
+            if self.MN.v < 0.00001:
+                self.A = -9999.0
+                self.V.v = 0.0
                 self.Ts.v = self.Tt
                 self.Ps.v = self.Pt
                 self.hs.v = self.ht
@@ -359,7 +380,7 @@ class FN(Atom):
                 self.Cps.v = self.Cpt
                 self.gams.v = self.gamt
                 return
-                   
+
             mnor = self.MN.v
             self.Ps.v = self.Pt.v * 0.9
             self.ps_calc()
@@ -393,9 +414,9 @@ class FN(Atom):
             self.MN.v = mnor
 
         else:
-            if self.A.v < 0.:
-                self.MN.v = 0.
-                self.V.v = 0.
+            if self.A.v < 0.0:
+                self.MN.v = 0.0
+                self.V.v = 0.0
                 self.Ts.v = self.Tt.v
                 self.Ps.v = self.Pt.v
                 self.hs.v = self.ht.v
@@ -405,7 +426,7 @@ class FN(Atom):
                 self.Cps.v = self.Cpt.v
                 self.gams.v = self.gamt.v
                 return
-                
+
             aor = self.A.v
             self.Ps.v = self.Pt.v * 0.99
             self.ps_calc()
@@ -521,15 +542,15 @@ class FN(Atom):
 
     def link_fn(self, fn):
         if self.other != 0:
-            print( self.parent.name1 + "." + self.name1 + " is already linked " )
+            print(self.parent.name1 + "." + self.name1 + " is already linked ")
             quit()
         if fn.other != 0:
-            print( fn.parent.name1 + "." + fn.name1 + " is already linked " )
-            quit() 
-        if ( fn.isa( "FN")==False):
-            print( fn.parent.name1 + "." + fn.name1 + " is not a fluid node " )
-            quit()        
-        
+            print(fn.parent.name1 + "." + fn.name1 + " is already linked ")
+            quit()
+        if fn.isa("FN") == False:
+            print(fn.parent.name1 + "." + fn.name1 + " is not a fluid node ")
+            quit()
+
         self.__dict__.update({"other": fn})
         fn.__dict__.update({"other": self})
 
@@ -619,7 +640,6 @@ class FN(Atom):
             self.gams.v = e.gams.v
             self.size.v = e.size.v
 
-
     def set_w(self, w):
         if isinstance(w, float):
             self.W.v = w
@@ -680,7 +700,6 @@ class FN(Atom):
         self.statics()
         if self.other != 0:
             self.other.copy_deep(self)
-
 
     def dump(self, output_file):
         output_file.write(

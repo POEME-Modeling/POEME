@@ -1,6 +1,5 @@
-from poeme import Element, ModelSession, RealT, BooleanT
+from poeme import BooleanT, Element, ModelSession, RealT
 from poeme.brayton import FN
-
 
 
 class DuctTom(Element):
@@ -8,14 +7,23 @@ class DuctTom(Element):
         super().__init__(name, "Duct", session=session)
         self.type = "Duct"
 
-        self.desc  = "Duct - this element applies a pressure loss to the flow.\n"
+        self.desc = "Duct - this element applies a pressure loss to the flow.\n"
         self.desc += "The pressure loss is input in terms of the fractional pressue\n"
-        self.desc += "loss versus the incoming pressure.  The duct is designed to take\n"
+        self.desc += (
+            "loss versus the incoming pressure.  The duct is designed to take\n"
+        )
         self.desc += "in bleed node and provide a secondary exit bleed node.\n"
-        
+
         # Variables
-        self.dPqP = RealT(self, v=0.0, units="none", desc="Non-dimensional (fractional) total pressure loss")
-        self.dPqPdes = RealT(self, v=0.0, units="none", desc="Design non-dimensional total pressure loss")
+        self.dPqP = RealT(
+            self,
+            v=0.0,
+            units="none",
+            desc="Non-dimensional (fractional) total pressure loss",
+        )
+        self.dPqPdes = RealT(
+            self, v=0.0, units="none", desc="Design non-dimensional total pressure loss"
+        )
         self.dPswitch = "constant"
         self.Q = RealT(self, v=0.0, units="BTU/s", desc="Heat added to the duct")
         self.Wbldfrac = RealT(self, v=0.0, io="out", desc="Bleed flow fraction")
@@ -24,21 +32,23 @@ class DuctTom(Element):
         # Fluid locations
         self.FNi = FN(self, io="in", desc="Incoming flow")
         self.FNo = FN(self, io="out", desc="Outgoing flow")
-        self.FNibld = FN(self, io="out", desc="Bleed in flow",isPort=False)
+        self.FNibld = FN(self, io="out", desc="Bleed in flow", isPort=False)
         self.FNobld = FN(self, io="out", desc="Bleed out flow")
-        
-        self.size = BooleanT( self, v=True, desc="Determine if the element is in design mode or not" )
+
+        self.size = BooleanT(
+            self, v=True, desc="Determine if the element is in design mode or not"
+        )
         self.initial_list()
 
     def calc(self):
         # pass incoming flow information
-        
+
         self.FNo.copy(self.FNi)
         self.FNi.add(self.FNibld)
         self.FNobld.copy(self.FNo)
 
         # corrected flow
-        Wc = self.FNi.W * (self.FNi.Tt/518.67)**0.5 / (self.FNi.Pt/14.696)
+        Wc = self.FNi.W * (self.FNi.Tt / 518.67) ** 0.5 / (self.FNi.Pt / 14.696)
 
         # save design value of corrected flow
         if self.size == True:
@@ -46,7 +56,7 @@ class DuctTom(Element):
 
         # pressure loss is either constant or varies parabolically with Wc
         if self.dPswitch == "varies":
-            self.dPqP = self.dPqPdes * (Wc/self.WcDes)**2.
+            self.dPqP = self.dPqPdes * (Wc / self.WcDes) ** 2.0
         else:
             self.dPqP = self.dPqPdes
 
@@ -54,21 +64,19 @@ class DuctTom(Element):
         PtExit = self.FNi.Pt * (1.0 - self.dPqP)
 
         # exit specific enthalpy, Q is applied to the entire flow
-        htExit = self.FNi.ht + self.Q/self.FNi.W
+        htExit = self.FNi.ht + self.Q / self.FNi.W
 
         # set the exit states; flow and ht, Pt
         self.FNo.set_w(self.FNi.W * (1.0 - self.Wbldfrac))
         self.FNobld.set_w(self.FNi.W * (self.Wbldfrac))
 
-        self.FNo.set_hp( htExit, PtExit )
-        self.FNobld.set_hp( htExit, PtExit )
-
+        self.FNo.set_hp(htExit, PtExit)
+        self.FNobld.set_hp(htExit, PtExit)
 
     def precheck(self):
 
         if self.Wbldfrac < 0.0000001:
             self.FNobld.isPort = False
-            
 
     def dump(self, output_file):
         output_file.write(f"{self.name1} Duct\n")

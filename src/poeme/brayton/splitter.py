@@ -6,7 +6,6 @@ from poeme import (
     ModelSession,
     RealT,
 )
-
 from poeme.brayton import FN
 
 
@@ -16,10 +15,9 @@ class Splitter(Element):
         self.type = "Splitter"
 
         # desciption
-        self.desc  = "Splitter - this element splits a stream into two exit streams.\n"
+        self.desc = "Splitter - this element splits a stream into two exit streams.\n"
         self.desc += "In non-sizing mode, the bypass ratio becomes a value controlled\n"
         self.desc += "controlled by the solver.\n"
- 
 
         # Variables
         self.BPR = RealT(self, v=1.0, units="none", desc="Bypass ratio, W2/W1")

@@ -46,9 +46,8 @@ class Output(Element):
         print(temp, file=self.out)
         super().real_print(self.out)
         self.row = 1
-        print( self.session.errors, file=self.out )
+        print(self.session.errors, file=self.out)
         self.out.close()
-        
 
         # self.out.write(
         #     f"{"Fp"[:10]:12s}{w.name1[:10]:12s}{("xloc:"+str(w.xloc))[:10]:12s}",

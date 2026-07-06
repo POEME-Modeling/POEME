@@ -5,21 +5,41 @@ class PIV(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "PIV", session=session)
         self.type = "PIV"
-        
-        self.desc  = "PIV - This element is a PIV controller.  It senses a value from the\n"
-        self.desc += "system, which is represented by the string value DPi, and adjustes the\n"
-        self.desc += "contolled value in the system, represented by the string value DPo.\n"
+
+        self.desc = (
+            "PIV - This element is a PIV controller.  It senses a value from the\n"
+        )
+        self.desc += (
+            "system, which is represented by the string value DPi, and adjustes the\n"
+        )
+        self.desc += (
+            "contolled value in the system, represented by the string value DPo.\n"
+        )
         self.desc += "This element is meant to run is a transient mode only.\n"
-        self.desc += "It does this by checking the model to find all the inlets, nozzles\n"
-        self.desc += "and burners in the model.  From these elements it will calculcale\n"
-        self.desc += "the overall values of total gross thrust, ram drag, net thrust, SFC\n"
+        self.desc += (
+            "It does this by checking the model to find all the inlets, nozzles\n"
+        )
+        self.desc += (
+            "and burners in the model.  From these elements it will calculcale\n"
+        )
+        self.desc += (
+            "the overall values of total gross thrust, ram drag, net thrust, SFC\n"
+        )
         self.desc += "and fuel flow.\n\n"
 
         # variables
         self.P = RealT(self, units="none", desc="P - scalar applied to current error")
-        self.I = RealT(self, units="none", desc="I - scalar applied to curreny integral of the error")
-        self.D = RealT(self, units="none", desc="D - scalare applied to the derivative of the term")
-        self.G = RealT(self, units="none", desc="G - desired value of the controlled value" )
+        self.I = RealT(
+            self,
+            units="none",
+            desc="I - scalar applied to curreny integral of the error",
+        )
+        self.D = RealT(
+            self, units="none", desc="D - scalare applied to the derivative of the term"
+        )
+        self.G = RealT(
+            self, units="none", desc="G - desired value of the controlled value"
+        )
         self.elast = RealT(self, units="none", desc="Error term from last time step")
         self.e = RealT(self, units="none", desc="Error term")
         self.Inte = RealT(self, units="none", desc="Inte")

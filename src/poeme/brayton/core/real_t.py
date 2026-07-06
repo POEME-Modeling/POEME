@@ -54,7 +54,7 @@ class RealT(ValueT):
             return temp >= other
         else:
             return self.v >= other.v
-            
+
     def __rgt__(self, other):
         return other > self.v
 
@@ -115,12 +115,10 @@ class RealT(ValueT):
             self.v = v
         else:
             self.v = v.v
-            
+
     def turbo(self):
-        print( "turbo" )
+        print("turbo")
         self = self.v
-
-
 
     def str(self):
         return str(self.v)

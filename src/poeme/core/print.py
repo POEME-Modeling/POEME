@@ -88,7 +88,7 @@ def print_stdout(output_file, session):
 def print_pretty(output_file, session):
     """Write pretty-formatted output with detailed sections."""
     output_file.write("*" * 96 + "\n")
-    _print_section_header(output_file, "Errors************", style="decorative")  
+    _print_section_header(output_file, "Errors************", style="decorative")
     output_file.write(f"{session.errors}\n")
     if session.solver:
         output_file.write(f"time = {session.solver.time}\n")
@@ -106,14 +106,14 @@ def print_pretty(output_file, session):
     if session.solver:
         session.solver.pretty(output_file)
     output_file.write("\n")
-    #output_file.write( self.session.errors )
+    # output_file.write( self.session.errors )
 
 
 def print_scott(output_file, session):
     """Write turbofan-formatted output."""
 
     output_file.write("** TURBOFAN OUTPUT **".center(56, "*") + "\n")
-    _print_section_header(output_file, "Errors************", style="turbofan")   
+    _print_section_header(output_file, "Errors************", style="turbofan")
     output_file.write(f"{session.errors}\n")
     output_file.write(f"time = {session.solver.time}\n")
     output_file.write("\n")

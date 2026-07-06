@@ -15,12 +15,18 @@ class Dependent(Atom):
         self.val_scale = 0.0
         self.__dict__.update(kwargs)
 
-        self.desc  = "The dependent object is defines the conditions that need to be\n"
+        self.desc = "The dependent object is defines the conditions that need to be\n"
         self.desc += "met for the model to be considered valid.  It described by two\n"
-        self.desc += "references to variables that have to be equal for the solution to\n"
-        self.desc += "be valid.  And example would be the flow leaving a nozzle element\n"
-        self.desc += "where the flow going out of the nozzle must equal the flow coming in."
- 
+        self.desc += (
+            "references to variables that have to be equal for the solution to\n"
+        )
+        self.desc += (
+            "be valid.  And example would be the flow leaving a nozzle element\n"
+        )
+        self.desc += (
+            "where the flow going out of the nozzle must equal the flow coming in."
+        )
+
         # Variables
         self.d1name = StringT(self, v=self.d1name, desc="")
         self.d1name.name1 = "d1name"

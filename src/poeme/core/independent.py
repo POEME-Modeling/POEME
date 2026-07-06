@@ -1,7 +1,7 @@
 from .atom import Atom
+from .boolean_t import BooleanT
 from .real_t import RealT
 from .string_t import StringT
-from .boolean_t import BooleanT
 
 
 class Independent(Atom):
@@ -15,13 +15,13 @@ class Independent(Atom):
 
         self.__dict__.update(kwargs)
 
-        self.desc  = "The independent object is the link between the solver object\n"
+        self.desc = "The independent object is the link between the solver object\n"
         self.desc += "and the model.  The independent object knows the name of the\n"
         self.desc += "variable it controls and the information about how it is to be\n"
-        self.desc += "varied."  
+        self.desc += "varied."
 
         # Variables
-        self.active  = BooleanT( self, v=self.active )
+        self.active = BooleanT(self, v=self.active)
         self.indname = StringT(self, v=self.indname, desc="")
         self.indname.name1 = "indname"
         self.perturb = RealT(self, v=self.perturb, units="", desc="")

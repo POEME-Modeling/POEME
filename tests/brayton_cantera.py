@@ -34,16 +34,12 @@ with ModelSession() as session:
     C1.Wfrac1 = 0.02
     C1.hfract2 = 0.9
     C1.Wfrac2 = 0.03
-    C1.NcMapDes = 1.
+    C1.NcMapDes = 1.0
     C1.RlineDes = 2.0
-    C1.effTable.x = [0.8, 1., 1.2]
+    C1.effTable.x = [0.8, 1.0, 1.2]
     C1.effTable.y = [1.0, 2.0, 3.0]
-    C1.effTable.data = [
-        [0.90, 0.93, 0.90], 
-        [0.92, 0.95, 0.92], 
-        [0.89, 0.92, 0.88]
-    ]
-    C1.PRtable.x = [0.8, 1., 1.2]
+    C1.effTable.data = [[0.90, 0.93, 0.90], [0.92, 0.95, 0.92], [0.89, 0.92, 0.88]]
+    C1.PRtable.x = [0.8, 1.0, 1.2]
     C1.PRtable.y = [1.0, 2.0, 3.0]
     C1.PRtable.data = [
         [6.183, 4.572, 2.455],

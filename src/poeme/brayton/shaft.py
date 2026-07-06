@@ -12,18 +12,33 @@ class Shaft(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Shaft", session=session)
         self.type = "Shaft"
-        
-        #desciption
-        self.desc  = "Shaft - this element determines the net power balance on a spool.\n"
-        self.desc += "It is has mechanical ports on it that are designed to connect to\n"
-        self.desc += "compressors in turbines.  In sizing mode, this element has a solver\n"
-        self.desc += "state that will provide an error to the solver that is net power on\n"
-        self.desc += "the shaft. If non sizing mode, in a solver independent is added that\n"
-        self.desc += "varies the speed of the shaft.  In transient mode the shaft will use\n"
-        self.desc += "the power inbalance on the shaft to determine the derivative of the\n"
-        self.desc += "the shaft that will be integrated by the solver.  The inertia is\n"
+
+        # desciption
+        self.desc = (
+            "Shaft - this element determines the net power balance on a spool.\n"
+        )
+        self.desc += (
+            "It is has mechanical ports on it that are designed to connect to\n"
+        )
+        self.desc += (
+            "compressors in turbines.  In sizing mode, this element has a solver\n"
+        )
+        self.desc += (
+            "state that will provide an error to the solver that is net power on\n"
+        )
+        self.desc += (
+            "the shaft. If non sizing mode, in a solver independent is added that\n"
+        )
+        self.desc += (
+            "varies the speed of the shaft.  In transient mode the shaft will use\n"
+        )
+        self.desc += (
+            "the power inbalance on the shaft to determine the derivative of the\n"
+        )
+        self.desc += (
+            "the shaft that will be integrated by the solver.  The inertia is\n"
+        )
         self.desc += "determined from all of the elements attached to the shaft\n\n"
-        
 
         # dynamic mechanical port list
         self.port_list = list()
@@ -49,7 +64,9 @@ class Shaft(Element):
 
         # variables
         self.dNdt = RealT(self, units="RPM/sec", desc="Speed derivative")
-        self.eff = RealT(self, v=1.0, units="none", desc="Shaft eff applied to incoming power")
+        self.eff = RealT(
+            self, v=1.0, units="none", desc="Shaft eff applied to incoming power"
+        )
         self.effLoss = RealT(self, units="HP", desc="Shaft eff total loss")
         self.HPneg = RealT(self, units="HP", desc="Total negative power on the shaft")
         self.HPpos = RealT(self, units="HP", desc="Total positive power on the shaft")
@@ -104,8 +121,8 @@ class Shaft(Element):
             self.HPpos = self.HPpos - self.HPX
 
         # determine the speed derivative
-        self.HPneg = self.HPneg*self.eff
-        self.effLoss = self.HPneg*(1. - self.eff )      
+        self.HPneg = self.HPneg * self.eff
+        self.effLoss = self.HPneg * (1.0 - self.eff)
         self.dNdt = (self.HPpos - self.HPneg) / (self.N / 5252.0) / self.Ispool
 
     def dump(self, output_file):

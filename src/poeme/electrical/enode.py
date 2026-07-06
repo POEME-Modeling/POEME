@@ -7,7 +7,6 @@ from poeme import (
     RealT,
 )
 
-
 from .ep import EP
 
 
@@ -94,13 +93,12 @@ class Enode(Element):
 
     def link_e(self, ep):
         if ep.other != 0:
-            print( ep.parent.name1 + "." + ep.name1 + " is already linked " )
-            quit() 
-        if ( ep.isa( "EP")==False):
-            print( ep.parent.name1 + "." + ep.name1 + " is not a fluid node " )
-            quit()        
-                
-        
+            print(ep.parent.name1 + "." + ep.name1 + " is already linked ")
+            quit()
+        if ep.isa("EP") == False:
+            print(ep.parent.name1 + "." + ep.name1 + " is not a fluid node ")
+            quit()
+
         temp = EP(self, io="in")
         temp.other = ep
         ep.other = temp

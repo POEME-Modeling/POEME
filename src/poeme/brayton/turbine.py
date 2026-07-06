@@ -7,22 +7,32 @@ from poeme import (
     RealT,
     Table2d,
 )
-
-from poeme.brayton import FN
-from poeme.brayton import MP
+from poeme.brayton import FN, MP
 
 
 class Turbine(Element):
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Turbine", session=session)
         self.type = "Turbine"
-        
-        self.desc  = "Turbine - This element is a conventional map based adiabatic turbine.\n"
-        self.desc += "The user inputs a design point efficiency.  At the sizing point, there\n"
-        self.desc += "is a solver independent created that varies the turbine pressure ratio\n"
-        self.desc += "to match the shaft power.  The users also supplies a turbine map.  The\n"
-        self.desc += "map provides weight flow and efficiency as a function of pressure ratio\n"
-        self.desc += "and corrected speed.  In sizind mode, the map is anchored to the user\n"
+
+        self.desc = (
+            "Turbine - This element is a conventional map based adiabatic turbine.\n"
+        )
+        self.desc += (
+            "The user inputs a design point efficiency.  At the sizing point, there\n"
+        )
+        self.desc += (
+            "is a solver independent created that varies the turbine pressure ratio\n"
+        )
+        self.desc += (
+            "to match the shaft power.  The users also supplies a turbine map.  The\n"
+        )
+        self.desc += (
+            "map provides weight flow and efficiency as a function of pressure ratio\n"
+        )
+        self.desc += (
+            "and corrected speed.  In sizind mode, the map is anchored to the user\n"
+        )
         self.desc += "supplied conditions.  In non-sizing mode, the turbine pressure map pressure\n"
         self.desc += "is varied to match the power and weight flow that the turbine can take in\n"
         self.desc += "according the the map.  There is a solver dependent that determins the error\n"
@@ -30,7 +40,6 @@ class Turbine(Element):
         self.desc += "The turbine has two bleed port that will take cooling flow in, FNiBld1 (which\n"
         self.desc += "is added before the flow is expanded through the turbine) and FNiBld2 (which\n"
         self.desc += "is added after the turbine expansion.\n"
-       
 
         # tables
         self.effTable = Table2d(
@@ -47,8 +56,12 @@ class Turbine(Element):
         self.FN41 = FN(self, desc="Station 41 after bleed 1", isPort=False)
         self.FN42 = FN(self, desc="Station 42 before bleed 2", isPort=False)
         self.FNi = FN(self, io="in", desc="Primary input flow")
-        self.FNiBld1 = FN(self, io="in", desc="First bleed flow (before turbine)", isPort=False)
-        self.FNiBld2 = FN(self, io="in", desc="Second bleed flow (after turbine)", isPort=False)
+        self.FNiBld1 = FN(
+            self, io="in", desc="First bleed flow (before turbine)", isPort=False
+        )
+        self.FNiBld2 = FN(
+            self, io="in", desc="Second bleed flow (after turbine)", isPort=False
+        )
         self.FNideal = FN(self, desc="Ideal flow conditions", isPort=False)
         self.FNo = FN(self, io="out", desc="Primary outlet floe")
 
