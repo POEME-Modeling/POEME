@@ -1,14 +1,14 @@
 # ------------------------------------------------------
-#       Air Conditioner 
+#       Air Conditioner
 # run the model by giving the command:
 #
 # python ac.py
 #
-# the ouptut file is 
+# the ouptut file is
 #
 # pretty.out
 # pop.out (detailed point data)
-# there will be an error message about not linked 
+# there will be an error message about not linked
 # compressor port
 # ------------------------------------------------------
 from poeme import Independent, ModelSession, Newton
@@ -17,9 +17,8 @@ from poeme.core.print import print_pretty, print_stdout
 
 # load in the required POEME objects
 with ModelSession() as session:
-    
     # create the components and set their values and link them up
-    
+
     # element to close the flow loop
     FSE = FlowStartEnd2D("FSE")
     FSE.Pt = 43.5
@@ -27,7 +26,7 @@ with ModelSession() as session:
     FSE.comp = "CPR134"
     # expect two phase flow
     FSE.FNo.twoPhase = True
-    # determine an initial guess on ht 
+    # determine an initial guess on ht
     # need to use ht instead of T since flow is two phase
     FSE.FNo.comp = "CPR134"
     FSE.FNo.set_tp(506.0, 43.5)
@@ -45,11 +44,7 @@ with ModelSession() as session:
     # compressor map inp
     Comp.effTable.x = [0.8, 0.95, 1.1]
     Comp.effTable.y = [1.0, 2.0, 3.0]
-    Comp.effTable.data = [
-    [0.90, 0.93, 0.90], 
-    [0.92, 0.95, 0.92], 
-    [0.89, 0.92, 0.88]
-    ]
+    Comp.effTable.data = [[0.90, 0.93, 0.90], [0.92, 0.95, 0.92], [0.89, 0.92, 0.88]]
     Comp.PRtable.x = [0.8, 0.95, 1.1]
     Comp.PRtable.y = [1.0, 2.0, 3.0]
     Comp.PRtable.data = [
@@ -112,7 +107,7 @@ with ModelSession() as session:
     # create output files
     output_file = open("pop.out", "w")
     pretty_file = open("pretty.out", "w")
-    # create solver 
+    # create solver
     solver = Newton("solver", output_file)
 
 # perform auto-configuration

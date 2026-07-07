@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from .element import Element
 from .string_t import StringT
 
@@ -85,7 +83,7 @@ class Output(Element):
         temp = ""
         self.out = open(self.filename.v, "a")
         if self.row == 0:
-            #Path(self.filename.v).unlink(missing_ok=True)
+            # Path(self.filename.v).unlink(missing_ok=True)
             self.out = open(self.filename.v, "w")
             for e in self.vars:
                 if hasattr(e, "parent"):
