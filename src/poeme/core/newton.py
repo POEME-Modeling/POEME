@@ -144,6 +144,7 @@ class Newton(Element):
         self.debug = BooleanT(
             self, v=False, desc="Determine is solver debug information is printed"
         )
+        self.transView = 0;
 
         # gui location
         self.x = 0
@@ -737,6 +738,7 @@ class Newton(Element):
             self.time.v = self.time.v + self.dtime.v
             # solve time step
             self.solve()
+            #if self.transView != 0:
             print_stdout(self.output_file, self.session)
 
             # step the elements and states

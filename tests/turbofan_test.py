@@ -1,12 +1,25 @@
 # ------------------------------------------------------
 #        SIMPLE TURBOFAN CYCLE PERFORMANCE MODEL
+# run the model by giving the command:
+#
+# python turbofan_test.py
+#
+# the ouptut file is 
+#
+# turbofan.out
+#
 # ------------------------------------------------------
 import time
 
 # Get the custom modules
+# this is an exmaple of including your own elements
+# look in the directory tomstuff to see these components
+# this components are simplified to show thebare minum 
+# required to create a element
 from tomstuff.compressortom import CompressorTom
 from tomstuff.ducttom import DuctTom
 
+#load in the required POEME objects
 from poeme import (
     Constraint,
     Dependent,
@@ -31,8 +44,10 @@ from poeme.brayton import (
 )
 from poeme.core.print import print_pretty
 
+#start time for timing check
 start_time = time.time()
 
+#create a session for the model
 session = ModelSession()
 
 
@@ -103,13 +118,12 @@ LPT.FNiBld1.link_fn(HPC.FNoBld2)
 
 # ------------------------------------------------------------------------
 # set component variable values to match N+3 reference cycle at SLS
+# Mach numbers that are only used for sizing are commented out
+# they have no effect on the cycle convergence
 # ------------------------------------------------------------------------
 start.alt = 35000.0
 start.MN = 0.80
 start.W = 813.51
-
-# use cantera for fluid properties
-start.comp = "CanteraFN"
 
 # use tables for fluid properties
 start.comp = "Newtherm"
@@ -458,33 +472,55 @@ estuff.vars = [start.alt, start.MN, start.W, perf.Fn, perf.Wfuel]
 # --------------------------------------
 # run the DESIGN case
 # -------------------------------------
+# check the model
+# this also will case the model to load in
+# the default solver independents that are 
+# needed for the sizing mode
 session.check()
+
+# create a Newton solver for this model
 with session:
     solver = Newton("solver")
 session.solver = solver
 
+# list the current balances to the screen
 solver.listBalances()
 
+# activate this line if you want to turn the solver
+# debug on
 # solver.debug = True
 
+# tell model to solve itsellf
 solver.solve()
 
+# open a file for the output
 output_file = open("turbofan.out", "w")
+
+# print the standard output for the model
 print_pretty(output_file, session)
 
 _case_counter = {"count": 0}
 
 
+# create a function to run a throtte hook
 def run_throttle_hook(mnset, altitude):
 
     _case_counter["count"] += 1
+    # full power run to a corrrected fan speed of 1.0
     fan.NcDem = 1.0
+    # set the conditions
     start.MN = mnset
     start.alt = altitude
-    solver.save_independents()
-    # burner.WFset = True
+    
+    # run the model at full power
     solver.run()
+    
+    # save the solver values to reload later
+    solver.save_independents()
+    
+    # print the output
     print_pretty(output_file, session)
+    
     print(
         start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged
     )
@@ -494,21 +530,28 @@ def run_throttle_hook(mnset, altitude):
     _case_counter["count"] += 1
     solver.save_independents()
     factor = 1.0
-    start.Fdem = start.Fnet * factor
-
+    
+    #start.Fdem = start.Fnet * factor
     fan.dep_NmechC.active = False
     burner.con_1.on = False
     burner.con_1.active = False
-
     burner.ind_FAR.active = False
     # session.check()
 
+    # loop through the part power cases as long as thrust is greater
+    # that 20% thrust, the solver is converged and the primary
+    # nozzle is producing positive thrust
     while factor > 0.2 and solver.converged == True and pri_nozzle.Fg > 0.0:
-        start.Fdem = perf.FnetMax * factor
+
+        # step the burner FAR down
         burner.FAR = burner.FAR - 0.0025
+        # run the model
         solver.run()
+        # print the otuput to a file
         print_pretty(output_file, session)
+        # determine the thrust fractio
         factor = (perf.Fn) / perf.FnetMax
+        # print info to the screen
         print(
             start.MN,
             start.alt,
@@ -520,22 +563,31 @@ def run_throttle_hook(mnset, altitude):
         )
         _case_counter["count"] += 1
 
+    # return the solver to full power for the point so 
+    # the starting point is good for the next full power
+    # call
+    
+    # drive the fan to 100% speed
     fan.dep_NmechC.active = True
+    # turn the burner temperature constraint on
+    # if it looks like it will be violated the solver
+    # run to the burner max temperature instead of getting 
+    # 100% fan speed
     burner.con_1.on = True
     burner.ind_FAR.active = True
     # session.check()
     fan.NcDem = 1.0
+    # reload the full power converged independent values
     solver.restore_independents()
     solver.run()
     _case_counter["count"] += 1
-
-
-print_pretty(output_file, session)
 
 # this is setting the code from DESIGN (sizing) mode to OFF-DESIGN mode
 session.set("size", False)
 
 
+# create and independent to vary the fan nozzle area 
+# this will be used to prevent the fan from stalling
 fan_nozzle.ind_Area = Independent(
     fan_nozzle,
     indname="Anoz",
@@ -544,25 +596,41 @@ fan_nozzle.ind_Area = Independent(
     perturb_type="Relative",
     active=True,
 )
+
+#------------------------------------------
+# set the model up for off design mode
+#------------------------------------------
+
+# create an Rline demand variable for the engine balance too
 fan.RlineSet = RealT(fan, v=2.0)
+
+# create a dependent that will match the current Rline to the demand
+# value
 fan.dep_Rline = Dependent(fan, d2name="RlineSet", d1name="Rline", active=True)
 
+# configure the model including adding the appropiate auto-balances
 session.check()
+# display for the user
 solver.listBalances()
+# run the model with at the same point as the sizing case
+# the model should not move
 solver.run()
-
-
+# print the output
 print_pretty(output_file, session)
-# g.ScottPrint.print()
 
+# create a new fan variable which is the speed the fans is driving too
 fan.NcDem = RealT(fan)
 fan.NcDem = 1.0
+
+# create a new burner variable for the burner max temperatuyre
 burner.Tmax = RealT(burner)
 burner.Tmax = 3600.0
-start.Fdem = RealT(start)
 
-start.Fnet = RealT(start)
+#start.Fdem = RealT(start)
+#start.Fnet = RealT(start)
 
+# create an independent that allows the solver to vary burner
+# FAR
 burner.ind_FAR = Independent(
     burner,
     indname="FAR",
@@ -571,19 +639,27 @@ burner.ind_FAR = Independent(
     active=True,
     desc="Varies FAR",
 )
+
+# Create a dependent that matchest the current fan map corrected
+# speed to the desired fan map speed
 fan.dep_NmechC = Dependent(
     fan, d1name="NcMap", d2name="NcDem", active=True, desc="Handles weight flow error"
 )
+
+# create a constrating that sets a max temperature at Tmax
+# if the the burner exceeds this value, the the depedent that 
+# makes the solver drive the corrected speed to 1.0 is dropped
+# and replaced with a dependent that drive the burner to max
+# temperature
 burner.con_1 = Constraint(
     burner, d1name="burner.Tmax", d2name="FNo.Tt", depname="fan.dep_NmechC", on=True
 )
 
 
-print(burner.FNo.Tt.desc)
-
 session.check()
 
-
+# run the flight envelope by performing different 
+# throttle hooks
 run_throttle_hook(0.90, 45000.0)
 run_throttle_hook(0.85, 45000.0)
 run_throttle_hook(0.80, 45000.0)
