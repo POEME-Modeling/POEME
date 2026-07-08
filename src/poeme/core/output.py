@@ -45,6 +45,7 @@ class Output(Element):
         self.__dict__.update(kwargs)
         self.row = 0
         self.initial_list()
+        self.active = True
 
     def isa(self, type):
         """Check if this element is an Output.

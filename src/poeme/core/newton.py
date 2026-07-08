@@ -738,8 +738,13 @@ class Newton(Element):
             self.time.v = self.time.v + self.dtime.v
             # solve time step
             self.solve()
+            for e in self.session.elements:
+                if e.isa("Output"):
+                    if e.active == True:
+                        e.dump(e.filename)
+                        
             # if self.transView != 0:
-            print_stdout(self.output_file, self.session)
+            #print_stdout(self.output_file, self.session)
 
             # step the elements and states
             for st in self.session.states:

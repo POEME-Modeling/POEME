@@ -60,7 +60,11 @@ with ModelSession() as session:
     C1.RlineDes = 2.0
     C1.effTable.x = [0.8, 1.0, 1.2]
     C1.effTable.y = [1.0, 2.0, 3.0]
-    C1.effTable.data = [[0.90, 0.93, 0.90], [0.92, 0.95, 0.92], [0.89, 0.92, 0.88]]
+    C1.effTable.data = [
+        [0.90, 0.93, 0.90], 
+        [0.92, 0.95, 0.92], 
+        [0.89, 0.92, 0.88]
+    ]
     C1.PRtable.x = [0.8, 1.0, 1.2]
     C1.PRtable.y = [1.0, 2.0, 3.0]
     C1.PRtable.data = [
@@ -89,10 +93,18 @@ with ModelSession() as session:
     T1.FNiBld2.link_fn(C1.FNoBld1)
     T1.effTable.x = [0.8, 0.9, 1.1]
     T1.effTable.y = [2.0, 3.0, 6.0]
-    T1.effTable.data = [[0.90, 0.91, 0.87], [0.92, 0.95, 0.90], [0.89, 0.92, 0.88]]
+    T1.effTable.data = [
+        [0.90, 0.91, 0.87], 
+        [0.92, 0.95, 0.90], 
+        [0.89, 0.92, 0.88]
+    ]
     T1.WcTable.x = [0.8, 0.9, 1.1]
     T1.WcTable.y = [1.0, 3.0, 6.0]
-    T1.WcTable.data = [[21.6, 21.6, 21.6], [19.4, 19.4, 19.4], [17.3, 17.3, 17.3]]
+    T1.WcTable.data = [
+        [21.6, 21.6, 21.6], 
+        [19.4, 19.4, 19.4], 
+        [17.3, 17.3, 17.3]
+    ]
     T1.NcMapDes = 0.9
     T1.PRmapDes = 3.0
     T1.PR = 3.5
