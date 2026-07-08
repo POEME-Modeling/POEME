@@ -7,7 +7,6 @@ from scipy import linalg
 
 from .boolean_t import BooleanT
 from .element import Element
-from .print import print_stdout
 from .real_t import RealT
 from .session import ModelSession, _active_session
 
@@ -742,9 +741,9 @@ class Newton(Element):
                 if e.isa("Output"):
                     if e.active == True:
                         e.dump(e.filename)
-                        
+
             # if self.transView != 0:
-            #print_stdout(self.output_file, self.session)
+            # print_stdout(self.output_file, self.session)
 
             # step the elements and states
             for st in self.session.states:
