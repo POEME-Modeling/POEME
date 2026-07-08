@@ -41,7 +41,7 @@ with ModelSession() as session:
     # and cantera
     # the thermo properties are function of FAR
     # the the interface can be seen in the file
-    # canter_fn.py in the brayton subdirectory   
+    # canter_fn.py in the brayton subdirectory
     FS.comp = "CanteraFN"
 
     D1 = Duct("D1")
