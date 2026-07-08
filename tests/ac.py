@@ -24,6 +24,9 @@ with ModelSession() as session:
     FSE = FlowStartEnd2D("FSE")
     FSE.Pt = 43.5
     # set the thermo to use coolprop running CPR134
+    # CPR134 is an interface the accesses cool property
+    # running R134 gas properties
+    # see the file cpr134.py in the brayton directory
     FSE.comp = "CPR134"
     # expect two phase flow
     FSE.FNo.twoPhase = True

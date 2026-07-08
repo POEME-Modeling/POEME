@@ -126,6 +126,8 @@ start.MN = 0.80
 start.W = 813.51
 
 # use tables for fluid properties
+# the thermo is tabular function of thermo properties as a function of FAR
+# (see the Brayton directory)
 start.comp = "Newtherm"
 
 inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance

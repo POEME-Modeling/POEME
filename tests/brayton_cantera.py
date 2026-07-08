@@ -38,6 +38,11 @@ with ModelSession() as session:
     FS.W = 1000.0
     
     # start the model off with CanteraFN
+    # this package is an interface between poeme
+    # and cantera
+    # the thermo properties are function of FAR
+    # the the interface can be seen in the file
+    # canter_fn.py in the brayton subdirectory   
     FS.comp = "CanteraFN"
 
     D1 = Duct("D1")

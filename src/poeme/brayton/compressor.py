@@ -279,7 +279,7 @@ class Compressor(Element):
                - (ht_bld1 - ht_in) * W_bld1 * 3600/2545
                - (ht_bld2 - ht_in) * W_bld2 * 3600/2545
         """
-
+       
         # copy incoming flow to other ports to set their initial composition and state
         self.FNo.copy(self.FNi)
         self.FNideal.copy(self.FNi)
