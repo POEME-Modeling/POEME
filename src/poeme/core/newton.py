@@ -738,9 +738,8 @@ class Newton(Element):
             # solve time step
             self.solve()
             for e in self.session.elements:
-                if e.isa("Output"):
-                    if e.active == True:
-                        e.dump(e.filename)
+                if e.isa("Output") and e.active == True:
+                    e.dump(e.filename)
 
             # if self.transView != 0:
             # print_stdout(self.output_file, self.session)
