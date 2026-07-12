@@ -8,12 +8,13 @@
 POEME documentation
 ===================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+API documentation is available by clicking the links in the sidebar. Please note that everything in API core is also exposed in the top-level API.
 
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
+   :glob:
+   :maxdepth: 4
    :caption: Contents:
 
+   api/poeme

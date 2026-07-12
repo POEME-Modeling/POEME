@@ -35,8 +35,7 @@ autodoc_typehints = "signature"
 napoleon_use_ivar = True
 
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
-
+exclude_patterns = ["api/modules.rst", "_build", "Thumbs.db", ".DS_Store"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -49,5 +48,16 @@ html_css_files = ["overrides.css"]
 # Auto-run apidoc before every build
 api_dir = os.path.join(os.path.dirname(__file__), "api")
 src_dir = os.path.join(os.path.dirname(__file__), "../src/poeme")
-sys.argv = ["sphinx-apidoc", "-f", "-e", "-o", api_dir, src_dir]
+sys.argv = [
+    "sphinx-apidoc",
+    "-f",
+    "-M",
+    "-e",
+    "-t=_templates",
+    "-E",
+    "--remove-old",
+    "-o",
+    api_dir,
+    src_dir,
+]
 sphinx_apidoc.main()
