@@ -127,50 +127,50 @@ with ModelSession() as session:
     solver.solve()
 
     # create an output file for the sizing point
-    output_file = open("pop.out", "w")
-    print_stdout(output_file, session)
+    with open("pop.out", "w") as output_file:
+        print_stdout(output_file, session)
 
-    # set to offdesign mode
-    session.set("size", False)
+        # set to offdesign mode
+        session.set("size", False)
 
-    # reconfigure the system
-    session.check()
-    # solve at the sizing point in off-design mode
-    solver.solve()
+        # reconfigure the system
+        session.check()
+        # solve at the sizing point in off-design mode
+        solver.solve()
 
-    # print the output
-    print_stdout(output_file, session)
+        # print the output
+        print_stdout(output_file, session)
 
-    # increase the FAR incrementally and run some additional points
-    B1.FAR = 0.025
-    solver.solve()
-    print_stdout(output_file, session)
+        # increase the FAR incrementally and run some additional points
+        B1.FAR = 0.025
+        solver.solve()
+        print_stdout(output_file, session)
 
-    B1.FAR = 0.026
-    solver.solve()
-    print_stdout(output_file, session)
+        B1.FAR = 0.026
+        solver.solve()
+        print_stdout(output_file, session)
 
-    B1.FAR = 0.027
-    solver.run()
-    print_stdout(output_file, session)
+        B1.FAR = 0.027
+        solver.run()
+        print_stdout(output_file, session)
 
-    B1.FAR = 0.028
-    print_stdout(output_file, session)
-    solver.run()
+        B1.FAR = 0.028
+        print_stdout(output_file, session)
+        solver.run()
 
-    B1.FAR = 0.030
-    print_stdout(output_file, session)
-    solver.run()
+        B1.FAR = 0.030
+        print_stdout(output_file, session)
+        solver.run()
 
-    # walk the model back down
-    B1.FAR = 0.028
-    solver.run()
+        # walk the model back down
+        B1.FAR = 0.028
+        solver.run()
 
-    B1.FAR = 0.027
-    solver.run()
+        B1.FAR = 0.027
+        solver.run()
 
-    B1.FAR = 0.026
-    solver.run()
+        B1.FAR = 0.026
+        solver.run()
 
     # add a PIV controller
     PIV1 = PIV("PIV1")
