@@ -7,17 +7,48 @@ from poeme import (
     StringT,
 )
 
-from poeme.brayton import FN
+from .fn import FN
 
 
 class FlowStart(Element):
+    """Flow start element for Brayton cycle flow initialization.
+
+    Starts a fluid stream given user input values of Pt, Tt, and W.
+    If the static conditions are desired, the user can provide a Mach
+    number or flow area.
+
+    Parameters
+    ----------
+    name : str
+        Name of the flow start element.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    comp : StringT
+        Composition of the stream.
+    Pt : RealT
+        Total pressure (lbm/in²).
+    Tt : RealT
+        Total temperature (R).
+    W : RealT
+        Mass flow (lbm/sec).
+    size : BooleanT
+        Determines if the element is in design mode or not.
+    FNo : FN
+        Outgoing flow port.
+    ind_1 : Independent
+        Independent variable for mass flow variation.
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "FlowStart", session=session)
         self.type = "FlowStart"
 
-        self.desc  = "FlowStart - this element starts a fluid stream given\n"
-        self.desc += "user input values of Pt, Tt, and W. If the static conditions\n"
-        self.desc += "are desired, the user can provide a Mach number of flow area.\n"
+        self.desc = "FlowStart - this element starts a fluid stream given user input "
+        "values of Pt, Tt, and W. If the static conditions are desired, the user can "
+        "provide a Mach number of flow area."
 
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")
@@ -44,6 +75,11 @@ class FlowStart(Element):
         )
 
     def calc(self):
+        """Set flow start exit conditions from user inputs.
+
+        Copies composition to the outgoing flow and sets total temperature,
+        total pressure, and mass flow on the exit node.
+        """
 
         # set the flow conditions
         self.FNo.comp = self.comp
@@ -51,6 +87,12 @@ class FlowStart(Element):
         self.FNo.set_w(self.W)
 
     def precheck(self):
+        """Activate or deactivate mass flow independent based on sizing mode.
+
+        In sizing mode, the W independent is deactivated because the
+        mass flow is fixed by user input. In fixed mode, it is activated
+        so the solver can adjust the mass flow.
+        """
 
         # design point turn off solver stuff
         if self.size == True:
@@ -60,11 +102,25 @@ class FlowStart(Element):
             self.ind_1.active = True
 
     def dump(self, output_file):
+        """Dump flow start state to an output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File object to write the flow start state to.
+        """
         # dump output variables
         output_file.write(f"{self.name1} FlowStart\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Print a formatted summary of the flow start state.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File object to write the pretty-printed output to.
+        """
         output_file.write(
             f"Start {self.name1[:10]:15s} W:{str(self.W)[:4]:10s} "
             f"Tt:{str(self.W)[:4]:10s}  Pt:{str(self.Pt)[:4]:10s}\n"

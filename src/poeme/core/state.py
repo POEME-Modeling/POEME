@@ -4,6 +4,64 @@ from .string_t import StringT
 
 
 class State:
+    """State element for POEME solver.
+
+    A state variable that tracks integration of a dependent quantity.
+    Supports both steady-state (error-based) and transient (time-stepping)
+    modes. Resolves string-based variable references across elements.
+
+    Parameters
+    ----------
+    p : Element
+        Parent element that owns this state.
+    **kwargs : dict
+        Additional keyword arguments for d1name, d2name, dsname, sname,
+        val_scale, active, and other attributes.
+
+    Attributes
+    ----------
+    session : ModelSession
+        Model session this state belongs to.
+    d1name : StringT
+        Name of the first dependent variable.
+    d2name : StringT
+        Name of the second dependent variable.
+    dsname : StringT
+        Name of the derivative state variable.
+    sname : StringT
+        Name of the state variable.
+    err : RealT
+        Current value of error term.
+    errLast : RealT
+        Previous value of error term.
+    stateL : RealT
+        Previous value of state value.
+    val_scale : RealT
+        Scalar for normalization.
+    dsL : RealT
+        Previous derivative value.
+    solve_state : str
+        Current solve state string.
+    trans : BooleanT
+        True for transient mode, False for steady-state.
+    parent : Element
+        Parent element containing this state.
+    type : str
+        Type identifier ("State").
+    name1 : str
+        Name of this state.
+    VIDL : list
+        List of variable IDs associated with this state.
+    d1 : RealT
+        Resolved first dependent variable.
+    d2 : RealT
+        Resolved second dependent variable.
+    self : RealT
+        Resolved state variable.
+    ds : RealT
+        Resolved derivative state variable.
+    """
+
     val_1 = 0
     val_2 = 0
     active = True
@@ -17,15 +75,15 @@ class State:
         self.val_scale = 0.0
         self.__dict__.update(kwargs)
 
-        self.desc  = "The state object is and extension of the dependent object.  In"
-        self.desc += "steady state mode it defines the conditions that need to be\n"
-        self.desc += "met for the model to be considered valid.  It described by two\n"
-        self.desc += "references to variables that have to be equal for the solution to\n"
-        self.desc += "be valid.  And example would be the flow leaving a nozzle element\n"
-        self.desc += "where the flow going out of the nozzle must equal the flow coming in.\n\n"
-        self.desc += "In transient mode it will define a variable that is to be integrated\n"
-        self.desc += "as well as the calculated value of the deriavative.  And example would\n"
-        self.desc += "be integrating the shaft speed per the shaft speed derivative calculated.\n\n"
+        self.desc = "The state object is and extension of the dependent object. In "
+        "steady state mode it defines the conditions that need to be met for the model "
+        "to be considered valid. It described by two references to variables that have "
+        "to be equal for the solution to be valid. And example would be the flow "
+        "leaving a nozzle element where the flow going out of the nozzle must equal "
+        "the flow coming in.\nIn transient mode it will define a variable that is to "
+        "be integrated as well as the calculated value of the deriavative. And example "
+        "would be integrating the shaft speed per the shaft speed derivative "
+        "calculated."
 
         # Variables
         self.d1name = StringT(self, v=self.d1name, desc="")
@@ -56,6 +114,15 @@ class State:
         self.session.states.append(self)
 
     def __setattr__(self, name, value):
+        """Set an attribute and propagate name1 to ValueT objects.
+
+        Parameters
+        ----------
+        name : str
+            The attribute name to set.
+        value : any
+            The value to assign.
+        """
         super().__setattr__(name, value)
         if hasattr(getattr(self, name, None), "name1"):
             temp = getattr(self, name)
@@ -63,12 +130,43 @@ class State:
                 temp.name1 = name
 
     def isa(self, type):
+        """Check if this object is a State.
+
+        Parameters
+        ----------
+        type : str
+            The type string to check against.
+
+        Returns
+        -------
+        bool
+            True if the type matches "State".
+        """
         return type == "State"
 
     def add_vid(self, v):
+        """Add a variable ID to this state's variable list.
+
+        Parameters
+        ----------
+        v : object
+            The variable ID to add.
+        """
         self.VIDL.append(v)
 
     def dep_error(self):
+        """Calculate the error for this state.
+
+        In steady-state mode, computes the normalized error between
+        d1 and d2. In transient mode, computes the error between the
+        current state value and the integrated value from the previous
+        time step.
+
+        Returns
+        -------
+        float
+            The normalized error value.
+        """
 
         # if we are in steady state mode, just return dep error
         if self.trans.v == False:
@@ -106,17 +204,34 @@ class State:
             ) / denom
 
     def trim(self):
+        """Trim state for transient initialization.
+
+        Sets the last state and derivative values to current values
+        to prepare for transient simulation start.
+        """
         # trim it up by setting last value to current value to start transient
         # done to start transient
         self.stateL.v = self.self.v
         self.dsL.v = 0.0
 
     def step(self):
+        """Step the state by one time increment.
+
+        Updates the last state and derivative values to current values
+        for the next time step.
+        """
         # step in time by making current value last value
         self.stateL.v = self.self.v
         self.dsL.v = self.ds.v
 
     def precheck(self):
+        """Resolve string-based variable references to actual variables.
+
+        Looks through the parent's variable IDs to find and resolve the
+        d1, d2, sname, and dsname dependent variable references by name.
+        Handles both local variables and cross-element references using
+        dot notation.
+        """
 
         # the dependent d1 value might not be in this element
         # if that is the case, look through all of the elements

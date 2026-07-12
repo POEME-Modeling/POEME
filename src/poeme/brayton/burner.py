@@ -1,9 +1,48 @@
 from poeme import BooleanT, Element, ModelSession, RealT
 
-from poeme.brayton import FN
+from .fn import FN
 
 
 class Burner(Element):
+    """Burner element for Brayton cycle combustion calculations.
+
+    A conventional burner that adds fuel to an incoming flow and performs
+    a combustion calculation. The user can either input the desired fuel-to-air
+    ratio (FAR) or the desired fuel flow rate. A switch (WFset) determines which
+    mode is active. If running with an equilibrium thermo package like Cantera,
+    the input LHV represents the energy of the fuel including the heat of formation;
+    in that case hydrocarbon fuel would have a negative LHV value similar to what
+    is seen with CEA, and the input efficiency must be 1.0.
+
+    Parameters
+    ----------
+    name : str
+        Name of the burner element.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    dP : RealT
+        Pressure loss (fractional).
+    eff : RealT
+        Burner efficiency.
+    FAR : RealT
+        Fuel-to-air ratio.
+    LHV : RealT
+        Fuel enthalpy (BTU/lbm).
+    WFset : BooleanT
+        If True the user is setting fuel flow.
+    Tout : RealT
+        Exit temperature (R).
+    Wfuel : RealT
+        Fuel flow (lbm/s).
+    FNi : FN
+        Incoming flow port.
+    FNo : FN
+        Outgoing flow port.
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Burner", session=session)
         self.type = "Burner"
@@ -24,23 +63,40 @@ class Burner(Element):
         )
         self.Tout = RealT(self, units="R", desc="Exit temperature")
         self.Wfuel = RealT(self, units="lbm/s", desc="Fuel flow")
-        
-        #element description
-        self.desc = "Burner - This is a conventional buner.  It takes a flow and performs a\n"
-        self.desc +="a combustion calculation.  The user can either input desired fuel to air\n"
-        self.desc +="ratio or the desired fuel flow.  WFset is a true or false switch.  It is\n"
-        self.desc +="set the true then the element runs to the input fuel flow.  It is set to\n"
-        self.desc +="then it runs to the user input FAR.\n\n"
-        self.desc +="If the user is running an equilbrium thermo package like cantera then the\n"
-        self.desc +="input LHV actual represents the energy of the fuel including the heat of\n"
-        self.desc +="formation.  In this case hydrocaron fuel would have a negative LHV value\n"
-        self.desc +="simliar to what is seen with CEA.  In this case the input efficiecny must\n"
-        self.desc +="be 1.0.\n\n"
-        
+
+        # element description
+        self.desc = "Burner - This is a conventional buner. It takes a flow and "
+        "performs a combustion calculation. The user can either input desired fuel to "
+        "air ratio or the desired fuel flow. WFset is a true or false switch. It is "
+        "set the true then the element runs to the input fuel flow. It is set to then "
+        "it runs to the user input FAR.\nIf the user is running an equilbrium thermo "
+        "package like cantera then the input LHV actual represents the energy of the "
+        "fuel including the heat of formation. In this case hydrocaron fuel would have "
+        "a negative LHV value simliar to what is seen with CEA. In this case the input "
+        "efficiecny must be 1.0."
 
         self.initial_list()
 
     def calc(self):
+        """Calculate burner exit conditions and fuel-to-air ratio.
+
+        Passes incoming flow information to the exit, determines whether
+        to run to input fuel flow or FAR based on WFset, computes the exit
+        enthalpy and pressure, and sets the exit state.
+
+        The fuel flow is computed as::
+
+            Wfuel = W * FAR   (if WFset is False)
+            FAR = Wfuel / W   (if WFset is True)
+
+        The exit enthalpy is computed as::
+
+            htout = (ht_in * W_in + Wfuel * LHV) / W_out
+
+        and the exit state is set with::
+
+            FNo.set_hp(htout, Pt_in * (1 - dP))
+        """
 
         # pass incoming flow information along
         self.FNo.copy(self.FNi)
@@ -58,10 +114,24 @@ class Burner(Element):
         self.FNo.set_hp(htout, self.FNo.Pt * (1 - self.dP))
 
     def dump(self, output_file):
+        """Dump burner state to an output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File object to write the burner state to.
+        """
         output_file.write(f"{self.name1} Burner\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Print a formatted summary of the burner state.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File object to write the pretty-printed output to.
+        """
         output_file.write(
             f"{'Burner'[:10]:12s}{self.name1[:10]:12s}"
             f"{('FAR:' + str(self.FAR))[:10]:12s}"

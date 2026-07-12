@@ -6,6 +6,37 @@ from .ep import EP
 
 
 class Capacitor(Element):
+    """Capacitor element for electrical systems.
+
+    A linear capacitor that relates voltage and current via capacitive reactance.
+    The capacitor has two electrical ports (input EPi and output EPo) and computes its
+    voltage drop, impedance, and current based on the port conditions.
+
+    Parameters
+    ----------
+    name : str
+        Name of the capacitor element.
+    session : ModelSession | None
+        Model session to associate with this element.
+
+    Attributes
+    ----------
+    C : RealT
+        Capacitance (farad).
+    dV : ComplexT
+        Voltage drop across the capacitor (volts).
+    I : ComplexT
+        Current through the capacitor (amps).
+    Z : ComplexT
+        Impedance of the capacitor (ohms).
+    CVc : Table2d
+        Capacitance versus voltage lookup table.
+    EPi : EP
+        Inlet electrical port.
+    EPo : EP
+        Exit electrical port.
+    """
+
     def __init__(self, name, session: ModelSession | None = None):
         super().__init__(name, "Capacitor", session=session)
         self.type = "Capacitor"
@@ -29,6 +60,13 @@ class Capacitor(Element):
         self.initial_list()
 
     def calc(self):
+        """Calculate capacitor impedance and current.
+
+        Computes the voltage drop from port voltages, reads capacitance
+        from a lookup table if available, then applies capacitive reactance:
+        Z = -j / (2 * pi * f * C). Current is computed via Ohm's law:
+        I = dV / Z. Sets the current on both ports.
+        """
 
         # calculate pressure drop
         self.dV = self.EPi.V - self.EPo.V
@@ -49,10 +87,24 @@ class Capacitor(Element):
         self.EPo.set_iv(self.I, self.EPo.V)
 
     def dump(self, output_file):
+        """Write capacitor state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(f"{self.name1} Capacitor\n")
         super().real_print(output_file)
 
     def pretty(self, output_file):
+        """Write a formatted table row of capacitor state to a text output file.
+
+        Parameters
+        ----------
+        output_file : file-like
+            File-like object to write to.
+        """
         output_file.write(
             f"{'Capacitor'[:10]:12s}{self.name1[:10]:12s}"
             f"{('self:' + str(self.C))[:10]:12s}"
