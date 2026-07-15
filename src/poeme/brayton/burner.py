@@ -111,7 +111,9 @@ class Burner(Element):
         # `set the exit conditions
         self.FNo.set_w(self.FNi.W + self.Wfuel)
         self.FNo.FAR = self.FAR
-        htout = (self.FNi.ht * self.FNi.W + self.Wfuel*self.LHV + self.Wfuel*self.hFuel) / self.FNo.W
+        htout = (
+            self.FNi.ht * self.FNi.W + self.Wfuel * self.LHV + self.Wfuel * self.hFuel
+        ) / self.FNo.W
         self.FNo.set_hp(htout, self.FNo.Pt * (1 - self.dP))
 
     def dump(self, output_file):
