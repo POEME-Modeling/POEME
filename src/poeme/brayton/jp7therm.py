@@ -5,7 +5,7 @@ import numpy as np
 from poeme import interp_3d
 
 
-class jp7therm:
+class JP7Therm:
     # Load data from file
     _data_file = os.path.join(os.path.dirname(__file__), "jp7therm_data.npz")
     _data = np.load(_data_file)
@@ -26,10 +26,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.gam_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.gam_TPt,
             p,
         )
 
@@ -39,10 +39,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.rho_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.rho_TPt,
             p,
         )
 
@@ -52,10 +52,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.Cp_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.Cp_TPt,
             p,
         )
 
@@ -65,10 +65,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.h_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.h_TPt,
             p,
         )
 
@@ -78,10 +78,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.s_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.s_TPt,
             p,
         )
 
@@ -91,10 +91,10 @@ class jp7therm:
             FAR,
             P,
             T,
-            jp7therm.FAR_TP,
-            jp7therm.P_TP,
-            jp7therm.T_TP,
-            jp7therm.r_TPt,
+            JP7Therm.FAR_TP,
+            JP7Therm.P_TP,
+            JP7Therm.T_TP,
+            JP7Therm.r_TPt,
             p,
         )
 
@@ -109,12 +109,12 @@ class jp7therm:
     @staticmethod
     def T_sP(s, P, FAR, p):
         T = 1500
-        scalc = jp7therm.s_TP(T, P, FAR, p)
+        scalc = JP7Therm.s_TP(T, P, FAR, p)
 
         errorm1 = (scalc - s) / s
         xm1 = T
         T = T * 0.95
-        scalc = jp7therm.s_TP(T, P, FAR, p)
+        scalc = JP7Therm.s_TP(T, P, FAR, p)
         error = (scalc - s) / s
         x = T
         count = 0
@@ -129,7 +129,7 @@ class jp7therm:
             errorm1 = error
             x = xp1
             T = x
-            scalc = jp7therm.s_TP(T, P, FAR, p)
+            scalc = JP7Therm.s_TP(T, P, FAR, p)
             error = (scalc - s) / s
 
         if count > 49:
@@ -143,11 +143,11 @@ class jp7therm:
     @staticmethod
     def T_hp(h, P, FAR, p):
         T = 1500
-        hcalc = jp7therm.h_TP(T, P, FAR, p)
+        hcalc = JP7Therm.h_TP(T, P, FAR, p)
         errorm1 = (hcalc - h) / h
         xm1 = T
         T = T * 0.95
-        hcalc = jp7therm.h_TP(T, P, FAR, p)
+        hcalc = JP7Therm.h_TP(T, P, FAR, p)
         error = (hcalc - h) / h
         x = T
         count = 0
@@ -162,7 +162,7 @@ class jp7therm:
             errorm1 = error
             x = xp1
             T = x
-            hcalc = jp7therm.h_TP(T, P, FAR, p)
+            hcalc = JP7Therm.h_TP(T, P, FAR, p)
             error = (hcalc - h) / h
         if count > 49:
             error = "T_hp did not converge"

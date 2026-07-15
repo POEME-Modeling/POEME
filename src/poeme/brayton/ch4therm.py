@@ -5,7 +5,7 @@ import numpy as np
 from poeme import interp_3d
 
 
-class ch4therm:
+class CH4Therm:
     # Load data from file
     _data_file = os.path.join(os.path.dirname(__file__), "ch4therm_data.npz")
     _data = np.load(_data_file)
@@ -26,10 +26,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.gam_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.gam_TPt,
             p,
         )
 
@@ -39,10 +39,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.rho_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.rho_TPt,
             p,
         )
 
@@ -52,10 +52,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.Cp_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.Cp_TPt,
             p,
         )
 
@@ -65,10 +65,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.h_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.h_TPt,
             p,
         )
 
@@ -78,10 +78,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.s_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.s_TPt,
             p,
         )
 
@@ -91,10 +91,10 @@ class ch4therm:
             FAR,
             P,
             T,
-            ch4therm.FAR_TP,
-            ch4therm.P_TP,
-            ch4therm.T_TP,
-            ch4therm.r_TPt,
+            CH4Therm.FAR_TP,
+            CH4Therm.P_TP,
+            CH4Therm.T_TP,
+            CH4Therm.r_TPt,
             p,
         )
 
@@ -109,12 +109,12 @@ class ch4therm:
     @staticmethod
     def T_sP(s, P, FAR, p):
         T = 1500
-        scalc = ch4therm.s_TP(T, P, FAR, p)
+        scalc = CH4Therm.s_TP(T, P, FAR, p)
 
         errorm1 = (scalc - s) / s
         xm1 = T
         T = T * 0.95
-        scalc = ch4therm.s_TP(T, P, FAR, p)
+        scalc = CH4Therm.s_TP(T, P, FAR, p)
         error = (scalc - s) / s
         x = T
         count = 0
@@ -129,7 +129,7 @@ class ch4therm:
             errorm1 = error
             x = xp1
             T = x
-            scalc = ch4therm.s_TP(T, P, FAR, p)
+            scalc = CH4Therm.s_TP(T, P, FAR, p)
             error = (scalc - s) / s
 
         if count > 49:
@@ -143,11 +143,11 @@ class ch4therm:
     @staticmethod
     def T_hp(h, P, FAR, p):
         T = 1500
-        hcalc = ch4therm.h_TP(T, P, FAR, p)
+        hcalc = CH4Therm.h_TP(T, P, FAR, p)
         errorm1 = (hcalc - h) / h
         xm1 = T
         T = T * 0.95
-        hcalc = ch4therm.h_TP(T, P, FAR, p)
+        hcalc = CH4Therm.h_TP(T, P, FAR, p)
         error = (hcalc - h) / h
         x = T
         count = 0
@@ -162,7 +162,7 @@ class ch4therm:
             errorm1 = error
             x = xp1
             T = x
-            hcalc = ch4therm.h_TP(T, P, FAR, p)
+            hcalc = CH4Therm.h_TP(T, P, FAR, p)
             error = (hcalc - h) / h
         if count > 49:
             error = "T_hp did not converge"

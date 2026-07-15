@@ -5,7 +5,7 @@ import numpy as np
 from poeme import interp_3d
 
 
-class h2therm:
+class H2Therm:
     # Load data from file
     _data_file = os.path.join(os.path.dirname(__file__), "h2therm_data.npz")
     _data = np.load(_data_file)
@@ -26,10 +26,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.gam_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.gam_TPt,
             p,
         )
 
@@ -39,10 +39,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.rho_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.rho_TPt,
             p,
         )
 
@@ -52,10 +52,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.Cp_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.Cp_TPt,
             p,
         )
 
@@ -65,10 +65,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.h_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.h_TPt,
             p,
         )
 
@@ -78,10 +78,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.s_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.s_TPt,
             p,
         )
 
@@ -91,10 +91,10 @@ class h2therm:
             FAR,
             P,
             T,
-            h2therm.FAR_TP,
-            h2therm.P_TP,
-            h2therm.T_TP,
-            h2therm.r_TPt,
+            H2Therm.FAR_TP,
+            H2Therm.P_TP,
+            H2Therm.T_TP,
+            H2Therm.r_TPt,
             p,
         )
 
@@ -109,12 +109,12 @@ class h2therm:
     @staticmethod
     def T_sP(s, P, FAR, p):
         T = 1500
-        scalc = h2therm.s_TP(T, P, FAR, p)
+        scalc = H2Therm.s_TP(T, P, FAR, p)
 
         errorm1 = (scalc - s) / s
         xm1 = T
         T = T * 0.95
-        scalc = h2therm.s_TP(T, P, FAR, p)
+        scalc = H2Therm.s_TP(T, P, FAR, p)
         error = (scalc - s) / s
         x = T
         count = 0
@@ -129,7 +129,7 @@ class h2therm:
             errorm1 = error
             x = xp1
             T = x
-            scalc = h2therm.s_TP(T, P, FAR, p)
+            scalc = H2Therm.s_TP(T, P, FAR, p)
             error = (scalc - s) / s
 
         if count > 49:
@@ -143,11 +143,11 @@ class h2therm:
     @staticmethod
     def T_hp(h, P, FAR, p):
         T = 1500
-        hcalc = h2therm.h_TP(T, P, FAR, p)
+        hcalc = H2Therm.h_TP(T, P, FAR, p)
         errorm1 = (hcalc - h) / h
         xm1 = T
         T = T * 0.95
-        hcalc = h2therm.h_TP(T, P, FAR, p)
+        hcalc = H2Therm.h_TP(T, P, FAR, p)
         error = (hcalc - h) / h
         x = T
         count = 0
@@ -162,7 +162,7 @@ class h2therm:
             errorm1 = error
             x = xp1
             T = x
-            hcalc = h2therm.h_TP(T, P, FAR, p)
+            hcalc = H2Therm.h_TP(T, P, FAR, p)
             error = (hcalc - h) / h
         if count > 49:
             error = "T_hp did not converge"

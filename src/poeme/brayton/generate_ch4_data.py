@@ -286,12 +286,12 @@ gasair = ct.Solution("air.yaml")
 # Compute all properties on the grid in a single pass
 # ---------------------------------------------------------------------------
 
-h_TPt = np.empty((FAR_n, P_n, T_n))
+h_TPt = np.empty((FAR_n, P_n, T_n))  # noqa: N816
 Cp_TPt = np.empty((FAR_n, P_n, T_n))
-gam_TPt = np.empty((FAR_n, P_n, T_n))
-rho_TPt = np.empty((FAR_n, P_n, T_n))
-r_TPt = np.empty((FAR_n, P_n, T_n))
-s_TPt = np.empty((FAR_n, P_n, T_n))
+gam_TPt = np.empty((FAR_n, P_n, T_n))  # noqa: N816
+rho_TPt = np.empty((FAR_n, P_n, T_n))  # noqa: N816
+r_TPt = np.empty((FAR_n, P_n, T_n))  # noqa: N816
+s_TPt = np.empty((FAR_n, P_n, T_n))  # noqa: N816
 
 for i, far in enumerate(FAR_grid):
     for j, p in enumerate(P_grid):
@@ -336,6 +336,15 @@ np.savez(
 
 print(f"Saved air2_data.npz to {output_path}")
 print(f"Grid shapes: T={T_grid.shape}, P={P_grid.shape}, FAR={FAR_grid.shape}")
-for name in ["h_TPt", "Cp_TPt", "gam_TPt", "rho_TPt", "r_TPt", "s_TPt"]:
-    arr = eval(name)
+
+props = {
+    "h_TPt": h_TPt,
+    "Cp_TPt": Cp_TPt,
+    "gam_TPt": gam_TPt,
+    "rho_TPt": rho_TPt,
+    "r_TPt": r_TPt,
+    "s_TPt": s_TPt,
+}
+
+for name, arr in props.items():
     print(f"  {name}: shape={arr.shape}, min={arr.min():.4e}, max={arr.max():.4e}")
