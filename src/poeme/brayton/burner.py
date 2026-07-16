@@ -57,7 +57,8 @@ class Burner(Element):
         self.dP = RealT(self, units="none", desc="Pressure loss (fractional)")
         self.eff = RealT(self, v=1.0, units="none", desc="Burner efficiency")
         self.FAR = RealT(self, units="none", desc="Fuel to air ratio")
-        self.LHV = RealT(self, units="BTU/lbm", desc="Fuel enthalpy")
+        self.LHV = RealT(self, units="BTU/lbm", desc="Fuel LHV")
+        self.hFuel = RealT(self, units="BTU/lbm", desc="Fuel enthalpy")
         self.WFset = BooleanT(
             self, v=False, desc="If true the user is setting fuel flow"
         )
@@ -110,7 +111,9 @@ class Burner(Element):
         # `set the exit conditions
         self.FNo.set_w(self.FNi.W + self.Wfuel)
         self.FNo.FAR = self.FAR
-        htout = (self.FNi.ht * self.FNi.W + self.Wfuel * self.LHV) / self.FNo.W
+        htout = (
+            self.FNi.ht * self.FNi.W + self.Wfuel * self.LHV + self.Wfuel * self.hFuel
+        ) / self.FNo.W
         self.FNo.set_hp(htout, self.FNo.Pt * (1 - self.dP))
 
     def dump(self, output_file):

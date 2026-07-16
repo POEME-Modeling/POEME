@@ -57,7 +57,7 @@ class Newtherm:
     Cp_TPt = _data["Cp_TPt"].tolist()
     gam_TPt = _data["gam_TPt"].tolist()
     rho_TPt = _data["rho_TPt"].tolist()
-    r_TPt = _data["R_TPt"].tolist()
+    r_TPt = _data["r_TPt"].tolist()
     s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
