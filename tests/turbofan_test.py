@@ -128,7 +128,12 @@ start.W = 813.51
 # use tables for fluid properties
 # the thermo is tabular function of thermo properties as a function of FAR
 # (see the Brayton directory)
-start.comp = "Newtherm"
+#start.comp = "Newtherm"
+# use tables for fluid properties
+#start.comp = "jp7therm"
+start.comp = "jetatherm"
+#start.comp = "ch4therm"
+#start.comp = "h2therm"
 
 inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance
 # inlet.FNo.MN = 0.625
@@ -172,8 +177,17 @@ HPC.hfract2 = 0.5
 
 duct3.Wbldfrac = 2.0354 / (31.91 - 2.2566)
 
+#https://ntrs.nasa.gov/api/citations/20020085330/downloads/20020085330.pdf
 burner.FAR = 0.02833
-burner.LHV = -2140.0
+#Jet A fuel enthalpy (L) @ 298.15I
+burner.hFuel = -303.403/167.311*429.9226
+# CH4 fuel enthalpy (L) @ 111.64 K
+#burner.hFuel = -89.233/16.04*429.9226
+#H2 liquid fuel enthalpy (L) @ 20.27 K
+#burner.hFuel=-9.012/2.01588*429.9226
+burner.FAR = .01
+
+burner.FAR = 0.02833
 burner.dP = 0.0400
 # burner.FNo.MN = 0.10
 # print( burner.desc )
@@ -2277,6 +2291,24 @@ with session:
 estuff.filename = "turbofan.out"
 estuff.vars = [start.alt, start.MN, start.W, perf.Fn, perf.Wfuel]
 
+
+burner.ind_FAR = Independent(
+    burner, 
+    indname="FAR",
+    perturb=0.05,
+    perturb_type="Relative",
+    active=True,
+    desc="Varies FAR",
+)
+
+
+# create an Rline demand variable for the engine balance too
+burner.Tset = RealT( burner, v=3200. )
+
+# create a dependent that will match the current Rline to the demand
+# value
+burner.dep_Tset = Dependent(burner, d2name="Tset", d1name="FNo.Tt", active=True)
+
 # --------------------------------------
 # run the DESIGN case
 # -------------------------------------
@@ -2298,8 +2330,14 @@ solver.listBalances()
 # debug on
 # solver.debug = True
 
+
+
 # tell model to solve itsellf
 solver.solve()
+
+burner.ind_FAR.active = False
+burner.dep_Tset.active = False
+
 
 # open a file for the output
 output_file = open("turbofan.out", "w")
