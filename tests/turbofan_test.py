@@ -2493,7 +2493,7 @@ run_throttle_hook(0.60, 30000.0)
 run_throttle_hook(0.70, 30000.0)
 run_throttle_hook(0.75, 30000.0)
 run_throttle_hook(0.80, 30000.0)
-run_throttstle_hook(0.85, 30000.0)
+run_throttle_hook(0.85, 30000.0)
 
 run_throttle_hook(0.80, 25000.0)
 run_throttle_hook(0.75, 25000.0)
