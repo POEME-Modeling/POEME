@@ -8,6 +8,24 @@
 #
 # turbofan.out
 #
+# this model load in two local elements from the subdirecoty
+# tomstuff, compressortom and ducttom.  The elements show
+# the minimum amount of data required for a functional element
+#
+# this file has four different thermo options to
+# choose the appropiate thermo set the composition
+# in the start element to want you want and then go
+# down to the burner element and sent the appropiate
+# value for the fuel enthalpy.
+# start.comp = "Newtherm"  <---------new table create by user
+# use tables for fluid properties
+# start.comp = "jetatherm" <---------jeta and air
+# start.comp = "ch4therm"  <---------liquid methane and air
+#  start.comp = "h2therm"  <---------hydogen and air
+#
+# the fuel enthalpies are defined using the CEA methodology
+# see:
+# https://ntrs.nasa.gov/api/citations/20020085330/downloads/20020085330.pdf
 # ------------------------------------------------------
 import time
 
@@ -128,9 +146,8 @@ start.W = 813.51
 # use tables for fluid properties
 # the thermo is tabular function of thermo properties as a function of FAR
 # (see the Brayton directory)
-#start.comp = "Newtherm"
+# start.comp = "Newtherm"
 # use tables for fluid properties
-#start.comp = "jp7therm"
 start.comp = "jetatherm"
 #start.comp = "ch4therm"
 #start.comp = "h2therm"
@@ -2288,6 +2305,7 @@ LPT.effTable.data = [
 # -------------------------------------
 with session:
     estuff = Output("estuff")
+    
 estuff.filename = "turbofan.out"
 estuff.vars = [start.alt, start.MN, start.W, perf.Fn, perf.Wfuel]
 
@@ -2302,11 +2320,10 @@ burner.ind_FAR = Independent(
 )
 
 
-# create an Rline demand variable for the engine balance too
+# create an burner exit temperature variable for the engine to balance to
 burner.Tset = RealT( burner, v=3200. )
 
-# create a dependent that will match the current Rline to the demand
-# value
+# create a dependent that will match the burner exit temp to desired value
 burner.dep_Tset = Dependent(burner, d2name="Tset", d1name="FNo.Tt", active=True)
 
 # --------------------------------------
@@ -2330,11 +2347,10 @@ solver.listBalances()
 # debug on
 # solver.debug = True
 
-
-
 # tell model to solve itsellf
 solver.solve()
 
+# the burner temperature match is only for the sizing point
 burner.ind_FAR.active = False
 burner.dep_Tset.active = False
 
@@ -2367,17 +2383,22 @@ def run_throttle_hook(mnset, altitude):
     # print the output
     print_pretty(output_file, session)
 
+    # update progress to screen
     print(
         start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged
     )
+    
+    # save off the full power net thrust 
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
 
     _case_counter["count"] += 1
+   
+    # save off the full power solver state to restore later
     solver.save_independents()
     factor = 1.0
 
-    # start.Fdem = start.Fnet * factor
+    # turn off the full power settings
     fan.dep_NmechC.active = False
     burner.con_1.on = False
     burner.con_1.active = False
@@ -2412,7 +2433,7 @@ def run_throttle_hook(mnset, altitude):
     # the starting point is good for the next full power
     # call
 
-    # drive the fan to 100% speed
+    # drive the fan to 100% speed at full power
     fan.dep_NmechC.active = True
     # turn the burner temperature constraint on
     # if it looks like it will be violated the solver
@@ -2420,8 +2441,10 @@ def run_throttle_hook(mnset, altitude):
     # 100% fan speed
     burner.con_1.on = True
     burner.ind_FAR.active = True
+    
     # session.check()
     fan.NcDem = 1.0
+    
     # reload the full power converged independent values
     solver.restore_independents()
     solver.run()
