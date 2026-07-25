@@ -61,6 +61,8 @@ ignore = [
     "PLR09", # Too many statements/arguments/etc (preference)
     "PLR2004", # Magic value used in comparison (preference)
 ]
+[tool.ruff.lint.per-file-ignores]
+"turbofan_test.py" = ["E501"]
 
 [tool.isort]
 profile = "black"
