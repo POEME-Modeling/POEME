@@ -149,8 +149,8 @@ start.W = 813.51
 # start.comp = "Newtherm"
 # use tables for fluid properties
 start.comp = "jetatherm"
-#start.comp = "ch4therm"
-#start.comp = "h2therm"
+# start.comp = "ch4therm"
+# start.comp = "h2therm"
 
 inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance
 # inlet.FNo.MN = 0.625
@@ -194,15 +194,15 @@ HPC.hfract2 = 0.5
 
 duct3.Wbldfrac = 2.0354 / (31.91 - 2.2566)
 
-#https://ntrs.nasa.gov/api/citations/20020085330/downloads/20020085330.pdf
+# https://ntrs.nasa.gov/api/citations/20020085330/downloads/20020085330.pdf
 burner.FAR = 0.02833
-#Jet A fuel enthalpy (L) @ 298.15I
-burner.hFuel = -303.403/167.311*429.9226
+# Jet A fuel enthalpy (L) @ 298.15I
+burner.hFuel = -303.403 / 167.311 * 429.9226
 # CH4 fuel enthalpy (L) @ 111.64 K
-#burner.hFuel = -89.233/16.04*429.9226
-#H2 liquid fuel enthalpy (L) @ 20.27 K
-#burner.hFuel=-9.012/2.01588*429.9226
-burner.FAR = .01
+# burner.hFuel = -89.233/16.04*429.9226
+# H2 liquid fuel enthalpy (L) @ 20.27 K
+# burner.hFuel=-9.012/2.01588*429.9226
+burner.FAR = 0.01
 
 burner.FAR = 0.02833
 burner.dP = 0.0400
@@ -465,13 +465,13 @@ LPT.effTable.data = [
 # -------------------------------------
 with session:
     estuff = Output("estuff")
-    
+
 estuff.filename = "turbofan.out"
 estuff.vars = [start.alt, start.MN, start.W, perf.Fn, perf.Wfuel]
 
 
 burner.ind_FAR = Independent(
-    burner, 
+    burner,
     indname="FAR",
     perturb=0.05,
     perturb_type="Relative",
@@ -481,7 +481,7 @@ burner.ind_FAR = Independent(
 
 
 # create an burner exit temperature variable for the engine to balance to
-burner.Tset = RealT( burner, v=3200. )
+burner.Tset = RealT(burner, v=3200.0)
 
 # create a dependent that will match the burner exit temp to desired value
 burner.dep_Tset = Dependent(burner, d2name="Tset", d1name="FNo.Tt", active=True)
@@ -547,13 +547,13 @@ def run_throttle_hook(mnset, altitude):
     print(
         start.MN, start.alt, burner.FAR, perf.Fn, "1.000", fan.NcMap, solver.converged
     )
-    
-    # save off the full power net thrust 
+
+    # save off the full power net thrust
     perf.FnetMax = RealT(perf)
     perf.FnetMax = perf.Fn
 
     _case_counter["count"] += 1
-   
+
     # save off the full power solver state to restore later
     solver.save_independents()
     factor = 1.0
@@ -601,10 +601,10 @@ def run_throttle_hook(mnset, altitude):
     # 100% fan speed
     burner.con_1.on = True
     burner.ind_FAR.active = True
-    
+
     # session.check()
     fan.NcDem = 1.0
-    
+
     # reload the full power converged independent values
     solver.restore_independents()
     solver.run()

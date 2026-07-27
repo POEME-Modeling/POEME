@@ -1,4 +1,4 @@
-#------------------------------------------------------
+# ------------------------------------------------------
 #       SIMPLE SPRING MASS SYSTEM
 #
 # this is a model of a mass attached to a spring
@@ -11,12 +11,11 @@
 # the ouptut file is
 #
 # 1mass.out
-# ------------------------------------------------------rom poeme import ModelSession, Newton, Output
+# ------------------------------------------------------
+from poeme import ModelSession, Newton, Output
 from poeme.spring_mass import Damper, Fp, Mass, Spring, Wall
 
-
 with ModelSession() as session:
-    
     # declare the elements
     W1 = Wall("W1")
     W1.xloc = 0.0
@@ -34,7 +33,7 @@ with ModelSession() as session:
     M1 = Mass("Mass")
     M1.mass = 1.0
     M1.xloc = 3.0
-    
+
     # create ports for the spring and damper
     M1.Fp1 = Fp(M1, "in", "")
     M1.Fp2 = Fp(M1, "in", "")
@@ -46,13 +45,13 @@ with ModelSession() as session:
     # link the damper
     D1.Fp1.link_fp(W1.Fp2)
     D1.Fp2.link_fp(M1.Fp2)
-    
+
     # set the model up
     session.check()
 
     # declare some output files
     output_file = open("pop.out", "w")
-    
+
     # create a sovler
     solver = Newton("solver", output_file)
     session.solver = solver
@@ -73,6 +72,6 @@ with ModelSession() as session:
     M1.xloc = M1.xloc + 1.0
 
     solver.trim()
-    
+
     # run the transient
     solver.run()

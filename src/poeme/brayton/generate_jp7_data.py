@@ -14,7 +14,7 @@ import os
 import cantera as ct
 import numpy as np
 
-fuel_comp = {"C": .845, "H": 0.145}
+fuel_comp = {"C": 0.845, "H": 0.145}
 oxidizer_comp = {
     "O2": 0.2153,
     "N2": 0.752,

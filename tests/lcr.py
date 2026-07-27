@@ -18,7 +18,6 @@ from poeme.electrical import Capacitor, Enode, Esource, Inductor, Resistor
 session = ModelSession()
 
 with session:
-    
     # create the elements
     R = Resistor("R")
     R.R = 470.0
@@ -57,7 +56,7 @@ with session:
     C2.EPo.link_e(S2)
     R.EPi.link_e(E1)
     R.EPo.link_e(S2)
-    
+
     # create an output file
     estuff = Output("estuff")
     estuff.filename = "estuff.out"

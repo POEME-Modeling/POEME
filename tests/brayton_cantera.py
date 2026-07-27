@@ -89,7 +89,7 @@ with ModelSession() as session:
 
     B1 = Burner("B1")
     B1.FAR = 0.025
-    B1.hFuel = -303.403/167.311*429.9226
+    B1.hFuel = -303.403 / 167.311 * 429.9226
     B1.FNi.link_fn(C1.FNo)
 
     T1 = Turbine("T1")
@@ -196,6 +196,6 @@ with ModelSession() as session:
     solver.timeLast = 20.0
     solver.dtime = 0.01
     session.set("trans", True)
-    #solver.tolerance = 0.0002
+    # solver.tolerance = 0.0002
     solver.trim()
     solver.run()
