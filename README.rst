@@ -2,7 +2,8 @@
 POEME: Python Object Engineering Modular Environment
 ====================================================
 
-    POEME: A good model works.  A great model is a work of art.  (THIS CODE IS IN ALPHA! SEE ABOUT SECTION)
+    POEME: A good model works.  A great model is a work of art.
+    (This code is currently in beta. See about section for details.)
 
 .. raw:: html
 
@@ -38,21 +39,9 @@ and Brayton thermodynamic cycles in particular.
 The thermodynamic system models include an air conditioner cycle, a transient ground 
 power system with a PIV controller, and a commercial turbofan engine running a flight envelope.
 
-Note with regard to the latter: If you are a thermodynamic engineer, you should really explore 
-learning the Numerical Propulsion System Simulation (NPSS) code. 
-NPSS is the standard professional tool for analyzing and designing aircraft engine thermodynamic
-cycles. POEME is an engineering and software simplification of NPSS; there are no 
-secondary effects on turbomachinery performance and the bleed system modeling is 
-simplified. POEME is not capable of running real-time transient analysis, which is major 
-driver for professional aircraft engine dynamic system simulation. POEME, although designed to 
-run quickly, executes each thermodynamic cycle case on the order of one second.
-As such, POEME should be viewed as a stepping stone to more advanced tools but is
-sufficient for academic use.
-
-This codebase is currently in alpha! It should not be relied on and will be subject to breaking
-API changes. Additionally, this README is woefully inadequate. There is currently no API
-documentation. There is currently no implemented testing. That said, if you would like to contribute,
-feel free to open a pull request!
+This codebase is currently in early beta! It will be subject to breaking API changes. Additionally,
+this README is woefully inadequate. There is currently limited API documentation. There is currently
+no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
 
 Running the Examples
 ====================
