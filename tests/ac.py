@@ -2,6 +2,10 @@
 #       Air Conditioner
 # run the model by giving the command:
 #
+# for thermo properties this model runs coolprop using
+# the properties for r134
+# see the CPR134 file in the brayton directory
+#
 # python ac.py
 #
 # the ouptut file is
@@ -9,7 +13,7 @@
 # pretty.out
 # pop.out (detailed point data)
 # there will be an error message about not linked
-# compressor port
+# compressor port it is file
 # ------------------------------------------------------
 from poeme import Independent, ModelSession, Newton
 from poeme.brayton import Compressor, Duct, FlowStartEnd2D

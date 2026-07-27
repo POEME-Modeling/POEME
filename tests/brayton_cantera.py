@@ -1,9 +1,19 @@
 # ------------------------------------------------------
 #       TRANSIENT BRAYTON CYCLE RUNNING CANTERA
+#
+# this model is transient model of ground based turbo
+# power generator
+# it includes an example of a PIV controller
+# thermo properties are generated using the cantera package
+# the cantera setup can be found in the brayton sub-directory
+#
 # run the model by giving the command:
 #
 # python brayton_cantera.py
 #
+# the fuel enthalpies are defined using the CEA methodology
+# see:
+# https://ntrs.nasa.gov/api/citations/20020085330/downloads/20020085330.pdf
 # the ouptut file is
 #
 # estuff.out (trace.out)
@@ -79,7 +89,7 @@ with ModelSession() as session:
 
     B1 = Burner("B1")
     B1.FAR = 0.025
-    B1.LHV = -500.0
+    B1.hFuel = -303.403/167.311*429.9226
     B1.FNi.link_fn(C1.FNo)
 
     T1 = Turbine("T1")
@@ -186,6 +196,6 @@ with ModelSession() as session:
     solver.timeLast = 20.0
     solver.dtime = 0.01
     session.set("trans", True)
-    solver.tolerance = 0.0002
+    #solver.tolerance = 0.0002
     solver.trim()
     solver.run()
