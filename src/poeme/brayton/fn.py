@@ -7,8 +7,12 @@ from .air2 import Air2
 from .air4 import Air4
 from .air6 import Air6
 from .cantera_fn import CanteraFN
+from .ch4therm import CH4Therm
 from .cpr134 import CPR134
 from .h2o import H2O
+from .h2therm import H2Therm
+from .jetatherm import JETATherm
+from .jp7therm import JP7Therm
 from .newtherm import Newtherm
 from .r32 import R32
 from .r134 import R134
@@ -23,6 +27,10 @@ GAS_MODELS = {
     "air6": Air6,
     "CanteraFN": CanteraFN,
     "Newtherm": Newtherm,
+    "h2therm": H2Therm,
+    "ch4therm": CH4Therm,
+    "jp7therm": JP7Therm,
+    "jetatherm": JETATherm,
 }
 
 
