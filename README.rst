@@ -43,6 +43,8 @@ This codebase is currently in early beta! It will be subject to breaking API cha
 this README is woefully inadequate. There is currently limited API documentation. There is currently
 no implemented testing. That said, if you would like to contribute, feel free to open a pull request!
 
+contact: cheesie_67@yahoo.com
+
 Running the Examples
 ====================
 

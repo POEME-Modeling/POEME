@@ -80,7 +80,6 @@ with ModelSession() as session:
 
     # condesor
     Condensor = Duct("Condesor")
-    Condensor.dP = 0.0
     Condensor.Q = -1000.0
     # create an independent to vary the condenstaion Q to
     # thermally close the system
@@ -97,11 +96,10 @@ with ModelSession() as session:
 
     # expansion valve
     Valve = Duct("Valve")
-    Valve.dP = 1.0 - 1.4 / 9.0
+    Valve.dPqPdes = 1.0 - 1.4 / 9.0
 
     # evaporator duct
     Evap = Duct("Evap")
-    Evap.dP = 0.00
     Evap.Q = +500.0
 
     # link the model up
