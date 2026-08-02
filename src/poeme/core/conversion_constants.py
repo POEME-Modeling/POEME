@@ -33,5 +33,9 @@ C_BTUtoJ = C_BTUtoFT_LBF * C_FT_LBFtoJ
 C_BTUperSECtoKW = C_BTUtoFT_LBF * C_FT_LBFtoJ / 1000.0
 C_FTperSECtoKMperHR = 1.09728
 
+C_JOULES_PER_KG_TO_BTU_PER_LB = 0.0004299226 # J/kg -> BTU/lb
+C_JOULES_PER_KG_KELVIN_TO_BTU_PER_LB_RANKINE = 0.0002390057  # J/kg*K -> BTU/lb*degR
+C_KG_PER_METER_CUBED_TO_LB_PER_FEET_CUBED = 0.062428  # kg/m^3 -> lb/ft^3
+
 # Auto-generated list of public constants for __all__
 __all__ = [name for name in dir() if name.startswith("C_")]

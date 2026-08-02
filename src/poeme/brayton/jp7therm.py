@@ -7,7 +7,7 @@ from poeme import interp_3d
 
 class JP7Therm:
     # Load data from file
-    _data_file = os.path.join(os.path.dirname(__file__), "jp7therm_data.npz")
+    _data_file = os.path.join(os.path.dirname(__file__), "jp7_air.npz")
     _data = np.load(_data_file)
 
     T_TP = _data["T_TP"].tolist()
