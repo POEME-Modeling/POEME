@@ -46,7 +46,7 @@ duct.FNi.link_fn(start.FNo)
 # --------------------------------------
 # use cantera or tables for fluid properties
 # start.comp = "CanteraFN"
-start.comp = "jetatherm"
+start.comp = "jeta_air"
 start.W = 100.0
 start.Pt = 40.0
 start.Tt = 650.0

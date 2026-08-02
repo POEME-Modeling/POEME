@@ -4,14 +4,11 @@ import sys
 from poeme import Atom, BooleanT, RealT, StringT, ValueT
 
 from .cantera_fn import CanteraFN
-from .ch4therm import CH4Therm
 from .cpr134 import CPR134
 from .h2o import H2O
-from .h2therm import H2Therm
-from .jetatherm import JETATherm
-from .jp7therm import JP7Therm
 from .r32 import R32
 from .r134 import R134
+from .thermo_table import ThermoTable
 
 GAS_MODELS = {
     "H2O": H2O,
@@ -19,10 +16,10 @@ GAS_MODELS = {
     "CPR134": CPR134,
     "R134": R134,
     "CanteraFN": CanteraFN,
-    "h2therm": H2Therm,
-    "ch4therm": CH4Therm,
-    "jp7therm": JP7Therm,
-    "jetatherm": JETATherm,
+    "h2_air": ThermoTable("h2_air"),
+    "ch4_air": ThermoTable("ch4_air"),
+    "jp7_air": ThermoTable("jp7_air"),
+    "jeta_air": ThermoTable("jeta_air"),
 }
 
 
@@ -43,7 +40,7 @@ class FN(Atom):
     Attributes
     ----------
     comp : StringT
-        Composition string (e.g., 'jetatherm', 'R134').
+        Composition string (e.g., 'jeta_air', 'R134').
     FAR : RealT
         Fuel-to-air ratio (dimensionless).
     WAR : RealT

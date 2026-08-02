@@ -17,11 +17,11 @@
 # in the start element to want you want and then go
 # down to the burner element and sent the appropiate
 # value for the fuel enthalpy.
-# start.comp = "jetatherm"  <---------new table create by user
+# start.comp = "jeta_air"  <---------new table create by user
 # use tables for fluid properties
-# start.comp = "jetatherm" <---------jeta and air
-# start.comp = "ch4therm"  <---------liquid methane and air
-#  start.comp = "h2therm"  <---------hydogen and air
+# start.comp = "jeta_air" <---------jeta and air
+# start.comp = "ch4_air"  <---------liquid methane and air
+#  start.comp = "h2_air"  <---------hydogen and air
 #
 # the fuel enthalpies are defined using the CEA methodology
 # see:
@@ -146,11 +146,11 @@ start.W = 813.51
 # use tables for fluid properties
 # the thermo is tabular function of thermo properties as a function of FAR
 # (see the Brayton directory)
-# start.comp = "jetatherm"
+# start.comp = "jeta_air"
 # use tables for fluid properties
-start.comp = "jetatherm"
-# start.comp = "ch4therm"
-# start.comp = "h2therm"
+start.comp = "jeta_air"
+# start.comp = "ch4_air"
+# start.comp = "h2_air"
 
 inlet.rec = 0.99570  # inlet recovery 0.998; SMJ: lower to match N+3 fan entrance
 # inlet.FNo.MN = 0.625
