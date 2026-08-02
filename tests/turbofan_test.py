@@ -17,7 +17,7 @@
 # in the start element to want you want and then go
 # down to the burner element and sent the appropiate
 # value for the fuel enthalpy.
-# start.comp = "Newtherm"  <---------new table create by user
+# start.comp = "jetatherm"  <---------new table create by user
 # use tables for fluid properties
 # start.comp = "jetatherm" <---------jeta and air
 # start.comp = "ch4therm"  <---------liquid methane and air
@@ -146,7 +146,7 @@ start.W = 813.51
 # use tables for fluid properties
 # the thermo is tabular function of thermo properties as a function of FAR
 # (see the Brayton directory)
-# start.comp = "Newtherm"
+# start.comp = "jetatherm"
 # use tables for fluid properties
 start.comp = "jetatherm"
 # start.comp = "ch4therm"

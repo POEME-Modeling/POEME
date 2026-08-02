@@ -1,6 +1,3 @@
-from .air2 import Air2
-from .air4 import Air4
-from .air6 import Air6
 from .burner import Burner
 from .cantera_fn import CanteraFN
 from .compressor import Compressor
@@ -25,9 +22,6 @@ from .splitter import Splitter
 from .turbine import Turbine
 
 __all__ = [
-    "Air2",
-    "Air4",
-    "Air6",
     "Burner",
     "CanteraFN",
     "Compressor",

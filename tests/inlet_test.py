@@ -46,9 +46,9 @@ inlet.FNi.link_fn(start.FNo)
 # --------------------------------------
 # set component variable values
 # --------------------------------------
-# use cantera or NewTherm tables for fluid properties
+# use cantera or tables for fluid properties
 # start.comp = "CanteraFN"
-start.comp = "Newtherm"
+start.comp = "jetatherm"
 start.alt = 35000.0
 start.MN = 0.80
 start.W = 100.0
