@@ -13,37 +13,26 @@ class ThermoTable:
     precomputed data stored in ``newtherm_data.npz``. This class includes convergence
     checking for iterative solvers.
 
-    Parameters
-    ----------
-    T : float
-        Temperature (K).
-    P : float
-        Pressure (Pa).
-    FAR : float
-        Fuel-air ratio (kg fuel / kg air).
-    p : object
-        Session or context object passed to methods.
-
     Attributes
     ----------
     T_TP : list
-        Temperature grid points for interpolation.
+        Temperature grid points for interpolation (°R).
     P_TP : list
-        Pressure grid points for interpolation.
+        Pressure grid points for interpolation (psi).
     FAR_TP : list
         Fuel-air ratio grid points for interpolation.
     h_TPt : list
-        Enthalpy lookup table (J/kg).
+        Enthalpy lookup table (BTU/lbm).
     Cp_TPt : list
-        Specific heat at constant pressure lookup table (J/(kg·K)).
+        Specific heat at constant pressure lookup table (BTU/(lbm·°R)).
     gam_TPt : list
         Heat capacity ratio (gamma) lookup table.
     rho_TPt : list
-        Density lookup table (kg/m³).
+        Density lookup table (lbm/ft^3).
     r_TPt : list
-        Gas constant lookup table (J/(kg·K)).
+        Gas constant lookup table (ft·lbf/(lbm·°R)).
     s_TPt : list
-        Entropy lookup table (J/(kg·K)).
+        Entropy lookup table (BTU/(lbm·°R)).
     """
 
     def __init__(self, thermo_file):
@@ -73,17 +62,68 @@ class ThermoTable:
         self.r_TPt = _data["r_TPt"].tolist()
         self.s_TPt = _data["s_TPt"].tolist()
 
+    @staticmethod
+    def _iterate_calc(func, var, P, FAR, p):
+        """Iterate to find T such that func(T, P, FAR, p) converges to var.
+
+        Uses a secant-like method with damping to solve for temperature.
+
+        Parameters
+        ----------
+        func : callable
+            Function of the form func(T, P, FAR, p) returning a computed value.
+        var : float
+            Target value for convergence.
+        P : float
+            Pressure (psi).
+        FAR : float
+            Fuel-air ratio (lbm fuel / lbm air).
+        p : object
+            Session or context object with an ``errors`` attribute.
+
+        Returns
+        -------
+        float
+            Converged temperature (°R).
+        """
+        T = 1500
+        calc = func(T, P, FAR, p)
+        errorm1 = (calc - var) / var
+        xm1 = T
+        T = T * 0.95
+        calc = func(T, P, FAR, p)
+        error = (calc - var) / var
+        x = T
+        count = 0
+        while abs(error) > 0.0000001 and count < 50:
+            count = count + 1
+            xp1 = x - error * (x - xm1) / (error - errorm1)
+            if xp1 - x > 0.3 * T:
+                xp1 = x + 0.3 * T
+            if xp1 - x < -0.3 * T:
+                xp1 = x - 0.3 * T
+            xm1 = x
+            errorm1 = error
+            x = xp1
+            T = x
+            calc = func(T, P, FAR, p)
+            error = (calc - var) / var
+        if count > 49:
+            p.session.errors += f"{func.__name__} did not converge"
+
+        return T
+
     def gamma(self, T, P, FAR, p):
         """Heat capacity ratio (gamma = Cp/Cv).
 
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
@@ -100,18 +140,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Density (kg/m³).
+            Density (lbm/ft^3).
         """
         return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.rho_TPt, p)
 
@@ -121,18 +161,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Specific heat at constant pressure (J/(kg·K)).
+            Specific heat at constant pressure (BTU/(lbm·°R)).
         """
         return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.Cp_TPt, p)
 
@@ -142,18 +182,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Enthalpy (J/kg).
+            Enthalpy (BTU/lbm).
         """
         return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.h_TPt, p)
 
@@ -163,18 +203,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Entropy (J/(kg·K)).
+            Entropy (BTU/(lbm·°R)).
         """
         return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.s_TPt, p)
 
@@ -184,18 +224,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Specific gas constant (J/(kg·K)).
+            Specific gas constant (ft·lbf/(lbm·°R)).
         """
         return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.r_TPt, p)
 
@@ -205,18 +245,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Dynamic viscosity (Pa·s). Currently returns 0.
+            Dynamic viscosity (lbm/(ft·s)). Currently returns 0.
         """
         return 0
 
@@ -226,18 +266,18 @@ class ThermoTable:
         Parameters
         ----------
         T : float
-            Temperature (K).
+            Temperature (°R).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Thermal conductivity (W/(m·K)). Currently returns 0.
+            Thermal conductivity (BTU/(h·ft·°R)). Currently returns 0.
         """
         return 0
 
@@ -247,55 +287,20 @@ class ThermoTable:
         Parameters
         ----------
         s : float
-            Target entropy (J/(kg·K)).
+            Target entropy (BTU/(lbm·°R)).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Temperature (K) that satisfies the given entropy at pressure P.
-
-        Raises
-        ------
-        ValueError
-            If the solver does not converge within 50 iterations.
+            Temperature (°R) that satisfies the given entropy at pressure P.
         """
-        T = 1500
-        scalc = self.s_TP(T, P, FAR, p)
-
-        errorm1 = (scalc - s) / s
-        xm1 = T
-        T = T * 0.95
-        scalc = self.s_TP(T, P, FAR, p)
-        error = (scalc - s) / s
-        x = T
-        count = 0
-        while abs(error) > 0.0000001 and count < 50:
-            count = count + 1
-            xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * T:
-                xp1 = x + 0.3 * T
-            if xp1 - x < -0.3 * T:
-                xp1 = x - 0.3 * T
-            xm1 = x
-            errorm1 = error
-            x = xp1
-            T = x
-            scalc = self.s_TP(T, P, FAR, p)
-            error = (scalc - s) / s
-
-        if count > 49:
-            error = "T_sP did not converge"
-            raise ValueError(error)
-            # TODO: fix this
-            # p.session.errors += "Error in T_sp"
-
-        return T
+        return self._iterate_calc(self.s_TP, s, P, FAR, p)
 
     def T_hp(self, h, P, FAR, p):
         """Temperature from enthalpy and pressure via Newton iteration.
@@ -303,50 +308,17 @@ class ThermoTable:
         Parameters
         ----------
         h : float
-            Target enthalpy (J/kg).
+            Target enthalpy (BTU/lbm).
         P : float
-            Pressure (Pa).
+            Pressure (psi).
         FAR : float
-            Fuel-air ratio (kg fuel / kg air).
+            Fuel-air ratio (lbm fuel / lbm air).
         p : object
             Session or context object.
 
         Returns
         -------
         float
-            Temperature (K) that satisfies the given enthalpy at pressure P.
-
-        Raises
-        ------
-        ValueError
-            If the solver does not converge within 50 iterations.
+            Temperature (°R) that satisfies the given enthalpy at pressure P.
         """
-        T = 1500
-        hcalc = self.h_TP(T, P, FAR, p)
-        errorm1 = (hcalc - h) / h
-        xm1 = T
-        T = T * 0.95
-        hcalc = self.h_TP(T, P, FAR, p)
-        error = (hcalc - h) / h
-        x = T
-        count = 0
-        while abs(error) > 0.000001 and count < 50:
-            count = count + 1
-            xp1 = x - error * (x - xm1) / (error - errorm1)
-            if xp1 - x > 0.3 * T:
-                xp1 = x + 0.3 * T
-            if xp1 - x < -0.3 * T:
-                xp1 = x - 0.3 * T
-            xm1 = x
-            errorm1 = error
-            x = xp1
-            T = x
-            hcalc = self.h_TP(T, P, FAR, p)
-            error = (hcalc - h) / h
-        if count > 49:
-            error = "T_hp did not converge"
-            raise ValueError(error)
-            # TODO: fix this
-            # p.session.errors += "Error in T_hp"
-
-        return T
+        return self._iterate_calc(self.h_TP, h, P, FAR, p)
