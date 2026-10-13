@@ -1,5 +1,6 @@
 from CoolProp import CoolProp
 
+
 class CPPROPS:
     """sCO2 refrigerant property evaluation using CoolProp.
 
@@ -21,7 +22,7 @@ class CPPROPS:
     """
 
     @staticmethod
-    def T_hp(ht, Pt, FAR, fluid, p ):
+    def T_hp(ht, Pt, FAR, fluid, p):
         """Temperature from enthalpy and pressure.
 
         Parameters
@@ -41,12 +42,13 @@ class CPPROPS:
             Temperature (R).
         """
         return (
-            CoolProp.PropsSI( "T", "H", ht * 2326.0, "P", Pt * 6894.76, fluid)
-            * 9.0 / 5.0
+            CoolProp.PropsSI("T", "H", ht * 2326.0, "P", Pt * 6894.76, fluid)
+            * 9.0
+            / 5.0
         )
 
     @staticmethod
-    def T_sP(s, Pt, FAR, fluid, p ):
+    def T_sP(s, Pt, FAR, fluid, p):
         """Temperature from entropy and pressure.
 
         Parameters
@@ -76,7 +78,7 @@ class CPPROPS:
         """Enthalpy from temperature and pressure.
 
         Parameters
-        ---------- 
+        ----------
         Tt : float
             Temperature (R).
         Pt : float
@@ -88,12 +90,11 @@ class CPPROPS:
 
         Returns
         -------
-        float 
+        float
             Enthalpy (BTU/lbm).
         """
         return (
-            CoolProp.PropsSI("H", "T", Tt * 5.0/9.0, "P", Pt*6894.76, name )
-            / 2326.0 
+            CoolProp.PropsSI("H", "T", Tt * 5.0 / 9.0, "P", Pt * 6894.76, name) / 2326.0
         )
 
     @staticmethod
@@ -101,7 +102,7 @@ class CPPROPS:
         """Enthalpy from entropy and pressure.
 
         Parameters
-        ---------- 
+        ----------
         s : float
             Entropy (BTU/(lbm·R)).
         Pt : float
@@ -121,7 +122,7 @@ class CPPROPS:
         )
 
     @staticmethod
-    def h_qp(q, Pt, FAR, fluid, p ):
+    def h_qp(q, Pt, FAR, fluid, p):
         """Enthalpy from quality and pressure.
 
         Parameters
@@ -279,8 +280,9 @@ class CPPROPS:
         float
             Specific heat at constant pressure. Currently returns 0.
         """
-        return(
-           CoolProp.PropsSI('C', 'H', ht * 2326.0, 'P', Pt * 6894.76, fluid)*0.0002388
+        return (
+            CoolProp.PropsSI("C", "H", ht * 2326.0, "P", Pt * 6894.76, fluid)
+            * 0.0002388
         )
 
     @staticmethod

@@ -355,13 +355,14 @@ class Compressor(Element):
 
         # calculate and set the mechanical work, negative by convention
         self.MP.set_hp(
-            -1.0* (
+            -1.0
+            * (
                 (self.FNo.ht - self.FNi.ht) * self.FNo.W * 3600.0 / 2545.0
                 + (self.FNoBld1.ht - self.FNi.ht) * self.FNoBld1.W * 3600.0 / 2545.0
                 + (self.FNoBld2.ht - self.FNi.ht) * self.FNoBld2.W * 3600.0 / 2545.0
             )
         )
-        
+
     def precheck(self):
         """Check bleed flows and solver state based on sizing mode.
 

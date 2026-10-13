@@ -1,5 +1,3 @@
-import sys
-
 from poeme import Independent, ModelSession, Newton
 from poeme.brayton import Compressor, Duct, FlowStartEnd2D
 from poeme.core.print import print_pretty, print_stdout
@@ -14,7 +12,7 @@ with session:
     FSE.FNo.fname = "R134a"
     FSE.FNo.twoPhase = True
     FSE.FNo.set_tp(600.0, 29.0)
-    #FSE.FNo.set_tp(473.0, 20.30)
+    # FSE.FNo.set_tp(473.0, 20.30)
     FSE.ht = FSE.FNo.ht
     FSE.W = 40.0
 
@@ -71,7 +69,7 @@ with session:
         desc="Varies R-line",
         session=session,
     )
-    
+
     Evap.ind_Q = Independent(
         Evap,
         indname="Q",
@@ -85,11 +83,11 @@ with session:
 
     solver = Newton("solver")
     session.solver = solver
-    
+
 session.check()
 solver.solve()
 
-out_file = open("pop.out", "w" )
+out_file = open("pop.out", "w")
 print_stdout(out_file, session)
-pretty = open("pretty.out", "w" )
+pretty = open("pretty.out", "w")
 print_pretty(pretty, session)

@@ -3,10 +3,9 @@ import cantera as ct
 fuel_comp = {"C": 1.0, "H": 0.16667}
 oxidizer_comp = {"N2": 0.78, "O2": 0.21, "Ar": 0.01}  # Mass fractions for dry air
 
-gas = ct.Solution("gri30.yaml") 
+gas = ct.Solution("gri30.yaml")
 gasair = ct.Solution("air.yaml")
 # gasair = ct.Solution("custom_air.yaml", name="custom_air")
-
 
 
 class CanteraFN:
@@ -499,8 +498,8 @@ class CanteraFN:
             errorm1 = error
             x = xp1
             P = x
-            T = CanteraFN.T_sP(s, P, FAR, name, p )
-            hcalc = CanteraFN.h_TP(T, P, FAR, name, p )
+            T = CanteraFN.T_sP(s, P, FAR, name, p)
+            hcalc = CanteraFN.h_TP(T, P, FAR, name, p)
             error = (hcalc - h) / h
 
         return P

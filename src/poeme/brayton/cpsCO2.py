@@ -283,8 +283,9 @@ class CPSCO2:
         float
             Specific heat at constant pressure. Currently returns 0.
         """
-        return(
-           CoolProp.PropsSI('C', 'H', ht * 2326.0, 'P', Pt * 6894.76, 'Water')*0.0002388
+        return (
+            CoolProp.PropsSI("C", "H", ht * 2326.0, "P", Pt * 6894.76, "Water")
+            * 0.0002388
         )
 
     @staticmethod

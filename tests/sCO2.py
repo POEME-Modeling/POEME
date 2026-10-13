@@ -13,22 +13,21 @@ FSE.FNo.twoPhase = False
 FSE.FNo.comp = "CPSCO2"
 
 
+# 78.3, 33c
+# P=117.5
+# T = 200C
+# expand back to 78.3
 
-#78.3, 33c
-#P=117.5
-#T = 200C
-#expand back to 78.3
-
-FSE.FNo.set_tp(551.,1135.)
-print( FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s )
-PR = 117.5/78.3
-Pout =  FSE.FNo.Pt*PR
+FSE.FNo.set_tp(551.0, 1135.0)
+print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
+PR = 117.5 / 78.3
+Pout = FSE.FNo.Pt * PR
 FSE.FNo.set_sp(FSE.FNo.s, Pout)
-print( FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s )
-FSE.FNo.set_tp(851., FSE.FNo.Pt)
-print( FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s )
-FSE.FNo.set_sp(FSE.FNo.s, 1135. )
-print( FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s )
+print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
+FSE.FNo.set_tp(851.0, FSE.FNo.Pt)
+print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
+FSE.FNo.set_sp(FSE.FNo.s, 1135.0)
+print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
 
 quit()
 

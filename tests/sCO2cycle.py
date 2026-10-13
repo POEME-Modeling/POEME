@@ -21,29 +21,15 @@
 # ------------------------------------------------------
 
 # load in the required POEME objects
-from poeme import ModelSession, Newton, Output, RealT, Independent
-from poeme.brayton import (
-    MP,
-    PIV,
-    Burner,
-    Compressor,
-    Duct,
-    FlowStart,
-    FlowStartEnd,
-    Nozzle,
-    Perf,
-    Shaft,
-    Turbine,
-    Heatx
-)
-from poeme.core.print import print_stdout
+from poeme import Independent, ModelSession, Newton, Output
+from poeme.brayton import MP, Compressor, Duct, FlowStartEnd, Heatx, Shaft, Turbine
 
 with ModelSession() as session:
     # create the components and set their values and link them up
     FS = FlowStartEnd("FS")
 
-    FS.Pt = 511.
-    FS.Tt = 1135.
+    FS.Pt = 511.0
+    FS.Tt = 1135.0
     FS.W = 1000.0
 
     # start the model off with CanteraFN
@@ -57,7 +43,7 @@ with ModelSession() as session:
 
     D1 = Duct("D1")
     D1.dPqP = 0.05
-    D1.FNi.link_fn(FS.FNo)  
+    D1.FNi.link_fn(FS.FNo)
 
     C1 = Compressor("C1")
     C1.PRdes = 2.7
@@ -87,26 +73,26 @@ with ModelSession() as session:
         [68.234, 72.934, 74.243],
         [118.945, 126.124, 126.182],
     ]
-    
+
     FShx = FlowStartEnd("FShx")
-    FShx.Pt = 511.
-    FShx.Tt = 1135.
+    FShx.Pt = 511.0
+    FShx.Tt = 1135.0
     FShx.W = 1000.0
     FShx.comp = "CPPROPS"
     FShx.fname = "CO2"
- 
+
     FShx.ind_Pt.active = True
     FShx.ind_Tt.active = True
-    
-    H1 = Heatx( "H1" )
-    H1.eff = .95
-    H1.FNi1.link_fn(C1.FNo) 
-    H1.FNi2.link_fn(FShx.FNo) 
+
+    H1 = Heatx("H1")
+    H1.eff = 0.95
+    H1.FNi1.link_fn(C1.FNo)
+    H1.FNi2.link_fn(FShx.FNo)
     H1.FNo2.link_fn(FS.FNi)
-    
+
     B1 = Duct("B1")
-    B1.Q = 40000.
-    B1.FNi.link_fn(H1.FNo1) 
+    B1.Q = 40000.0
+    B1.FNi.link_fn(H1.FNo1)
 
     T1 = Turbine("T1")
     T1.effDes = 0.95
@@ -123,11 +109,11 @@ with ModelSession() as session:
     T1.PRmapDes = 3.0
     T1.PR = 1.5
     # T1.FNo.MN.set( .3 )
-    
+
     D1 = Duct("D1")
-    D1.Q = -40000.
-    D1.FNi.link_fn(T1.FNo) 
-    
+    D1.Q = -40000.0
+    D1.FNi.link_fn(T1.FNo)
+
     FShx.FNi.link_fn(D1.FNo)
 
     S1 = Shaft("S1")
@@ -136,10 +122,10 @@ with ModelSession() as session:
     S1.N = 10000.0
     S1.MPC.link_mp(C1.MP)
     S1.MPT.link_mp(T1.MP)
-    S1.HPX=1000.
+    S1.HPX = 1000.0
     S1.I = 6.0
 
-    #P1 = Perf("P1")
+    # P1 = Perf("P1")
 
     # create a solver
     solver = Newton("solver")
@@ -147,7 +133,7 @@ with ModelSession() as session:
     # create a trace file
     estuff = Output("estuff")
     estuff.filename = "estuff.out"
-    estuff.vars = [session.solver.time ]
+    estuff.vars = [session.solver.time]
 
     D1.ind_Q = Independent(
         D1,
@@ -158,7 +144,7 @@ with ModelSession() as session:
         active=True,
         session=session,
     )
-    
+
     B1.ind_Q = Independent(
         B1,
         indname="Q",
@@ -168,10 +154,10 @@ with ModelSession() as session:
         active=True,
         session=session,
     )
-    
+
 # check the system including setting up the solver
 session.check()
-    
+
 # solver the sizing point
 solver.solve()
-output_file = open( "pop.out" )
+output_file = open("pop.out")

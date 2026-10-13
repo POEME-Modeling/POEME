@@ -8,9 +8,9 @@ from .air4 import Air4
 from .air6 import Air6
 from .cantera_fn import CanteraFN
 from .ch4therm import CH4Therm
+from .cpprops import CPPROPS
 from .cpr134 import CPR134
 from .cpsCO2 import CPSCO2
-from .cpprops import CPPROPS
 from .h2o import H2O
 from .h2therm import H2Therm
 from .jetatherm import JETATherm
@@ -807,7 +807,7 @@ class FN(Atom):
             The source fluid node to copy from.
         """
         self.comp.v = e.comp.v
-        self.fname.v = e.fname.v        
+        self.fname.v = e.fname.v
         self.twoPhase.v = e.twoPhase.v
         self.FAR.v = e.FAR.v
         self.W.v = e.W.v
@@ -851,7 +851,7 @@ class FN(Atom):
         """
         self.twoPhase.v = e.twoPhase.v
         self.comp.v = e.comp.v
-        self.fname.v = e.fname.v        
+        self.fname.v = e.fname.v
         self.FAR.v = e.FAR.v
         self.W.v = e.W.v
         self.Tt.v = e.Tt.v

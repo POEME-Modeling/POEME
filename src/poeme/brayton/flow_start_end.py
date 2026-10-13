@@ -1,8 +1,8 @@
 from poeme import (
     BooleanT,
-    Independent,
     Dependent,
     Element,
+    Independent,
     ModelSession,
     RealT,
     StringT,
@@ -64,7 +64,7 @@ class FlowStartEnd(Element):
 
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")
-        self.fname = StringT(self, desc="Fluid of the stream.")        
+        self.fname = StringT(self, desc="Fluid of the stream.")
         self.Pt = RealT(self, units="lbm/in2", desc="Pressure")
         self.Tt = RealT(self, units="Rankine", desc="Temperature")
         self.W = RealT(self, units="lbm/sec", desc="Weight flow")
@@ -108,7 +108,7 @@ class FlowStartEnd(Element):
             self,
             d1name="FNo.ht",
             d2name="FNi.ht",
-            scale = 100.,
+            scale=100.0,
             active=True,
             desc="Insure the enthalpy loop closes",
         )
@@ -116,7 +116,7 @@ class FlowStartEnd(Element):
             self,
             d1name="FNo.Pt",
             d2name="FNi.Pt",
-            scale = 100.,
+            scale=100.0,
             active=True,
             desc="Insure the pressue loop closes",
         )
@@ -139,7 +139,7 @@ class FlowStartEnd(Element):
 
         # set the flow conditions
         self.FNo.comp = self.comp
-        self.FNo.fname = self.fname   
+        self.FNo.fname = self.fname
         self.FNo.set_tp(self.Tt, self.Pt)
         self.FNo.set_w(self.W)
 
@@ -148,7 +148,7 @@ class FlowStartEnd(Element):
 
         Parameters
         ----------
-        output_file : file-like 
+        output_file : file-like
             File object to write the flow start/end 2D state to.
         """
         # dump output variables
