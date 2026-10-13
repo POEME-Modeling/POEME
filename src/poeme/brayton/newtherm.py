@@ -61,7 +61,7 @@ class Newtherm:
     s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def gamma(T, P, FAR, p):
+    def gamma(T, P, FAR, name, p):
         """Heat capacity ratio (gamma = Cp/Cv).
 
         Parameters
@@ -92,7 +92,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def rho(T, P, FAR, p):
+    def rho(T, P, FAR, name, p):
         """Air density.
 
         Parameters
@@ -123,7 +123,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def Cp(T, P, FAR, p):
+    def Cp(T, P, FAR, name, p):
         """Specific heat at constant pressure.
 
         Parameters
@@ -154,7 +154,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def h_TP(T, P, FAR, p):
+    def h_TP(T, P, FAR, name, p):
         """Enthalpy.
 
         Parameters
@@ -185,7 +185,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def s_TP(T, P, FAR, p):
+    def s_TP(T, P, FAR, name, p):
         """Entropy.
 
         Parameters
@@ -216,7 +216,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def R(T, P, FAR, p):
+    def R(T, P, FAR, name, p):
         """Specific gas constant.
 
         Parameters
@@ -247,7 +247,7 @@ class Newtherm:
         )
 
     @staticmethod
-    def mu(T, P, FAR, p):
+    def mu(T, P, FAR, name, p):
         """Dynamic viscosity.
 
         Parameters
@@ -269,7 +269,7 @@ class Newtherm:
         return 0
 
     @staticmethod
-    def k(T, P, FAR, p):
+    def k(T, P, FAR, name, p):
         """Thermal conductivity.
 
         Parameters
@@ -291,7 +291,7 @@ class Newtherm:
         return 0
 
     @staticmethod
-    def T_sP(s, P, FAR, p):
+    def T_sP(s, P, FAR, name, p):
         """Temperature from entropy and pressure via Newton iteration.
 
         Parameters
@@ -316,12 +316,12 @@ class Newtherm:
             If the solver does not converge within 50 iterations.
         """
         T = 1500
-        scalc = Newtherm.s_TP(T, P, FAR, p)
+        scalc = Newtherm.s_TP(T, P, FAR, name, p)
 
         errorm1 = (scalc - s) / s
         xm1 = T
         T = T * 0.95
-        scalc = Newtherm.s_TP(T, P, FAR, p)
+        scalc = Newtherm.s_TP(T, P, FAR, name, p)
         error = (scalc - s) / s
         x = T
         count = 0
@@ -336,7 +336,7 @@ class Newtherm:
             errorm1 = error
             x = xp1
             T = x
-            scalc = Newtherm.s_TP(T, P, FAR, p)
+            scalc = Newtherm.s_TP(T, P, FAR, name, p)
             error = (scalc - s) / s
 
         if count > 49:
@@ -348,7 +348,7 @@ class Newtherm:
         return T
 
     @staticmethod
-    def T_hp(h, P, FAR, p):
+    def T_hp(h, P, FAR, name, p):
         """Temperature from enthalpy and pressure via Newton iteration.
 
         Parameters
@@ -373,11 +373,11 @@ class Newtherm:
             If the solver does not converge within 50 iterations.
         """
         T = 1500
-        hcalc = Newtherm.h_TP(T, P, FAR, p)
+        hcalc = Newtherm.h_TP(T, P, FAR, name, p)
         errorm1 = (hcalc - h) / h
         xm1 = T
         T = T * 0.95
-        hcalc = Newtherm.h_TP(T, P, FAR, p)
+        hcalc = Newtherm.h_TP(T, P, FAR, name, p)
         error = (hcalc - h) / h
         x = T
         count = 0
@@ -392,7 +392,7 @@ class Newtherm:
             errorm1 = error
             x = xp1
             T = x
-            hcalc = Newtherm.h_TP(T, P, FAR, p)
+            hcalc = Newtherm.h_TP(T, P, FAR, name, p)
             error = (hcalc - h) / h
         if count > 49:
             error = "T_hp did not converge"

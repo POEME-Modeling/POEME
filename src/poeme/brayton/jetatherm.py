@@ -21,7 +21,7 @@ class JETATherm:
     s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def gamma(T, P, FAR, p):
+    def gamma(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -34,7 +34,7 @@ class JETATherm:
         )
 
     @staticmethod
-    def rho(T, P, FAR, p):
+    def rho(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -47,7 +47,7 @@ class JETATherm:
         )
 
     @staticmethod
-    def Cp(T, P, FAR, p):
+    def Cp(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -60,7 +60,7 @@ class JETATherm:
         )
 
     @staticmethod
-    def h_TP(T, P, FAR, p):
+    def h_TP(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -73,7 +73,7 @@ class JETATherm:
         )
 
     @staticmethod
-    def s_TP(T, P, FAR, p):
+    def s_TP(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -86,7 +86,7 @@ class JETATherm:
         )
 
     @staticmethod
-    def R(T, P, FAR, p):
+    def R(T, P, FAR, name, p):
         return interp_3d(
             FAR,
             P,
@@ -99,22 +99,22 @@ class JETATherm:
         )
 
     @staticmethod
-    def mu(T, P, FAR, p):
+    def mu(T, P, FAR, name, p):
         return 0
 
     @staticmethod
-    def k(T, P, FAR, p):
+    def k(T, P, FAR, name, p):
         return 0
 
     @staticmethod
-    def T_sP(s, P, FAR, p):
+    def T_sP(s, P, FAR, name, p):
         T = 1500
-        scalc = JETATherm.s_TP(T, P, FAR, p)
+        scalc = JETATherm.s_TP(T, P, FAR, name, p)
 
         errorm1 = (scalc - s) / s
         xm1 = T
         T = T * 0.95
-        scalc = JETATherm.s_TP(T, P, FAR, p)
+        scalc = JETATherm.s_TP(T, P, FAR, name, p)
         error = (scalc - s) / s
         x = T
         count = 0
@@ -129,7 +129,7 @@ class JETATherm:
             errorm1 = error
             x = xp1
             T = x
-            scalc = JETATherm.s_TP(T, P, FAR, p)
+            scalc = JETATherm.s_TP(T, P, FAR, name, p)
             error = (scalc - s) / s
 
         if count > 49:
@@ -141,13 +141,13 @@ class JETATherm:
         return T
 
     @staticmethod
-    def T_hp(h, P, FAR, p):
+    def T_hp(h, P, FAR, name, p):
         T = 1500
-        hcalc = JETATherm.h_TP(T, P, FAR, p)
+        hcalc = JETATherm.h_TP(T, P, FAR, name, p)
         errorm1 = (hcalc - h) / h
         xm1 = T
         T = T * 0.95
-        hcalc = JETATherm.h_TP(T, P, FAR, p)
+        hcalc = JETATherm.h_TP(T, P, FAR, name, p)
         error = (hcalc - h) / h
         x = T
         count = 0
@@ -162,7 +162,7 @@ class JETATherm:
             errorm1 = error
             x = xp1
             T = x
-            hcalc = JETATherm.h_TP(T, P, FAR, p)
+            hcalc = JETATherm.h_TP(T, P, FAR, name, p)
             error = (hcalc - h) / h
         if count > 49:
             error = "T_hp did not converge"

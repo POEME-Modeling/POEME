@@ -119,6 +119,7 @@ with ModelSession() as session:
     S1.MPC.link_mp(C1.MP)
     S1.MPT.link_mp(T1.MP)
     S1.I = 6.0
+    S1.HPX = 1000.
 
     P1 = Perf("P1")
 
@@ -181,7 +182,7 @@ with ModelSession() as session:
 
         B1.FAR = 0.026
         solver.run()
-
+    
     # add a PIV controller
     PIV1 = PIV("PIV1")
     PIV1.P = 0.00000005
