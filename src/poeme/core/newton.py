@@ -160,6 +160,7 @@ class Newton(Element):
         self.session.errors = ""
         self.numpasses = self.numpasses + 1
         # run the prepass on all the elements
+
         for e in self.session.elements:
             e.preset()
 
@@ -330,10 +331,10 @@ class Newton(Element):
                 else:
                     scale = 0
                     # run base point
-                    try:
-                        self.onepass()
-                    except:  # noqa: E722
-                        iter = self.maxJacobians.v
+                    # try:
+                    self.onepass()
+                    # except:  # noqa: E722
+                    # iter = self.maxJacobians.v
 
                     err_sum = 0
 

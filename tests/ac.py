@@ -21,21 +21,23 @@ from poeme.core.print import print_pretty, print_stdout
 
 # load in the required POEME objects
 with ModelSession() as session:
-    # create the components and set their values and link them up
+    # creatbbe the components and set their values and link them up
 
     # element to close the flow loop
     FSE = FlowStartEnd2D("FSE")
     FSE.Pt = 43.5
     # set the thermo to use coolprop running CPR134
-    # CPR134 is an interface the accesses cool property
-    # running R134 gas properties
+    # CPRPROPS is an interface the accesses cool property
+    # running R134 gas properties using the fname attrivute
     # see the file cpr134.py in the brayton directory
-    FSE.comp = "CPR134"
+    FSE.comp = "CPPROPS"
+    FSE.fname = "R134a"
     # expect two phase flow
     FSE.FNo.twoPhase = True
     # determine an initial guess on ht
     # need to use ht instead of T since flow is two phase
-    FSE.FNo.comp = "CPR134"
+    FSE.FNo.comp = "CPPROPS"
+    FSE.FNo.fname = "R134a"
     FSE.FNo.set_tp(506.0, 43.5)
     FSE.ht = FSE.FNo.ht
     FSE.W = 30.0
