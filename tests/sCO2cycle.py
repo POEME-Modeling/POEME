@@ -23,6 +23,7 @@
 # load in the required POEME objects
 from poeme import Independent, ModelSession, Newton, Output
 from poeme.brayton import MP, Compressor, Duct, FlowStartEnd, Heatx, Shaft, Turbine
+from poeme.core.print import print_stdout
 
 with ModelSession() as session:
     # create the components and set their values and link them up
@@ -160,4 +161,5 @@ session.check()
 
 # solver the sizing point
 solver.solve()
-output_file = open("pop.out")
+with open("pop.out", "w") as output_file:
+     print_stdout(output_file, session)

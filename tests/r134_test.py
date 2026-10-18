@@ -87,7 +87,7 @@ with session:
 session.check()
 solver.solve()
 
-out_file = open("pop.out", "w")
-print_stdout(out_file, session)
-pretty = open("pretty.out", "w")
-print_pretty(pretty, session)
+with open("pop.out", "w") as output_file:
+    print_stdout(output_file, session)
+with open("pretty.out", "w") as output_file:
+    print_pretty(output_file, session)
