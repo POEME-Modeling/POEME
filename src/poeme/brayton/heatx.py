@@ -45,10 +45,7 @@ class Heatx(Element):
         cap2 = self.FNo2.W * self.FNo2.Cpt
 
         # Determine which side has the minimum and maximum capacity
-        if cap2 >= cap1:
-            capMin = cap1
-        else:
-            capMin = cap2
+        capMin = cap1 if cap2 >= cap1 else cap2
 
         # If T2 > T1 then stream 2 is the hot side
         if self.FNi2.Tt > self.FNi1.Tt:
@@ -112,6 +109,7 @@ class Heatx(Element):
             File object to write the pretty-printed output to.
         """
         output_file.write(
-            f"{'Heatx':12s}{self.name1[:10]:12s}{('dPqP1:' + str(self.dPqP1))[:10]:12s}{('dPqP2:' + str(self.dPqP1))[:10]:12s}"
+            f"{'Heatx':12s}{self.name1[:10]:12s}{('dPqP1:' + str(self.dPqP1))[:10]:12s}"
+            f"{('dPqP2:' + str(self.dPqP1))[:10]:12s}"
             f"{('eff:' + str(self.eff))[:10]:12s}\n"
         )
