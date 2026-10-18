@@ -6,7 +6,7 @@ from .cantera_fn import CanteraFN
 from .compressor import Compressor
 from .cpprops import CPPROPS
 from .cpr134 import CPR134
-from .cpsCO2 import CPSCO2
+from .cpsco2 import CPSCO2
 from .dp import DP
 from .duct import Duct
 from .flight_conditions import FlightConditions

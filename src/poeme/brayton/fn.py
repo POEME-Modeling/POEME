@@ -10,7 +10,7 @@ from .cantera_fn import CanteraFN
 from .ch4therm import CH4Therm
 from .cpprops import CPPROPS
 from .cpr134 import CPR134
-from .cpsCO2 import CPSCO2
+from .cpsco2 import CPSCO2
 from .h2o import H2O
 from .h2therm import H2Therm
 from .jetatherm import JETATherm
