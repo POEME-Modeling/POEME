@@ -29,7 +29,7 @@ print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
 FSE.FNo.set_sp(FSE.FNo.s, 1135.0)
 print(FSE.FNo.Tt, FSE.FNo.ht, FSE.FNo.Pt, FSE.FNo.s)
 
-quit()
+sys.exit()
 
 print(FSE.FNo.ht)
 
@@ -50,7 +50,7 @@ FSE.ht = FSE.FNo.ht
 FSE.W = 40.0
 
 Comp = Compressor("Comp")
-m
+
 Condensor = Duct("Condesor")
 Condensor.dP = 0.0
 Condensor.Q = -100.0
