@@ -162,4 +162,4 @@ session.check()
 # solver the sizing point
 solver.solve()
 with open("pop.out", "w") as output_file:
-     print_stdout(output_file, session)
+    print_stdout(output_file, session)
