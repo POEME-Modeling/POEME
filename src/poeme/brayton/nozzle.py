@@ -121,6 +121,7 @@ class Nozzle(Element):
         self.FNo.size = True
         self.FNo.MN = 1.0
         self.FNo.set_tp(self.FNo.Tt, self.FNo.Pt)
+
         if self.FNo.Ps > self.PsExh.get():
             # if we are in sizing mode then set the area
             if self.size == True:
