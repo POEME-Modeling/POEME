@@ -119,6 +119,7 @@ with ModelSession() as session:
     S1.MPC.link_mp(C1.MP)
     S1.MPT.link_mp(T1.MP)
     S1.I = 6.0
+    S1.HPX = 1000.0
 
     P1 = Perf("P1")
 
