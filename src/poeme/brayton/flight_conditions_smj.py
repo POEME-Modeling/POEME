@@ -29,7 +29,9 @@ class FlightConditionsSMJ(Element):
     Attributes
     ----------
     comp : StringT
-        Composition of the stream.
+        Name of gas model to use
+    fname: StringT
+        Composition string (e.g., 'jeta_air', 'R134').
     alt : RealT
         Altitude (ft).
     MN : RealT
@@ -67,6 +69,7 @@ class FlightConditionsSMJ(Element):
 
         # variables
         self.comp = StringT(self, desc="Composition of the stream.")
+        self.fname = StringT(self, v="none", desc="fluid properties used")
         self.alt = RealT(self, units="ft", desc="Altitude")
         self.MN = RealT(self, desc="MN")
         self.Pamb = RealT(self, units="lbm/in2", desc="Ambient pressure")
@@ -552,6 +555,7 @@ class FlightConditionsSMJ(Element):
 
         # set the comp
         self.FNo.comp = self.comp
+        self.FNo.fname = self.fname
 
         # read atmospheric conditions
         self.Tamb = self.Ttable.calc(self.alt)

@@ -148,7 +148,8 @@ start.W = 813.51
 # (see the Brayton directory)
 # start.comp = "jeta_air"
 # use tables for fluid properties
-start.comp = "jeta_air"
+start.comp = "ThermoTable"
+start.fname = "jeta_air"
 # start.comp = "ch4_air"
 # start.comp = "h2_air"
 

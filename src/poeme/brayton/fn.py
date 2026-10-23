@@ -20,10 +20,7 @@ GAS_MODELS = {
     "CPPROPS": CPPROPS,
     "R134": R134,
     "CanteraFN": CanteraFN,
-    "h2_air": ThermoTable("h2_air"),
-    "ch4_air": ThermoTable("ch4_air"),
-    "jp7_air": ThermoTable("jp7_air"),
-    "jeta_air": ThermoTable("jeta_air"),
+    "ThermoTable": ThermoTable,
 }
 
 
@@ -44,6 +41,8 @@ class FN(Atom):
     Attributes
     ----------
     comp : StringT
+        Name of gas model to use
+    fname: StringT
         Composition string (e.g., 'jeta_air', 'R134').
     FAR : RealT
         Fuel-to-air ratio (dimensionless).
@@ -812,6 +811,7 @@ class FN(Atom):
         self.s.v = e.s.v
         if self.other != 0:
             self.other.comp.v = e.comp.v
+            self.other.fname.v = e.fname.v
             self.other.FAR.v = e.FAR.v
             self.other.W.v = e.W.v
             self.other.Tt.v = e.Tt.v
@@ -868,6 +868,7 @@ class FN(Atom):
         self.size.v = e.size.v
         if self.other != 0:
             self.comp.v = e.comp.v
+            self.other.fname.v = e.fname.v
             self.FAR.v = e.FAR.v
             self.W.v = e.W.v
             self.Tt.v = e.Tt.v

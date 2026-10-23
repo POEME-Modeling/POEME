@@ -35,6 +35,8 @@ class ThermoTable:
         Entropy lookup table (BTU/(lbm·°R)).
     """
 
+    _tables = {}
+
     def __init__(self, thermo_file):
         # Load data from file
         if os.path.isabs(thermo_file):
@@ -63,7 +65,7 @@ class ThermoTable:
         self.s_TPt = _data["s_TPt"].tolist()
 
     @staticmethod
-    def _iterate_calc(func, var, P, FAR, p):
+    def _iterate_calc(func, var, P, FAR, name, p):
         """Iterate to find T such that func(T, P, FAR, p) converges to var.
 
         Uses a secant-like method with damping to solve for temperature.
@@ -87,11 +89,11 @@ class ThermoTable:
             Converged temperature (°R).
         """
         T = 1500
-        calc = func(T, P, FAR, p)
+        calc = func(T, P, FAR, name, p)
         errorm1 = (calc - var) / var
         xm1 = T
         T = T * 0.95
-        calc = func(T, P, FAR, p)
+        calc = func(T, P, FAR, name, p)
         error = (calc - var) / var
         x = T
         count = 0
@@ -106,14 +108,15 @@ class ThermoTable:
             errorm1 = error
             x = xp1
             T = x
-            calc = func(T, P, FAR, p)
+            calc = func(T, P, FAR, name, p)
             error = (calc - var) / var
         if count > 49:
             p.session.errors += f"{func.__name__} did not converge"
 
         return T
 
-    def gamma(self, T, P, FAR, p):
+    @classmethod
+    def gamma(cls, T, P, FAR, name, p):
         """Heat capacity ratio (gamma = Cp/Cv).
 
         Parameters
@@ -132,9 +135,11 @@ class ThermoTable:
         float
             Heat capacity ratio.
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.gam_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.gam_TPt, p)
 
-    def rho(self, T, P, FAR, p):
+    @classmethod
+    def rho(cls, T, P, FAR, name, p):
         """Air density.
 
         Parameters
@@ -153,9 +158,11 @@ class ThermoTable:
         float
             Density (lbm/ft^3).
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.rho_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.rho_TPt, p)
 
-    def Cp(self, T, P, FAR, p):
+    @classmethod
+    def Cp(cls, T, P, FAR, name, p):
         """Specific heat at constant pressure.
 
         Parameters
@@ -174,9 +181,11 @@ class ThermoTable:
         float
             Specific heat at constant pressure (BTU/(lbm·°R)).
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.Cp_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.Cp_TPt, p)
 
-    def h_TP(self, T, P, FAR, p):
+    @classmethod
+    def h_TP(cls, T, P, FAR, name, p):
         """Enthalpy.
 
         Parameters
@@ -195,9 +204,11 @@ class ThermoTable:
         float
             Enthalpy (BTU/lbm).
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.h_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.h_TPt, p)
 
-    def s_TP(self, T, P, FAR, p):
+    @classmethod
+    def s_TP(cls, T, P, FAR, name, p):
         """Entropy.
 
         Parameters
@@ -216,9 +227,11 @@ class ThermoTable:
         float
             Entropy (BTU/(lbm·°R)).
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.s_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.s_TPt, p)
 
-    def R(self, T, P, FAR, p):
+    @classmethod
+    def R(cls, T, P, FAR, name, p):
         """Specific gas constant.
 
         Parameters
@@ -237,9 +250,11 @@ class ThermoTable:
         float
             Specific gas constant (ft·lbf/(lbm·°R)).
         """
-        return interp_3d(FAR, P, T, self.FAR_TP, self.P_TP, self.T_TP, self.r_TPt, p)
+        table = cls._table(name)
+        return interp_3d(FAR, P, T, table.FAR_TP, table.P_TP, table.T_TP, table.r_TPt, p)
 
-    def mu(self, T, P, FAR, p):
+    @classmethod
+    def mu(cls, T, P, FAR, name, p):
         """Dynamic viscosity.
 
         Parameters
@@ -260,7 +275,8 @@ class ThermoTable:
         """
         return 0
 
-    def k(self, T, P, FAR, p):
+    @classmethod
+    def k(cls, T, P, FAR, name, p):
         """Thermal conductivity.
 
         Parameters
@@ -281,7 +297,8 @@ class ThermoTable:
         """
         return 0
 
-    def T_sP(self, s, P, FAR, p):
+    @classmethod
+    def T_sP(cls, s, P, FAR, name, p):
         """Temperature from entropy and pressure via Newton iteration.
 
         Parameters
@@ -300,9 +317,10 @@ class ThermoTable:
         float
             Temperature (°R) that satisfies the given entropy at pressure P.
         """
-        return self._iterate_calc(self.s_TP, s, P, FAR, p)
+        return cls._iterate_calc(cls.s_TP, s, P, FAR, name, p)
 
-    def T_hp(self, h, P, FAR, p):
+    @classmethod
+    def T_hp(cls, h, P, FAR, name, p):
         """Temperature from enthalpy and pressure via Newton iteration.
 
         Parameters
@@ -321,4 +339,25 @@ class ThermoTable:
         float
             Temperature (°R) that satisfies the given enthalpy at pressure P.
         """
-        return self._iterate_calc(self.h_TP, h, P, FAR, p)
+        return cls._iterate_calc(cls.h_TP, h, P, FAR, name, p)
+
+    @classmethod
+    def h_sp(cls, s, P, FAR, name, p):
+        """Enthalpy from entropy and pressure via Newton iteration."""
+        T = cls.T_sP(s, P, FAR, name, p)
+        return cls.h_TP(T, P, FAR, name, p)
+
+    @classmethod
+    def s_hP(cls, h, P, FAR, name, p):
+        """Entropy from enthalpy and pressure via Newton iteration."""
+        T = cls.T_hp(h, P, FAR, name, p)
+        return cls.s_TP(T, P, FAR, name, p)
+    @classmethod
+    def _table(cls, name):
+        if name == "none":
+            raise ValueError("ThermoTable requires fname to name a thermo table")
+        if name not in cls._tables:
+            filename = name if name.endswith(".npz") else name + ".npz"
+            cls._tables[name] = ThermoTable(os.path.join("thermo_tables", filename))
+        return cls._tables[name]
+
